@@ -1,0 +1,82 @@
+---
+title             : 'Exercise 2: The datasaurus dozen'
+output            : html_document
+bibliography      : "../../slides/references.bib"
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+```{r echo = F}
+library(tidyverse)
+```
+
+
+In this example you will see what the datasaurus dozen is about [@matejka2017same] [see link](https://www.autodeskresearch.com/publications/samestats). This is a more advanced example of Anscombe's quartet [@anscombe1973graphs; @tufte1989].
+
+Let's start by loading the data.
+
+
+```{r}
+# Load data frame
+tdd <- read_csv("../../data/tdd.csv")
+```
+
+As usual start by inspecting the information contained in the data frame.
+
+```{r}
+# Inspect data frame
+glimpse(---)
+```
+
+
+There are 13 datasets in this data frame with 142 observations each. Check this:
+
+```{r}
+# Count observations by dataset
+count(tdd, dataset)
+```
+
+
+Calculate the mean and the standard deviation for each of the 13 data sets contained in the data. Convince yourself that all dataset have the same mean and standard deviation for `x` and `y`. You need to add the name of the dataset and the dataset identifier variable in the data, i.e. the variable that has a number for each dataset.
+
+```{r}
+summarise(.data = ---, # name of the data frame
+          mean_x = mean(x),
+          sd_x = sd(x),
+          mean_y = mean(y),
+          sd_y = sd(y),
+          .by = ---) # name of a grouping variable, i.e. the name of the dataset identifier variable
+```
+
+We can use regression models to illustrate that the relationship between `x` and `y` is the same for each of the 13 datasets. Complete the following code.
+
+```{r}
+ggplot(data = tdd, aes(y = ---, x = ---)) +
+  facet_wrap(~dataset, labeller = label_both) + # show different facets for each dataset
+  geom_smooth(method = "---", fullrange = T, se = F) # add regression line
+```
+
+The last line in the previous code creates the regression lines.
+
+**Task:** Create a scatterplot with points instead of regression lines by adding `+ geom_point(size = 0.5)` to the code.
+
+```{r}
+ggplot(data = tdd, aes(y = y, x = x)) +
+  facet_wrap(~dataset, labeller = label_both)
+
+```
+
+
+Now, convince yourself that the relationship between y and x are very different for each of the data sets.
+
+Once you complete all tasks above you can `knit` this document to HTML.
+
+# References

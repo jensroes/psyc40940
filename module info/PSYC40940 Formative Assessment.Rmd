@@ -1,0 +1,82 @@
+---
+title: "PSYC40940: Formative assessment"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Mini-Portfolio Project
+
+- **Purpose:** To scaffold learning and provide feedback before the summative portfolio.
+- **Format:** RMarkdown report with embedded visualisations.
+- **Deadline:** 31st October 2025
+- **Length:** max 1,000 words
+- **Feedback:** 21st November 2025
+
+
+
+## Task
+
+- Students select a behavioural dataset -- i.e., data related to human behaviour (e.g., psychological experiments, survey responses, reaction times, decision-making patterns, social media behaviour, etc.).
+- Create 3-4 visualisations using different techniques (e.g., boxplot, scatterplot, density plot).
+- Include brief commentary on:
+  - What each visualisation highlights about the data?
+  - Why each visualisation was chosen?
+  - How each visualisation adheres to principles of effective visualisation (e.g., Tufte's guidelines)?
+  - To what extent the each visualisation may (or may not) obscure the data.
+
+## Tools
+
+RMarkdown, GitHub (optional), ggplot2, plotly.
+
+## Feedback Focus
+
+- Clarity and effectiveness of visualisations.
+- Code quality and reproducibility.
+- Interpretation and communication of behavioural insights.
+
+
+
+## Submission format
+
+You must submit your work as a *single* zip archive that contains exactly one RMarkdown file, the html or pdf document generated from this file, the RStudio project file, and the relevant data file and any supplementary files (e.g. for bibliography references, custom R functions etc). Note that it is a requirement of the assignment that your work be reproducible. In other words, we must be able to reproduce your report in full from the RMarkdown source code and other files you provide. All your R code will be contained in the RMarkdown file, and this will reference the relevant data files.
+
+
+
+
+
+## What happens if I don't submit?
+
+Nothing. Except, you miss out on the opportunity to develop your knowledge and skills in data visualisation and to receive valuable feedback that could help you to shape your submission for the final portfolio project. Engaging in the process of preparing and submitting a mini-portfolio project is likely to lead to higher achievements in this module overall.
+
+
+
+## Where do I find datasets?
+
+You must choose your own dataset. 
+
+One resource that we think students should explore immediately is the following journal:
+
+[![Open Psychology Data](gfx/opd.png))](https://openpsychologydata.metajnl.com/])
+
+[https://openpsychologydata.metajnl.com/]
+
+This journal has over 10 years of articles, each of which provides an open dataset in behavioural sciences and provides a detailed description of how this data was collected, and for which scientific research questions or areas it is relevant. Many of the datasets in this journal would be suitable for use in this lab. We advise students to immediately explore the datasets there to get a sense of the datasets that they can use for their portfolio.
+
+Another resource, and a very large one, is the OSF: 
+
+[![Open Science Framework](gfx/osf.png))](https://osf.io/])
+
+[https://osf.io/]
+
+
+The OSF is the principal repository for sharing behavioural data. We recommend that you use the search bar and search by some topic or keyword. Then look at *Files* in particular, and you will see hundreds or thousands of files, a large fraction of which a data files (with extensions like csv, xlsx, sav, Rda, etc). 
+
+Another useful repository of openly available datasets is [Rdatasets](http://vincentarelbundock.github.io/Rdatasets/datasets.html)
+
+However, you may use any other dataset too. The only restriction is that you have to share that data with us. In other words, it can not be confidential data that you are not able to share.
+
+But there is still much more. Google search for psychology datasets. Ask your friendly GenAI for suggestions. I just asked ChatGPT *Can you recommend some repositories that provide large open access psychology datasets?* and it gave many suggestions of repositories.
+

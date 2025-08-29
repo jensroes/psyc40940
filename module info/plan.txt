@@ -1,0 +1,57 @@
+
+10 x 2 hours
+
+
+
+Formative assessment: Example portfolio for static data visualisation comparing advantages and disadvantages of dynamite plots and one other example (violine plots, beeshwarm, rain cloud, scatter, boxpots)
+
+
+
+Plan for portfolio
+
+
+	
+PSYC40940
+	Visualisation of Behavioural Data and Data Dashboards
+
+
+
+
+Introduction: expectations
+
+
+
+Markdown for visualisation portfolio; using RMarkdown instead of R scripts
+
+
+
+Static data visualisation: principles of data visualisation and ggplot2
+
+
+Major visualisation types such as histograms, density plots, boxplots, frequency polygons,
+area plots, line plots, uncertainty plots, violin plots, scatterplots, linear and nonlinear
+smoothers, heatmaps, contour plots, and geospatial maps.
+
+
+Approaches to visualising multiple distributions simultaneously on the same plot
+
+Dynamic/programmatic production of static, publication-quality plots for presentations and
+reports.
+
+Generation of interactive graphics, using e.g. web apps, that allow for variable selection and
+parameter modification by users.
+
+
+
+Approaches to designing rich, interactive data dashboards that enable end users to explore
+data and seek insights for business intelligence and other purposes.
+
+
+Translating static data visualisations to interactive data visualisation
+
+Interactive data visualisation
+
+
+
+Dashboards via shiny
+

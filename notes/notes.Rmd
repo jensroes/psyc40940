@@ -1,0 +1,63 @@
+---
+title: "Notes"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+
+## Intro slides
+
+- introduce me
+- get to know group
+- introduce module
+  - overview
+  - schedule
+  - assessment
+- check familiarity with R and RMarkdown
+
+
+## Markdown intro
+
+- introduce R coding via RMarkdown
+- setup of Markdown
+- upload Marks guide for Markdown and the intro to R (maybe just use a book chapter, Mark's and the Wickham one)
+
+
+
+## Introduction to RStudio {.smaller .columns-2}
+
+- [Installation](https://posit.co/download/rstudio-desktop/)
+- RStudio environment, R-projects (working directory)
+- R-Scripts and executing code
+- Comments, commands, sections
+- Using R as a calculator
+- Variables and assignment (`<-`)
+- Vectors and combining vectors (`c()`)
+- Base-R functions
+- Indexing (`[1]`)
+- Booleans (`TRUE`, `FALSE`) and logical operators (`|`, `&`, `>`, `<`, `==`)
+- Data types (numeric, character, factor, logical)
+- Coercing vectors (vectors are homogeneous)
+- Missing values (`NA`)
+- Data frames
+- Installing and loading libraries (`tidyverse`, `psyntur`)
+- Nested functions
+- Help pages
+- Reading in and viewing data
+
+
+
+## when starting with visualisations
+- introduce data set with naming example, probably with raccoon?
+- show psyntur examples and how they relate to ggplot
+
+
+
+
+
+
+
+
