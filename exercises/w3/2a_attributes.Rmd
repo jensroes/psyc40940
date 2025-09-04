@@ -1,0 +1,133 @@
+---
+title             : 'Exercise 2a: Attributes'
+output            : html_document
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data. 
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+```
+
+What aesthetics and attributes can be used depend to the geometry (although there will be overlap across geometries). For example bring up the documentation of `geom_point` by running
+
+```{r eval = F}
+?geom_point
+```
+
+and find the section called "Aesthetics". This section will tell you that for `geom_point` there are the following aesthetics you can use to render data as dots:
+
+- x
+- y
+- alpha (i.e. opacity)
+- colour
+- fill
+- group
+- shape
+- size
+- stroke
+
+Required are `x` and `y`. They must be used as aesthetics. Most of the remainder (not `group`) can be used as either aesthetics or attributes.
+
+Let's start by using attributes. Again, many attributes like `alpha`, `colour`, `fill` exist for all geometries. We will start with points as an example. 
+
+Attributes take properties. The number of options for many of these properties, and certainly their combinations, is virtually unlimited. So here are just a few examples how to change and combine them.
+
+For example, change the size of the points to 5.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(size = ---)
+```
+
+Instead of using dots we can display other types of shapes. The following code that generates an overview of `ggplot2`'s standard shapes that can be used as aesthetics and attributes. So if you want dots to be rendered as a triangle you could set `shape` to `2`. 
+
+```{r}
+# Specify numbers from 1 to 25 which represent shapes 
+shapes <- 1:25
+
+# Create a data frame with locations for all 25 shapes
+data <- tibble(x = rep(1:5, 5),
+               y = rep(1:5, each = 5),
+               shape = shapes)
+
+# Create a plot that shows these shapes along with their identifiers.
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(mapping = aes(shape = factor(shape)), size = 5) +
+  geom_text(mapping = aes(label = shape), nudge_y = -.25) +
+  theme_void() +
+  coord_trans(y = "reverse") +
+  scale_shape_manual(values = shapes) +
+  theme(legend.position = "nope")
+```
+
+Complete the following code to render the data as squares with a cross inside.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(shape = ---)
+```
+
+You could also render dots as all sorts of other symbols such as "$", "%", "£", etc., just set the `shape` argument to the symbol for dollar in inverted commas to render the data as dollar symbols.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(shape = ---)
+```
+
+
+and many other ways to render data as [emojis](https://jtr13.github.io/cc21fall1/icons-and-symbols-in-r.html) and other [images](https://www.r-bloggers.com/2019/09/using-emojis-and-png-as-icons-in-your-ggplot/).
+
+
+You can then go ahead and change the colour of these dots. For example, try to change the dots to blue by adding the property "blue" to `colour`, or any other colour.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(colour = ---)
+```
+
+There are many colours and colour schemes available for `ggplot2`. See for example [here](https://r-graph-gallery.com/ggplot2-color.html).
+
+
+Shapes 21 to 25 in the overview above are empty shapes that allow you to add the `fill` option. All other shapes can't be filled. For example, fill shape 21 with blue. Try to use shape 1 just so you see that it won't have an effect.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(shape = ---, fill = ---)
+```
+
+Now this doesn't look different from just using the colour attribute and the default shape. The point of having a different attribute for colour and fill is that you have the option to use a different colour for their outline and their centre. 
+
+In addition you can combine other attributes too. Complete the following code to render the data as triangles of size 3.5 with purple outlines and red filling.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point(size = ---, colour = ---, shape = ---, fill = ---)
+```
+
+
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

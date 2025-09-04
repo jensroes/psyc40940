@@ -1,7 +1,7 @@
 ---
 title             : 'Exercise 1: Scatterplots'
 output            : html_document
-bibliography      : "../../slides/references.bib"
+bibliography      : "../slides/references.bib"
 ---
 
 
@@ -121,7 +121,7 @@ Finally, copy the last code and insert below to add a linear model to the data u
 ```
 
 
-Once you complete all tasks above you can `knit` this document to HTML.
+Once you've completed all tasks above you can `knit` this document to HTML.
 
 
 

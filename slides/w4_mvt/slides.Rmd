@@ -1,0 +1,355 @@
+---
+title: "Major visualisation tools"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+  incremental: false
+widescreen: true
+transition: slower
+css: slides.css
+logo: ../gfx/ntu.png
+bibliography      : ["../references.bib"]
+link-citations: yes
+---
+
+
+
+
+<!-- TODO:
+- add exercise and details for univariate distributions: different types of histogram and pie chart
+- bivariate distibutions including time series and polygon, heat map type of plots
+- include a plotly plot to inspech boxplots (first interactive plot), also raincloud and beeswarms plots
+
+-->
+
+
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+```
+
+
+## General outline for weeks 2 -- 5
+
+- ~~Week 2: Principles of data visualisation~~
+- ~~Week 3: Grammar of graphics; aesthetics and attributes~~
+- Week 4: Major visualisation tools
+- Week 5: Customising visualisations (scales, themes, and labels)
+
+
+```{r echo = F}
+d_spellname <- read_csv("../../data/spellname.csv")
+```
+
+
+```{r echo = F}
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
+```
+
+
+
+# Major visualisation tools
+
+
+## Major visualisation tools
+
+- Geometries (`geom_`) control visual encoding of aesthetics layer
+- ~50 geometries: `geom_...` are part of `ggplot2`
+
+```{r echo = F}
+env <- asNamespace("ggplot2")
+all_geoms <- ls(envir = env, pattern = "^geom_+")
+geoms <- tolower(gsub("geom_", "", all_geoms))
+#which(!(geoms %in% c("annotationmap", "col", "sf", "spoke")))
+
+print(geoms, quote = F)
+```
+
+
+## Major visualisation tools
+
+- choice depends on visualisation goals (and your subject domain)
+- more `geoms` in other packages such as `tidybayes`, `ggbeeswarm`, and `ggridges`
+- many can be combined
+- three important groups: 
+  - bivariate distributions 
+  - univariate distributions
+  - groups comparison
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+  geom_point(size = 3, alpha = .25) +
+  stat_smooth(method = "lm") +
+  labs(y = "Reaction time (in msecs)",
+       x = "Response duration (in msecs)") 
+```
+</div>
+
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+
+```
+</div>
+
+
+
+
+
+
+
+## Univariate distribution
+
+<div style="float: left; width: 40%;">
+
+- function: distribution of values
+- variable type: continuous or discrete
+- examples: histograms, density plots, bar plots, rug
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo=F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_histogram() 
+```
+
+```{r eval=F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_histogram() 
+```
+
+</div>
+
+
+## Univariate distribution
+
+<div style="float: left; width: 40%;">
+
+- function: distribution of values
+- variable type: continuous or discrete
+- examples: histograms, density plots, bar plots, rug
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_density() 
+
+```
+```{r eval = F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_density() 
+```
+
+</div>
+
+## Univariate distribution
+
+<div style="float: left; width: 40%;">
+
+- function: distribution of values
+- variable type: continuous or discrete
+- examples: histograms, density plots, bar plots, rug
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_density() +
+  geom_rug()
+```
+
+```{r eval = F, out.width="100%"}
+ggplot(d_spellname, aes(x = rt)) +
+  geom_density() +
+  geom_rug()
+```
+
+</div>
+
+
+## Groups comparison
+
+- function: distribution of values for two or more groups (often closely tied to statistical descriptions)
+- variable type: continuous 
+- examples: (jitter) dots, box plot, violin plot, beeswarm plots, barplot (pie chart), dynamite plots
+
+
+## Groups comparison | dynamite plot and its pitfalls
+
+<div style="float: left; width: 40%;">
+
+- suggest normal distribution?
+- same number of observations in each group?
+- bars suggest data where there are none?
+- are there no values above the errorbar (watch what's going to happen to the y-axis)?
+
+</div>
+
+<div style="float: right; width: 55%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  stat_summary(fun.y = mean, geom = "bar") +
+  stat_summary(fun.data = mean_sdl, 
+               fun.args = list(mult = 1), 
+               geom = "errorbar", width = .35) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+</div>
+
+
+
+## Groups comparison | dynamite plots
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  stat_summary(fun.y = mean, geom = "bar") +
+  stat_summary(fun.data = mean_sdl, 
+               fun.args = list(mult = 1), 
+               geom = "errorbar", width = .35) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+## Groups comparison | dots
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  geom_point(size = .5) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+
+
+
+
+## Groups comparison | jittered dots
+
+
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  geom_jitter(width = .1, size = .5) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+
+
+
+## Groups comparison | jittered dots and errorbars
+
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  geom_jitter(width = 0.1, size = .5, alpha = .25) + 
+  stat_summary(fun.y = mean, 
+               geom = "point",
+               col = "darkred",
+               size = 3) +
+  stat_summary(fun.data = mean_sdl, 
+               fun.args = list(mult = 1), 
+               geom = "errorbar", 
+               col = "darkred",
+               width = .25) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+
+## Groups comparison | box-and-whiskers plot
+
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  geom_boxplot(width = .25) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+## Groups comparison | box-and-whiskers plot
+
+
+```{r  out.width="65%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, aes(y = rt, x = modality)) +
+  geom_jitter(width = .1, size = .5) +
+  geom_boxplot(width = .25, outlier.shape = NA, alpha = .35) +
+  labs(y = "Reaction time (in msecs)", x = "Response modality") 
+```
+
+
+
+## Groups comparison | box-and-whiskers plot [@tukey1977exploratory]
+
+<div style="float: right;">
+
+![](../misc/gfx/boxplot.png){#id .class width=70%}
+
+</div>
+
+## Group comparisons
+
+Open script **exercises/4a_major_viz_tools.R**
+
+Continue with **exercises/4b_major_viz_tools.R**
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

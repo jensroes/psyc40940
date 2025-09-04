@@ -1,0 +1,127 @@
+---
+title             : 'Exercise 1b: grammar of graphics'
+output            : html_document
+bibliography      : "../references.bib"
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load some data. 
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker
+d_blomkvist <- drop_na(d_blomkvist, smoker)
+```
+
+There are 4 more (optional) grammatical elements: Facets, statistics, coordinates, themes. We will see more examples in the following weeks.
+
+For convenience we will create a plot and save it to a variable.
+
+**Task:** Create a scatter plot with medicine (x-axis) and rt of dominant hand (y-axis).
+
+```{r}
+plot_meds <- ggplot(data = d_blomkvist,
+                   mapping = aes(x = ---, y = ---)) +
+  geom_jitter() # similar to geom_point() but adds some jitter to avoid overplotting
+```
+
+Running this code will not return a plot. To see the plot you just created you need to run the name of the variable you used to store this plot:
+
+```{r}
+# Check out the meds plot
+plot_meds
+```
+
+
+The advantage with storing a plot in a variable is that we can now manipulate the variable name using layers of grammatical elements without retying the code above over and over again.
+
+
+# Facets
+
+Functions prefixed with `facet_` allows you to split up your data into different sub-plots. This only works for categorical variables. Try and replace "---" in `facet_grid` with `smoker` to create one panel per smoker level:
+
+```{r}
+plot_meds + facet_grid( ~ ---)
+```
+
+
+# Statistics
+
+Functions prefixed with `stat_` allow you to add a layer of summary statistics instead of raw data to display information such as means, SDs (as error bars), and regression models. Add `stat_smooth(method = "lm")` to add a linear regression model to the data.
+
+```{r}
+plot_meds + ---
+```
+
+You can also add a different regression model for each smoker group by creating aesthetics mapping within `stat_smooth(mapping = aes(---))`. 
+
+```{r}
+plot_meds + ---
+```
+
+
+# Coordinates
+
+Functions prefixed with `coord_` allow you to modify aspects of the coordinates of you plot. Add `+ coord_flip()` and check what it does.
+
+```{r}
+plot_meds + ---
+```
+
+You can also transform axes. For example you can add `coord_trans` and log transform or reverse axes by adding "log" or "reverse". For the following plot, show the y axis with a log transformation and reverse the x axis to visualise reduction of medication instead of increase in medication.
+
+```{r}
+plot_meds + coord_trans(x = ---, y = ---)
+```
+
+
+# Themes
+
+"Theme" relate any non-data related "ink" in the plot, so any part of the visualisation that is not representing data such as information on the axes, the plot background, grid, legends, font size etc. Any of this can be manipulated manually using the `theme` function. Also, there are many pre-defined "themes" loaded by `ggplot2`. Many other themes are available via other packages. 
+
+Use `plot_meds` and add (one at a time) `theme_bw()`, `theme_linedraw()`, and `theme_minimal()`.
+
+```{r}
+plot_meds + ---
+```
+
+Keep your favourite theme. 
+
+As an example for manual theme changes, let's try to change the position of a legend. This code creates a plot with a legend whic, by default, is located centre right of the plot.
+
+```{r}
+plot_meds +
+  stat_smooth(mapping = aes(colour = smoker))
+```
+
+**Task:** To change the location of the legend you need to add `theme()` with the argument `legend.position` set to "top" (other options are "bottom", "left" and "right" [default]).
+
+```{r}
+plot_meds +
+  stat_smooth(mapping = aes(colour = smoker)) +
+  theme(legend.position = "---")
+```
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+# References

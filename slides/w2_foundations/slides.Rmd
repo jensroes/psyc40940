@@ -54,6 +54,19 @@ theme_set(
 - Explanatory plots: inform and persuade wider audience
 
 
+## The data {.columns-2}
+
+- Picture naming task 
+- Written and spoken responses
+- Familiarization with picutre name
+
+
+```{r echo = F, fig.width=4}
+image_read("../gfx/binoculars.jpg") %>% 
+  image_ggplot()
+```
+
+
 ## Exploring data
 
 ```{r eval = F}
@@ -65,6 +78,24 @@ glimpse(d_spellname)
 ```{r echo = F}
 d_spellname <- read_csv("../../data/spellname.csv")
 glimpse(d_spellname)
+```
+
+
+## Exploring data
+
+```{r}
+d_spellname %>% 
+  filter(image_id == "binoculars.jpg") %>% 
+  glimpse()
+```
+
+
+
+## Exploring data
+
+```{r}
+d_ppt_pic <- distinct(d_spellname, ppt_id, image_id)
+count(d_ppt_pic, ppt_id)
 ```
 
 
@@ -197,7 +228,7 @@ ggplot(data = d_vocab,
 
 ## Explanatory plot
 
-```{r, echo = FALSE, results=TRUE, out.width="70%"}
+```{r, echo = FALSE, results=TRUE, fig.width=5.5, fig.height=4.75}
 ggplot(data = d_vocab, 
        mapping = aes(x = ppt_vocab, 
                      y = rt, 
@@ -218,9 +249,9 @@ ggplot(data = d_vocab,
 ```
 
 
-## Exercise 1 | creating an exploratory plot
+## Creating an exploratory plot
 
-Open RMarkdown document **exercises/1_scatterplots.Rmd**
+Open RMarkdown document **1_scatterplots.Rmd**
 
 
 ## Why data visualisation? | "[data visualization] forces us to notice what we never expected to see." [@tukey1977exploratory]
@@ -237,7 +268,7 @@ Open RMarkdown document **exercises/1_scatterplots.Rmd**
 
 
 
-## Anscombe's quartet | @anscombe1973graphs and @tufte1989
+## Anscombe's quartet [@anscombe1973graphs]
 
 
 ```{r echo = F, results="asis"}
@@ -303,7 +334,7 @@ anscombe %>% rename(`Data set` = Set) %>%
 
 ## The datasaurus dozen | @matejka2017same: [see link](https://www.autodeskresearch.com/publications/samestats)
 
-Open script **exercises/2_tdd.Rmd**
+Open RMarkdown document: **2_tdd.Rmd**
 
 
 ## Principles of data visualisation
@@ -403,15 +434,14 @@ d_vocab %>%
 
 \columnbreak
 
-```{r echo = F, fig.width=5.5, echo = F}
+```{r echo = F, fig.width=5, echo = F}
 d_vocab %>% 
   mutate(across(modality, ~factor(., levels = c("writing", "speech"), ordered = T))) %>% 
   ggplot(aes(x = ppt_vocab, y = rt, colour = modality)) +
   geom_point() +
   stat_smooth(method = "lm") +
-  theme_tufte() +
-  labs(title = "Same but better",
-       y = "reaction time",
+  theme_tufte(base_size = 16) +
+  labs(y = "reaction time",
        x = "vocabulary scores") +
   theme(legend.position = "top",
         legend.justification = "right")
@@ -430,6 +460,8 @@ d_vocab %>%
 
 - Design graphics to make comparisons easy
 - Align scales and axes
+
+\columnbreak
 
 ```{r fig.width=5.5, echo = F}
 d_vocab %>% 
@@ -453,6 +485,8 @@ d_vocab %>%
 - Design graphics to make comparisons easy
 - Align scales and axes
 
+\columnbreak
+
 ```{r fig.width=5.5, echo = F}
 d_vocab %>% 
   ggplot(aes(y = rt, x = "")) +
@@ -474,6 +508,8 @@ d_vocab %>%
 
 - Design graphics to make comparisons easy
 - Align scales and axes
+
+\columnbreak
 
 ```{r fig.width=5.5, echo = F}
 
@@ -497,13 +533,13 @@ d_vocab %>%
 - Labels should be clear and close to the data
 - Avoid legends that require back-and-forth viewing
 
+\columnbreak
 
-
-```{r fig.width=5.5, fig.height=6, echo = F}
+```{r fig.width=5.25, fig.height=4.75, echo = F}
 p1 <- d_vocab %>% 
-  ggplot(aes(x = modality, y = rt, colour = modality)) +
+  ggplot(aes(x = modality, y = rt)) +
   geom_boxplot() +
-  labs()
+  labs(x = "")
 
 p2 <- d_vocab %>% 
   ggplot(aes(x = "", y = rt, colour = modality)) +
@@ -523,8 +559,9 @@ p1 / p2 + plot_annotation(tag_levels = "A")
 - Focus on substance, not style
 - The story should come from the data
 
+\columnbreak
 
-```{r fig.width=5.5, fig.height=6, echo = F}
+```{r fig.width=5.5, fig.height=4.5, echo = F}
 # Overdecorated boxplot
 ggplot(d_vocab, aes(x = modality, y = rt, fill = modality)) +
   geom_boxplot(color = "green", size = 1.5, outlier.colour = "red") +
@@ -542,19 +579,6 @@ ggplot(d_vocab, aes(x = modality, y = rt, fill = modality)) +
   ) +
   scale_fill_manual(values = c("magenta", "cyan", "yellow"))
 
-
-# Load the library
-#library(rgl)
-
-# Create sample data
-#x <- seq(-10, 10, length.out = 50)
-#y <- seq(-10, 10, length.out = 50)
-#z <- outer(x, y, function(x, y) cos(sqrt(x^2 + y^2)))
-
-# Plot the surface
-#plot3d(d_vocab$modality, d_vocab$rt, d_vocab$modality, type = "s", col = "red", size = 1)
-#axis3d("y", at = d_vocab$rt, labels = d_vocab$rt)
-#rglwidget()
 ```
 
 
@@ -565,12 +589,75 @@ ggplot(d_vocab, aes(x = modality, y = rt, fill = modality)) +
 - Show multiple variables when appropriate
 - Balance complexity with readability
 
+\columnbreak
+
+
+```{r fig.width=5.25, fig.height=4.75, echo = F}
+d_vocab_2 <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      .by = c(ppt_id, ppt_vocab, cat, modality)) %>% 
+  drop_na()
+
+d_vocab_2 %>%
+  mutate(group = str_c(modality, cat, sep = "; ")) %>% 
+  ggplot(aes(x = group, y = rt)) +
+  geom_boxplot() +
+  labs(x = "") +
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+
+```
+
+## Principles of data visualisation {.smaller .columns-2}
+
+**Principle 8:** Use Multivariate Displays
+
+- Show multiple variables when appropriate
+- Balance complexity with readability
+
+\columnbreak
+
+
+```{r fig.width=5.25, fig.height=4.75, echo = F}
+d_vocab_2 %>% 
+  ggplot(aes(x = modality, y = rt, colour = cat)) +
+  geom_boxplot() +
+  labs(x = "",
+       colour = "category")
+
+```
+
+
+
+## Principles of data visualisation {.smaller .columns-2}
+
+
 **Principle 9:** Avoid Distorting the Data
 
 - Maintain proportionality and scale
 - Avoid misleading visuals
 
 
+\columnbreak
+
+
+```{r fig.width=5.25, fig.height=4.75, echo = F}
+
+p1 <- d_vocab %>% 
+  ggplot(aes(x = modality, y = rt)) +
+  geom_boxplot() +
+  labs(x = "")
+
+p2 <- d_vocab %>% 
+  summarise(rt = mean(rt), .by = modality) %>% 
+  ggplot(aes(x = modality, y = rt)) +
+  geom_col() +
+  coord_cartesian(ylim = c(1300, 1750)) +
+  labs(x = "")
+
+p1 / p2 + plot_annotation(tag_levels = "A")
+
+```
 
 ## Principles of data visualisation
 
@@ -580,65 +667,14 @@ ggplot(d_vocab, aes(x = modality, y = rt, fill = modality)) +
 - Consistency: Use consistent scales, colors, and labels
 - Accessibility: Consider colorblind-friendly palettes and readable fonts
 
-## Examples of unfortunate data visualisations?
-
-```{r}
-# Sample dataset
-set.seed(123)
-data <- data.frame(
-  category = rep(c("A", "B", "C"), each = 10),
-  value = c(rnorm(10, 10, 2), rnorm(10, 15, 2), rnorm(10, 20, 2))
-)
-
-```
-
-```{r}
-# Principle 1: Show the Data
-ggplot(data, aes(x = category, y = value)) +
-  geom_boxplot() +
-  ggtitle("Good: Shows the Data Clearly")
-```
-
-
-```{r}
-ggplot(data, aes(x = category, y = value)) +
-  geom_boxplot(fill = "skyblue", color = "darkblue") +
-  theme_minimal() +
-  theme(panel.grid.major = element_line(color = "grey")) +
-  ggtitle("Bad: Distracting Elements")
-
-```
-
-
-
-```{r}
-# Principle 2: Maximize Data-Ink Ratio
-ggplot(data, aes(x = category, y = value)) +
-  geom_boxplot() +
-  theme_void() +
-  ggtitle("Good: High Data-Ink Ratio")
-
-```
-
-
-
-```{r}
-# Principle 3: Avoid Chartjunk
-ggplot(data, aes(x = category, y = value)) +
-  geom_boxplot() +
-  annotate("text", x = 1.5, y = 25, label = "Look here!", color = "red", size = 6) +
-  ggtitle("Bad: Unnecessary Annotation")
-```
 
 
 
 
 
-## Examples of unfortunate data visualisations?
+## Which principles of data visualisation are violated by these visualisations?
 
-Discuss: Which principles of data visualisation are (not) violated by these visualisations?
-
-```{r fig.cap="", fig.width=10, fig.height=10}
+```{r fig.cap="", fig.width=10, fig.height=10, echo = F}
 p1 <- image_read("../gfx/errorbars.png") %>% 
   image_ggplot() +
   labs(caption = "Source: Gong and Liu (2022)")
@@ -677,7 +713,21 @@ See @Gong2022 (now retracted), @rubiah2024effect, and @ke2024simultaneous for ex
 
 
 
+<!-- ## Fixing poor data visualisations -->
+
+
+
 ## Reading
+
+Next week we will continue with data visualisation in `ggplot2`. For basics of data visualisation in `ggplot2` see
+
+
+- [Chapter 4 of @andrews2021doing](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_04_visualization.pdf) 
+- [Chapter 3 of @wickham2016r](https://r4ds.had.co.nz/data-visualisation.html)
+
+
+And for principles of data visualisation see this seminal book:   [@Tufte2001VisualDisplay](https://llr.primo.exlibrisgroup.com/permalink/44NTU_INST/16gp82k/alma990004565400107181)
+
 
 
 
@@ -686,8 +736,7 @@ See @Gong2022 (now retracted), @rubiah2024effect, and @ke2024simultaneous for ex
 
 Identify a dataset for the formative assessment.
 
-Sent me an example of a poor data visualisation (from a published research papers, news websites, social media, etc) and your reason why it is poor. It's for my collection.
-
+On Teams, share a poor data visualisation (from a published research papers, news websites, social media, etc) and your reason why it is poor. Which principle(s) of data visualisation were violate?
 
 
 ## References
