@@ -19,6 +19,9 @@ link-citations: yes
 - add exercise and details for univariate distributions: different types of histogram and pie chart
 - bivariate distibutions including time series and polygon, heat map type of plots
 - include a plotly plot to inspech boxplots (first interactive plot), also raincloud and beeswarms plots
+- include tri-variate
+  geom_density2d()
+
 
 -->
 
@@ -91,55 +94,9 @@ print(geoms, quote = F)
 - more `geoms` in other packages such as `tidybayes`, `ggbeeswarm`, and `ggridges`
 - many can be combined
 - three important groups: 
-  - bivariate distributions 
   - univariate distributions
+  - bivariate distributions 
   - groups comparison
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
-
-</div>
-
-<div style="float: right; width: 65%;">
-
-
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
-  geom_point(size = 3, alpha = .25) +
-  stat_smooth(method = "lm") +
-  labs(y = "Reaction time (in msecs)",
-       x = "Response duration (in msecs)") 
-```
-</div>
-
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
-
-</div>
-
-<div style="float: right; width: 65%;">
-
-
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-
-```
-</div>
-
-
-
-
 
 
 
@@ -167,56 +124,186 @@ ggplot(d_spellname, aes(x = rt)) +
 
 </div>
 
-
 ## Univariate distribution
 
-<div style="float: left; width: 40%;">
+Complete RMarkdown document: **`1_univariate_viz.Rmd**
 
-- function: distribution of values
-- variable type: continuous or discrete
-- examples: histograms, density plots, bar plots, rug
+## Bivariate distribution
 
-</div>
+<div style="float: left; width: 30%;">
 
-<div style="float: right; width: 50%;">
-
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_density() 
-
-```
-```{r eval = F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_density() 
-```
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
 
 </div>
 
-## Univariate distribution
+<div style="float: right; width: 65%;">
 
-<div style="float: left; width: 40%;">
 
-- function: distribution of values
-- variable type: continuous or discrete
-- examples: histograms, density plots, bar plots, rug
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+  geom_point() +
+  stat_smooth(method = "lm") 
+```
+</div>
+
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 50%;">
+<div style="float: right; width: 65%;">
 
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_density() +
-  geom_rug()
-```
 
-```{r eval = F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_density() +
-  geom_rug()
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+
+years <- 1949:1960
+
+AirPassengers %>% 
+  as.data.frame() %>% 
+  mutate(year = rep(years, each = 12),
+         month = rep(month(1:12, label = T), length(years)),
+         time = str_c(month, year, sep = " ")) %>% 
+#time = as.Date(time, format = "%m %Y" ))# %>% 
+  ggplot(aes(x = year, y = x, colour = month)) +
+    geom_point() +
+    stat_smooth() +
+    labs(y = "number of airline passengers",
+         caption = "Box, G. E. P., Jenkins, G. M. and Reinsel, G. C. (1976) Time Series Analysis, \nForecasting and Control. Third Edition. Holden-Day. Series G.") +
+  theme(plot.caption = element_text(size = 8))
+    
+
+
 ```
+</div>
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
 
 </div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+  geom_point() +
+  stat_smooth(method = "lm") 
+```
+</div>
+
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggExtra::ggMarginal(p)
+```
+</div>
+
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+p <- ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+  geom_density_2d()
+```
+</div>
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+ geom_density_2d_filled()
+```
+</div>
+
+
+
+
+## Bivariate distribution
+
+<div style="float: left; width: 30%;">
+
+- function: relationship between two variables
+- variable type: typically continuous
+- examples: scatter plot, time series
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+
+```{r  out.width="100%", echo = FALSE, results=FALSE}
+read_csv("../../data/spellname.csv") %>% 
+  select(resp, nsyl, nchar, nphon, cat, semcat, name_div) %>% 
+  drop_na() %>% 
+  count(nchar, nphon) %>% 
+  ggplot(aes(x = nchar, y = nphon, fill = n)) +
+  geom_tile(colour = "grey90") +
+  labs(subtitle = "image names")
+```
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Groups comparison
@@ -342,6 +429,19 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 Open script **exercises/4a_major_viz_tools.R**
 
 Continue with **exercises/4b_major_viz_tools.R**
+
+
+## Homework
+
+Add something on data wranging.
+
+The data you want to use might be in a non-tidy format. 
+
+Read the following chapters to understand data wranging:
+
+Work out what the following functions do: `pivot_longer`, `pivot_wider`
+
+Exercise on transforming rt_ variables from long to wide
 
 
 ## References

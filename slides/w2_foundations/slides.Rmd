@@ -15,13 +15,13 @@ link-citations: yes
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(stringi)
+#library(stringi)
 library(ggthemes)
 library(kableExtra)
 library(knitr)
 library(magick)
 library(patchwork)
-library(plotly)
+#library(plotly)
 options("kableExtra.html.bsTable" = T)
 knitr::opts_chunk$set(echo = TRUE,
                       comment= NA, 

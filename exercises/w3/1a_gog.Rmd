@@ -98,19 +98,14 @@ ggplot(data = ---, mapping = aes(x = ---)) +
   --- 
 ```
 
-You'll see a message like this: "`stat_bin()` using `bins = 30`. Pick better value with `binwidth`." That means that there are 30 bins in the plot so the age variable was divided into 30 bins such that each bin spans over the following number of years:
+You'll see a message like this: "`stat_bin()` using `bins = 30`. Pick better value with `binwidth`." This means that there are 30 bins in the plot so the age variable was divided into 30 bins such that each bin spans over the following number of years. We will get back to this later, for now just try to add a different number for bins to `geom_histogam` using `bins =` to see how the plot is changing. Try first 5 bins and then 50.
+
 
 ```{r}
-(age_range <- range(d_blomkvist$age)) # age range
+ggplot(data = ---, mapping = aes(x = ---)) +
+  --- 
 ```
 
-```{r}
-(age_range_diff <- diff(age_range)) # age span
-```
-
-```{r}
-age_range_diff/30 # years per bin
-```
 
 Instead of number of bins we can use the width of each bins. The `binwidth` argument controls the age span within each bar / bin; `binwidth = 1` is one year. For example, you can determine that each bin in the histogram should span 5 years by setting `binwidth` to 5.
 

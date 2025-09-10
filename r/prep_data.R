@@ -29,8 +29,9 @@ d_wr <- read_csv("data/zzz/written_production_familiarisation.csv" ) %>%
 
 
 bind_rows(d_sp, d_wr) %>%
-  select(-trial_id, -offset, -item) %>%
+  select(-offset, -item) %>%
   mutate(across(id, ~as.numeric(factor(.)))) %>%
+  mutate(trial_id = 1:n(), .by = c(id, modality)) %>%
   select(-key:-nchar, -nsyl, -nphon, -semcat) %>%
   left_join(d_item, by = join_by(image_id)) %>%
   left_join(d_sem, by = join_by(image_id)) %>%
