@@ -296,13 +296,9 @@ read_csv("../../data/spellname.csv") %>%
 
 
 
+## Bivariate distribution
 
-
-
-
-
-
-
+Complete RMarkdown document: **`2_bivariate_viz.Rmd**
 
 
 
@@ -426,9 +422,16 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 ## Group comparisons
 
-Open script **exercises/4a_major_viz_tools.R**
+Complete RMarkdown document: 
 
-Continue with **exercises/4b_major_viz_tools.R**
+- **`3_group_comparisons.Rmd**
+- **`4_data_wrangling.Rmd**
+
+
+## Work on formative assessment?
+
+
+## Summary
 
 
 ## Homework
@@ -442,6 +445,8 @@ Read the following chapters to understand data wranging:
 Work out what the following functions do: `pivot_longer`, `pivot_wider`
 
 Exercise on transforming rt_ variables from long to wide
+
+Combine this with group copmarisons for dominant / non-dominant hand/ feet
 
 
 ## References
