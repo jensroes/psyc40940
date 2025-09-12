@@ -68,28 +68,28 @@ d_blomkvist
 
 Notice that the rt data of the dominant and non-dominant hand are in two different columns (i.e. two different variables). What we need is one column with the rts of both hands so we can map these onto an axis in the code.
 
-The solution is to transform the currently *wide* dataframe into a *long* dataframe. This is what `pivot_longer` does. It takes a dataframe as input and stacks columns on the top of each other. `cols` needs to know which columns to combine; you need the column names of the rt data of the dominant and non-dominant hand. We then assign the resulting dataframe to a new dataframe variable, called `d_bk_long`.
+The solution is to transform the currently *wide* data frame into a *long* data frame. This is what `pivot_longer` does. It takes a data frame as input and stacks columns on the top of each other. `cols` needs to know which columns to combine; you need the column names of the rt data of the dominant and non-dominant hand. We then assign the resulting data frame to a new data frame variable, called `d_bk_long`.
 
 
 ```{r}
-# Transform dataframe
+# Transform data frame
 d_bk_long <- pivot_longer(data = d_blomkvist, 
                            cols = c(---, ---))
 
-# Show preview of dataframe
+# Show preview of data frame
 d_bk_long
 ```
 
 You should be able to see two new columns, one called `name`, the other called `value`. Both are on the right end. `name` is a new grouping variable with levels `rt_hand_d` and `rt_hand_nd` which were the column headers previously. The corresponding rt values are in the `value` column.
 
-With this new dataframe we can generate a boxplot that compares directly the rt data of the dominant hand and the non-dominant hand. `x` needs to be the variable that contains `rt_hand_d` and `rt_hand_nd` and `y` needs to be the new rt data column.
+With this new data frame we can generate a boxplot that compares directly the rt data of the dominant hand and the non-dominant hand. `x` needs to be the variable that contains `rt_hand_d` and `rt_hand_nd` and `y` needs to be the new rt data column.
 
 ```{r}
 ggplot(d_bk_long, aes(x = ---, y = ---)) +
   geom_boxplot()
 ```
 
-Here is a more advanced example. Say you want to compare dominant and non-dominant but also hand and foot rts. Have a look at the wide dataframe again:
+Here is a more advanced example. Say you want to compare dominant and non-dominant but also hand and foot rts. Have a look at the wide data frame again:
 
 ```{r}
 d_blomkvist
@@ -103,17 +103,17 @@ Make sure you replace the "---" correctly following the instructions above.
 
 
 ```{r}
-# Transform dataframe
+# Transform data frame
 d_bk_long <- pivot_longer(data = d_blomkvist, 
                            cols = starts_with("rt"),
                            names_to = c(".value", "---", "---"),
                            names_sep = "---")
 
-# Show preview of dataframe
+# Show preview of data frame
 d_bk_long
 ```
 
-Look at the resulting dataframe and make sure you understand the difference between the wide data format and the new long data format. Using this data frame we can now plot both the hand / foot information (on the x-axis) as well as the dominant / non-dominant information (as colour).
+Look at the resulting data frame and make sure you understand the difference between the wide data format and the new long data format. Using this data frame we can now plot both the hand / foot information (on the x-axis) as well as the dominant / non-dominant information (as colour).
 
 ```{r}
 ggplot(d_bk_long, aes(y = rt, x = ---, colour = ---)) +
@@ -121,9 +121,9 @@ ggplot(d_bk_long, aes(y = rt, x = ---, colour = ---)) +
 ```
 
 
-So what if I don't want to go from wide to long but from long to wide (data come in all sorts of formats). Let's look at this by back-transforming the long dataframe to the initial wide data frame.
+So what if I don't want to go from wide to long but from long to wide (data come in all sorts of formats). Let's look at this by back-transforming the long data frame to the initial wide data frame.
 
-Instead of the `pivot_longer` function we need to use the `pivot_wider` function. The function needs to know which column headers to use for the wide dataframe format and where it should take the values from. The column headers should come from two values, namely `hand_foot` and `dominance`. The values should come from the `rt` column of the long dataframe. Just to make the new dataframe look exactly like the dataframe we started with we can use `names_prefix` to prefix all new variables with "rt_".
+Instead of the `pivot_longer` function we need to use the `pivot_wider` function. The function needs to know which column headers to use for the wide data frame format and where it should take the values from. The column headers should come from two values, namely `hand_foot` and `dominance`. The values should come from the `rt` column of the long data frame. Just to make the new data frame look exactly like the data frame we started with we can use `names_prefix` to prefix all new variables with "rt_".
 
 ```{r}
 # Transform data from long to wide
@@ -132,7 +132,7 @@ d_bk_wide <- ---(data = d_bk_long,
                           values_from = ---, 
                           names_prefix = "rt_")
 
-# Check out dataframe
+# Check out data frame
 d_bk_wide
 ```
 
@@ -214,7 +214,7 @@ Task: Create a variable `log_rt` which is the logarithm of the dominant hand. Yo
 ```
 
 
-Heads-up, I'm throwing you into the deep end here: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new dataframe, filter for participants older than 50 that take any medicine, and, again for the new resulting dataframe, add a new variable that is the centred rt of the dominant hand. To centre a variable you need to subtract the mean of that variable so for example, the centred version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centred rt variable.
+Heads-up, I'm throwing you into the deep end here: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new data frame, filter for participants older than 50 that take any medicine, and, again for the new resulting data frame, add a new variable that is the centered rt of the dominant hand. To center a variable you need to subtract the mean of that variable so for example, the centered version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centered rt variable.
 
 
 ```{r}
@@ -224,7 +224,7 @@ Heads-up, I'm throwing you into the deep end here: Let's combine these three too
 
 # Mutate
 
-# Histogram of centred rt data (distribution should be centred around 0)
+# Histogram of centered rt data (distribution should be centered around 0)
 
 ```
 
