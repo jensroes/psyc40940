@@ -37,21 +37,21 @@ Data visualisation often requires you to transform data frames into a format tha
 You have already seen many ways in which the Blomkvist-data can be visualised. For example, I can test whether there is a relationship between rts of the dominant hand and the non-dominant hand by plotting them against each other:
 
 ```{r}
-ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+ggplot(d_blomkvist, aes(x = ---, y = ---)) +
   geom_point()
 ```
 
-Can we tell from this plot if participants are generally slower with their non-dominant hand? Not really. Boxplots would be much nicer for this purpose. Given what we know so far, we could create to boxplots, one for each hand, so first
+Can we tell from this plot if participants are generally slower with their non-dominant hand? Not really. Boxplots would be much nicer for this purpose. Given what we know so far, we could create to boxplots, one for each hand, so first of the dominant hand
 
 ```{r}
-ggplot(d_blomkvist, aes(x = 0, y = rt_hand_d)) +
+ggplot(d_blomkvist, aes(x = 0, y = ---)) +
   geom_boxplot()
 ```
 
-and then
+and then of the non-dominant hand
 
 ```{r}
-ggplot(d_blomkvist, aes(x = 0, y = rt_hand_nd)) +
+ggplot(d_blomkvist, aes(x = 0, y = ---)) +
   geom_boxplot()
 ```
 
@@ -68,13 +68,13 @@ d_blomkvist
 
 Notice that the rt data of the dominant and non-dominant hand are in two different columns (i.e. two different variables). What we need is one column with the rts of both hands so we can map these onto an axis in the code.
 
-The solution is to transform the currently *wide* dataframe into a *long* dataframe. This is what `pivot_longer` does. It takes a dataframe as input and stacks columns on the top of each other. `cols` needs to know which columns to combine. We then assign the resulting dataframe to a new dataframe variable, called `d_bk_long`.
+The solution is to transform the currently *wide* dataframe into a *long* dataframe. This is what `pivot_longer` does. It takes a dataframe as input and stacks columns on the top of each other. `cols` needs to know which columns to combine; you need the column names of the rt data of the dominant and non-dominant hand. We then assign the resulting dataframe to a new dataframe variable, called `d_bk_long`.
 
 
 ```{r}
 # Transform dataframe
 d_bk_long <- pivot_longer(data = d_blomkvist, 
-                           cols = c(rt_hand_d, rt_hand_nd))
+                           cols = c(---, ---))
 
 # Show preview of dataframe
 d_bk_long
@@ -82,10 +82,10 @@ d_bk_long
 
 You should be able to see two new columns, one called `name`, the other called `value`. Both are on the right end. `name` is a new grouping variable with levels `rt_hand_d` and `rt_hand_nd` which were the column headers previously. The corresponding rt values are in the `value` column.
 
-With this new dataframe we can generate a boxplot that compares directly the rt data of the dominant hand and the non-dominant hand.
+With this new dataframe we can generate a boxplot that compares directly the rt data of the dominant hand and the non-dominant hand. `x` needs to be the variable that contains `rt_hand_d` and `rt_hand_nd` and `y` needs to be the new rt data column.
 
 ```{r}
-ggplot(d_bk_long, aes(x = name, y = value)) +
+ggplot(d_bk_long, aes(x = ---, y = ---)) +
   geom_boxplot()
 ```
 
@@ -97,27 +97,26 @@ d_blomkvist
 
 There are four rt variables that we want to stack on the top of each other. You could repeat the code from above and just add in the foot data, or you could do this in a smarter way. 
 
-Again, we use `pivot_longer` with three differences to the code before. We use `starts_with` to select all variables in the data that start with "rt". We are specifying `names_to` to use specify the name of the resulting column that was previously just called "name". However, combined with `names_sep` to separate the name of the existing columns. Look at our four "rt" variables. All of them start with "rt", followed by whether it's hand or foot, and finishing with "d" for dominant and "nd" for non-dominant. These three bits of information are separated by underscores. Using `names_sep` we can specify how the four column names should be separated (on the basis of underscores), and using `names_to` we can tell `pivot_longer` what to do with the separated names. Using `.value` (notice the full stop at the beginning) we are saying we want to use the first part of the names (i.e. `rt` as column name for the values; i.e. the rt data). The hand / foot group should receive the header `hand_foot` and d / nd should receive the column header dominance. 
+Again, we use `pivot_longer` with three differences to the code before. We use `starts_with` to select all variables in the data that start with "rt". We are specifying `names_to` to use specify the name of the resulting column that was previously just called "name". However, combined with `names_sep` to separate the name of the existing columns. Look at our four "rt" variables. All of them start with "rt", followed by whether it's hand or foot, and finishing with "d" for dominant and "nd" for non-dominant. These three bits of information are separated by underscores. Using `names_sep` we can specify how the four column names should be separated (on the basis of underscores, i.e. "_"), and using `names_to` we can tell `pivot_longer` what to do with the separated names. Using `.value` (notice the full stop at the beginning) we are saying we want to use the first part of the names (i.e. `rt` as column name for the values; i.e. the rt data). The hand / foot group should receive the header "hand_foot" and d / nd should receive the column header "dominance". 
+
+Make sure you replace the "---" correctly following the instructions above.
 
 
 ```{r}
 # Transform dataframe
 d_bk_long <- pivot_longer(data = d_blomkvist, 
                            cols = starts_with("rt"),
-                           names_to = c(".value", "hand_foot", "dominance"),
-                           names_sep = "_")
+                           names_to = c(".value", "---", "---"),
+                           names_sep = "---")
 
 # Show preview of dataframe
 d_bk_long
 ```
 
-Look at the resulting dataframe and make sure you understand the difference between the wide data format and the new long data format.
-
-
-Using this data frame we can now plot both the hand / foot information as well as the dominant / non-dominant information.
+Look at the resulting dataframe and make sure you understand the difference between the wide data format and the new long data format. Using this data frame we can now plot both the hand / foot information (on the x-axis) as well as the dominant / non-dominant information (as colour).
 
 ```{r}
-ggplot(d_bk_long, aes(y = rt, x = hand_foot, colour = dominance)) +
+ggplot(d_bk_long, aes(y = rt, x = ---, colour = ---)) +
   geom_boxplot()
 ```
 
@@ -127,15 +126,14 @@ So what if I don't want to go from wide to long but from long to wide (data come
 Instead of the `pivot_longer` function we need to use the `pivot_wider` function. The function needs to know which column headers to use for the wide dataframe format and where it should take the values from. The column headers should come from two values, namely `hand_foot` and `dominance`. The values should come from the `rt` column of the long dataframe. Just to make the new dataframe look exactly like the dataframe we started with we can use `names_prefix` to prefix all new variables with "rt_".
 
 ```{r}
-# Tranform data from long to wide
-d_bk_wide <- pivot_wider(data = d_bk_long,
+# Transform data from long to wide
+d_bk_wide <- ---(data = d_bk_long,
                           names_from = c(hand_foot, dominance),
-                          values_from = rt, 
+                          values_from = ---, 
                           names_prefix = "rt_")
 
 # Check out dataframe
 d_bk_wide
-
 ```
 
 
@@ -184,26 +182,51 @@ Task: Your turn. Write code where select `id`, `smoker`, and all variables that 
 ```
 
 
-Finally, there is `mutate` which is probably the most important one. `mutate` allows you to add new variables to change existing ones. 
+Finally, there is `mutate` which is probably the most important one. `mutate` allows you to add new variables to change existing ones. To better illustrate this, lets use `d_rt` which we created above using `select`.
 
 
 ```{r}
-mutate(.data = d_blomkvist)
+# create age groups
+d_age_groups <- mutate(.data = d_rt,
+                         age_group = case_when(age < 35 ~ "young",
+                                               age < 55 ~ "mid",
+                                               TRUE ~ "old"))
+
+# Preview data
+d_age_groups
+```
+
+```{r}
+# Get difference between dominant and non-dominant hand
+d_rt_diff <- mutate(.data = d_rt,
+                     rt_hand_diff = rt_hand_nd - rt_hand_d)
+
+# Preview data
+d_rt_diff
+```
+
+Task: Create a variable `log_rt` which is the logarithm of the dominant hand. You need the `log` function. For example, the logarithm of a hypothetical variable `x` is `x = log(x)`.
+
+```{r}
+# Add you mutate code
+---
+
 ```
 
 
+Heads-up, I'm throwing you into the deep end here: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new dataframe, filter for participants older than 50 that take any medicine, and, again for the new resulting dataframe, add a new variable that is the centred rt of the dominant hand. To centre a variable you need to subtract the mean of that variable so for example, the centred version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centred rt variable.
 
-Let's combine these now. Write code, where you first select id, age and medicine, then, from the resulting new dataframe, filter for participants older than 50 that take any medicine, and, again for the new resulting dataframe, add a new variable 
 
 ```{r}
 # Filter
 
-# 
+# Select
 
+# Mutate
+
+# Histogram of centred rt data (distribution should be centred around 0)
 
 ```
-
-
 
 
 
