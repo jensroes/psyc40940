@@ -182,7 +182,19 @@ Task: Your turn. Write code where select `id`, `smoker`, and all variables that 
 ```
 
 
-Finally, there is `mutate` which is probably the most important one. `mutate` allows you to add new variables to change existing ones. To better illustrate this, lets use `d_rt` which we created above using `select`.
+Finally, there is `mutate` which is probably the most important one. `mutate` allows you to add new variables to change existing ones. To better see the new variable created by `mutate`, lets use `d_rt` which we created above using `select`. Run the following code and look at the new variable `rt_hand_diff` that appears on the right end of the data frame. As you can see in the code, `rt_hand_diff` is the difference between `rt_hand_nd` and `rt_hand_d`, so a measure of how much slower people are with their non-dominant hand compared to their dominant hand.
+
+
+```{r}
+# Get difference between dominant and non-dominant hand
+d_rt_diff <- mutate(.data = d_rt,
+                     rt_hand_diff = rt_hand_nd - rt_hand_d)
+
+# Preview data
+d_rt_diff
+```
+
+Here's another example how to create a new variable based on another variable. Have a look at the code, run it, and have a look at the new variable `age_group` that was appended to the right end of the data frame. I'll explain what `case_when` does below.
 
 
 ```{r}
@@ -196,14 +208,10 @@ d_age_groups <- mutate(.data = d_rt,
 d_age_groups
 ```
 
-```{r}
-# Get difference between dominant and non-dominant hand
-d_rt_diff <- mutate(.data = d_rt,
-                     rt_hand_diff = rt_hand_nd - rt_hand_d)
+`case_when` is super useful. `case_when` (see documentation by running `?case_when`) allows you to define a new variable based on properties of one or many other variables. In this example, I created a categorical variable based on the participants' age. I grouped participants into three groups (i.e. young, mid, old). Inside of `case_when`, on the left of the tilde symbol (squiggly line, i.e. $\sim$) is a condition. For example `age < 35` and on the right side of the tilde symbol is the value the new variable `age_group` should receive if the condition is met. So if the age of a participant is smaller than (not equal to) 35, the participant is classified as "young"; if the condition is not met, the other conditions will be tested. Notice that participants younger than 35 not classified as "mid" even although the next condition `age < 55` is also true for these participants participants. Finally `TRUE ~ "old"` means that every participant who wasn't covered by any of the other conditions in `case_when` will be classified as old. What's the minimum age for a participant to be classified as "old"?
 
-# Preview data
-d_rt_diff
-```
+
+Your turn:
 
 Task: Create a variable `log_rt` which is the logarithm of the dominant hand. You need the `log` function. For example, the logarithm of a hypothetical variable `x` is `x = log(x)`.
 
@@ -213,8 +221,9 @@ Task: Create a variable `log_rt` which is the logarithm of the dominant hand. Yo
 
 ```
 
+And your last data-wrangling task.
 
-Heads-up, I'm throwing you into the deep end here: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new data frame, filter for participants older than 50 that take any medicine, and, again for the new resulting data frame, add a new variable that is the centered rt of the dominant hand. To center a variable you need to subtract the mean of that variable so for example, the centered version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centered rt variable.
+Heads-up, I'm throwing you now into the deep end: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new data frame, filter for participants older than 50 that take any medicine, and, again for the new resulting data frame, add a new variable that is the centered rt of the dominant hand. To center a variable you need to subtract the mean of that variable so for example, the centered version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centered rt variable.
 
 
 ```{r}

@@ -39,6 +39,15 @@ ggplot(d_blomkvist, aes(x = ---)) +
   geom_---()
 ```
 
+Btw, code for `ggplot2`-style histograms can also be found in `psyntur`.
+
+```{r}
+# Load psyntur
+library(psyntur)
+# Create boxplot
+histogram(data = d_blomkvist, x = age)
+```
+
 First, let's return to the warning "stat_bin()` using `bins = 30`. Pick better value with `binwidth`.". As mentioned before, this means that there are 30 bins in the plot so the age variable was divided into 30 bins such that each bin spans over the following number of years.
 
 Age has a range form:

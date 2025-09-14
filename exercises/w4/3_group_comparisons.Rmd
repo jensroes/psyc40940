@@ -65,6 +65,16 @@ The information represented as points can be summarised as a boxplot. Add the ge
 ```{r}
 plot_rts + ---
 ```
+Btw, code for `ggplot2`-style boxplots can also be found in `psyntur`.
+
+```{r}
+# Load psyntur
+library(psyntur)
+# Create boxplot
+tukeyboxplot(data = d_blomkvist, y = rt_hand_d)
+```
+
+
 
 Of course we can combine geometries such as `geom_boxplot` and `geom_jitter` to illustrate how boxplots simplify information compared to jittered dots. Notice how the box minics the points. Also, notice that the order in which you add these two geometries matters. The plot will look different depending on which geometry is added first and second.
 

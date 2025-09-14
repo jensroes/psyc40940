@@ -474,20 +474,6 @@ Continue with **exercises/5b_bringing_everything_together.R**
 
 
 
-## Useful resources
-
-- [*R for Data Science*, chapter 3](https://r4ds.had.co.nz/data-visualisation.html) by @wickham2016r
-- [*Doing Data Science in R*, chapter 4](https://www.mjandrews.org/book/ddsr/) by @andrews2021doing
-- choosing the right visualisation: [data-to-viz.com](https://www.data-to-viz.com/)
-- Rick Scavetta's course: [datacamp.com](https://learn.datacamp.com/skill-tracks/data-visualization-with-r)
-- `ggplot2` [CheatSheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-- most important functions: [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/reference/)
-- example for 3D plots in "exercises" folder
-
-```{r echo=F, eval = F}
-#- need a data set for practicing: [vincentarelbundock.github.io](https://vincentarelbundock.github.io/Rdatasets/datasets.html)
-
-```
 
 
 # Cosmetics II
@@ -1491,6 +1477,26 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 </div>
+
+
+## Useful resources for data visualisation
+
+- [*R for Data Science*, chapter 3](https://r4ds.had.co.nz/data-visualisation.html) by @wickham2016r
+- [*Doing Data Science in R*, chapter 4](https://www.mjandrews.org/book/ddsr/) by @andrews2021doing
+- Choosing the right visualisation: [data-to-viz.com](https://www.data-to-viz.com/)
+- Rick Scavetta's course: [datacamp.com](https://learn.datacamp.com/skill-tracks/data-visualization-with-r)
+- `ggplot2` [CheatSheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- Most important functions: [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/reference/)
+
+```{r echo=F, eval = F}
+#- need a data set for practicing: [vincentarelbundock.github.io](https://vincentarelbundock.github.io/Rdatasets/datasets.html)
+
+```
+
+
+## Formative assessment
+
+
 
 ## References
 

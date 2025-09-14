@@ -309,7 +309,7 @@ Complete RMarkdown document: **`2_bivariate_viz.Rmd**
 - examples: (jitter) dots, box plot, violin plot, beeswarm plots, barplot (pie chart), dynamite plots
 
 
-## Groups comparison | dynamite plot and its pitfalls
+## Dynamite plot and its pitfalls
 
 <div style="float: left; width: 40%;">
 
@@ -336,7 +336,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Groups comparison | dynamite plots
+## Dynamite plots
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
 ggplot(data = d_spellname, aes(y = rt, x = modality)) +
@@ -347,7 +347,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
   labs(y = "Reaction time (in msecs)", x = "Response modality") 
 ```
 
-## Groups comparison | dots
+## Alternative geometries | points
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
 ggplot(data = d_spellname, aes(y = rt, x = modality)) +
@@ -359,7 +359,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Groups comparison | jittered dots
+## Alternative geometries | jittered points
 
 
 
@@ -372,7 +372,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Groups comparison | jittered dots and errorbars
+## Alternative geometries | jittered points and errorbars
 
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
@@ -391,7 +391,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 ```
 
 
-## Groups comparison | box-and-whiskers plot
+## Alternative geometries | box-and-whiskers plot
 
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
@@ -400,7 +400,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
   labs(y = "Reaction time (in msecs)", x = "Response modality") 
 ```
 
-## Groups comparison | box-and-whiskers plot
+## Alternative geometries| box-and-whiskers plot
 
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
@@ -412,7 +412,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Groups comparison | box-and-whiskers plot [@tukey1977exploratory]
+## Alternative geometries| box-and-whiskers plot [@tukey1977exploratory]
 
 <div style="float: right;">
 
@@ -422,13 +422,49 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 ## Group comparisons
 
-Complete RMarkdown document: 
-
-- **`3_group_comparisons.Rmd**
-- **`4_data_wrangling.Rmd**
+Complete RMarkdown document: **`3_group_comparisons.Rmd**
 
 
-## Work on formative assessment?
+## Crash course in data wrangling {.columns-2}
+
+- Data come in various formats.
+- For some visualisations, the format of the data needs to be changed.
+
+You've already seen these:
+
+```{r eval = F}
+# Count number of identical observations 
+count(data, group)
+# Calculate descriptive statistics
+summarise(data, mean = mean(rt))
+# Remove rows with missing data (i.e. NA) 
+drop_na()
+```
+
+`ggplot` can deal with these wrangling tasks. 
+
+## Crash course in data wrangling {.columns-2}
+
+- `tidyverse`, more specifically `dplyr` has many useful functions for data wrangling.
+- Knowing the following functions will give you a lot of flexibility.
+
+```{r eval = F}
+# Transforms dataframes into a long format
+pivot_longer(data, cols)
+# Transforms dataframes into a wide format
+pivot_wider(data, names_from, values_from)
+# Selects and removes variables
+select(data, var1, var2)
+# Retains and removes observations
+filter(data, condition)
+# Creates new variables
+mutate(data, new_var = old_var)
+```
+
+
+
+Complete RMarkdown document: **`4_data_wrangling.Rmd**
+
 
 
 ## Summary
@@ -436,17 +472,24 @@ Complete RMarkdown document:
 
 ## Homework
 
-Add something on data wranging.
+- Complete RMarkdown document: **`4_data_wrangling.Rmd**
+- Bring in data and anything you've already done for the formative assessment.
+- Complete recommended reading
 
-The data you want to use might be in a non-tidy format. 
+## Reading
 
-Read the following chapters to understand data wranging:
 
-Work out what the following functions do: `pivot_longer`, `pivot_wider`
+Data visualisation with `ggplot`
+- [Chapter 3 of @wickham2016r](https://r4ds.had.co.nz/transform.html)
+- [Chapter 4 of @andrews2021doing](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_04_visualization.pdf) 
 
-Exercise on transforming rt_ variables from long to wide
 
-Combine this with group copmarisons for dominant / non-dominant hand/ feet
+Data wrangling with `dplyr` / `tidyverse`
+
+- [Chapter 3 of @andrews2021doing](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_03_wrangling.pdf) 
+- [Chapter 5 of @wickham2016r](https://r4ds.had.co.nz/transform.html)
+
+
 
 
 ## References
