@@ -54,6 +54,16 @@ d_spellname <- summarise(d_spellname,
 ```
 
 
+##
+
+- overplotting
+- scaling axes
+- transparency
+- size of geometries
+- font size
+- explicity labels
+
+
 
 # Cosmetics I
 
