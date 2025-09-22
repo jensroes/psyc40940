@@ -45,7 +45,7 @@ nice_table <- function(df, fontsize = 14){
 
 - associate professor in psycholinguistics @ [psychology department](https://www.ntu.ac.uk/staff-profiles/social-sciences/dr-jens-roeser) (Nottingham Trent University)
 - module leader for PSYC40940 and AC for MSc BDS 
-- research
+- research:
   - Language processing (production, acquisition, comprehension) often with focus on writing [@roeser2019advance] and understudied languages [@garcia2023finding].
   - Bayesian modelling [@roeser2021modelling; @Roeser2025]; keystroke logging; eye tracking
 - teaching: 
@@ -323,6 +323,7 @@ See NOW learning room for detailed grading matrix.
 ## Reading recommendations
 
 - @andrews2021doing *Doing Data Science in R: An Introduction for Social Scientists.* Sage Publications. [LINK](https://www.mjandrews.org/book/ddsr/)
+- @Wickham2016 *ggplot2: Elegant Graphics for Data Analysis.* Springer-Verlag. [LINK](https://ggplot2-book.org)
 - @wickham2016r *R for data science.* O'Reilly Media. [LINK](https://r4ds.had.co.nz/)
 - @Wickham2021MasteringShiny *Mastering shiny.* O'Reilly Media. [LINK](https://mastering-shiny.org/action-intro.html)
 - @Tufte2001VisualDisplay *The visual display of quantitative information.* 2nd edition. Graphics Press. [LINK](https://llr.primo.exlibrisgroup.com/permalink/44NTU_INST/16gp82k/alma990004565400107181)

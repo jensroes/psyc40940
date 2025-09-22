@@ -157,18 +157,28 @@ Feedback will be delivered via the NOW learning room and will highlight both str
 Feedback on your portfolio will be structured around six key assessment criteria: technical execution, visualisation design, use of behavioural data, interactivity and dashboard design, reflection and commentary, and communication and structure. For these criteria, you will receive specific comments highlighting strengths and areas for development, mapped directly to the module learning outcomes (MLOs). This will help you understand not only what you did well, but also where you can enhance your skills -- for example, by improving reproducibility in your code, refining the clarity of your visualisations, or deepening your critical reflection. The feedback is designed to support your growth as a data visualisation practitioner and guide your future work in both academic and applied contexts.
 
 
-## Guidance on use of Generative AI
+
+
+
+## Module-Specific Guidance
+
+As outlined below GenAI use is rated <span style="color:#FFBF00">AMBER</span>. This means GenAI can be used with caution (see below).
+
+In the "Visualisation of Behavioural Data and Data Dashboards" module, generative AI tools such as ChatGPT, GitHub Copilot, or other coding assistants may be used to support learning. Specifically, students are permitted to use generative AI to help produce code, troubleshoot coding errors, and explore alternative programming approaches. These tools can be valuable for enhancing understanding and efficiency when working with RMarkdown, Shiny, and other data visualisation technologies.
+
+
+## School of Social Sciences -- Generative Artificial Intelligence (GenAI) Traffic Light
+
+At NTU, Generative Artificial Intelligence (GenAI) should be used to support and enhance your learning, not to replace independent thinking, critical analysis, or academic integrity. The following guidance explains acceptable and unacceptable uses of GenAI in assessments. To help you understand when and how GenAI tools can be used, we have categorised GenAI use into three levels: 
+
+![Generative Artificial Intelligence (GenAI) Traffic Light](gfx/genai.png))
 
 This module adheres to the default position of NTU Psychology on the use of generative AI. Please read through the policy in detail here: [NTU Psychology Generative AI Student Policy](https://www.ntu.ac.uk/studenthub/news/2023/12/artificial-intelligence-%40-ntu)
 
 
-### Module-Specific Guidance
+## Disclosure and attribution requirements
 
-In the "Visualisation of Behavioural Data and Data Dashboards" module, generative AI tools such as ChatGPT, GitHub Copilot, or other coding assistants may be used to support learning. Specifically, students are permitted to use generative AI to help produce code, troubleshoot coding errors, and explore alternative programming approaches. These tools can be valuable for enhancing understanding and efficiency when working with RMarkdown, Shiny, and other data visualisation technologies.
-
-### Disclosure and Attribution Requirements
-
-If you use generative AI tools to assist with your coursework, you must clearly disclose this in your submission. This includes specifying which tools were used, how they were used, and which parts of the code or analysis were generated or modified with AI assistance. Failure to disclose AI use may be considered a breach of academic integrity.
+Please ensure you complete the declaration form provided in the "Assessments" section of the learning room. On this declaration form, please additionally explain how you used GenAI to help prepare your work in the "Explanation of AI use" box. Please upload the declaration form along with your coursework to the Dropbox
 
 \newpage
 

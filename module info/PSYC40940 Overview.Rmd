@@ -87,6 +87,8 @@ ggplot(df, aes(x = group, y = score, fill = group)) +
   theme(legend.position = "none") +
   scale_fill_colorblind()
 
+ggsave("overviewplot.png", width = 6, height = 3, dpi = 600)
+
 ```
 
 but we will also learn how to create interactive visualisations with software packages such as "plotly" and "Shiny" that allows the development of, among other things, data dashboards. Below is an example generated with "plotly" that allows you to interact with the visualisation.
@@ -117,7 +119,10 @@ p <- ggplot(df, aes(x = group, y = score, fill = group)) +
   theme(legend.position = "none") +
   scale_fill_colorblind()
 
-ggplotly(p, tooltip = "text")
+p <- ggplotly(p, tooltip = "text");p
+
+# Save as standalone HTML
+htmlwidgets::saveWidget(p, "overview_interactive_plot.html")
 ```
 
 
@@ -245,3 +250,4 @@ For details see:
 - Tufte, E. R. (2001). The visual display of quantitative information. 2nd edition. Graphics Press.
 - Wickham, H, \& Grolemund, G. (2016). R for data science. O'Reilly Media.
 - Wickham, H. (2021). Mastering shiny. O'Reilly Media
+- Wilkinson, Leland. 2005. The Grammar of Graphics. 2nd ed. Statistics and Computing. Springer. 

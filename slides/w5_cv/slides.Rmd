@@ -54,6 +54,14 @@ d_spellname <- summarise(d_spellname,
 ```
 
 
+## Motivation
+
+- Explanatory plots
+- Communicating results
+- Convincing an audience
+- Suitability for the medium of dissemination (poster, slides, journal article)
+
+
 ##
 
 - overplotting
@@ -1487,6 +1495,10 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 </div>
+
+
+## Creating your own Theme
+
 
 
 ## Useful resources for data visualisation
