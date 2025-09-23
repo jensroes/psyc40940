@@ -3,7 +3,7 @@ title: "PSYC40940: Assessment Specification"
 output: 
   word_document: default
 #    reference_docx: "mytemplate.docx"
-#  html_document: default
+  #html_document: default
 always_allow_html: true
 ---
 
@@ -176,9 +176,20 @@ At NTU, Generative Artificial Intelligence (GenAI) should be used to support and
 This module adheres to the default position of NTU Psychology on the use of generative AI. Please read through the policy in detail here: [NTU Psychology Generative AI Student Policy](https://www.ntu.ac.uk/studenthub/news/2023/12/artificial-intelligence-%40-ntu)
 
 
+## Additional specific guidance for the use of GenAI AI in this assessment is
+
+This module follows the principles outlined in the document [General guidance on inappropriate use of Generative Artificial Intelligence (GenAI) in summative assessments](https://now.ntu.ac.uk/d2l/le/lessons/694190/topics/14179315).
+
+ 
+A summary of the requirements are (please refer to the full policy and guidance for details):
+
+- You are **allowed to ask** an AI tool to support you to deepen your understanding of a topic, to check that you have understood a concept correctly, or to check that your own writing makes sense.
+- You **must not** use an AI tool to create any of the text that you actually submit for the assignment; the work you submit must be clearly your own. You also must not use an AI tool as a reference. 
+
+
 ## Disclosure and attribution requirements
 
-Please ensure you complete the declaration form provided in the "Assessments" section of the learning room. On this declaration form, please additionally explain how you used GenAI to help prepare your work in the "Explanation of AI use" box. Please upload the declaration form along with your coursework to the Dropbox
+Please ensure you complete the declaration form provided in the "Assessments" section of the learning room. On this declaration form, please additionally explain how you used GenAI to help prepare your work in the "Explanation of AI use" box. Please upload the declaration form along with your coursework to the Dropbox.
 
 \newpage
 
