@@ -62,7 +62,7 @@ slides > slide:nth-child(1) {
 .title-slide p,
 .title-slide .date {
   position: relative;
-  top: -200px;  /* Move everything up by 200px */
+  top: -100px;  /* Move everything up by 200px */
   left: 100px;
 }
 

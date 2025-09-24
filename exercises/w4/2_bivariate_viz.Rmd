@@ -157,12 +157,12 @@ plot_ly(d_blomkvist,
         x = ~rt_hand_d, 
         y = ~rt_hand_nd, 
         z = ~---, 
+        color = ~age,
+        colorscale = 'Viridis',
+        showscale = TRUE,
         type = "scatter3d", 
         mode = "markers",
-        marker = list(size = 4, 
-                      color = ~age,
-                      colorscale = 'Viridis',
-                      showscale = TRUE)) 
+        marker = list(size = 4))
 
 ```
 
