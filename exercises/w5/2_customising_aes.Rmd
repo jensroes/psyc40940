@@ -1,0 +1,82 @@
+---
+title             : 'Exercise 2: Customising colour aesthetics'
+output            : html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+We will create a plot first and then change the colour of the colour aesthetic.
+
+```{r}
+plot_rt <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = meds_cat)) +
+  geom_point(size = 3)
+```
+
+
+
+ Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+
+
+
+Changing the colour scheme.
+You can define colours yourself but often it is easier to use functions that provide colour schemes.
+
+Here are some example.
+
+The first one is designed for people that struggle to distinguish colours and do a good job when printed on a grey scale.
+
+```{r eval = FALSE}
+install.packages("ggthemes")
+```
+
+
+```{r}
+library(ggthemes)
+```
+
+
+```{r}
+plot_rt + scale_colour_colorblind() # `ggthemes` package
+plot_rt + scale_color_wsj() # `ggthemes` package
+plot_rt + scale_colour_viridis_d()
+```
+
+Select your favorite and add the plot to `rt_plot`
+
+```{r}
+rt_plot <- rt_plot + scale_colour_---()
+```
+
+
+
+ Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+
+
+also include fill

@@ -54,13 +54,14 @@ d_spellname <- summarise(d_spellname,
 ```
 
 
+# Maximising clarity and minimising chartjunk through thoughtful design choices!
+
 ## Motivation
 
 - Explanatory plots
 - Communicating results
 - Convincing an audience
 - Suitability for the medium of dissemination (poster, slides, journal article)
-
 
 ##
 
@@ -70,10 +71,45 @@ d_spellname <- summarise(d_spellname,
 - size of geometries
 - font size
 - explicity labels
+- creating your own theme
+- changing axis text and hoover info in plotly
+- colour for colourblind, grey scale, combining aesthetics
+
+## Revisiting Tufte's Principles
+
+- Data-Ink Ratio: Maximise the proportion of ink that represents data.
+- Chartjunk: Avoid unnecessary decoration (3D effects, heavy gridlines, etc.).
+- Small Multiples: Use consistent scales and layout to compare across categories.
+- Narrative Graphics: Use annotations and labels to guide interpretation.
+
+*What would Tufte do?*
+
+
+## Applying Tufte to `ggplot`
+
+How does `ggplot2` supports Tufte's principles:
+
+- Minimal themes (`theme_minimal()`, `theme_void()`)
+- Custom scales to reduce distortion
+- Direct labeling vs legends
+- Faceting for small multiples (`facet_wrap()`, `facet_grid()`)
+- Reduce overplotting: `position_dodge()`, `alpha = .5`, `size = .5`
+
+The grammar of graphics implemented in `ggplot2` by Hadley Wickham aligns with Tufte's ideas.
+
+
+## Design Choices in Practice
+
+- Scales: Choosing appropriate axis transformations (e.g., log scales)
+- Themes: Reducing clutter, improving readability
+- Labels: Making plots self-explanatory
+
+## Mini Case Study
+
+Show a plot with poor design (e.g., misleading axis, cluttered legend) and walk through improving it step-by-step.
 
 
 
-# Cosmetics I
 
 ## Changing text: `labs`
 
@@ -90,8 +126,8 @@ d_spellname <- summarise(d_spellname,
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age,
-                          colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs()
@@ -99,7 +135,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age,
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs()
@@ -125,8 +162,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo=F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age,
-                          colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(title = "My scatter plot")
@@ -134,7 +171,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age,
 ```
 
 ```{r eval=F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(title = "My scatter plot")
@@ -158,7 +196,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(title = "My scatter plot", 
@@ -167,7 +206,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(title = "My scatter plot", 
@@ -193,7 +233,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(caption = "Caption for data source")
@@ -201,7 +242,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(caption = "Caption for data source")
@@ -227,7 +269,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(tag = "A")
@@ -235,7 +278,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(tag = "A")
@@ -260,19 +304,21 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
-  labs(x = "Age in years", 
+  labs(x = "Production duration in msecs", 
        y = "Reaction time in msecs")
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
-  labs(x = "Age in years", 
+  labs(x = "Production duration in msecs", 
        y = "Reaction time in msecs")
   ###</b>
 ```
@@ -295,7 +341,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(colour = "Legend\ntitle:")
@@ -303,7 +350,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
   geom_point() + 
   ###<b>
   labs(colour = "Legend\ntitle:")
@@ -313,13 +361,15 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 
 </div>
 
+## Exercise 1: Changing text
 
+Complete RMarkdown document `1_add_labs.Rmd`
 
 
 ## Themes {.smaller}
 
-- specify appearance of non-data related ink
-- can be done manually using `themes()` or using wrapper functions
+- Specify appearance of non-data related ink
+- Can be done manually using `themes()` or using wrapper functions
 - All `ggplot` wrappers:
 
 ```{r echo = F}
@@ -344,9 +394,9 @@ print(all_themes)
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_grey(base_size = 11)
   ###</b>
@@ -355,9 +405,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 
 <div style="float: right; width: 50%;">
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_grey(base_size = 11)
   ###</b>
@@ -370,9 +420,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_minimal(base_size = 14)
   ###</b>
@@ -381,9 +431,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 
 <div style="float: right; width: 50%;">
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_minimal(base_size = 14)
   ###</b>
@@ -396,9 +446,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_light(base_size = 14)
   ###</b>
@@ -407,9 +457,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 
 <div style="float: right; width: 50%;">
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_light(base_size = 14)
   ###</b>
@@ -422,9 +472,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_dark(base_size = 14)
   ###</b>
@@ -433,9 +483,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 
 <div style="float: right; width: 50%;">
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   theme_dark(base_size = 14)
   ###</b>
@@ -448,9 +498,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   ggthemes::theme_clean()
   ###</b>
@@ -459,9 +509,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 
 <div style="float: right; width: 50%;">
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
-  facet_grid(~smoker) +
+  facet_grid(~modality) +
   ###<b>
   ggthemes::theme_clean()
   ###</b>
@@ -484,18 +534,6 @@ ggsave("name of plot.png", width = 5, height = 5)
 - or export function in **plots** panel
 
 
-## Exercise 5 | bringing everything together
-
-Open script **exercises/5a_bringing_everything_together.R**
-
-Continue with **exercises/5b_bringing_everything_together.R**
-
-
-
-
-
-# Cosmetics II
-
 
 ## Changing text: legend keys {.smaller}
 
@@ -509,20 +547,20 @@ Continue with **exercises/5b_bringing_everything_together.R**
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_discrete(
-    labels = c("ex-smoker", "non-smoker", "smoker")) 
+    labels = c("Spoken output", "Written output")) 
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_discrete(
-    labels = c("ex-smoker", "non-smoker", "smoker")) 
+    labels = c("Spoken output", "Written output")) 
   ###</b>
 ```
 
@@ -534,8 +572,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ## Changing text: legend keys
 
 <div style="float: left; width: 35%;">
-- change colour values manually
-- colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 - `ggthemes`
 
 </div>
@@ -543,22 +581,21 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo =F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age,
-                          colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
-  scale_colour_manual(labels = c("ex-smoker", "non-smoker", "smoker"),
-        values = c("firebrick", "turquoise2", "cornflowerblue"))
+  scale_colour_manual(labels = c("Spoken output", "Written output"),
+        values = c("firebrick", "turquoise2"))
   ###</b>
 ```
 
 ```{r eval =F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_manual(
-    labels = c("ex-smoker", "non-smoker", "smoker"),
-    values = c("firebrick", "turquoise2", "cornflowerblue"))
+    labels = c("Spoken output", "Written output"),
+    values = c("firebrick", "turquoise2")
   ###</b>
 ```
 
@@ -568,8 +605,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ## Changing text: legend keys
 
 <div style="float: left; width: 35%;">
-- change colour values manually
-- colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 - `ggthemes`
 
 </div>
@@ -577,23 +614,22 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 60%;">
 
 ```{r echo =F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age,
-                          colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
-  scale_colour_manual(labels = c("ex-smoker", "non-smoker", "smoker"),
-        values = c("firebrick", "turquoise2", "cornflowerblue"))
+  scale_colour_manual(labels = c("Spoken output", "Written output"),
+        values = c("firebrick", "turquoise2"))
   ###</b>
 ```
 
 
 ```{r eval =F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_manual(
-    labels = c("ex-smoker", "non-smoker", "smoker"),
-    values = c("firebrick", "turquoise2", "cornflowerblue"))
+    labels = c("Spoken output", "Written output"),
+    values = c("firebrick", "turquoise2"))
   ###</b>
 ```
 
@@ -606,8 +642,8 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ## Changing text: legend keys
 
 <div style="float: left; width: 35%;">
-- change colour values manually
-- colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 - `ggthemes`
 
 </div>
@@ -634,8 +670,8 @@ scales::show_col(colorblind_pal()(8))
 ## Changing text: legend keys
 
 <div style="float: left; width: 35%;">
-- change colour values manually
-- colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 - `ggthemes`
 
 </div>
@@ -643,21 +679,21 @@ scales::show_col(colorblind_pal()(8))
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
-  scale_colour_manual(labels = c("ex-smoker", "non-smoker", "smoker"),
-        values = mycolours[1:3])
+  scale_colour_manual(labels = c("Spoken output", "Written output"),
+        values = mycolours[1:2])
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_manual(
-    labels = c("ex-smoker", "non-smoker", "smoker"),
-    values = mycolours[1:3])
+    labels = c("Spoken output", "Written output"),
+    values = mycolours[1:2])
   ###</b>
 ```
 
@@ -668,33 +704,44 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ## Changing text: legend keys
 
 <div style="float: left; width: 35%;">
-- change colour values manually
-- colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 - `ggthemes`
 </div>
 
 <div style="float: right; width: 60%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_colorblind(
-    labels = c("ex-smoker", "non-smoker", "smoker"))
+    labels = c("Spoken output", "Written output"))
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() +  
   ###<b>
   scale_colour_colorblind(
-    labels = c("ex-smoker", "non-smoker", "smoker"))
+    labels = c("Spoken output", "Written output"))
   ###</b>
 ```
 
 
 </div>
+
+## Exercise 2: Customising colour aesthetics
+
+On changing colour manually
+
+colourblind using ggthemes
+
+greyscale
+
+combined with other aesthetics
+
 
 
 
@@ -703,10 +750,10 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker)
+  facet_grid(~modality)
   ###</b>
 ```
 
@@ -715,10 +762,10 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 50%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker)
+  facet_grid(~modality)
   ###</b>
 ```
 
@@ -730,10 +777,10 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker, labeller = label_both)
+  facet_grid(~modality, labeller = label_both)
   ###</b>
 ```
 
@@ -742,10 +789,10 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 50%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker, labeller = label_both)
+  facet_grid(~modality, labeller = label_both)
   ###</b>
 ```
 
@@ -757,20 +804,19 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: left; width: 45%;">
 
 ```{r echo = F, out.width="100%"}
-p <- ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+p <- ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker, labeller = label_both)
+  facet_grid(~modality, labeller = label_both)
   ###</b>
 ```
 
 ```{r}
 ###<b>
-blomkvist <- mutate(blomkvist, 
-                    smoker = recode(smoker, 
-                    "former" = "Ex-smoker",
-                    "no" = "Non-smoker",
-                    "yes" = "Smoker"))
+d_spellname <- mutate(d_spellname, 
+                    modality = recode(modality, 
+                    "speech" = "Spoken output",
+                    "writing" = "Written output"))
 ###</b>
 ```
 
@@ -791,11 +837,10 @@ p
 
 ```{r eval = F}
 ###<b>
-blomkvist <- mutate(blomkvist, 
-                    smoker = recode(smoker, 
-                    "former" = "Ex-smoker",
-                    "no" = "Non-smoker",
-                    "yes" = "Smoker"))
+d_spellname <- mutate(d_spellname, 
+                    modality = recode(modality, 
+                    "speech" = "Spoken output",
+                    "writing" = "Written output"))
 ###</b>
 ```
 
@@ -804,10 +849,10 @@ blomkvist <- mutate(blomkvist,
 <div style="float: right; width: 50%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
-  facet_grid(~smoker)
+  facet_grid(~modality)
   ###</b>
 ```
 
@@ -829,7 +874,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme()
@@ -837,7 +882,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme()
@@ -863,7 +908,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.text = element_text(face = "italic"))
@@ -871,7 +916,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.text = element_text(face = "italic"))
@@ -898,7 +943,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.title = element_text(face = "bold"))
@@ -906,7 +951,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.title = element_text(face = "bold"))
@@ -934,7 +979,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="100%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.title.y = element_text(face = "bold"))
@@ -942,7 +987,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) + 
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
   geom_point() +
   ###<b>
   theme(axis.title.y = element_text(face = "bold"))
@@ -971,7 +1016,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme()
@@ -979,7 +1024,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme()
@@ -1008,7 +1053,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme(legend.position = "top")
@@ -1016,7 +1061,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme(legend.position = "top")
@@ -1044,7 +1089,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme(legend.position = "top",
@@ -1053,7 +1098,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) + 
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
   geom_point() +
   ###<b>
   theme(legend.position = "top",
@@ -1082,7 +1127,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   geom_point() + 
   ###<b>
   theme(legend.position = c(.15,.8))
@@ -1090,7 +1135,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality))+
   geom_point() + 
   ###<b>
   theme(legend.position = c(.15,.8))
@@ -1116,7 +1161,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age, colour = smoker)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme()
@@ -1124,7 +1169,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme()
@@ -1147,7 +1192,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme(panel.background = element_blank())
@@ -1155,7 +1200,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme(panel.background = element_blank())
@@ -1182,7 +1227,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() +
   ###<b>
   theme()
@@ -1190,7 +1235,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() +
   ###<b>
   theme()
@@ -1217,7 +1262,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme(plot.background = element_rect(fill = "pink"))
@@ -1225,7 +1270,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme(plot.background = element_rect(fill = "pink"))
@@ -1247,7 +1292,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   ###<b>
   theme(plot.background = element_rect(fill = "pink"),
@@ -1256,7 +1301,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   theme(plot.background = element_rect(fill = "pink"),
   ###<b>
@@ -1283,7 +1328,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   labs(title = "I'm a title") +
   ###<b>
@@ -1292,7 +1337,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   labs(title = "I'm a title") +
   ###<b>
@@ -1314,7 +1359,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   labs(caption = "I'm a caption") +
   ###<b>
@@ -1323,7 +1368,7 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
   labs(caption = "I'm a caption") +
   ###<b>
@@ -1346,18 +1391,18 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme()
   ###</b>
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme()
   ###</b>
@@ -1378,18 +1423,18 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_blank())
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_blank())
   ###</b>
@@ -1408,18 +1453,18 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"))
   ###</b>
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"))
   ###</b>
@@ -1439,9 +1484,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"),
         strip.text = element_text(colour = "white", hjust = 0))
@@ -1449,9 +1494,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both)+
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"),
         strip.text = element_text(colour = "white", hjust = 0))
@@ -1472,9 +1517,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 <div style="float: right; width: 65%;">
 
 ```{r echo = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both)+
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"),
         strip.text = element_text(colour = "white", hjust = 0, 
@@ -1483,9 +1528,9 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 ```
 
 ```{r eval = F, out.width="80%"}
-ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
+ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
-  facet_grid(~smoker, labeller = label_both) +
+  facet_grid(~modality, labeller = label_both) +
   ###<b>
   theme(strip.background = element_rect(fill = "forestgreen"),
         strip.text = element_text(colour = "white", hjust = 0, 
@@ -1497,7 +1542,35 @@ ggplot(blomkvist, aes(y = rt_hand_d, x = age)) +
 </div>
 
 
-## Creating your own Theme
+## Exercise 3: creating your own theme {.smaller .columns-2}
+
+Creating your own theme
+
+```{r}
+theme_roeser <- theme_minimal() +
+  theme(
+    axis.title = element_text(size = 14),
+    panel.grid = element_blank(),
+    legend.position = "bottom",
+    legend.justification = "right"
+  )
+```
+
+Setting your theme as default
+
+```{r}
+theme_set(theme_roeser)
+```
+
+All visualisations will now appear with your theme.
+
+```{r echo = F, fig.width= 4, fig.height=4.5}
+ggplot(d_spellname, aes(x = dur, 
+                        colour = modality, 
+                        fill = modality)) +
+  geom_density(alpha = .25)
+```
+
 
 
 
