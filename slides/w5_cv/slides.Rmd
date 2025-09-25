@@ -734,13 +734,7 @@ ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
 
 ## Exercise 2: Customising colour aesthetics
 
-On changing colour manually
-
-colourblind using ggthemes
-
-greyscale
-
-combined with other aesthetics
+Complete the RMarkdown `2_customising_aes.Rmd`
 
 
 
@@ -1544,32 +1538,9 @@ ggplot(d_spellname, aes(y = rt, x = dur)) +
 
 ## Exercise 3: creating your own theme {.smaller .columns-2}
 
-Creating your own theme
+Complete RMarkdown `3_defining_themes.Rmd`
 
-```{r}
-theme_roeser <- theme_minimal() +
-  theme(
-    axis.title = element_text(size = 14),
-    panel.grid = element_blank(),
-    legend.position = "bottom",
-    legend.justification = "right"
-  )
-```
 
-Setting your theme as default
-
-```{r}
-theme_set(theme_roeser)
-```
-
-All visualisations will now appear with your theme.
-
-```{r echo = F, fig.width= 4, fig.height=4.5}
-ggplot(d_spellname, aes(x = dur, 
-                        colour = modality, 
-                        fill = modality)) +
-  geom_density(alpha = .25)
-```
 
 
 
