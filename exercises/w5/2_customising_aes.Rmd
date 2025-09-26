@@ -105,4 +105,4 @@ ggplot(d_blomkvist, aes(x = age, fill = smoker)) +
   geom_density()
 ```
 
-
+Once you've completed all tasks above you can `knit` this document to HTML.

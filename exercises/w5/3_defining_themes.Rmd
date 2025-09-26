@@ -61,6 +61,7 @@ plot_light <- plot_rt + theme_light() + labs(subtitle = "theme_light")
 plot_bw + plot_classic + --- + plot_light
 
 ```
+
 When you type `theme_` and you will see a drop-down list with all themes available in your environment. If you load `ggthemes` you will find even more themes to choose from. The name of the package a theme comes from is listed next to the drop-down list when you type `theme_` (after loading `ggthemes`).
 
 ```{r}
@@ -79,55 +80,85 @@ All themes allow you to change the base font size (default size varies). Choose 
 plot_rt + theme_---(base_size = ---)
 ```
 
+`ggplot2` allows a lot of flexibility with editing themes. In other words there are too many options to remember. The general strategy for editing themes is to first add the `theme()` function. With the cursor inside the parentheses you will the available options. There are still many. Lets explore options that I frequently change, the options starting with `axis`, `legend`, `strip`, `panel`.
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Changing theme properties manually.
-# Legend position: I prefer the legend to be on the top or bottom so there is
-# more room for showing data when included on an A4 page.
-# Also, I tend to remove the grid in the background when it doesn't serve a function.
-rt_plot + theme(legend.position = "---", # use "top" or "bottom
-                legend.justification = "right", # default is "centre". Use "right" or "left".
-                panel.grid.minor = ---) # `element_blank()` can be use to remove properties such as minor grid lines
+`axis` allows you to change aspects of the axes, including lines, tickets, text and title for each axis or both together. For example you can increase the font size of both titles without changing the font size of other aspects of the plot. If you only want to change the font size of the x axis you'd use `axis.title.x` instead.
 
-# Add the above changes to rt_plot using the assignment operator `<-` as above.
+```{r}
+plot_rt + theme(axis.title = element_text(size = 17))
+```
+`legend` allows you to change aspects of the title such as title, keys, location, orientation. For example if I want the legend to be positioned on the top of plot I can set `legend.position` to "top" (other options are "bottom", "right", "left") and I can use `legend.justification` to move it to the right or left. Positioning the legend on the top gives you more plotting space when you visulisation appears on an A4 page or in any situation when your horizontal space is more limited than your vertical space (not on slides).
 
+```{r}
+plot_rt + theme(legend.position = "top",
+                legend.justification = "right")
+```
+Grid lines can be distracting in plots, especially with dark gridlines on white backgrounds. You can remove grid lines using `panel.grid`. For example if we want to remove only the minor grid lines, you can do the following.
 
+```{r}
+plot_rt + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank())
+```
+The text above each panel appears in "strips". You can change things like the colour used, the text, the frame, their position etc. For example, I can remove the background altogether.
 
-You can define themes from scratch but often it is easier to modify existing themes that already possess the properties you're interested in.
+```{r}
+plot_rt + 
+  theme(strip.background = element_blank())
+```
 
+Combine options in the following code. I'm not saying that the result is pretty, it's just about combining skills.
 
+```{r}
+plot_rt + 
+  theme(legend.position = "---", # should be on the bottom
+        legend.justification = "---", # should be left
+        ---, # remove all grid lines
+        ---) #  make the strip text bold and red: for help check ?element.text
 
+```
 
-
-
-
-
-them modify themes
-
-
-Creating your own theme
+You can define themes from scratch but often it is easier to modify existing themes that already possess the properties you want. In fact, I can create my own theme:
 
 ```{r}
 theme_roeser <- theme_minimal() +
-  theme(
-    axis.title = element_text(size = 14),
-    panel.grid = element_blank(),
-    legend.position = "bottom",
-    legend.justification = "right"
-  )
+  theme(axis.title = element_text(size = 14),
+        panel.grid = element_blank(),
+        legend.position = "bottom",
+        legend.justification = "right", 
+        panel.border = element_rect())
 ```
 
-Setting your theme as default
+and apply it to my plot.
+
+```{r}
+plot_rt + theme_roeser
+```
+
+I can also go ahead and set my theme as default
 
 ```{r}
 theme_set(theme_roeser)
 ```
 
-All visualisations will now appear with your theme.
+All visualisations will now appear in my theme.
 
 ```{r}
-ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, colour = smoker)) +
-  geom_point() +
-  facet_wrap(~meds_cat) +
-  labs(x = "Age in years", y = "Mean reaction time in msecs")
+plot_rt
 ```
+
+Create your own theme. Include what you please but change the default settings of the following:
+
+- location of the legend
+- any text property (size, face, angle)
+- strips (text, border, colour, etc)
+
+```{r}
+# space for new theme
+
+# set your theme as default
+
+# check how the plot looks like now
+```
+
+Once you've completed all tasks above you can `knit` this document to HTML.
