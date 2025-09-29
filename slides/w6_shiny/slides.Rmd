@@ -1,0 +1,273 @@
+---
+title: "Introduction to Shiny and Reactive Programming"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+#    logo: ../gfx/ntu.png
+bibliography:     ["../references.bib"]
+link-citations: yes
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+```
+
+
+## General outline for weeks 6 -- 9
+
+- Week 6: Introduction to Shiny and Reactive Programming
+- Week 7: Building Interactive UI Components
+- Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation
+- Week 9: Creating and Deploying Dashboards
+
+
+```{r echo = F}
+d_spellname <- read_csv("../../data/spellname.csv")
+```
+
+
+```{r echo = F}
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
+```
+
+
+## What is Shiny?
+
+- A web application framework for R
+- Enables interactive data exploration
+- Built on reactive programming principles
+
+```{r eval = FALSE}
+# Install shiny
+install.packages("shiny")
+# Load shiny
+library(shiny)
+```
+
+
+
+## Anatomy of a Shiny App {.columns-2}
+
+- ui: User interface / frontend
+- server: Backend
+- see `0_app.R`
+
+```{r eval = F}
+library(shiny)
+
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+
+```
+
+
+
+## Anatomy of a Shiny App {.columns-2}
+
+- ui: user interface / frontend
+- server: backend
+
+```{r eval=F}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("num", "Choose a number", 1, 100, 50),
+  textOutput("result")
+)
+
+server <- function(input, output) {
+  output$result <- renderText({
+    paste("You chose", input$num)
+  })
+}
+
+shinyApp(ui, server)
+
+```
+
+## Exercise 1: Modify the App
+
+- Open script `1_app.R`
+- Add a second input: `textInput()`
+- Display both inputs in the output
+
+
+## What is Reactive Programming?
+
+- Focused on data flows and the propagation of change.
+- When a user interacts with an input (like a slider or text box), any outputs that depend on that input automatically update.
+
+**Traditional vs Reactive R**
+
+- Traditional R: You run a script top-to-bottom. If you want to change something, you re-run the script.
+- Reactive R (Shiny): You define relationships between inputs and outputs. When an input changes, the output updates automatically.
+
+
+
+## Key Reactive Components in Shiny
+
+- `input$...`	Represents user input (e.g., from sliders, text boxes).
+- `render*()`	Creates reactive outputs (e.g., renderPlot, renderText).
+- `reactive()`	Defines reactive expressions (intermediate computations).
+- `observe()`	Executes code in response to changes, but doesn’t return a value.
+- `observeEvent()`	Responds to specific events (e.g., button clicks).
+
+
+## How Reactivity Works
+
+Imagine this flow:
+
+1. User changes a slider (input$slider)
+1. A reactive expression recalculates based on that input.
+1. A render function updates the output (e.g., a plot or text).
+
+This chain of dependencies is what we call the reactive graph.
+
+
+What is a Reactive Graph?
+
+The reactive graph is a conceptual diagram showing how different parts of your Shiny app depend on each other. Each node is a reactive object (input, reactive expression, output), and edges show dependencies.
+
+```{r eval = F}
+ui <- fluidPage(
+  sliderInput("n", "Number of points", 10, 100, 50),
+  plotOutput("histo")
+)
+
+server <- function(input, output) {
+  data <- reactive({
+    rnorm(input$n)
+  })
+
+  output$histo <- renderPlot({
+    hist(data())
+  })
+}
+
+```
+
+
+Reactive graph: `input$n ──▶ data() ──▶ output$histo`
+
+- `input$n` is the source.
+- `data()` is a reactive expression that depends on `input$n`.
+- `output$histo` depends on `data()`.
+
+If `input$n` changes, `data()` recalculates, and `output$histo` re-renders.
+
+## Exercise 2: Tools to Visualize Reactivity
+
+- `reactlog::reactlog_enable()`: Enables a visual debugger for the reactive graph.
+- After running your app, press `Ctrl + F3` (or `Cmd + F3` on Mac) to open the reactive graph viewer.
+- Check `2_app.R`
+
+
+## Exercise 3
+
+- Let's explore how a reactivity graph for multiple inputs looks like.
+- Check `3_app.R`
+
+
+## Understanding `observe()` and `observeEvent()`
+
+- `observe()` and `observeEvent()` trigger side effects or respond to events without producing reactive values.
+- `observe()` and `observeEvent()` are not part of the reactive graph -- they’re for side effects, not data flow.
+- "Side effects" don't produce a reactive value but still causes a change -- like printing to the console, updating the UI, saving a file, or showing a notification.
+
+## `observe()`
+
+- Used to run code in response to reactive changes, but does not return a value.
+- Ideal for side effects like logging, updating UI elements, or saving data.
+
+```{r eval = F}
+observe({
+  print(input$slider)
+})
+```
+
+- This runs every time input$slider changes, but doesn’t affect other reactive expressions.
+  - `reactive()` is like a formula in a spreadsheet.
+  - `observeEvent()` is like a macro that runs when you click a button.
+- Mixing reactive expressions and observers can lead to unexpected behaviour.
+
+## `observeEvent()`
+
+- Used to respond to a specific event, like a button click.
+- More efficient than `observe()` when you only care about one trigger.
+
+```{r eval = F}
+observeEvent(input$goButton, {
+  showNotification("Button clicked!")
+})
+```
+
+- Only runs when `input$goButton` changes (e.g., is clicked).
+
+## Exercises
+
+1. **Logging Input Changes:** Use `observe()` to print the value of a slider every time it changes. (see `4_app.R`)
+2. **Button Triggered Action:** Use `observeEvent()` to show a notification when a button is clicked. (see `5_app.R`)
+3. **Conditional UI Update:** Use `observeEvent()` to update a plot only when a button is pressed, not when inputs change.
+  - You want to store and update a value manually: `reactiveVal()` (see `6_app.R`)
+  - You want to compute a value only when an event occurs:  `eventReactive()` (see `7_app.R`) 
+
+## Tips 
+
+- Use `reactlog::reactlog_enable()` to debug
+- Always test small components first
+- Use `req()` to avoid errors from missing inputs
+
+
+
+## Short cuts
+
+- Type `shinyapp` (from `snippet` package)
+- From menu: File > New File > Shiny Web App...
+- Click on "Run App"
+
+
+
+## Recommended reading
+
+
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

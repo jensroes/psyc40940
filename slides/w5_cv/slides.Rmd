@@ -3,7 +3,7 @@ title: "Customising visualisations"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
-  incremental: false
+incremental: false
 widescreen: true
 transition: slower
 css: slides.css
