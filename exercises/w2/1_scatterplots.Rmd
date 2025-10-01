@@ -1,7 +1,7 @@
 ---
 title             : 'Exercise 1: Scatterplots'
 output            : html_document
-bibliography      : "../slides/references.bib"
+bibliography      : "references.bib"
 ---
 
 

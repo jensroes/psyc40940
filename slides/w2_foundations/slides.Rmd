@@ -1,5 +1,5 @@
 ---
-title: "Foundations of Data Visualisation and `ggplot2`"
+title: "PSYC40940: Foundations of Data Visualisation and `ggplot2`"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output: 
   ioslides_presentation:
@@ -42,6 +42,11 @@ theme_set(
 - Week 4: Major visualisation tools
 - Week 5: Customising visualisations (scales, themes, and labels)
 
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
+
 
 ## What is data visualisation?
 
@@ -83,7 +88,7 @@ glimpse(d_spellname)
 
 ## Exploring data
 
-```{r}
+```{r echo = F}
 d_spellname %>% 
   filter(image_id == "binoculars.jpg") %>% 
   glimpse()
@@ -91,12 +96,12 @@ d_spellname %>%
 
 
 
-## Exploring data
+<!-- ## Exploring data -->
 
-```{r}
-d_ppt_pic <- distinct(d_spellname, ppt_id, image_id)
-count(d_ppt_pic, ppt_id)
-```
+<!-- ```{r} -->
+<!-- d_ppt_pic <- distinct(d_spellname, ppt_id, image_id) -->
+<!-- count(d_ppt_pic, ppt_id) -->
+<!-- ``` -->
 
 
 ## Building up a plot
@@ -204,7 +209,7 @@ ggplot(data = d_vocab, mapping = aes(x = ppt_vocab, y = rt, colour = modality)) 
 
 
 
-## Building up a plot
+## Building up a plot {.columns-2}
 
 ```{r, eval = FALSE}
 ggplot(data = d_vocab, 
@@ -226,9 +231,9 @@ ggplot(data = d_vocab,
         axis.title = element_text(hjust = 0))
 ```
 
-## Explanatory plot
 
-```{r, echo = FALSE, results=TRUE, fig.width=5.5, fig.height=4.75}
+
+```{r, echo = FALSE, results=TRUE, fig.width=5, fig.height=4.25}
 ggplot(data = d_vocab, 
        mapping = aes(x = ppt_vocab, 
                      y = rt, 

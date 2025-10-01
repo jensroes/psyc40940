@@ -40,6 +40,10 @@ theme_set(
 - Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation
 - Week 9: Creating and Deploying Dashboards
 
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
 
 ```{r echo = F}
 d_spellname <- read_csv("../../data/spellname.csv")
@@ -53,6 +57,42 @@ d_spellname <- summarise(d_spellname,
                       .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
 ```
 
+
+## What are interactive data dashboards?
+
+Dashboards are interactive tools for data communication and decision-making.
+
+A data dashboard is a visual interface that displays key information, metrics, and insights from data---often in real time---using charts, tables, and interactive controls.
+
+Purpose
+
+- Summarise complex data in a digestible format
+- Enable exploration and decision-making
+- Provide interactivity for filtering, drilling down, and customising views
+
+Common Elements
+
+- Inputs: filters, selectors, sliders
+- Outputs: plots, tables, maps
+- Layout: organized panels or tabs
+- Reactivity: updates based on user interaction
+
+
+## What are interactive data dashboards?
+
+See here for my [Multi-language written picture-naming dataset app](https://jens-roeser.shinyapps.io/multilangapp/) of the data published in @torrance2018timed.
+
+Other dashboards:
+
+- COVID-19 trackers
+- Financial dashboards
+- Academic performance dashboards
+- [Shiny Gallery](https://shiny.posit.co/gallery/)
+
+
+What kinds of decisions can dashboards support?
+
+What makes a dashboard useful vs overwhelming?
 
 ## What is Shiny?
 
@@ -68,6 +108,14 @@ library(shiny)
 ```
 
 
+## App Components
+
+- Inputs (filters)
+- Outputs (plots/tables)
+- Layout (`fluidPage`, `sidebarLayout`)
+- Reactivity (how inputs affect outputs)
+
+
 
 ## Anatomy of a Shiny App 
 
@@ -76,20 +124,27 @@ library(shiny)
 ```{r eval = F}
 library(shiny)
 
-ui <- fluidPage(
+ui <- fluidPage( # layout function that sets up the basic visual structure of the page.
+  
   # User interface / "frontend": what do you want the user to see / do?
   # This is how the interface should look like and
   # what information the user should be allowed to provide.
+  # Input controls lets the user interact with the app by providing values.
+
 )
 
 server <- function(input, output, session) {
+  
   # "Backend": what do you want the app to do?
   # This is the heart of the app: each app should have a purpose. 
+
 }
 
 shinyApp(ui, server)
 
 ```
+
+
 
 See file `0_app.R`
 
@@ -120,7 +175,7 @@ Workflow of Shiny app development
 
 Simple app that prints numbers.
 
-- `sliderInput`: 
+- `sliderInput` 
 - `input$...`
 - `output$...`
 - `renderText`
@@ -262,6 +317,12 @@ shinyApp(ui, server)
 
 ## What is Reactive Programming?
 
+From @Wickham2021MasteringShiny:
+
+> "[It's] telling Shiny *how* to perform a computation, not ordering Shiny to actually go *do it*. It's like the difference between giving someone a recipe versus demanding that they go make you a sandwich."
+
+## What is Reactive Programming?
+
 - Focused on data flows and the propagation of change.
 - When a user interacts with an input (like a slider or text box), any outputs that depend on that input automatically update.
 
@@ -329,6 +390,13 @@ Reactive graph:
 If `input$n` changes, `data()` recalculates, and `output$hist` re-renders.
 
 Btw, notice the parentheses for "`data()`".
+
+## What is a Reactive Graph? {.columns-2 .smaller}
+
+- Create a reactive expression by wrapping a block of code in `reactive({...})` 
+- Assign it to a variable: `var <- reactive({...})`
+- Use a reactive expression by calling the variable like a function: e.g. `var()`
+- The reactive expression (unlike a function) runs the first time it's called; then it caches its result until it needs to be updated.
 
 ## Exercise 2: Tools to Visualize Reactivity
 
@@ -420,7 +488,7 @@ Check `8_app.R`
 - Use `reactlog::reactlog_enable()` to debug
 - Always test small components first
 - Use `req()` to avoid errors from missing inputs
-
+- [Shiny cheatsheet](https://rstudio.github.io/cheatsheets/shiny.pdf)
 
 
 ## Short cuts
@@ -433,8 +501,7 @@ Check `8_app.R`
 
 ## Recommended reading
 
-
-
+- Chapters 1 and 3: @Wickham2021MasteringShiny *Mastering shiny.* O'Reilly Media. [LINK](https://mastering-shiny.org/action-intro.html)
 
 ## References
 

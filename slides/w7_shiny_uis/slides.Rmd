@@ -40,6 +40,9 @@ theme_set(
 - Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation
 - Week 9: Creating and Deploying Dashboards
 
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
 
 ```{r echo = F}
 d_spellname <- read_csv("../../data/spellname.csv")
@@ -63,6 +66,7 @@ Tips
 
 - Use `reactlog::reactlog_enable()` to debug
 - Always test small components first
+- [Shiny cheatsheet](https://rstudio.github.io/cheatsheets/shiny.pdf)
 
 Short cuts
 

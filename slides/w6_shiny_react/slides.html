@@ -3316,15 +3316,20 @@ library(shiny)</pre>
 
 <pre class = 'prettyprint lang-r'>library(shiny)
 
-ui &lt;- fluidPage(
+ui &lt;- fluidPage( # layout function that sets up the basic visual structure of the page.
+  
   # User interface / &quot;frontend&quot;: what do you want the user to see / do?
   # This is how the interface should look like and
   # what information the user should be allowed to provide.
+  # Input controls lets the user interact with the app by providing values.
+
 )
 
 server &lt;- function(input, output, session) {
+  
   # &quot;Backend&quot;: what do you want the app to do?
   # This is the heart of the app: each app should have a purpose. 
+
 }
 
 shinyApp(ui, server)</pre>
@@ -3361,7 +3366,7 @@ shinyApp(ui, server)</pre>
 <p>Simple app that prints numbers.</p>
 
 <ul>
-<li><code>sliderInput</code>:</li>
+<li><code>sliderInput</code></li>
 <li><code>input$...</code></li>
 <li><code>output$...</code></li>
 <li><code>renderText</code></li>
@@ -3485,6 +3490,14 @@ shinyApp(ui, server)</pre>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>What is Reactive Programming?</h2></hgroup><article  id="what-is-reactive-programming">
+
+<p>From <span class="cite">Wickham (<a href='#ref-Wickham2021MasteringShiny' title=''>2021</a>)</span>:</p>
+
+<blockquote>
+<p>&ldquo;[It’s] telling Shiny <em>how</em> to perform a computation, not ordering Shiny to actually go <em>do it</em>. It’s like the difference between giving someone a recipe versus demanding that they go make you a sandwich.&rdquo;*</p>
+</blockquote>
+
+</article></slide><slide class=""><hgroup><h2>What is Reactive Programming?</h2></hgroup><article  id="what-is-reactive-programming-1">
 
 <ul>
 <li>Focused on data flows and the propagation of change.</li>
@@ -3650,6 +3663,7 @@ server &lt;- function(input, output) {
 <li>How <code>eventReactive()</code> controls updates</li>
 <li>How <code>observeEvent()</code> handles side effects</li>
 <li>How to use <code>reactiveVal()</code> for state tracking</li>
+<li>How to use <code>req()</code> (check required values) to avoid errors from missing inputs</li>
 </ul>
 
 <p>Check <code>8_app.R</code></p>
@@ -3686,7 +3700,11 @@ slides > slide { overflow: scroll; }
 slides > slide:not(.nobackground):after {
   content: '';
 }
-</style></article></slide>
+</style>
+
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Wickham2021MasteringShiny" class="csl-entry">
+<p>Wickham, Hadley. 2021. <em>Mastering Shiny</em>. Sebastopol, CA: O’Reilly Media.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>
