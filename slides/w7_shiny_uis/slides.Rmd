@@ -1,0 +1,92 @@
+---
+title: "Building Interactive UI Components"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+#    logo: ../gfx/ntu.png
+bibliography:     ["../references.bib"]
+link-citations: yes
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+```
+
+
+## General outline for weeks 6 -- 9
+
+- ~~Week 6: Introduction to Shiny and Reactive Programming~~
+- Week 7: Building Interactive UI Components
+- Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation
+- Week 9: Creating and Deploying Dashboards
+
+
+```{r echo = F}
+d_spellname <- read_csv("../../data/spellname.csv")
+```
+
+
+```{r echo = F}
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
+```
+
+## Recap from last week
+
+- Introduction to Shiny
+- Anatomy of Shiny Apps
+- Reactivity: reactive expressions; observers
+
+Tips 
+
+- Use `reactlog::reactlog_enable()` to debug
+- Always test small components first
+
+Short cuts
+
+- Type `shinyapp` (from `snippet` package)
+- From menu: `File > New File > Shiny Web App...`
+- Click on "Run App"; `Cmd/Ctrl + Shift + Enter`
+
+
+
+
+
+
+
+## Recommended reading
+
+
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

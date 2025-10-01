@@ -69,20 +69,79 @@ library(shiny)
 
 
 
-## Anatomy of a Shiny App {.columns-2}
+## Anatomy of a Shiny App 
 
-- ui: User interface / frontend
-- server: Backend
-- see `0_app.R`
+
 
 ```{r eval = F}
 library(shiny)
 
 ui <- fluidPage(
-  
+  # User interface / "frontend": what do you want the user to see / do?
+  # This is how the interface should look like and
+  # what information the user should be allowed to provide.
 )
 
 server <- function(input, output, session) {
+  # "Backend": what do you want the app to do?
+  # This is the heart of the app: each app should have a purpose. 
+}
+
+shinyApp(ui, server)
+
+```
+
+See file `0_app.R`
+
+
+## Anatomy of a Shiny App {.columns-2}
+
+In the R console you'll see something like:
+
+`Listening on http://127.0.0.1:3996`
+
+This tells you the URL where your app can be found: `127.0.0.1` is a standard address that means "this computer" and 3996 is a randomly assigned port number. You can enter that URL into any compatible web browser to open another copy of your app.
+
+Stopping the app: 
+
+- Click the stop sign icon on the R console toolbar.
+- Click on the console, then press `Esc`.
+- Close the Shiny app window.
+
+
+## Anatomy of a Shiny App 
+
+Workflow of Shiny app development
+
+- Write some code, start the app, play with the app, write some more code, and repeat. 
+- You don't even need to stop and re-start: press the Reload app button in the toolbox or use the `Cmd/Ctrl + Shift + Enter`. 
+
+## Anatomy of a Shiny App {.columns-2}
+
+Simple app that prints numbers.
+
+- `sliderInput`: 
+- `input$...`
+- `output$...`
+- `renderText`
+- `textOutput`
+- Use of `{...}`
+
+\
+\
+\
+
+```{r eval=F}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("num", "Choose a number", 1, 100, 50),
+
+)
+
+server <- function(input, output) {
+
+  
   
 }
 
@@ -90,12 +149,88 @@ shinyApp(ui, server)
 
 ```
 
+## Anatomy of a Shiny App {.columns-2}
+
+Simple app that prints numbers.
+
+- `sliderInput`: 
+- `input$...`
+- `output$...`
+- `renderText`
+- `textOutput`
+- Use of `{...}`
+
+\
+\
+\
+
+```{r eval=F}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("num", "Choose a number", 1, 100, 50),
+  
+)
+
+server <- function(input, output) {
+  output$result <- renderText({
+    
+  })
+}
+
+shinyApp(ui, server)
+
+```
 
 
 ## Anatomy of a Shiny App {.columns-2}
 
-- ui: user interface / frontend
-- server: backend
+Simple app that prints numbers.
+
+- `sliderInput`: 
+- `input$...`
+- `output$...`
+- `renderText`
+- `textOutput`
+- Use of `{...}`
+
+\
+\
+\
+
+```{r eval=F}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("num", "Choose a number", 1, 100, 50),
+  
+)
+
+server <- function(input, output) {
+  output$result <- renderText({
+    paste("You chose", input$num)
+  })
+}
+
+shinyApp(ui, server)
+
+```
+
+
+## Anatomy of a Shiny App {.columns-2}
+
+Simple app that prints numbers.
+
+- `sliderInput`: 
+- `input$...`
+- `output$...`
+- `renderText`
+- `textOutput`
+- Use of `{...}`
+
+\
+\
+\
 
 ```{r eval=F}
 library(shiny)
@@ -114,6 +249,9 @@ server <- function(input, output) {
 shinyApp(ui, server)
 
 ```
+
+
+
 
 ## Exercise 1: Modify the App
 
@@ -153,15 +291,17 @@ Imagine this flow:
 
 This chain of dependencies is what we call the reactive graph.
 
-
-What is a Reactive Graph?
+## What is a Reactive Graph?
 
 The reactive graph is a conceptual diagram showing how different parts of your Shiny app depend on each other. Each node is a reactive object (input, reactive expression, output), and edges show dependencies.
 
+## What is a Reactive Graph? {.columns-2 .smaller}
+
+
 ```{r eval = F}
 ui <- fluidPage(
-  sliderInput("n", "Number of points", 10, 100, 50),
-  plotOutput("histo")
+  sliderInput("n", "Sample size", 10, 100, 50),
+  plotOutput("hist")
 )
 
 server <- function(input, output) {
@@ -169,21 +309,26 @@ server <- function(input, output) {
     rnorm(input$n)
   })
 
-  output$histo <- renderPlot({
-    hist(data())
+  output$hist <- renderPlot({
+    histogram(data = NULL, x = data())
   })
 }
 
 ```
 
+\
 
-Reactive graph: `input$n ──▶ data() ──▶ output$histo`
+Reactive graph: 
+
+`input$n ──▶ data() ──▶ output$hist`
 
 - `input$n` is the source.
 - `data()` is a reactive expression that depends on `input$n`.
-- `output$histo` depends on `data()`.
+- `output$hist` depends on `data()`.
 
-If `input$n` changes, `data()` recalculates, and `output$histo` re-renders.
+If `input$n` changes, `data()` recalculates, and `output$hist` re-renders.
+
+Btw, notice the parentheses for "`data()`".
 
 ## Exercise 2: Tools to Visualize Reactivity
 
@@ -240,6 +385,35 @@ observeEvent(input$goButton, {
 3. **Conditional UI Update:** Use `observeEvent()` to update a plot only when a button is pressed, not when inputs change.
   - You want to store and update a value manually: `reactiveVal()` (see `6_app.R`)
   - You want to compute a value only when an event occurs:  `eventReactive()` (see `7_app.R`) 
+
+## Combining reactive expressions and observers
+
+Let’s level up with a more challenging Shiny app that combines:
+
+- Multiple reactive expressions
+- Observers for side effects
+- Conditional UI updates
+- A bit of state management
+
+## App Idea: Interactive Data Explorer with Controlled Updates
+
+Combining a few of these tools:
+
+- How to use `reactive()` for dynamic data
+- How to use `renderUI()` for conditional UI
+- How `eventReactive()` controls updates
+- How `observeEvent()` handles side effects
+- How to use `reactiveVal()` for state tracking
+- How to use `req()` (check required values) to avoid errors from missing inputs
+
+Check `8_app.R`
+
+## Extending the App!
+
+- Add an option to `8_app.R` that allows the user to change the number of bins used by the histogram.
+- Add an option that allows the user to define their own text for the x-axis.
+
+
 
 ## Tips 
 
