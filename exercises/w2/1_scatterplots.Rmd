@@ -1,7 +1,7 @@
 ---
-title             : 'Exercise 1: Scatterplots'
-output            : html_document
-bibliography      : "references.bib"
+title:             'Exercise 1: Scatterplots'
+output:            html_document
+bibliography:      "references.bib"
 ---
 
 
@@ -16,13 +16,13 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Here and all other exercises, whenever you encounter `---` in the code chunks, your task is to replace `---` correctly with a variable name, argument, function, code, etc. The instructions will help you. You will not be able to `knit` this RMarkdown document until you completed all tasks.
 
-Load `tidyverse` package (which includes `ggplot2` and many other useful functions for data processing). If you haven't installed `tidyverse`, un-comment (delete the "#") and run the next line:
+If you haven't installed `tidyverse`, un-comment (delete the "#") and run the next line:
 
 ```{r}
 # install.packages("tidyverse")
 ```
 
-Then, load `tidyverse` using the `library` function.
+Load the `tidyverse` package (which includes `ggplot2` and many other useful functions for data processing) using the `library` function.
 
 ```{r}
 # Load tidyverse
