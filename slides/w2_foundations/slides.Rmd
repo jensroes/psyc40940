@@ -46,17 +46,14 @@ theme_set(
 cat('<button onclick="window.print()">Print Slides</button>')
 ```
 
+## Overview
 
+- Motivation / Relevance
+- `ggplot2` teaser
+- Principles of data visualisation
 
-## What is data visualisation?
+Download ["Exercises" folder](https://now.ntu.ac.uk/d2l/le/lessons/1111404/topics/14295810) from NOW Learning Room (week 2). Move files into R-Project folder.
 
-- Graphical representation of data
-- Graphical data analysis 
-- What do we want to know?
-- What do we want to communicate?
-- What do people take away from your visualisation?
-- Exploratory plots (for small specialist audience)
-- Explanatory plots: inform and persuade wider audience
 
 
 ## The data {.columns-2}
@@ -105,6 +102,16 @@ d_spellname %>%
 d_ppt_pic <- distinct(d_spellname, ppt_id, image_id)
 count(d_ppt_pic, ppt_id)
 ```
+
+## What is data visualisation?
+
+- Graphical representation of data
+- Graphical data analysis 
+- What do we want to know?
+- What do we want to communicate?
+- What do people take away from your visualisation?
+- Exploratory plots (for small specialist audience)
+- Explanatory plots: inform and persuade wider audience
 
 
 ## Building up a plot
