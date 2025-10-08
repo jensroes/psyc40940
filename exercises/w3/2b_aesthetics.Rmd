@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 2b: Aesthetics'
-output            : html_document
+title:  'Exercise 2b: Aesthetics'
+output: html_document
 ---
 
 

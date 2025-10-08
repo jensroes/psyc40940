@@ -1,7 +1,6 @@
 ---
-title             : 'Exercise 1a: grammar of graphics'
-output            : html_document
-bibliography      : "../references.bib"
+title:          'Exercise 1a: grammar of graphics'
+output:         html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -154,4 +153,3 @@ ggplot(data = d_blomkvist, mapping = aes(x = age, y = rt_hand_d,
 
 Once you've completed all tasks above you can `knit` this document to HTML.
 
-# References

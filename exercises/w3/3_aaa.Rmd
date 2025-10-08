@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 2c: Aesthetics and attributes'
-output            : html_document
+title: 'Exercise 3: Aesthetics and attributes'
+output: html_document
 ---
 
 

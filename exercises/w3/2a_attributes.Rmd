@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 2a: Attributes'
-output            : html_document
+title:  'Exercise 2a: Attributes'
+output: html_document
 ---
 
 
