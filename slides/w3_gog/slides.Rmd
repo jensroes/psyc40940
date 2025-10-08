@@ -1,5 +1,5 @@
 ---
-title: "PSYC40940: Grammar of graphics"
+title: "PSYC40940: Grammar of Graphics"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
@@ -48,18 +48,26 @@ d_spellname <- summarise(d_spellname,
 ## General outline for weeks 2 -- 5
 
 - ~~Week 2: Principles of data visualisation~~
-- Week 3: Grammar of graphics; aesthetics and attributes
+- Week 3: Grammar of Graphics; aesthetics and attributes
 - Week 4: Major visualisation tools
 - Week 5: Customising visualisations (scales, themes, and labels)
 
 ## Objectives for today
 
-- Understanding the principle of the grammar of graphics
+- Understanding the principle of the Grammar of Graphics
 - Differentiating between aesthetics and attributes
-- Using a variety of geometries, aesthetics and attributions in data viaualisation
+- Using a variety of geometries, aesthetics and attributions in data visualization
+- Deciding between appropriate aesthetics for continuous and categorical variables
+
+Download exercises from Week 3 folder on NOW and move them into your R-project directory.
+
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
 
 
-# Grammar of graphics and `ggplot2`
+
+# Grammar of Graphics and `ggplot2`
 
 ## What do all data visualisations have in common?
 
@@ -92,10 +100,10 @@ ggplot(d_spellname, aes(x = dur, y = rt, colour = group)) +
 | **Theme**             | `theme_minimal()`  | Non-data display elements (fonts, text, grids, etc.)    |
 
 
-## Grammar of graphics 
+## Grammar of Graphics | @wilkinson2005grammar
 
 - `ggplot2` is an R package for creating statistical / data graphics  
-- It’s based on a *grammar of graphics* [@wilkinson2005grammar], hence "gg"
+- It’s based on a *Grammar of Graphics* [@wilkinson2005grammar], hence "gg"
 - Framework for data visualisation emphasising a layered approach.
 - You assemble plots by combining independent components  
 - Default settings allow rapid production of high-quality plots  
@@ -103,13 +111,13 @@ ggplot(d_spellname, aes(x = dur, y = rt, colour = group)) +
 - See also @wickham2016ggplot2, @wickham2010layered
 
 
-## Grammar of graphics 
+## Grammar of Graphics | @wilkinson2005grammar
 
-- @wilkinson2005grammar: Fundamental features that underlie all statistical graphics.
-- The grammar of graphics is an answer to the question of what is a statistical graphic? 
-- @wickham2010layered: `ggplot2` builds on Wilkinson’s grammar by focussing on the primacy of layers and adapting it for use in R. 
+- Fundamental features that underlie all statistical graphics.
+- Grammar of Graphics answera the question "what is a statistical graphic"? 
+- `ggplot2` builds on Wilkinson’s grammar by focussing on the primacy of layers and adapting it for use in R [@wickham2010layered]. 
 - Grammar describes how graphics map between **data** → **aesthetics / attributes** (colour, shape, size) → **geometric objects** (points, lines, bars). 
-- Higher-level plotting system compared to base R functions (e.g. `plot()`, `hist()`)
+- Higher-level plotting system (vs `plot()`, `hist()`)
 - Complex visualisations can be creased with a minimal amount of code
 - Supports *statistical transformations* and *coordinate systems*  
 - Enables *faceting* (splitting data into subsets)  
@@ -117,15 +125,17 @@ ggplot(d_spellname, aes(x = dur, y = rt, colour = group)) +
 
 
 
-## Grammar of graphics | @wilkinson1999statistics
+## Grammar of Graphics | @wilkinson2005grammar {.smaller}
 
-- Words can be combined into sentences with different meanings.
-- Property 1 (words): graphics consist of distinct layers of grammatical elements (data, aesthetics, geometries)
-- Property 2 (syntax): graphics are built around mappings that determine how data, aesthetics and geometries are combined.
+*Think about language* where grammar determines how words can be combined into sentences
+
+- "words": graphics consist of distinct layers of grammatical elements (data, aesthetics, geometries)
+- "grammar": graphics are built around mappings that determine how data, aesthetics and geometries are combined.
+
 - Grammatical elements are organised as layers
 - Underlying grammar controls how graphics are combined
 - System of rules for mapping variables to graphical properties
-- Instead of memorising "plot types," grammar of graphics teaches how plots are built.
+- Instead of memorising "plot types," Grammar of Graphics teaches how plots are built.
 - It gives flexibility: you can create any plot by combining consistent building blocks.
 
 
@@ -777,20 +787,18 @@ Complete RMarkdown documents
 
 ## Continuous vs Categorical Variables {.columns-1 .smaller}
 
-The type, i.e.  `<dbl>` and `<chr>` in
+The type---`<dbl>` and `<chr>`---determines which aesthetics you can map to it, and how `ggplot2` interprets it visually.
 
 ```{r}
 glimpse(d_spellname)
 ```
 
-determines which aesthetics you can map to it, and how `ggplot2` interprets it visually (color scales, shapes, etc.).
+
 
 `ggplot2` automatically detects variable type:
 
 - Continuous: numeric variables (e.g., age, height, RT, temperature)
 - Categorical: factors or character variables (e.g., group, species, modality)
-
-
 
 Sometimes categorical variables are coded as numbers; condition = 1, 2, 3, 4; male = 1, female = 2
 
@@ -798,29 +806,29 @@ Sometimes categorical variables are coded as numbers; condition = 1, 2, 3, 4; ma
 
 ## Continuous Variables: Visual Decoding {.columns-2 .smaller}
 
-```{r echo = F, fig.cap="See @wong2010points page 665", fig.width=5}
-image_read("../gfx/wong2010c.png") %>% 
-  image_ggplot()
+```{r echo = F, fig.cap="See @wong2010points page 665", out.width="90%"}
+image_read("../gfx/wong2010c.png") %>%   
+  image_scale("50%") 
 ```
 
-\
-\
 
 - Examples: age, height, RT, duration, temperature
 - Convey *magnitude* and *order*
-- Best represented using gradual or quantitative encodings:
-  - position on an aligned scale (x, y)
-  - length, angle, area, volume
-  - colour gradients (e.g., light → dark)
-    - monochromatic colour spectrum (saturation, grey scale)
-    - pure spectrum colours
-  - size (circle area, line width)
+
+Best represented using gradual or quantitative encodings:
+
+- position on an aligned scale (x, y)
+- length, angle, area, volume
+- colour gradients (e.g., light → dark)
+  - monochromatic colour spectrum (saturation, grey scale)
+  - pure spectrum colours
+- size (circle area, line width)
 
 
 
 
 
-## Continuous Variables: Visual Decoding | position on common scale
+## Continuous Variables: Position on common scale
 
 
 <div style="float: left; width: 45%;">
@@ -841,7 +849,7 @@ ggplot(d_spellname,
 </div>
 
 
-## Continuous Variables: Visual Decoding | position on non aligned scale
+## Continuous Variables: Non-aligned scale
 
 <div style="float: left; width: 45%;">
 ```{r eval = FALSE}
@@ -862,18 +870,13 @@ ggplot(d_spellname, aes(x = modality, y = rt)) +
 </div>
 
 
-## Continuous Variables: Visual Decoding |  colour gradients {.columns-2}
+
+## Continuous Variables: Colour gradients {.columns-2}
 
 ```{r out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt, angle = ppt_vocab)) +
-  geom_point() +
-  scale_colour_gradient(high = "darkred", low = "yellow")
-```
-
-## Continuous Variables: Visual Decoding |  colour gradients {.columns-2}
-
-```{r out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt, colour = ppt_vocab)) +
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = ppt_vocab)) +
   geom_point() +
   scale_colour_gradient(high = "darkred", low = "yellow")
 ```
@@ -882,24 +885,24 @@ ggplot(d_spellname, aes(x = dur, y = rt, colour = ppt_vocab)) +
 ## Categorical Variables: Visual Decoding {.columns-2 .smaller}
 
 
-```{r echo = F, fig.cap="See @wong2010points page 665", fig.width=5}
+```{r echo = F, fig.cap="See @wong2010points page 665", out.width="90%"}
 image_read("../gfx/wong2010ab.png") %>% 
-  image_ggplot()
+  image_resize("50%")
+  
 ```
-
-\
-\
 
 - Examples of categorical variables: condition, response modality, species
 - Convey *difference in kind*, not quantity
-- Best represented using distinct encodings:
-  - position on discrete axis (x)
-  - distinct shapes
-  - distinct hues (qualitative color palette)
+
+Best represented using distinct encodings:
+
+- position on discrete axis (x)
+- distinct shapes
+- distinct hues (qualitative color palette)
 
 
 
-## Categorical Variables: Visual Decoding |  colour gradients {.columns-2}
+## Categorical Variables: Colour gradients {.columns-2}
 
 ```{r out.width="100%"}
 ggplot(d_spellname, aes(x = dur, 
@@ -910,14 +913,15 @@ ggplot(d_spellname, aes(x = dur,
 ```
 
 
-## Categorical Variables: Visual Decoding | text / labels
+## Categorical Variables: `text` / `labels`
 
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           label = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        label = modality)) +
   geom_text(size = 3)
 ```
 
@@ -932,13 +936,14 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 </div>
 
 
-## Categorical Variables: Visual Decoding | shapes
+## Categorical Variables: `shape`
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           shape = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        shape = modality)) +
   geom_point(size = 3)
 
 ```
@@ -953,14 +958,15 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 </div>
 
 
-## Categorical Variables: Visual Decoding | hue
+## Categorical Variables: Hue
 
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           colour = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        colour = modality)) +
   geom_point(size = 3)
 
 ```
@@ -976,13 +982,14 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 
 
 
-## Categorical Variables: Visual Decoding | hue
+## Categorical Variables: Hue
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           colour = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        colour = modality)) +
   stat_smooth(method = "lm", se = F)
 ```
 
@@ -997,13 +1004,14 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 
 
 
-## Categorical Variables: Visual Decoding | linetype
+## Categorical Variables: `linetype`
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           linetype = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        linetype = modality)) +
   stat_smooth(method = "lm", se = F)
 ```
 
@@ -1017,13 +1025,14 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 </div>
 
 
-## Categorical Variables: Visual Decoding | size
+## Categorical Variables: `size`
 
 <div style="float: left; width: 55%;">
 
-```{r  out.width="100%"}
-ggplot(d_spellname, aes(x = dur, y = rt,
-           size = modality)) +
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        size = modality)) +
   stat_smooth(method = "lm", se = F)
 ```
 
@@ -1046,100 +1055,16 @@ ggplot(d_spellname, aes(x = dur, y = rt,
 
 
 
-## What does it mean to map a variable to colour? {.columns-2}
-
-
-```{r echo = T, eval = F}
-# Modality as character
-ggplot(d_spellname, aes(x = dur, 
-                        y = rt, 
-                        colour = modality)) +
-  geom_point() 
-
-# Convert modality to numbers
-d_spell_2 <- mutate(d_spellname, 
-                    mod_2 = as.numeric(factor(modality))) 
-
-ggplot(d_spell_2, aes(x = dur, 
-                          y = rt, 
-                          colour = mod_2)) +
-  geom_point() 
-```
-
-
-```{r echo = F, fig.width=6, fig.height = 5.5, out.width="100%"}
-plot_1 <- ggplot(d_spellname, aes(x = dur, 
-                        y = rt, 
-                        colour = modality)) +
-  geom_point(size = .75) 
-
-# Convert modality to numbers
-d_spell_2 <- mutate(d_spellname, 
-                        mod_2 = as.numeric(factor(modality))) 
-plot_2 <- ggplot(d_spell_2, aes(x = dur, 
-                          y = rt, 
-                          colour = mod_2)) +
-  geom_point(size = .75) 
-
-plot_1 / plot_2 +
-  plot_annotation(tag_levels = "A")
-
-```
-
-
-## What does it mean to map a variable to colour? {.columns-2}
 
 
 
+## Visual Encoding Hierarchy {.smaller}
 
-```{r echo = T, eval = F}
-# ppt_vocab as numeric
-ggplot(d_spellname, aes(x = dur, 
-                        y = rt, 
-                        colour = ppt_vocab)) +
-  geom_point() 
+Which aesthetics are most effective for continuous vs categorical variables? 
 
-# Convert ppt_vocab to characters
-d_spell_2 <- mutate(d_spellname, 
-                        vocab_2 = as.character(ppt_vocab))
-
-ggplot(d_spell_2, aes(x = dur, 
-                          y = rt, 
-                          colour = vocab_2)) +
-  geom_point() 
-```
-
-
-```{r echo = F, fig.width=6, fig.height = 6, out.width="100%"}
-plot_1 <- ggplot(d_spellname, aes(x = dur, 
-                        y = rt, 
-                        colour = ppt_vocab)) +
-  geom_point(size = .75) 
-
-# Convert modality to numbers
-d_spell_2 <- mutate(d_spellname, 
-                        vocab_2 = as.character(ppt_vocab))
-
-plot_2 <- ggplot(d_spell_2, aes(x = dur, 
-                          y = rt, 
-                          colour = vocab_2)) +
-  geom_point(size = .75) 
-
-plot_1 / plot_2 +
-  plot_annotation(tag_levels = "A")
-
-```
-## Obvious questions | Is there a kind of hierarchy or system for which aesthetics are most effective for continuous vs categorical variables?
-
-Principles of perceptual psychology and visual encoding theory directly underpinning the Grammar of Graphics and `ggplot2`'s design choices [@wilkinson2005grammar;@cleveland1984graphical]
-
-
-## Visual Encoding Hierarchy
+Principles of perceptual psychology and visual encoding theory are underpinning the Grammar of Graphics and `ggplot2`'s design choices [@wilkinson2005grammar;@cleveland1984graphical]
 
 The human visual system perceives some encodings more accurately than others.
-
-- The top of the hierarchy (position, length) is best for continuous variables
-- The bottom (hue, shape) is best for categorical variables
 
 
 | **Accuracy (for continuous data)**   | **Visual Encoding**              | **Example in ggplot2**         |
@@ -1154,22 +1079,27 @@ The human visual system perceives some encodings more accurately than others.
 | **Spatial region / volume**      | map regions, 3D volume           | `geom_polygon()`               |
 
 
-## Applied to `ggplot2`
+\
 
-Continuous variables
+- The top of the hierarchy (position, length) is best for continuous variables
+- The bottom (hue, shape) is best for categorical variables
 
-Prefer position and gradual encodings:
 
-- `x`, `y` → continuous scales (most accurate)
-- `size` → can work, but avoid misleading area scaling
-- `colour` → use gradients (e.g., `scale_colour_viridis_c()`)
-- `alph`a → transparency can suggest intensity, but less precise
 
-Avoid using hue or shape: humans don’t perceive continuous changes in color hue or shape as ordered or proportional.
+## Applied to `ggplot2` {.smaller .columns-2}
 
-Categorical variables
+**Continuous variables** prefer position / gradual encodings:
 
-Prefer distinct encodings:
+- `x`, `y`: continuous scales (most accurate)
+- `size`: can work, avoid misleading area scaling
+- `colour`: use gradients 
+- `alpha`: transparency can suggest intensity
+
+Avoid using hue or shape: humans don’t perceive continuous changes in colour hue or shape as ordered or proportional.
+
+
+**Categorical variables** prefer distinct encodings:
+
 - `x`, `colour`, `fill`, `shape`, `linetype`
 - Use qualitative palettes (e.g., `scale_colour_brewer(type = "qual")`)
 - Don’t map numeric variables to hue unless they’re binned or converted to factors.
@@ -1177,7 +1107,7 @@ Prefer distinct encodings:
 Each category should be visually distinct: no gradient or ordering implied.
 
 
-
+## Which plot communicates difference better? {.columns-2}
 
 
 ## Which plot communicates difference better? {.columns-2}
@@ -1277,37 +1207,37 @@ plot_1 / plot_2 +
 | **Fill / Alpha**      | Either       | Can show density or group separation |
 
 
-## What does “Hue” mean? {.columns-2}
+## What does “Hue” mean? {.columns-2 .smaller}
 
 Hue refers to the type of colour; what we usually mean when we say red, blue, green, yellow, etc.
 
 It distinguishes different colours along the colour wheel, not how bright or dark they are.
 
-🟦 Hue = the color family
-⚪ Lightness / Luminance = how bright or dark the color is
-🟣 Saturation = how pure or intense the color is
+- Hue = the colour family
+- Lightness / Luminance 
+- Saturation = pure or intense
 
 
-```{r echo = F, fig.width=9}
+```{r echo = F, fig.width=9, out.width="100%"}
 image_read("../gfx/colours.png") %>% 
   image_ggplot()
 ```
 
 
-## In `ggplot2` terms
+## In `ggplot2` terms {.smaller .columns-2}
 
-When you map a categorical variable to colour (or fill), `ggplot2` typically varies the hue:
-
-```{r echo=F}
-ggplot(palmerpenguins::penguins, aes(x = species, fill = species)) +
-  geom_bar()
-```
+When you map a categorical variable to `colour` (or `fill`), `ggplot2` typically varies the hue:
 
 Each penguin species (`palmerpenguins::penguins`) gets a different hue (blue, green, red).
 
 This uses a qualitative palette, where hues are different but brightness is roughly equal.
 
 There’s no order implied; just distinct color identities.
+
+```{r echo=F, out.width="100%"}
+ggplot(palmerpenguins::penguins, aes(x = species, fill = species)) +
+  geom_bar()
+```
 
 
 
@@ -1338,14 +1268,14 @@ Next week we will continue with data visualisation in `ggplot2`. For basics of d
 
 ## Homework
 
-Identify a dataset you would like to use for the formative assessment.
+Identify a dataset you would like to use for the formative assessment: post a description on our Teams channel.
 
 Think about what you would like to visualise about these data: 
 
 - Combination of variables
-- Variable types
+- Variable types and appropriate aesthetics
 - Raw data and / or summary statistics
-- What kind of visualisations are commonly used in the field your are coming from?
+- Look for appropriate visualisation tools [HERE](https://www.data-to-viz.com/)
 
 
 ## References
