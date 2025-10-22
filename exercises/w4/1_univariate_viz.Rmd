@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 1: Univariate distributions'
-output            : html_document
+title: 'Exercise 1: Univariate distributions'
+output: html_document
 ---
 
 
@@ -122,7 +122,14 @@ ggplot(d_blomkvist, aes(x = ---, fill = ---)) +
 
 Arguably, this visualisation can be misleading too as some bars will be displayed further to the right, hence slower, even though they are within the same bin as the other groups (`binwidth` was divided by number of levels of the grouping variable).
 
-Another way of visualising the distribution of the rt data is density plots. Use `geom_density`.
+Another way of visualisting the distribution of rt data is using frequency polygons which are rendered using `geom_freqpoly`. Try out here:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+
+Another way of visualising the distribution of rt data is density plots. The geometry is called `geom_density`. Try:
 
 ```{r}
 ggplot(d_blomkvist, aes(x = ---)) +
@@ -144,6 +151,8 @@ To make the group comparisons easier readable, add filling for smokers and reduc
 ggplot(d_blomkvist, aes(x = ---, colour = ---, fill = ---)) +
   geom_density(alpha = ---)
 ```
+
+
 As another example for a unimodal distribution add a rug to this density plot:
 
 ```{r}

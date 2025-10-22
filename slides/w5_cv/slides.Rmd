@@ -1,14 +1,15 @@
 ---
-title: "Customising visualisations"
+title: "PSYC40940: Customising visualisations"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
-incremental: false
-widescreen: true
-transition: slower
-css: slides.css
-logo: ../gfx/ntu.png
-bibliography      : ["../references.bib"]
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+#logo: ../gfx/ntu.png
+bibliography: "../references.bib"
+csl: "../apa.csl"
 link-citations: yes
 ---
 
@@ -33,6 +34,13 @@ theme_set(
 ```
 
 
+## Before we start
+
+1. Please complete the **Student Voice** section on NOW.
+2. Complete last week's exercises.
+3. This is the last session on `ggplot2`. We will move one to shiny apps next week.
+
+
 ## General outline for weeks 2 -- 5
 
 - ~~Week 2: Principles of data visualisation~~
@@ -54,60 +62,56 @@ d_spellname <- summarise(d_spellname,
 ```
 
 
-# Maximising clarity and minimising chartjunk through thoughtful design choices!
+## Objectives for today
 
-## Motivation
+By the end of this session, you should be able to $\dots$
 
-- Explanatory plots
-- Communicating results
-- Convincing an audience
-- Suitability for the medium of dissemination (poster, slides, journal article)
-
-##
-
-- overplotting
-- scaling axes
-- transparency
-- size of geometries
-- font size
-- explicity labels
-- creating your own theme
-- changing axis text and hoover info in plotly
-- colour for colourblind, grey scale, combining aesthetics
-
-## Revisiting Tufte's Principles
-
-- Data-Ink Ratio: Maximise the proportion of ink that represents data.
-- Chartjunk: Avoid unnecessary decoration (3D effects, heavy gridlines, etc.).
-- Small Multiples: Use consistent scales and layout to compare across categories.
-- Narrative Graphics: Use annotations and labels to guide interpretation.
-
-*What would Tufte do?*
+1. Customise `ggplot2` visualisations using scales, themes, and labels to enhance clarity and impact.
+2. Apply design principles (e.g., Tufte's guidelines) to reduce chartjunk and improve interpretability.
+3. Tailor visualisations for different audiences and media, ensuring accessibility and effective communication.
 
 
-## Applying Tufte to `ggplot`
+Download exercises from Week 5 folder on NOW and move them into your R-project directory.
+
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
+
+
+## Why customisation matters in data visualisation
+
+1. **Visuals shape understanding**: a well-designed plot doesn't just show data; it tells a story. Ensure that the story is clear, accurate, and compelling.
+2. **Audiences vary**: tailor your visuals to the audience's needs and expectations.
+3. **Medium matters**: plots for journal articles, posters, or interactive dashboards each require different design choices. 
+4. **Avoiding misinterpretation**: poor design choices -- like misleading axes or cluttered legends -- can obscure key insights or even lead to incorrect conclusions.
+5. **Accessibility and inclusivity**: thoughtful use of colour, labels, and themes can make your plots more accessible (e.g. people with visual impairments).
+
+
+## Maximising clarity and minimising chartjunk through thoughtful design choices!
+
+Revisiting Tufte's Principles [@Tufte2001VisualDisplay]:
+
+- **Data-Ink ratio**: Maximise the proportion of ink that represents data.
+- **Chartjunk**: Avoid unnecessary decoration (3D effects, heavy gridlines, etc.).
+- **Small multiples**: Use consistent scales and layout to compare across categories.
+- **Narrative graphics**: Use annotations and labels to guide interpretation.
+
+
+
+## Applying Tufte to `ggplot2`
 
 How does `ggplot2` supports Tufte's principles:
 
-- Minimal themes (`theme_minimal()`, `theme_void()`)
-- Custom scales to reduce distortion
-- Direct labeling vs legends
+- Minimal and custom themes to improve readability (`theme_minimal()`, `theme_void()`)
+- Transform and resize scales to reduce distortion 
+- Direct labeling vs legends to make plots self-explanatory
 - Faceting for small multiples (`facet_wrap()`, `facet_grid()`)
 - Reduce overplotting: `position_dodge()`, `alpha = .5`, `size = .5`
+- Inclusive colour schemes, grey scale, combining aesthetics
 
-The grammar of graphics implemented in `ggplot2` by Hadley Wickham aligns with Tufte's ideas.
 
-
-## Design Choices in Practice
-
-- Scales: Choosing appropriate axis transformations (e.g., log scales)
-- Themes: Reducing clutter, improving readability
-- Labels: Making plots self-explanatory
-
-## Mini Case Study
-
-Show a plot with poor design (e.g., misleading axis, cluttered legend) and walk through improving it step-by-step.
-
+The grammar of graphics implemented in `ggplot2` by Hadley Wickham aligns with Tufte's principles.
 
 
 
@@ -364,175 +368,6 @@ ggplot(d_spellname, aes(y = rt, x = dur,
 ## Exercise 1: Changing text
 
 Complete RMarkdown document `1_add_labs.Rmd`
-
-
-## Themes {.smaller}
-
-- Specify appearance of non-data related ink
-- Can be done manually using `themes()` or using wrapper functions
-- All `ggplot` wrappers:
-
-```{r echo = F}
-env <- asNamespace("ggplot2")
-all_themes <- ls(envir = env, pattern = "^theme_+")
-all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray")]
-print(all_themes)
-```
-
-- e.g. `ggthemes` for more themes:
-
-```{r echo = F}
-env <- asNamespace("ggthemes")
-all_themes <- ls(envir = env, pattern = "^theme_+")
-all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray")]
-print(all_themes)
-```
-
-
-## Themes (`ggplot2` default)
-
-<div style="float: left; width: 45%;">
-
-```{r eval = F}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_grey(base_size = 11)
-  ###</b>
-```
-</div>
-
-<div style="float: right; width: 50%;">
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_grey(base_size = 11)
-  ###</b>
-```
-
-</div>
-
-## Themes
-
-<div style="float: left; width: 45%;">
-
-```{r eval = F}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_minimal(base_size = 14)
-  ###</b>
-```
-</div>
-
-<div style="float: right; width: 50%;">
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_minimal(base_size = 14)
-  ###</b>
-```
-
-</div>
-
-## Themes
-
-<div style="float: left; width: 45%;">
-
-```{r eval = F}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_light(base_size = 14)
-  ###</b>
-```
-</div>
-
-<div style="float: right; width: 50%;">
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_light(base_size = 14)
-  ###</b>
-```
-
-</div>
-
-## Themes 
-
-<div style="float: left; width: 45%;">
-
-```{r eval = F}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_dark(base_size = 14)
-  ###</b>
-```
-</div>
-
-<div style="float: right; width: 50%;">
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  theme_dark(base_size = 14)
-  ###</b>
-```
-
-</div>
-
-## Themes 
-
-<div style="float: left; width: 45%;">
-
-```{r eval = F}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  ggthemes::theme_clean()
-  ###</b>
-```
-</div>
-
-<div style="float: right; width: 50%;">
-```{r echo = F, out.width="100%"}
-ggplot(d_spellname, aes(y = rt, x = dur)) + 
-  geom_point() +
-  facet_grid(~modality) +
-  ###<b>
-  ggthemes::theme_clean()
-  ###</b>
-```
-
-</div>
-
-
-
-## Saving your plot
-
-```{r eval = FALSE}
-ggsave("name of plot.png", width = 5, height = 5)
-```
-
-- `.eps`, `.pdf`, `.svg`, `.wmf`, `.png`, `.jpg`, `.bmp`, `.tiff`
-- sizes requires some manual adjustment
-- make sure fonts are not too small / large
-- keep the aspect ratio sensible
-- or export function in **plots** panel
-
 
 
 ## Changing text: legend keys {.smaller}
@@ -851,6 +686,163 @@ ggplot(d_spellname, aes(y = rt, x = dur)) +
 ```
 
 </div>
+
+
+
+
+## Themes {.smaller}
+
+- Specify appearance of non-data related ink
+- Can be done manually using `themes()` or using wrapper functions
+- All `ggplot2` wrappers:
+
+```{r echo = F}
+env <- asNamespace("ggplot2")
+all_themes <- ls(envir = env, pattern = "^theme_+")
+all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray|sub_")]
+print(all_themes)
+```
+
+- e.g. `ggthemes` package for more themes:
+
+```{r echo = F}
+env <- asNamespace("ggthemes")
+all_themes <- ls(envir = env, pattern = "^theme_+")
+all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray")]
+print(all_themes)
+```
+
+
+## Themes (`ggplot2` default)
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_grey(base_size = 11)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_grey(base_size = 11)
+  ###</b>
+```
+
+</div>
+
+## Themes
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_minimal(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_minimal(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_light(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_light(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes 
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_dark(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_dark(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes (`ggthemes`)
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_clean()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_clean()
+  ###</b>
+```
+
+</div>
+
 
 
 ## Themes {.smaller}
@@ -1542,13 +1534,23 @@ Complete RMarkdown `3_defining_themes.Rmd`
 
 
 
+## Saving your plot
+
+```{r eval = FALSE}
+ggsave("name of plot.png", width = 5, height = 5)
+```
+
+- `.eps`, `.pdf`, `.svg`, `.wmf`, `.png`, `.jpg`, `.bmp`, `.tiff`
+- sizes requires some manual adjustment (or `fig.width` in RMarkdown)
+- make sure fonts are not too small / large
+- keep the aspect ratio sensible
+- or export function in **plots** panel
+
 
 
 
 ## Useful resources for data visualisation
 
-- [*R for Data Science*, chapter 3](https://r4ds.had.co.nz/data-visualisation.html) by @wickham2016r
-- [*Doing Data Science in R*, chapter 4](https://www.mjandrews.org/book/ddsr/) by @andrews2021doing
 - Choosing the right visualisation: [data-to-viz.com](https://www.data-to-viz.com/)
 - Rick Scavetta's course: [datacamp.com](https://learn.datacamp.com/skill-tracks/data-visualization-with-r)
 - `ggplot2` [CheatSheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
@@ -1559,8 +1561,35 @@ Complete RMarkdown `3_defining_themes.Rmd`
 
 ```
 
+## Reading
 
-## Formative assessment
+- [Chapters 11, 14, 15, 17 of @wickham2016ggplot2](https://ggplot2-book.org/scales-colour.html)
+- [Chapter 3 of @wickham2016r](https://r4ds.had.co.nz/transform.html)
+- [Chapter 4 of @andrews2021doing](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_04_visualization.pdf) 
+
+
+## Formative assessment {.smaller}
+
+**Task:** Select a behavioural dataset----i.e., data related to human behaviour (e.g., psychological experiments, survey responses, reaction times, decision-making patterns, social media behaviour, etc.).
+
+- Create 3-4 visualisations using different techniques (e.g., boxplot, scatterplot, density plot).
+- Include brief commentary on:
+  - What each visualisation highlights about the data?
+  - Why each visualisation was chosen?
+  - How each visualisation adheres to principles of effective visualisation (e.g., Tufte's guidelines)?
+  - To what extent the each visualisation may (or may not) obscure the data.
+- **Deadline:** 31st October 2025
+- **Length:** max 1,000 words
+
+**Feedback focus:**
+
+- Clarity and effectiveness of visualisations.
+- Code quality and reproducibility.
+- Interpretation and communication of behavioural insights.
+
+## Time permitted!
+
+Let's rework a figures (e.g. Figure 4) from [@vanLieburg2023abstract](https://link.springer.com/article/10.1007/s41809-023-00131-5); code and data are [HERE](https://osf.io/x8ejm/).
 
 
 

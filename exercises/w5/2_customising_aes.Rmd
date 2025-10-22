@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 2: Customising colour aesthetics'
-output            : html_document
+title: 'Exercise 2: Customising colour aesthetics'
+output: html_document
 ---
 
 
@@ -31,11 +31,12 @@ d_blomkvist <- read_csv("../../data/blomkvist.csv")
 d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
 ```
 
-We will create a plot first and then change the colour of the colour aesthetic.
+We will create a plot first and then change the colour of the colour aesthetic. Use `smoker` for `colour`.
 
 ```{r}
-plot_rt <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+plot_rt <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = ---)) +
   geom_point(size = 3)
+
 plot_rt
 ```
 
@@ -45,6 +46,7 @@ You can change the colour used for the aesthetics mapping of points manually by 
 ```{r}
 plot_rt + scale_colour_manual(values = c("---", "---", "---"))
 ```
+
 You can define colours yourself but often it is easier to use functions that provide colour schemes. The advantage is that the colours used by existing schemes are designed to be easily distinguishable. For example, try `scale_colour_viridis_d()`:
 
 ```{r}

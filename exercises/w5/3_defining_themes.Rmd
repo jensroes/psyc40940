@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 3: Customising colour aesthetics'
-output            : html_document
+title: 'Exercise 3: Customising colour aesthetics'
+output: html_document
 ---
 
 
@@ -87,12 +87,14 @@ plot_rt + theme_---(base_size = ---)
 ```{r}
 plot_rt + theme(axis.title = element_text(size = 17))
 ```
+
 `legend` allows you to change aspects of the title such as title, keys, location, orientation. For example if I want the legend to be positioned on the top of plot I can set `legend.position` to "top" (other options are "bottom", "right", "left") and I can use `legend.justification` to move it to the right or left. Positioning the legend on the top gives you more plotting space when you visulisation appears on an A4 page or in any situation when your horizontal space is more limited than your vertical space (not on slides).
 
 ```{r}
 plot_rt + theme(legend.position = "top",
                 legend.justification = "right")
 ```
+
 Grid lines can be distracting in plots, especially with dark gridlines on white backgrounds. You can remove grid lines using `panel.grid`. For example if we want to remove only the minor grid lines, you can do the following.
 
 ```{r}
@@ -100,6 +102,7 @@ plot_rt +
   theme_bw() +
   theme(panel.grid.minor = element_blank())
 ```
+
 The text above each panel appears in "strips". You can change things like the colour used, the text, the frame, their position etc. For example, I can remove the background altogether.
 
 ```{r}
@@ -135,15 +138,14 @@ and apply it to my plot.
 plot_rt + theme_roeser
 ```
 
-I can also go ahead and set my theme as default
+I can also go ahead and set my theme as default to make visualisations appear in my style.
+
 
 ```{r}
+# Set theme
 theme_set(theme_roeser)
-```
 
-All visualisations will now appear in my theme.
-
-```{r}
+# Print plot again
 plot_rt
 ```
 

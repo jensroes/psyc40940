@@ -1,0 +1,38 @@
+---
+title: "PSYC40940: MySay Feedback"
+output: 
+  html_document: default
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+opts_chunk$set(echo = F, warning = F, message = F)
+
+```
+
+## Your feedback matters!
+
+Taking a few minutes to complete your *MySay* survey really helps us understand how the module is working for you. Your comments guide us in improving the course -- whether that means changing something that isn’t working or keeping what supports your learning best.
+
+We genuinely want to hear from you -- what's working well and what we can do better. If only a few people respond, we might not get an accurate picture of how the class feels -- your voice helps make sure everyone's experience is represented.
+
+Even if you don't have detailed comments, please still complete the MySay form -- every response counts. A higher response rate means the results better reflect the whole class experience.
+
+It only takes a few minutes, but it really makes a difference.
+
+**All feedback is:**
+
+- **Anonymous** -- we can't trace individual responses.
+- **Valued** -- we genuinely read and consider every comment.
+- **Used** -- we act on feedback to make real improvements to teaching and learning.
+
+Please follow [this LINK](https://go.blueja.io/9Yk3KElvIEKtsKz0feVBNg) or scan QR code.
+
+
+```{r out.width="50%", fig.align='center'}
+include_graphics(path = "gfx/mysay.png")
+```
+

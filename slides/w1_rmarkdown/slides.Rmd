@@ -7,8 +7,9 @@ output:
     transition: slower
     widescreen: true
     css: slides.css
-    logo: ../gfx/ntu.png
-bibliography      : ["../references.bib"]
+bibliography: "../references.bib"
+csl: "../apa.csl"
+link-citations: yes
 ---
 
 ```{r setup, include=FALSE}

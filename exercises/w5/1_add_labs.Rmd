@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 1: Adding labels'
-output            : html_document
+title: 'Exercise 1: Adding labels'
+output: html_document
 ---
 
 
@@ -83,14 +83,14 @@ ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
   labs(title = "---", subtitle = "---", caption = "---", tag = "---")
 ```
 
-Lastly, we will look at an example of how we can adjust the text that appears on the plot axes. Run the code below and have a look at the plot.
+Lastly, we will look at an example of how we can adjust the text that appears on the plot axes. Run the code below and have a look at the plot. Make sure you use the right version of the data frames for `---`.
 
 ```{r fig.width=3.25, fig.height=5}
-d_blomkvist_2 <- mutate(d_blomkvist, smoker = recode(smoker, former = "Former smoker",
+d_blomkvist_2 <- mutate(---, smoker = recode(smoker, former = "Former smoker",
                                                              yes = "Current smoker",
                                                              no = "Never smoked"))
 
-p_smoker <- ggplot(d_blomkvist_2, aes(x = smoker, y = rt_hand_nd)) +
+p_smoker <- ggplot(---, aes(x = smoker, y = rt_hand_nd)) +
   geom_jitter(width = .25) +
   labs(x = "Smoker type", y = "Reaction time of the non-dominant hand (in msecs)") 
 

@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 4: Data wrangling'
-output            : html_document
+title: 'Exercise 4: Data wrangling'
+output: html_document
 ---
 
 

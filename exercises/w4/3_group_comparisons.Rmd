@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 3: Group comparisons'
-output            : html_document
+title: 'Exercise 3: Group comparisons'
+output: html_document
 ---
 
 
@@ -65,6 +65,7 @@ The information represented as points can be summarised as a boxplot. Add the ge
 ```{r}
 plot_rts + ---
 ```
+
 Btw, code for `ggplot2`-style boxplots can also be found in `psyntur`.
 
 ```{r}
@@ -145,6 +146,7 @@ ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
 ```
 
 You will see that the boxes are hiding some dots. You can reduce the opacity of the boxplots using the `alpha` argument. Try to make the boxes more translucent. 
+
 
 
 # Bonus exercise

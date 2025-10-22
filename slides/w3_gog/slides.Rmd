@@ -3,11 +3,12 @@ title: "PSYC40940: Grammar of Graphics"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
-  incremental: false
-widescreen: true
-transition: slower
-css: slides.css
-bibliography      : ["../references.bib"]
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "../references.bib"
+csl: "../apa.csl"
 link-citations: yes
 ---
 
@@ -1264,7 +1265,7 @@ Next week we will continue with data visualisation in `ggplot2`. For basics of d
 
 - [Chapter 4 of @andrews2021doing](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_04_visualization.pdf) 
 - [Chapter 3 of @wickham2016r](https://r4ds.had.co.nz/data-visualisation.html)
-- [Chapters 11--13 of @wickham2016ggplot2]()
+- [Chapters 11--13 of @wickham2016ggplot2](https://ggplot2-book.org/scales-colour.html)
 
 ## Homework
 

@@ -33,9 +33,6 @@ body {
 }
 
 
-
-
-
 /* Apply background image to the first slide */
 slides > slide:nth-child(1) {
   background-image: url('../gfx/ntu4.jpg');
@@ -44,8 +41,6 @@ slides > slide:nth-child(1) {
   color: white; /* Make text white */
   position: relative;
 }
-
-
 
 .title-slide::before {
   content: "";
@@ -63,7 +58,7 @@ slides > slide:nth-child(1) {
 .title-slide .date {
   position: relative;
   top: -200px;  /* Move everything up by 200px */
-  left: 100px;
+  left: 50px;
 }
 
 

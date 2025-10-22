@@ -2,6 +2,10 @@ library(shiny)
 library(tidyverse)
 library(psyntur)
 
+# Load data
+blomkvist <- read_csv("../../data/blomkvist.csv") %>% select(-id) %>% select(where(is.numeric))
+spellname <- read_csv("../../data/spellname.csv") %>% select(image_id:semcat) %>% unique() %>% select(where(is.numeric))
+
 ui <- fluidPage(
   titlePanel("Reactive Data Explorer"),
   sidebarLayout(
@@ -18,9 +22,6 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  # Load data
-  blomkvist <- read_csv("../../data/blomkvist.csv") %>% select(-id) %>% select(where(is.numeric))
-  spellname <- read_csv("../../data/spellname.csv") %>% select(image_id:semcat) %>% unique() %>% select(where(is.numeric))
 
   # Reactive expression to get selected dataset
   data <- reactive({

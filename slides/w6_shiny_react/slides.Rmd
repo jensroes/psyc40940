@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Shiny and Reactive Programming"
+title: "PSYC40940: Introduction to Shiny and Reactive Programming"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
@@ -8,7 +8,8 @@ output:
     transition: slower
     css: slides.css
 #    logo: ../gfx/ntu.png
-bibliography:     ["../references.bib"]
+bibliography: "../references.bib"
+csl: "../apa.csl"
 link-citations: yes
 ---
 

@@ -2,24 +2,17 @@ library(shiny)
 library(tidyverse)
 library(psyntur)
 
-# Load data
-spellname <- read_csv("../../data/spellname.csv") %>%
+# Load data but only keep variables related to image naming features and numeric variables
+spellname <- read_csv("data/spellname.csv") %>%
   select(image_id:semcat) %>%
   unique() %>%
   select(where(is.numeric))
 
 ui <- fluidPage(
-  titlePanel("Reactive Data Explorer for spellname data"),
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("var", "Choose variable", choices = names(spellname)),
-      actionButton("go", "Generate Plot")
-    ),
-    mainPanel(
-      plotOutput("plot")
-    )
+    selectInput("var", "Choose variable", choices = names(spellname)),
+    actionButton("go", "Generate Plot"),
+    plotOutput("plot")
   )
-)
 
 server <- function(input, output, session) {
   # Reactive expression triggered by button
@@ -33,7 +26,6 @@ server <- function(input, output, session) {
     histogram(data = NULL, x = spellname[[selectedVar()]]) +
       labs(x = selectedVar())
   })
-
 
 }
 

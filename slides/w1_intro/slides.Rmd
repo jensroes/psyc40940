@@ -8,8 +8,9 @@ output:
     widescreen: true
     css: slides.css
 #    logo: ../gfx/ntu.png
-bibliography      : ["../references.bib"]
-#runtime: shiny
+bibliography: "../references.bib"
+csl: "../apa.csl"
+link-citations: yes
 ---
 
 

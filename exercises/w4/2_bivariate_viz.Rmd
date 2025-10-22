@@ -1,6 +1,6 @@
 ---
-title             : 'Exercise 2: Bivariate distributions'
-output            : html_document
+title: 'Exercise 2: Bivariate distributions'
+output: html_document
 ---
 
 
@@ -165,6 +165,19 @@ plot_ly(d_blomkvist,
         marker = list(size = 4))
 
 ```
+
+The `plotly` package is closely related to `ggplot2` and uses a similar logic. One useful feature is that the `plotly` function `ggplotly` allows you to turn any `ggplot2` plot into an interactive visualisation. Here is an example:
+
+```{r}
+# Create a ggplot2 plot and save it in `plot`
+plot <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point()
+
+# Make the visualisation interactive by using `ggplotly`
+ggplotly(plot)
+```
+
+You can now interact with the plot by, for example, selecting particular regions of the visualisation.
 
 
 Above we have focused on bivariate relationships between continuous variables. Of course you can also illustrate relationships between two categorical variables. We will come back to relationships between categorical and continuous variables later.
