@@ -3,18 +3,17 @@ library(shiny)
 
 # Setup user interface
 ui <- fluidPage(
-  textInput("label", "label"),
   selectInput("type", "type", c("slider", "numeric")),
   uiOutput("numeric")
 )
 
 # Setup server function
-server <- function(input, output, session) {
+server <- function(input, output) {
   output$numeric <- renderUI({
     if (input$type == "slider") {
-      sliderInput("dynamic", input$label, value = 0, min = 0, max = 10)
+      sliderInput("dynamic", "Your choice", value = 0, min = 0, max = 10)
     } else {
-      numericInput("dynamic", input$label, value = 0, min = 0, max = 10)
+      numericInput("dynamic", "Your choice", value = 0, min = 0, max = 10)
     }
   })
 }

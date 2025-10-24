@@ -424,39 +424,6 @@ ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
   ###</b>
 ```
 
-```{r eval =F, out.width="80%"}
-ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
-  geom_point() +  
-  ###<b>
-  scale_colour_manual(
-    labels = c("Spoken output", "Written output"),
-    values = c("firebrick", "turquoise2")
-  ###</b>
-```
-
-</div>
-
-
-## Changing text: legend keys
-
-<div style="float: left; width: 35%;">
-- Change colour values manually
-- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
-- `ggthemes`
-
-</div>
-
-<div style="float: right; width: 60%;">
-
-```{r echo =F, out.width="80%"}
-ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
-  geom_point() +  
-  ###<b>
-  scale_colour_manual(labels = c("Spoken output", "Written output"),
-        values = c("firebrick", "turquoise2"))
-  ###</b>
-```
-
 
 ```{r eval =F, out.width="80%"}
 ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +

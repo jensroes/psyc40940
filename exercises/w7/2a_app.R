@@ -1,6 +1,4 @@
 library(shiny)
-library(tidyverse)
-library(psyntur)
 
 ui <- fluidPage(
   sidebarLayout(
@@ -13,7 +11,7 @@ ui <- fluidPage(
   )
 )
 
-server <- function(input, output, session) {
+server <- function(input, output) {
 
 
 }

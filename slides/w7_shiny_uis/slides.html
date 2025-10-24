@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Introduction to Shiny and Reactive Programming</title>
+  <title>PSYC40940: Building Interactive UI Components</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -19,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Introduction to Shiny and Reactive Programming',
+                title: 'PSYC40940: Building Interactive UI Components',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3241,7 +3241,7 @@ z-index: 0;
 .title-slide .date {
 position: relative;
 top: -200px; 
-left: 100px;
+left: 50px;
 }
 
 
@@ -3293,391 +3293,798 @@ font-size: 14px;
 <slide class=""><hgroup><h2>General outline for weeks 6 – 9</h2></hgroup><article  id="general-outline-for-weeks-6-9">
 
 <ul>
-<li>Week 6: Introduction to Shiny and Reactive Programming</li>
+<li><del>Week 6: Introduction to Shiny and Reactive Programming</del></li>
 <li>Week 7: Building Interactive UI Components</li>
-<li>Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation</li>
+<li>Week 8: Linking <code>ggplot2</code> with Shiny for Dynamic Visualisation</li>
 <li>Week 9: Creating and Deploying Dashboards</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>What is Shiny?</h2></hgroup><article  id="what-is-shiny">
+</article></slide><slide class=""><hgroup><h2>Objectives</h2></hgroup><article  id="objectives">
 
-<ul>
-<li>A web application framework for R</li>
-<li>Enables interactive data exploration</li>
-<li>Built on reactive programming principles</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'># Install shiny
-install.packages(&quot;shiny&quot;)
-# Load shiny
-library(shiny)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app">
-
-<pre class = 'prettyprint lang-r'>library(shiny)
-
-ui &lt;- fluidPage(
-  # User interface / &quot;frontend&quot;: what do you want the user to see / do?
-  # This is how the interface should look like and
-  # what information the user should be allowed to provide.
-)
-
-server &lt;- function(input, output, session) {
-  # &quot;Backend&quot;: what do you want the app to do?
-  # This is the heart of the app: each app should have a purpose. 
-}
-
-shinyApp(ui, server)</pre>
-
-<p>See file <code>0_app.R</code></p>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-1" class="columns-2">
-
-<p>In the R console you’ll see something like:</p>
-
-<p><code>Listening on http://127.0.0.1:3996</code></p>
-
-<p>This tells you the URL where your app can be found: <code>127.0.0.1</code> is a standard address that means &ldquo;this computer&rdquo; and 3996 is a randomly assigned port number. You can enter that URL into any compatible web browser to open another copy of your app.</p>
-
-<p>Stopping the app:</p>
-
-<ul>
-<li>Click the stop sign icon on the R console toolbar.</li>
-<li>Click on the console, then press <code>Esc</code>.</li>
-<li>Close the Shiny app window.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-2">
-
-<p>Workflow of Shiny app development</p>
-
-<ul>
-<li>Write some code, start the app, play with the app, write some more code, and repeat.</li>
-<li>You don’t even need to stop and re-start: press the Reload app button in the toolbox or use the <code>Cmd/Ctrl + Shift + Enter</code>.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-3" class="columns-2">
-
-<p>Simple app that prints numbers.</p>
-
-<ul>
-<li><code>sliderInput</code>:</li>
-<li><code>input$...</code></li>
-<li><code>output$...</code></li>
-<li><code>renderText</code></li>
-<li><code>textOutput</code></li>
-<li>Use of <code>{...}</code></li>
-</ul>
-
-<p><br/><br/><br/></p>
-
-<pre class = 'prettyprint lang-r'>library(shiny)
-
-ui &lt;- fluidPage(
-  sliderInput(&quot;num&quot;, &quot;Choose a number&quot;, 1, 100, 50),
-
-)
-
-server &lt;- function(input, output) {
-
-  
-  
-}
-
-shinyApp(ui, server)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-4" class="columns-2">
-
-<p>Simple app that prints numbers.</p>
-
-<ul>
-<li><code>sliderInput</code>:</li>
-<li><code>input$...</code></li>
-<li><code>output$...</code></li>
-<li><code>renderText</code></li>
-<li><code>textOutput</code></li>
-<li>Use of <code>{...}</code></li>
-</ul>
-
-<p><br/><br/><br/></p>
-
-<pre class = 'prettyprint lang-r'>library(shiny)
-
-ui &lt;- fluidPage(
-  sliderInput(&quot;num&quot;, &quot;Choose a number&quot;, 1, 100, 50),
-  
-)
-
-server &lt;- function(input, output) {
-  output$result &lt;- renderText({
-    
-  })
-}
-
-shinyApp(ui, server)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-5" class="columns-2">
-
-<p>Simple app that prints numbers.</p>
-
-<ul>
-<li><code>sliderInput</code>:</li>
-<li><code>input$...</code></li>
-<li><code>output$...</code></li>
-<li><code>renderText</code></li>
-<li><code>textOutput</code></li>
-<li>Use of <code>{...}</code></li>
-</ul>
-
-<p><br/><br/><br/></p>
-
-<pre class = 'prettyprint lang-r'>library(shiny)
-
-ui &lt;- fluidPage(
-  sliderInput(&quot;num&quot;, &quot;Choose a number&quot;, 1, 100, 50),
-  
-)
-
-server &lt;- function(input, output) {
-  output$result &lt;- renderText({
-    paste(&quot;You chose&quot;, input$num)
-  })
-}
-
-shinyApp(ui, server)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-6" class="columns-2">
-
-<p>Simple app that prints numbers.</p>
-
-<ul>
-<li><code>sliderInput</code>:</li>
-<li><code>input$...</code></li>
-<li><code>output$...</code></li>
-<li><code>renderText</code></li>
-<li><code>textOutput</code></li>
-<li>Use of <code>{...}</code></li>
-</ul>
-
-<p><br/><br/><br/></p>
-
-<pre class = 'prettyprint lang-r'>library(shiny)
-
-ui &lt;- fluidPage(
-  sliderInput(&quot;num&quot;, &quot;Choose a number&quot;, 1, 100, 50),
-  textOutput(&quot;result&quot;)
-)
-
-server &lt;- function(input, output) {
-  output$result &lt;- renderText({
-    paste(&quot;You chose&quot;, input$num)
-  })
-}
-
-shinyApp(ui, server)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Exercise 1: Modify the App</h2></hgroup><article  id="exercise-1-modify-the-app">
-
-<ul>
-<li>Open script <code>1_app.R</code></li>
-<li>Add a second input: <code>textInput()</code></li>
-<li>Display both inputs in the output</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>What is Reactive Programming?</h2></hgroup><article  id="what-is-reactive-programming">
-
-<ul>
-<li>Focused on data flows and the propagation of change.</li>
-<li>When a user interacts with an input (like a slider or text box), any outputs that depend on that input automatically update.</li>
-</ul>
-
-<p><strong>Traditional vs Reactive R</strong></p>
-
-<ul>
-<li>Traditional R: You run a script top-to-bottom. If you want to change something, you re-run the script.</li>
-<li>Reactive R (Shiny): You define relationships between inputs and outputs. When an input changes, the output updates automatically.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Key Reactive Components in Shiny</h2></hgroup><article  id="key-reactive-components-in-shiny">
-
-<ul>
-<li><code>input$...</code> Represents user input (e.g., from sliders, text boxes).</li>
-<li><code>render*()</code> Creates reactive outputs (e.g., renderPlot, renderText).</li>
-<li><code>reactive()</code> Defines reactive expressions (intermediate computations).</li>
-<li><code>observe()</code> Executes code in response to changes, but doesn’t return a value.</li>
-<li><code>observeEvent()</code> Responds to specific events (e.g., button clicks).</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>How Reactivity Works</h2></hgroup><article  id="how-reactivity-works">
-
-<p>Imagine this flow:</p>
+<p>By the end of this session, you should be able to \(\dots\)</p>
 
 <ol>
-<li>User changes a slider (input$slider)</li>
-<li>A reactive expression recalculates based on that input.</li>
-<li>A render function updates the output (e.g., a plot or text).</li>
+<li>Input widgets</li>
+<li>Layout functions</li>
+<li>Making input widgets dynamically</li>
 </ol>
 
-<p>This chain of dependencies is what we call the reactive graph.</p>
+<p>Download exercises from Week 7 folder on NOW and move them into your R-project directory.</p>
 
-</article></slide><slide class=""><hgroup><h2>What is a Reactive Graph?</h2></hgroup><article  id="what-is-a-reactive-graph">
+<button onclick="window.print()">
 
-<p>The reactive graph is a conceptual diagram showing how different parts of your Shiny app depend on each other. Each node is a reactive object (input, reactive expression, output), and edges show dependencies.</p>
+Print Slides
 
-</article></slide><slide class=""><hgroup><h2>What is a Reactive Graph?</h2></hgroup><article  id="what-is-a-reactive-graph-1" class="columns-2 smaller">
+</button>
 
-<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
-  sliderInput(&quot;n&quot;, &quot;Sample size&quot;, 10, 100, 50),
-  plotOutput(&quot;hist&quot;)
-)
-
-server &lt;- function(input, output) {
-  data &lt;- reactive({
-    rnorm(input$n)
-  })
-
-  output$hist &lt;- renderPlot({
-    histogram(data = NULL, x = data())
-  })
-}</pre>
-
-<p><br/></p>
-
-<p>Reactive graph:</p>
-
-<p><code>input$n ──▶ data() ──▶ output$hist</code></p>
+</article></slide><slide class=""><hgroup><h2>Recap of Shiny Basics</h2></hgroup><article  id="recap-of-shiny-basics" class="smaller">
 
 <ul>
-<li><code>input$n</code> is the source.</li>
-<li><code>data()</code> is a reactive expression that depends on <code>input$n</code>.</li>
-<li><code>output$hist</code> depends on <code>data()</code>.</li>
+<li>Anatomy of Shiny Apps: <code>ui</code>, <code>server</code>, and <code>shinyApp()</code></li>
+<li>Inputs and outputs</li>
+<li>Reactivity flow: reactive expressions; observers</li>
 </ul>
 
-<p>If <code>input$n</code> changes, <code>data()</code> recalculates, and <code>output$hist</code> re-renders.</p>
-
-<p>Btw, notice the parentheses for &ldquo;<code>data()</code>&rdquo;.</p>
-
-</article></slide><slide class=""><hgroup><h2>Exercise 2: Tools to Visualize Reactivity</h2></hgroup><article  id="exercise-2-tools-to-visualize-reactivity">
-
-<ul>
-<li><code>reactlog::reactlog_enable()</code>: Enables a visual debugger for the reactive graph.</li>
-<li>After running your app, press <code>Ctrl + F3</code> (or <code>Cmd + F3</code> on Mac) to open the reactive graph viewer.</li>
-<li>Check <code>2_app.R</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Exercise 3</h2></hgroup><article  id="exercise-3">
-
-<ul>
-<li>Let’s explore how a reactivity graph for multiple inputs looks like.</li>
-<li>Check <code>3_app.R</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Understanding <code>observe()</code> and <code>observeEvent()</code></h2></hgroup><article  id="understanding-observe-and-observeevent">
-
-<ul>
-<li><code>observe()</code> and <code>observeEvent()</code> trigger side effects or respond to events without producing reactive values.</li>
-<li><code>observe()</code> and <code>observeEvent()</code> are not part of the reactive graph – they’re for side effects, not data flow.</li>
-<li>&ldquo;Side effects&rdquo; don’t produce a reactive value but still causes a change – like printing to the console, updating the UI, saving a file, or showing a notification.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2><code>observe()</code></h2></hgroup><article  id="observe">
-
-<ul>
-<li>Used to run code in response to reactive changes, but does not return a value.</li>
-<li>Ideal for side effects like logging, updating UI elements, or saving data.</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>observe({
-  print(input$slider)
-})</pre>
-
-<ul>
-<li>This runs every time input$slider changes, but doesn’t affect other reactive expressions.
-
-<ul>
-<li><code>reactive()</code> is like a formula in a spreadsheet.</li>
-<li><code>observeEvent()</code> is like a macro that runs when you click a button.</li>
-</ul></li>
-<li>Mixing reactive expressions and observers can lead to unexpected behaviour.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2><code>observeEvent()</code></h2></hgroup><article  id="observeevent">
-
-<ul>
-<li>Used to respond to a specific event, like a button click.</li>
-<li>More efficient than <code>observe()</code> when you only care about one trigger.</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>observeEvent(input$goButton, {
-  showNotification(&quot;Button clicked!&quot;)
-})</pre>
-
-<ul>
-<li>Only runs when <code>input$goButton</code> changes (e.g., is clicked).</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Exercises</h2></hgroup><article  id="exercises">
-
-<ol>
-<li><strong>Logging Input Changes:</strong> Use <code>observe()</code> to print the value of a slider every time it changes. (see <code>4_app.R</code>)</li>
-<li><strong>Button Triggered Action:</strong> Use <code>observeEvent()</code> to show a notification when a button is clicked. (see <code>5_app.R</code>)</li>
-<li><strong>Conditional UI Update:</strong> Use <code>observeEvent()</code> to update a plot only when a button is pressed, not when inputs change.</li>
-</ol>
-
-<ul>
-<li>You want to store and update a value manually: <code>reactiveVal()</code> (see <code>6_app.R</code>)</li>
-<li>You want to compute a value only when an event occurs: <code>eventReactive()</code> (see <code>7_app.R</code>)</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Combining reactive expressions and observers</h2></hgroup><article  id="combining-reactive-expressions-and-observers">
-
-<p>Let’s level up with a more challenging Shiny app that combines:</p>
-
-<ul>
-<li>Multiple reactive expressions</li>
-<li>Observers for side effects</li>
-<li>Conditional UI updates</li>
-<li>A bit of state management</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>App Idea: Interactive Data Explorer with Controlled Updates</h2></hgroup><article  id="app-idea-interactive-data-explorer-with-controlled-updates">
-
-<p>Combining a few of these tools:</p>
-
-<ul>
-<li>How to use <code>reactive()</code> for dynamic data</li>
-<li>How to use <code>renderUI()</code> for conditional UI</li>
-<li>How <code>eventReactive()</code> controls updates</li>
-<li>How <code>observeEvent()</code> handles side effects</li>
-<li>How to use <code>reactiveVal()</code> for state tracking</li>
-</ul>
-
-<p>Check <code>8_app.R</code></p>
-
-</article></slide><slide class=""><hgroup><h2>Extending the App!</h2></hgroup><article  id="extending-the-app">
-
-<ul>
-<li>Add an option to <code>8_app.R</code> that allows the user to change the number of bins used by the histogram.</li>
-<li>Add an option that allows the user to define their own text for the x-axis.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Tips</h2></hgroup><article  id="tips">
+<p>Tips</p>
 
 <ul>
 <li>Use <code>reactlog::reactlog_enable()</code> to debug</li>
 <li>Always test small components first</li>
-<li>Use <code>req()</code> to avoid errors from missing inputs</li>
+<li><a href='https://rstudio.github.io/cheatsheets/shiny.pdf' title=''>Shiny cheatsheet</a></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Short cuts</h2></hgroup><article  id="short-cuts">
+<p>Short cuts</p>
 
 <ul>
 <li>Type <code>shinyapp</code> (from <code>snippet</code> package)</li>
-<li>From menu: File &gt; New File &gt; Shiny Web App…</li>
-<li>Click on &ldquo;Run App&rdquo;</li>
+<li>From menu: <code>File &gt; New File &gt; Shiny Web App...</code></li>
+<li>Click on &ldquo;Run App&rdquo;; <code>Cmd/Ctrl + Shift + Enter</code></li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Input Widgets</h2></hgroup><article  id="input-widgets">
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets</h2></hgroup><article  id="input-widgets-1" class="smaller">
+
+<ul>
+<li>Part of user interface:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage( ... )</pre>
+
+<ul>
+<li>Determines how users are allowed to interact with the app.</li>
+<li>Common inputs:
+
+<ul>
+<li><code>selectInput()</code>: drop-down-menu</li>
+<li><code>sliderInput()</code></li>
+<li><code>checkboxInput()</code>: on / off</li>
+<li><code>textInput()</code></li>
+<li><code>dateInput()</code></li>
+</ul></li>
+<li>Grouped inputs:
+
+<ul>
+<li><code>radioButtons()</code>: one option</li>
+<li><code>checkboxGroupInput()</code>: multiple options</li>
+</ul></li>
+<li>Dynamic UI with <code>renderUI()</code> and <code>uiOutput()</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Common structure</h2></hgroup><article  id="input-widgets-common-structure">
+
+<ul>
+<li>First argument – <code>inputId</code> – is the identifier: connects front end with back end
+
+<ul>
+<li>if identifier is &ldquo;min&rdquo; then server requires <code>input$min</code> for access</li>
+<li>name should only be letters, numbers and underscores and it should be unique</li>
+</ul></li>
+<li>Second argument: &ldquo;label&rdquo; a human-readable label for control.</li>
+<li>Third parameter: &ldquo;value&rdquo; e.g. default value</li>
+<li>Remaining parameters are unique to the control</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>sliderInput(inputId = &quot;min&quot;, label = &quot;Minimum value&quot;, value = 50, min = 0, max = 100)</pre>
+
+<p>Check</p>
+
+<pre class = 'prettyprint lang-r'>?sliderInput</pre>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Free text</h2></hgroup><article  id="input-widgets-free-text">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  textInput(&quot;name&quot;, &quot;What&#39;s your name?&quot;),
+  passwordInput(&quot;password&quot;, &quot;What&#39;s your password?&quot;),
+  textAreaInput(&quot;story&quot;, &quot;Tell me about yourself&quot;, rows = 3)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Numeric inputs</h2></hgroup><article  id="input-widgets-numeric-inputs">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  numericInput(&quot;num&quot;, &quot;Number one&quot;, value = 0, min = 0, max = 100),
+  sliderInput(&quot;num2&quot;, &quot;Number two&quot;, value = 50, min = 0, max = 100),
+  sliderInput(&quot;rng&quot;, &quot;Range&quot;, value = c(10, 20), min = 0, max = 100)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Dates</h2></hgroup><article  id="input-widgets-dates">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  dateInput(&quot;dob&quot;, &quot;When were you born?&quot;),
+  dateRangeInput(&quot;holiday&quot;, &quot;When do you want to go on vacation next?&quot;)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Limited choices</h2></hgroup><article  id="input-widgets-limited-choices">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>animals &lt;- c(&quot;dog&quot;, &quot;cat&quot;, &quot;mouse&quot;, &quot;bird&quot;, &quot;other&quot;)
+
+ui &lt;- fluidPage(
+  selectInput(&quot;state&quot;, &quot;What&#39;s your favourite state?&quot;, state.name),
+  radioButtons(&quot;animal&quot;, &quot;What&#39;s your favourite animal?&quot;, animals), # one selection only
+  checkboxGroupInput(&quot;animal&quot;, &quot;What animals do you like?&quot;, animals), # multiple selections allowed
+  checkboxInput(&quot;restart&quot;, &quot;Restart?&quot;) # yes / no questions
+)</pre>
+
+<p><code>selectInput()</code> can allow multiple selections (<code>multiple = TRUE</code>).</p>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: File uploads</h2></hgroup><article  id="input-widgets-file-uploads">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  fileInput(&quot;upload&quot;, NULL)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets: Action buttons</h2></hgroup><article  id="input-widgets-action-buttons">
+
+<p>What kind of input is allowed here?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  actionButton(&quot;click&quot;, &quot;Click me!&quot;)
+)</pre>
+
+<p>Should be paired with <code>observeEvent()</code> or <code>eventReactive()</code> in your server function.</p>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets</h2></hgroup><article  id="input-widgets-2" class="smaller">
+
+<table class = 'rmdtable'>
+<col width="14.110429%" />
+<col width="12.269939%" />
+<col width="47.239264%" />
+<col width="26.380368%" />
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Input Type</th>
+<th align="left">Description</th>
+<th align="left">Example Use Case</th>
+</tr>
+<tr class="odd">
+<td align="left"><code>textInput()</code></td>
+<td align="left">Text</td>
+<td align="left">Single-line text input</td>
+<td align="left">Enter a name or keyword</td>
+</tr>
+<tr class="even">
+<td align="left"><code>textAreaInput()</code></td>
+<td align="left">Text</td>
+<td align="left">Multi-line text input</td>
+<td align="left">Enter a paragraph or comment</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>passwordInput()</code></td>
+<td align="left">Text (masked)</td>
+<td align="left">Text input with hidden characters</td>
+<td align="left">Enter a password</td>
+</tr>
+<tr class="even">
+<td align="left"><code>numericInput()</code></td>
+<td align="left">Numeric</td>
+<td align="left">Numeric input with optional min/max/step</td>
+<td align="left">Set a threshold or value</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>sliderInput()</code></td>
+<td align="left">Numeric (range)</td>
+<td align="left">Slider for selecting a value or range</td>
+<td align="left">Choose age or time window</td>
+</tr>
+<tr class="even">
+<td align="left"><code>dateInput()</code></td>
+<td align="left">Date</td>
+<td align="left">Calendar input for selecting a single date</td>
+<td align="left">Pick a birthdate or deadline</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>dateRangeInput()</code></td>
+<td align="left">Date (range)</td>
+<td align="left">Select a start and end date</td>
+<td align="left">Filter data by date range</td>
+</tr>
+<tr class="even">
+<td align="left"><code>checkboxInput()</code></td>
+<td align="left">Boolean</td>
+<td align="left">Single checkbox (TRUE/FALSE)</td>
+<td align="left">Enable or disable a feature</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>checkboxGroupInput()</code></td>
+<td align="left">Categorical</td>
+<td align="left">Multiple checkboxes for selecting multiple options</td>
+<td align="left">Choose multiple preferences</td>
+</tr>
+<tr class="even">
+<td align="left"><code>radioButtons()</code></td>
+<td align="left">Categorical</td>
+<td align="left">Radio buttons for selecting one option</td>
+<td align="left">Choose gender or mode</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>selectInput()</code></td>
+<td align="left">Categorical</td>
+<td align="left">Dropdown menu for selecting one option</td>
+<td align="left">Choose a country or category</td>
+</tr>
+<tr class="even">
+<td align="left"><code>selectizeInput()</code></td>
+<td align="left">Categorical</td>
+<td align="left">Enhanced <code>selectInput()</code> with search/autocomplete</td>
+<td align="left">Searchable dropdown for long lists</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>fileInput()</code></td>
+<td align="left">File</td>
+<td align="left">Upload a file from the user’s computer</td>
+<td align="left">Upload CSV or image file</td>
+</tr>
+<tr class="even">
+<td align="left"><code>actionButton()</code></td>
+<td align="left">Button</td>
+<td align="left">Triggers an action when clicked</td>
+<td align="left">Submit form or refresh plot</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>actionLink()</code></td>
+<td align="left">Button (link style)</td>
+<td align="left">Like <code>actionButton()</code> but styled as a hyperlink</td>
+<td align="left">Trigger UI change or navigation</td>
+</tr>
+<tr class="even">
+<td align="left"><code>colorInput()</code></td>
+<td align="left">Color</td>
+<td align="left">Color picker widget</td>
+<td align="left">Choose a color for a plot or theme</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>Input Widgets</h2></hgroup><article  id="input-widgets-3" class="columns-2 smaller">
+
+<ul>
+<li>UI: Use <code>input$&lt;id&gt;</code> in the server to access the value of any input widget.</li>
+<li>Server: <code>render...</code> for reactive behaviour.</li>
+<li>Server: Combine inputs with <code>observeEvent()</code> or <code>reactive()</code> for dynamic behavior.</li>
+<li>UI: <code>...Output</code> to display information.</li>
+</ul>
+
+<p><br/><br/><br/></p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  numericInput(&quot;num&quot;, &quot;Number&quot;, 
+               value = 0, 
+               min = 0, 
+               max = 100),
+  textOutput(&quot;out&quot;)
+)
+
+server &lt;- function(input, output) {
+ output$out &lt;- renderText({
+    str_c(&quot;This is my number: &quot;, input$num)
+ })
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise: important input options</h2></hgroup><article  id="exercise-important-input-options">
+
+<p>Review <code>inputs.R</code></p>
+
+<ul>
+<li>When are the different options useful?</li>
+<li>What happens when you change the input of the <code>value</code> argument?</li>
+<li>Add reactivity to the server using <code>renderText</code></li>
+<li>Print one of the inputs as text using <code>textOutput</code>.</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>UI Layout Functions</h2></hgroup><article  id="ui-layout-functions">
+
+</article></slide><slide class=""><hgroup><h2>UI Layout Functions</h2></hgroup><article  id="ui-layout-functions-1" class="columns-2 smaller">
+
+<p>Nesting layouts and organising content</p>
+
+<ul>
+<li>Static layouts:
+
+<ul>
+<li><code>fluidPage()</code></li>
+<li><code>sidebarLayout()</code></li>
+<li><code>navbarPage()</code></li>
+</ul></li>
+<li>Dynamic layouts:
+
+<ul>
+<li><code>tabsetPanel()</code></li>
+<li><code>conditionalPanel()</code><br/><br/><br/></li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+
+    ),
+    mainPanel(
+
+    )
+  )
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>UI Layout Functions</h2></hgroup><article  id="ui-layout-functions-2" class="columns-2 smaller">
+
+<p>Nesting layouts and organising content</p>
+
+<ul>
+<li>Static layouts:
+
+<ul>
+<li><code>fluidPage()</code></li>
+<li><code>sidebarLayout()</code></li>
+<li><code>navbarPage()</code></li>
+</ul></li>
+<li>Dynamic layouts:
+
+<ul>
+<li><code>tabsetPanel()</code></li>
+<li><code>conditionalPanel()</code></li>
+</ul></li>
+</ul>
+
+<p><br/><br/><br/><br/></p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- navbarPage( # top-level navigation bar.
+        tabPanel( # defines a separate view.
+        
+  )
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>UI Layout Functions</h2></hgroup><article  id="ui-layout-functions-3" class="columns-1">
+
+<ul>
+<li><code>fluidPage()</code> is often the top-level layout function in a Shiny app.</li>
+<li><code>navbarPage()</code> and <code>tabsetPanel()</code> both use tabs, but:
+
+<ul>
+<li><code>navbarPage()</code> is for top-level navigation (like switching between app sections).</li>
+<li><code>tabsetPanel()</code> is for in-page tabbing (like switching between views within a section).</li>
+</ul></li>
+<li><code>conditionalPanel()</code> is the only one that uses JavaScript expressions for dynamic visibility.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>UI Layout Functions</h2></hgroup><article  id="ui-layout-functions-4" class="columns-1 smaller">
+
+<table class = 'rmdtable'>
+<col width="9.205021%" />
+<col width="19.246862%" />
+<col width="36.820084%" />
+<col width="34.728033%" />
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Purpose</th>
+<th align="left">Behavior / Structure</th>
+<th align="left">Special Features</th>
+</tr>
+<tr class="odd">
+<td align="left"><code>fluidPage()</code></td>
+<td align="left">Main layout container</td>
+<td align="left">Arranges UI elements in a fluid, responsive grid system</td>
+<td align="left">Adapts to screen size; often the top-level UI function</td>
+</tr>
+<tr class="even">
+<td align="left"><code>sidebarLayout()</code></td>
+<td align="left">Two-column layout with sidebar and main area</td>
+<td align="left">Combines <code>sidebarPanel()</code> and <code>mainPanel()</code> for classic dashboard-style layout</td>
+<td align="left">Good for apps with controls on the side and outputs in the main area</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>navbarPage()</code></td>
+<td align="left">Multi-page navigation with tabs</td>
+<td align="left">Creates a navigation bar with multiple <code>tabPanel()</code> or <code>navbarMenu()</code> items</td>
+<td align="left">App-wide navigation</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tabsetPanel()</code></td>
+<td align="left">Tabbed content within a page</td>
+<td align="left">Displays one <code>tabPanel()</code> at a time; tabs are shown inline (not in navbar)</td>
+<td align="left">Can be nested</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>conditionalPanel()</code></td>
+<td align="left">Conditional visibility of UI elements</td>
+<td align="left">Shows/hides UI elements based on JavaScript condition (e.g., <code>input.x == &quot;yes&quot;</code>)</td>
+<td align="left">Highly dynamic; useful for reactive UI based on user input</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>UI Layout Practice</h2></hgroup><article  id="ui-layout-practice" class="columns-2 smaller">
+
+<p>Review <code>1_app.R</code> of the week 7 exercises</p>
+
+<ul>
+<li><code>selectInput()</code> for variable choices</li>
+<li><code>plotOutput()</code> in the main panel</li>
+</ul>
+
+<p><strong>Task 1:</strong> Add a sidebar layout <code>sidebarLayout()</code> (example in <code>2a_app.R</code>)</p>
+
+<p><strong>Task 2:</strong> Create a copy of <code>1_app.R</code> and create two tabs – i.e. <code>tabPanel()</code> – to show different plots either - using <code>navbarPage</code> layout with (example in <code>2b_app.R</code>). - or <code>tabsetPanel()</code> (example in <code>2c_app.R</code>)</p>
+
+<p><br/><br/></p>
+
+<div style="width:70%; margin:auto;">
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+
+    ),
+    mainPanel(
+
+    )
+  )
+)</pre></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Dynamic UI</h2></hgroup><article  id="dynamic-ui">
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI</h2></hgroup><article  id="dynamic-ui-1">
+
+<ul>
+<li>Dynamic UI allows you to change the interface based on user input</li>
+<li>Useful for customising inputs, showing / hiding elements, and building flexible dashboards</li>
+<li>Give more information to the user.</li>
+<li>Make it easier to select from a long list of possible options, through step-by-step filtering.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Key Functions</h2></hgroup><article  id="dynamic-ui-key-functions">
+
+<p>There are three key techniques for creating dynamic user interfaces:</p>
+
+<ul>
+<li><code>update</code> family of functions modifies parameters of input controls.</li>
+<li><code>tabsetPanel()</code> conditionally shows and hides parts of the user interface.</li>
+<li><code>uiOutput()</code> and <code>renderUI()</code> generates selected parts of the user interface.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Updating inputs</h2></hgroup><article  id="dynamic-ui-updating-inputs" class="smaller columns-2">
+
+<ul>
+<li>Every input control, e.g. <code>textInput()</code>, is paired with an update function, e.g. <code>updateTextInput()</code>, that allows you to modify the control after it has been created.</li>
+<li>Example app (<code>3_app.R</code>): input (max) controls the max of slider.</li>
+<li><code>observeEvent()</code> triggers <code>updateSliderInput()</code> whenever max inputs changes.</li>
+<li>Update function is linked to input control via <code>inputId</code>.</li>
+<li><strong>Task</strong>: Add an input to update the min value of the slider.</li>
+</ul>
+
+<p><br/></p>
+
+<div style="width:85%; margin:auto;">
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  numericInput(&quot;max&quot;, &quot;Maximum&quot;, 30),
+  sliderInput(&quot;n&quot;, &quot;n&quot;,
+              value = 20,
+              min = 0, 
+              max = 100)
+)
+server &lt;- function(input, output) {
+  observeEvent(input$max, {
+    updateSliderInput(inputId = &quot;n&quot;,
+                      max = input$max)
+  })
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Simple uses</h2></hgroup><article  id="dynamic-ui-simple-uses" class="columns-2">
+
+<ul>
+<li>Reset parameters back to their initial value (see <code>4_app.R</code>).</li>
+<li><strong>TasK 1:</strong> Change this app so pressing reset, resets the values of 2 different sliders.</li>
+<li><strong>TasK 2:</strong> Change this app so you have one button per slider.</li>
+</ul>
+
+<p><br/><br/></p>
+
+<div style="width:85%; margin:auto;">
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  sliderInput(&quot;x1&quot;, &quot;x1&quot;, 
+              value = 0, 
+              min = -10, 
+              max = 10),
+  actionButton(&quot;reset&quot;, &quot;Reset&quot;)
+)
+
+server &lt;- function(input, output) {
+  observeEvent(input$reset, {
+    updateSliderInput(inputId = &quot;x1&quot;, value = 0)
+  })
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Simple uses</h2></hgroup><article  id="dynamic-ui-simple-uses-1">
+
+<p>Tweak the text of an action button so you know exactly what it’s going to do.</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  numericInput(&quot;n&quot;, &quot;Simulations&quot;, 10),
+  actionButton(&quot;simulate&quot;, &quot;Simulate&quot;)
+)
+
+server &lt;- function(input, output) {
+  observeEvent(input$n, {
+    label &lt;- paste0(&quot;Simulate &quot;, input$n, &quot; times&quot;)
+    updateActionButton(inputId = &quot;simulate&quot;, label = label)
+  })
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Hierarchical select boxes</h2></hgroup><article  id="dynamic-ui-hierarchical-select-boxes">
+
+<ul>
+<li>Interactive drill down across multiple categories</li>
+<li>Hierarchy in the data; e.g.
+
+<ul>
+<li>Eeach response modality contains multiple participants and images.</li>
+<li>Half of the participants were familiarised with one set of images, the other half with the other set of images.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Hierarchical select boxes</h2></hgroup><article  id="dynamic-ui-hierarchical-select-boxes-1" class="columns-2 smaller">
+
+<p>Create a user interface where you can (<code>5_app.R</code>):</p>
+
+<ul>
+<li>UI create two select boxes and one output plot.</li>
+<li>Select a response modality</li>
+<li>Select all responses of a participant</li>
+<li>The choices for participant will be dynamically generated (<code>choices = NULL</code>).</li>
+</ul>
+
+<p><br/><br/><br/><br/><br/><br/></p>
+
+<div style="width:85%; margin:auto;">
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  selectInput(&quot;mod&quot;, &quot;Modality&quot;,
+              choices = mods,
+  selectInput(&quot;ppt&quot;, &quot;Participants&quot;,
+              choices = NULL),
+  plotOutput(&quot;plot&quot;)
+)
+
+server &lt;- function(input, output) {
+  sn_mod &lt;- reactive({
+    filter(spellname, 
+           modality == input$mod)
+  })
+  observeEvent(sn_mod(), {
+    choices &lt;- unique(sn_mod()$ppt_id)
+    updateSelectInput(inputId = &quot;ppt&quot;,
+                      choices = choices)
+  })
+  # [...]
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Hierarchical select boxes</h2></hgroup><article  id="dynamic-ui-hierarchical-select-boxes-2">
+
+<p><strong>Task</strong>: Create a copy of <code>5_app.R</code> and change the code so that:</p>
+
+<ul>
+<li>The plot compares familiarised and not familiarsed responses for the same image.</li>
+<li>So, instead of filtering participants depending on modality and plotting image name, do the opposite.</li>
+<li>Filter image names depending on modality and plot participants.</li>
+<li>Add a <code>sidebarLayout</code> because its nicer.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Dynamic visibility</h2></hgroup><article  id="dynamic-ui-dynamic-visibility">
+
+<ul>
+<li>See <code>6_app.R</code></li>
+<li>Selectively show and hide parts of the UI.</li>
+<li>Concealing optional UI with a <strong>tabset</strong>.</li>
+<li>Show and hide UI as needed, without having to re-generate it from scratch.</li>
+<li>Use tabset panel with hidden tabs.</li>
+<li>Use <code>updateTabsetPanel()</code> to switch tabs from the server.</li>
+<li><strong>Task:</strong> Add a third panel to <code>6_app.R</code>.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Conditional UI</h2></hgroup><article  id="dynamic-ui-conditional-ui">
+
+<ul>
+<li>App <code>7_app.R</code>: simulate from the normal and exponential distributions.</li>
+<li>Each distribution has different parameters so we’ll need some way to show different controls for different distributions.</li>
+<li>Unique UI for each distribution will appear in its own <code>tabPanel()</code>.</li>
+<li>Arrange the two tabs into a <code>tabsetPanel()</code>.</li>
+<li><strong>Task:</strong> Add in another parameter: the sample size which is currently hard coded as <code>n</code></li>
+</ul>
+
+<!-- ## Dynamic UI: Wizard interface {.columns-2} -->
+
+<!-- - "Wizard" (`8_app.R`) : interface that collects a bunch of information by spreading it across multiple pages.  -->
+
+<!-- - We embed action buttons within each "page", making it easy to go forward and back.  -->
+
+<!-- - `switch_page()` reduces the amount of duplication in the server code.  -->
+
+<!-- ```{r eval = F} -->
+
+<!-- ui <- fluidPage( -->
+
+<!--   tabsetPanel( -->
+
+<!--     id = "wizard", -->
+
+<!--     type = "hidden", -->
+
+<!--     tabPanel("page_1", -->
+
+<!--       "Welcome!", -->
+
+<!--       actionButton("page_12", "next") -->
+
+<!--     ), -->
+
+<!--     tabPanel("page_2", -->
+
+<!--       "Only one page to go", -->
+
+<!--       actionButton("page_21", "prev"), -->
+
+<!--       actionButton("page_23", "next") -->
+
+<!--     ), -->
+
+<!--     tabPanel("page_3", -->
+
+<!--       "You're done!", -->
+
+<!--       actionButton("page_32", "prev") -->
+
+<!--     ) -->
+
+<!--   ) -->
+
+<!-- ) -->
+
+<!-- server <- function(input, output, session) { -->
+
+<!--   switch_page <- function(i) { -->
+
+<!--     updateTabsetPanel(inputId = "wizard", selected = paste0("page_", i)) -->
+
+<!--   } -->
+
+<!--   observeEvent(input$page_12, switch_page(2)) -->
+
+<!--   observeEvent(input$page_21, switch_page(1)) -->
+
+<!--   observeEvent(input$page_23, switch_page(3)) -->
+
+<!--   observeEvent(input$page_32, switch_page(2)) -->
+
+<!-- } -->
+
+<!-- ``` -->
+
+<!-- ## Exercise -->
+
+<!-- Create an app that plots `ggplot(diamonds, aes(carat))` but allows the user to choose which geom to use: `geom_histogram()`, `geom_freqpoly()`, or `geom_density()`. Use a hidden tabset to allow the user to select different arguments depending on the geom: `geom_histogram()` and `geom_freqpoly()` have a `binwidth` argument; `geom_density()` has a `bw` (bandwidth) argument. Use slider input for `binwidth` and `bw`. -->
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Creating UI with code</h2></hgroup><article  id="dynamic-ui-creating-ui-with-code">
+
+<ul>
+<li><strong>Update</strong> functions only allow you to change existing inputs, and a <strong>tabset</strong> only works if you have a fixed and known set of possible combinations.</li>
+<li>Sometimes you need to create different types or numbers of inputs (or outputs), depending on other inputs.</li>
+<li>So far, we have created a UI with code <strong>before</strong> the app started.</li>
+<li>We will now create and modify UI while app is running.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic UI: Creating UI with code</h2></hgroup><article  id="dynamic-ui-creating-ui-with-code-1" class="columns-2 smaller">
+
+<p>See <code>8a_app.R</code></p>
+
+<ul>
+<li><code>uiOutput()</code> inserts a placeholder in your ui.</li>
+<li>This leaves a &ldquo;hole&rdquo; that your server code can later fill in.</li>
+<li><code>renderUI()</code> is called within <code>server()</code> to fill in the placeholder with dynamically generated UI.</li>
+<li>Let’s add a third option for <code>selectInput</code>!</li>
+</ul>
+
+<p>For an application see <code>8b_app.R</code> which changes input method depending on variable type.</p>
+
+<ul>
+<li>Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.</li>
+</ul>
+
+<div style="width:85%; margin:auto;">
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  selectInput(&quot;type&quot;, &quot;type&quot;,
+              c(&quot;slider&quot;, &quot;numeric&quot;)),
+  uiOutput(&quot;numeric&quot;)
+)
+
+server &lt;- function(input, output) {
+  output$numeric &lt;- renderUI({
+    if (input$type == &quot;slider&quot;) {
+      sliderInput(&quot;dynamic&quot;, 
+                  &quot;Your choice&quot;, 
+                  value = 0, 
+                  min = 0, max = 10)
+    } else {
+      numericInput(&quot;dynamic&quot;, 
+                   &quot;Your choice&quot;, 
+                   value = 0, 
+                   min = 0, max = 10)
+    }
+  })
+}</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Filtering by a user-selected column</h2></hgroup><article  id="filtering-by-a-user-selected-column">
+
+<p>Update UI filter (<code>sliderInput()</code>) depending on which variable was selected?</p>
+
+<pre class = 'prettyprint lang-r'>ui &lt;- fluidPage(
+  selectInput(&quot;var&quot;, &quot;Choose variable:&quot;, choices = names(spellname)),
+  uiOutput(&quot;filterUI&quot;),
+)
+
+server &lt;- function(input, output){
+ # Dynamically generate filter input based on selected variable
+  output$filterUI &lt;- renderUI({
+    req(input$var)
+    data &lt;- spellname[[input$var]]
+    rng &lt;- range(data)
+    sliderInput(&quot;filterVal&quot;, paste(&quot;Filter&quot;, input$var), min = rng[1], max = rng[2], value = c(rng[1], rng[2]))
+  })
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Filtering by a user-selected column</h2></hgroup><article  id="filtering-by-a-user-selected-column-1">
+
+<p>Base R</p>
+
+<pre class = 'prettyprint lang-r'>data[input$var &gt; input$varRange[1] &amp; input$var &lt; input$varRange[2],]</pre>
+
+<p><code>tidyverse</code> functions need <code>!!sym(input$var)</code> as in</p>
+
+<pre class = 'prettyprint lang-r'>filter(data, 
+       !!sym(input$var) &gt; input$varRange[1] &amp; 
+       !!sym(input$var) &lt; input$varRange[2])</pre>
+
+</article></slide><slide class=""><hgroup><h2>Dynamic filtering</h2></hgroup><article  id="dynamic-filtering">
+
+<ul>
+<li>Dynamically filter any data frame: <code>9_app.R</code></li>
+<li>Each numeric variable gets a range slider and each factor variable will get a multi-select, so if a data frame has three numeric variables and two factors, the app will have three sliders and two select boxes.</li>
+<li>Together, lets adapt this code for another dataset:
+
+<ul>
+<li>Use <code>palmerpenguins::penguins</code></li>
+<li>Then instead of showing a table (or in addition to), create a scatterplot that includes at least two numeric variables.</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Recommended reading</h2></hgroup><article  id="recommended-reading">
+
+<ul>
+<li>Chapters 2, 10, 12 of <span class="cite">Wickham (<a href='#ref-Wickham2021MasteringShiny' title=''>2021</a>)</span> <em>Mastering shiny.</em> O’Reilly Media. <a href='https://mastering-shiny.org/action-intro.html' title=''>LINK</a></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references">
 
@@ -3686,7 +4093,11 @@ slides > slide { overflow: scroll; }
 slides > slide:not(.nobackground):after {
   content: '';
 }
-</style></article></slide>
+</style>
+
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-Wickham2021MasteringShiny" class="csl-entry">
+<p>Wickham, H. (2021). <em>Mastering shiny</em>. O’Reilly Media.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>

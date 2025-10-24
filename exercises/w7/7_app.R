@@ -1,37 +1,56 @@
 # Load packages
 library(shiny)
+library(tidyverse)
+library(psyntur)
 
-# User interface
+# Set sample size
+n <- 1000
+
+# Prep tabsetPanel for user interface
+parameter_tabs <- tabsetPanel(
+  id = "params",
+  type = "hidden",
+  tabPanel("normal",
+           numericInput("mean", "Mean", value = 1),
+           numericInput("sd", "Standard deviation", min = 0, value = 1)
+  ),
+  tabPanel("exponential",
+           numericInput("rate", "Rate", value = 1, min = 0),
+  )
+)
+
+# Setup user interface
 ui <- fluidPage(
-  tabsetPanel(
-    id = "wizard",
-    type = "hidden",
-    tabPanel("page_1",
-             "Welcome!",
-             actionButton("page_12", "next")
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("dist", "Distribution",
+                  choices = c("normal", "exponential")
+      ),
+      parameter_tabs # this is defined above
     ),
-    tabPanel("page_2",
-             "Only one page to go",
-             actionButton("page_21", "prev"),
-             actionButton("page_23", "next")
-    ),
-    tabPanel("page_3",
-             "You're done!",
-             actionButton("page_32", "prev")
+    mainPanel(
+      plotOutput("hist")
     )
   )
 )
 
-# Define server function
-server <- function(input, output, session) {
-  switch_page <- function(i) {
-    updateTabsetPanel(inputId = "wizard", selected = paste0("page_", i))
-  }
+# Server function for distributions
+server <- function(input, output) {
 
-  observeEvent(input$page_12, switch_page(2))
-  observeEvent(input$page_21, switch_page(1))
-  observeEvent(input$page_23, switch_page(3))
-  observeEvent(input$page_32, switch_page(2))
+  observeEvent(input$dist, {
+    updateTabsetPanel(inputId = "params", selected = input$dist)
+  })
+
+  sample <- reactive({
+    switch(input$dist,
+           normal = rnorm(n, input$mean, input$sd),
+           exponential = rexp(n, input$rate)
+    )
+  })
+
+  output$hist <- renderPlot({
+    histogram(data = NULL, x = sample())
+    })
 }
 
 # Run app

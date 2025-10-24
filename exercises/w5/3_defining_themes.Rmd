@@ -51,13 +51,13 @@ You can manually change the `theme` properties or use existing ones. For example
 # Load package
 library(patchwork)
 
-# Create same plot with different themes
-plot_bw <- --- + theme_bw() + labs(subtitle = "theme_bw")
-plot_classic <- plot_rt + theme_classic() + labs(subtitle = "---")
-plot_clean <- plot_rt + theme_---() + labs(subtitle = "theme_clean")
-plot_light <- plot_rt + theme_light() + labs(subtitle = "theme_light")
+# Create same plot with different themes (follow the same logic in each line)
+plot_bw <- plot_rt + theme_bw() + labs(subtitle = "theme_bw")
+plot_classic <- --- + theme_classic() + labs(subtitle = "---")
+plot_dark <- plot_rt + theme_---() + labs(subtitle = "theme_dark")
+plot_light <- plot_rt + theme_---() + labs(subtitle = "theme_light")
 
-# Combine all four plots
+# Combine all four plots using the + symbol
 plot_bw + plot_classic + --- + plot_light
 
 ```

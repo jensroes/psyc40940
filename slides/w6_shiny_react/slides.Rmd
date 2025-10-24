@@ -38,7 +38,7 @@ theme_set(
 
 - Week 6: Introduction to Shiny and Reactive Programming
 - Week 7: Building Interactive UI Components
-- Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation
+- Week 8: Linking `ggplot2` with Shiny for Dynamic Visualisation
 - Week 9: Creating and Deploying Dashboards
 
 ```{r, results='asis', echo=FALSE}

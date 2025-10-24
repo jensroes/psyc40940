@@ -35,7 +35,6 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       make_ui(iris$Sepal.Length, "Sepal.Length"),
-      make_ui(iris$Sepal.Width, "Sepal.Width"),
       make_ui(iris$Species, "Species")
     ),
     mainPanel(
@@ -47,9 +46,7 @@ ui <- fluidPage(
 # Setup server function
 server <- function(input, output, session) {
   selected <- reactive({
-    filter_var(iris$Sepal.Length, input$Sepal.Length) &
-      filter_var(iris$Sepal.Width, input$Sepal.Width) &
-      filter_var(iris$Species, input$Species)
+    filter_var(iris$Sepal.Length, input$Sepal.Length) & filter_var(iris$Species, input$Species)
   })
 
   output$data <- renderTable(head(iris[selected(), ], 12))

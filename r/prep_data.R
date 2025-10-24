@@ -40,7 +40,9 @@ bind_rows(d_sp, d_wr) %>%
   filter(onset > 200,
          onset < 1e4,
          dur > 100,
-         dur < 4e3, is_target) %>%
+         dur < 4e3,
+         resp != "na",
+         is_target) %>%
   select(-is_target, -exp_resp, -mc_resp) %>%
   rename(name_familiarised = is_new,
          ppt_vocab = lextale_score,

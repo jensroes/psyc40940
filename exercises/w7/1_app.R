@@ -14,7 +14,7 @@ ui <- fluidPage(
     plotOutput("plot")
 )
 
-server <- function(input, output, session) {
+server <- function(input, output) {
   # Reactive expression triggered by button
   selectedVar <- eventReactive(input$go, {
     input$var
