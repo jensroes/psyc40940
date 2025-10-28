@@ -41,6 +41,17 @@ theme_set(
 - Week 8: Linking `ggplot2` with Shiny for Dynamic Visualisation
 - Week 9: Creating and Deploying Dashboards
 
+
+## Objectives for today
+
+By the end of this session, you should be able to $\dots$
+
+1. What are data dashboards and Shiny?
+2. Anatomy of Shiny Apps
+3. Reactive programming
+
+Download exercises from Week 6 folder on NOW and move them into your R-project directory.
+
 ```{r, results='asis', echo=FALSE}
 cat('<button onclick="window.print()">Print Slides</button>')
 ```
@@ -75,7 +86,7 @@ Common Elements
 
 - Inputs: filters, selectors, sliders
 - Outputs: plots, tables, maps
-- Layout: organized panels or tabs
+- Layout: organised panels or tabs
 - Reactivity: updates based on user interaction
 
 
@@ -87,15 +98,112 @@ Other dashboards:
 
 - COVID-19 trackers
 - Financial dashboards
-- Academic performance dashboards
+- Academic performance dashboards (e.g. student engagement)
 - [Shiny Gallery](https://shiny.posit.co/gallery/)
-
 
 What kinds of decisions can dashboards support?
 
 What makes a dashboard useful vs overwhelming?
 
-## What is Shiny?
+
+## What kinds of decisions can dashboards support? {.smaller .columns-2}
+
+Strategic Decisions
+
+- Business growth planning: Identifying high-performing regions or products.
+- Resource allocation: Deciding where to invest time, money, or personnel.
+- Market expansion: Evaluating potential new markets based on performance data.
+
+Operational Decisions
+
+- Daily performance monitoring: Tracking customer service metrics, or production rates.
+- Inventory management: Deciding when to reorder stock or adjust supply chain logistics.
+- Staff scheduling: Adjusting shifts based on workload and performance data.
+
+Financial Decisions
+
+- Budgeting and forecasting: Comparing actual vs. projected expenses and revenues.
+- Cost control: Identifying areas of overspending or inefficiency.
+- Profitability analysis: Evaluating which products or services yield the highest margins.
+
+Marketing Decisions
+
+- Campaign performance: Assessing ROI of marketing efforts.
+- Customer segmentation: Targeting specific groups based on behavior or demographics.
+- Channel optimization: Deciding which platforms or strategies are most effective.
+
+HR and Talent Decisions
+
+- Hiring needs: Monitoring turnover rates and workforce gaps.
+- Employee performance: Identifying top performers or areas needing support.
+- Training effectiveness: Evaluating the impact of development programs.
+
+Academic or Research Decisions
+
+- Student performance tracking: Identifying trends across classes or schools.
+- Experiment monitoring: Visualising data from ongoing studies.
+- Resource usage: Deciding how to allocate lab time, equipment, or funding.
+
+
+## What Makes a Dashboard Overwhelming {.smaller .columns-2}
+
+Too Much Data
+
+- Trying to show everything at once leads to cognitive overload.
+- No clear focus or prioritization.
+
+Poor Visual Design
+
+- Clashing colors, inconsistent chart types, or excessive use of gauges and pie charts.
+- Lack of whitespace or visual separation.
+
+
+Unclear Metrics
+
+- Ambiguous labels or unfamiliar acronyms.
+- No explanation of what the numbers mean or why they matter.
+
+
+Lack of Interactivity
+
+- Static dashboards that don’t allow users to explore or customize views.
+
+Redundant or Irrelevant Information
+
+- Including metrics that don’t support any actionable decision.
+
+
+
+## What Makes a Dashboard Useful {.smaller .columns-2}
+
+Clear Purpose
+
+- Focused on specific goals or decisions (e.g., tracking student performance, monitoring sales).
+- Tailored to the needs of the user or team.
+
+Prioritized Information
+
+- Highlights the most important metrics (e.g., KPIs) at the top.
+- Uses visual hierarchy to guide attention.
+
+Simple and Intuitive Layout
+
+- Clean design with logical grouping of elements.
+- Minimal use of colors and charts—only where they add clarity.
+
+Interactive Features
+
+- Filters, drill-downs, and time sliders allow users to explore data without cluttering the view.
+
+Contextual Insights
+
+- Includes benchmarks, comparisons, or alerts to help interpret data (e.g., “above average” or “needs attention”).
+
+Real-Time or Timely Data
+
+- Ensures decisions are based on current and relevant information.
+
+## What is Shiny? {.columns-2}
 
 - A web application framework for R
 - Enables interactive data exploration
@@ -108,6 +216,12 @@ install.packages("shiny")
 library(shiny)
 ```
 
+Short cuts
+
+- Type `shinyapp` (from `snippet` package)
+- From menu: `File > New File > Shiny Web App...`
+- Click on "Run App"
+
 
 ## App Components
 
@@ -118,7 +232,7 @@ library(shiny)
 
 
 
-## Anatomy of a Shiny App 
+## Anatomy of a Shiny App (see `0_app.R`)
 
 
 
@@ -147,7 +261,7 @@ shinyApp(ui, server)
 
 
 
-See file `0_app.R`
+
 
 
 ## Anatomy of a Shiny App {.columns-2}
@@ -174,7 +288,7 @@ Workflow of Shiny app development
 
 ## Anatomy of a Shiny App {.columns-2}
 
-Simple app that prints numbers.
+Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput` 
 - `input$...`
@@ -207,7 +321,7 @@ shinyApp(ui, server)
 
 ## Anatomy of a Shiny App {.columns-2}
 
-Simple app that prints numbers.
+Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput`: 
 - `input$...`
@@ -241,7 +355,7 @@ shinyApp(ui, server)
 
 ## Anatomy of a Shiny App {.columns-2}
 
-Simple app that prints numbers.
+Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput`: 
 - `input$...`
@@ -275,7 +389,7 @@ shinyApp(ui, server)
 
 ## Anatomy of a Shiny App {.columns-2}
 
-Simple app that prints numbers.
+Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput`: 
 - `input$...`
@@ -309,11 +423,10 @@ shinyApp(ui, server)
 
 
 
-## Exercise 1: Modify the App
+## Exercise 1: Modify the App `1_app.R`
 
-- Open script `1_app.R`
-- Add a second input: `textInput()`
-- Display both inputs in the output
+- Add a second input: `textInput("text", "Write some text")`
+- Display both inputs in the output by adding `input$text` to `paste(---, input$num)`
 
 
 ## What is Reactive Programming?
@@ -337,7 +450,7 @@ From @Wickham2021MasteringShiny:
 ## Key Reactive Components in Shiny
 
 - `input$...`	Represents user input (e.g., from sliders, text boxes).
-- `render*()`	Creates reactive outputs (e.g., renderPlot, renderText).
+- `render*()`	Creates reactive outputs (e.g., `renderPlot`, `renderText`).
 - `reactive()`	Defines reactive expressions (intermediate computations).
 - `observe()`	Executes code in response to changes, but doesn’t return a value.
 - `observeEvent()`	Responds to specific events (e.g., button clicks).
@@ -347,7 +460,7 @@ From @Wickham2021MasteringShiny:
 
 Imagine this flow:
 
-1. User changes a slider (input$slider)
+1. User changes a slider (`input$slider`)
 1. A reactive expression recalculates based on that input.
 1. A render function updates the output (e.g., a plot or text).
 
@@ -392,7 +505,7 @@ If `input$n` changes, `data()` recalculates, and `output$hist` re-renders.
 
 Btw, notice the parentheses for "`data()`".
 
-## What is a Reactive Graph? {.columns-2 .smaller}
+## What is a Reactive Graph? 
 
 - Create a reactive expression by wrapping a block of code in `reactive({...})` 
 - Assign it to a variable: `var <- reactive({...})`
@@ -403,7 +516,7 @@ Btw, notice the parentheses for "`data()`".
 
 - `reactlog::reactlog_enable()`: Enables a visual debugger for the reactive graph.
 - After running your app, press `Ctrl + F3` (or `Cmd + F3` on Mac) to open the reactive graph viewer.
-- Check `2_app.R`
+- Check `1_app.R` and then compare to `2_app.R`.
 
 
 ## Exercise 3
@@ -414,11 +527,11 @@ Btw, notice the parentheses for "`data()`".
 
 ## Understanding `observe()` and `observeEvent()`
 
+- `observe()` and `observeEvent()` are not part of the reactive graph.
 - `observe()` and `observeEvent()` trigger side effects or respond to events without producing reactive values.
-- `observe()` and `observeEvent()` are not part of the reactive graph -- they’re for side effects, not data flow.
 - "Side effects" don't produce a reactive value but still causes a change -- like printing to the console, updating the UI, saving a file, or showing a notification.
 
-## `observe()`
+## Observers: `observe()`
 
 - Used to run code in response to reactive changes, but does not return a value.
 - Ideal for side effects like logging, updating UI elements, or saving data.
@@ -429,12 +542,12 @@ observe({
 })
 ```
 
-- This runs every time input$slider changes, but doesn’t affect other reactive expressions.
+- This runs every time `input$slider` changes, but doesn’t affect other reactive expressions.
   - `reactive()` is like a formula in a spreadsheet.
   - `observeEvent()` is like a macro that runs when you click a button.
 - Mixing reactive expressions and observers can lead to unexpected behaviour.
 
-## `observeEvent()`
+## Observers: `observeEvent()`
 
 - Used to respond to a specific event, like a button click.
 - More efficient than `observe()` when you only care about one trigger.
@@ -449,11 +562,11 @@ observeEvent(input$goButton, {
 
 ## Exercises
 
-1. **Logging Input Changes:** Use `observe()` to print the value of a slider every time it changes. (see `4_app.R`)
-2. **Button Triggered Action:** Use `observeEvent()` to show a notification when a button is clicked. (see `5_app.R`)
+1. **Logging Input Changes:** Use `observe()` to print the value of a slider every time it changes (see `4_app.R`).
+2. **Button Triggered Action:** Use `observeEvent()` to show a notification when a button is clicked (see `5_app.R`).
 3. **Conditional UI Update:** Use `observeEvent()` to update a plot only when a button is pressed, not when inputs change.
-  - You want to store and update a value manually: `reactiveVal()` (see `6_app.R`)
-  - You want to compute a value only when an event occurs:  `eventReactive()` (see `7_app.R`) 
+  - You want to store and update a value manually: `reactiveVal()` (compare `6a_app.R` to `6b_app.R`)
+  - You want to compute a value only when an event occurs: `eventReactive()` (see `7_app.R`) 
 
 ## Combining reactive expressions and observers
 
@@ -464,18 +577,17 @@ Let’s level up with a more challenging Shiny app that combines:
 - Conditional UI updates
 - A bit of state management
 
-## App Idea: Interactive Data Explorer with Controlled Updates
+## App Idea: Interactive Data Explorer with Controlled Updates (`8_app.R`)
 
 Combining a few of these tools:
 
-- How to use `reactive()` for dynamic data
-- How to use `renderUI()` for conditional UI
-- How `eventReactive()` controls updates
-- How `observeEvent()` handles side effects
-- How to use `reactiveVal()` for state tracking
-- How to use `req()` (check required values) to avoid errors from missing inputs
+- `reactive()` for dynamic data
+- `renderUI()` for conditional UI
+- `eventReactive()` controls updates
+- `observeEvent()` handles side effects
+- `reactiveVal()` for state tracking
+- `req()` (check required values) to avoid errors from missing inputs
 
-Check `8_app.R`
 
 ## Extending the App!
 
@@ -489,20 +601,16 @@ Check `8_app.R`
 - Use `reactlog::reactlog_enable()` to debug
 - Always test small components first
 - Use `req()` to avoid errors from missing inputs
+- [Shiny assistant](https://shiny.posit.co/blog/posts/shiny-assistant/)
 - [Shiny cheatsheet](https://rstudio.github.io/cheatsheets/shiny.pdf)
 
-
-## Short cuts
-
-- Type `shinyapp` (from `snippet` package)
-- From menu: File > New File > Shiny Web App...
-- Click on "Run App"
 
 
 
 ## Recommended reading
 
-- Chapters 1 and 3: @Wickham2021MasteringShiny *Mastering shiny.* O'Reilly Media. [LINK](https://mastering-shiny.org/action-intro.html)
+- Chapters 1 and 3: @Wickham2021MasteringShiny [LINK](https://mastering-shiny.org/action-intro.html)
+- Chapter 16 of @andrews2021doing [LINK](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_16_shiny.pdf)
 
 ## References
 

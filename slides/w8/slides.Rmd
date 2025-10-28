@@ -1,0 +1,178 @@
+---
+title: "PSYC40940: Linking `ggplot2` with Shiny for Dynamic Visualisation"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+#    logo: ../gfx/ntu.png
+bibliography: "../references.bib"
+csl: "../apa.csl"
+link-citations: yes
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+```
+
+
+## General outline for weeks 6 -- 9
+
+- ~~Week 6: Introduction to Shiny and Reactive Programming~~
+- ~~Week 7: Building Interactive UI Components~~
+- Week 8: Linking `ggplot2` with Shiny for Dynamic Visualisation
+- Week 9: Creating and Deploying Dashboards
+
+
+
+## Objectives
+
+By the end of this session, you should be able to $\dots$
+
+1. 
+
+Download exercises from Week 8 folder on NOW and move them into your R-project directory.
+
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
+
+
+```{r echo = F}
+d_spellname <- read_csv("../../data/spellname.csv")
+```
+
+
+```{r echo = F}
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
+```
+
+## Static visualisations
+
+on fluid page
+
+```{r eval = F}
+ui <- fluidPage(
+  plotOutput("myplot")
+)
+
+
+server <- function(input, output) {
+
+  output$myplot <- renderPlot({
+    # ... 
+  })
+}
+```
+
+
+## Static visualisations
+then on different tabs
+
+
+```{r eval = F}
+
+ui <- navbarPage("Many tabs app",
+                 tabPanel("My plot 1",
+                      plotOutput("myplot1")
+                 ),
+                 tabPanel("My plot 2")
+)
+
+
+server <- function(input, output) {
+  output$myplot1 <- renderPlot({
+    # ...
+  })
+}
+
+```
+
+
+
+## Static visualisation with user input
+
+selecting variables, filtering data
+
+
+# Interactive visaulsaition
+
+Plotly: interactive, 3d
+Selecting points
+Zooming
+
+
+## Building an app
+
+- Create page layout
+ - Do you need different tabs
+- What basic reactivity do you need?
+- What should the input options be
+
+## Building an app
+
+
+```{r eval = F}
+Start
+│
+├── Layout Type?
+│   ├── Multiple Tabs → navbarPage/tabsetPanel
+│   └── Single View → fluidPage/dashboardPage
+│
+├── Plot Type?
+│   ├── Static → plotOutput + renderPlot
+│   └── Interactive → plotlyOutput + renderPlotly
+│
+├── Inputs Needed?
+│   ├── Variable Selection → selectInput
+│   ├── Numeric Filter → sliderInput
+│   └── Category Filter → checkboxGroupInput/radioButtons
+│
+├── Reactivity?
+│   ├── Direct Mapping → renderPlot/renderPlotly
+│   └── Data Transformation → reactive()
+│
+└── Multiple Plot Types?
+    ├── Yes → Separate tabPanels
+    └── No → Conditional logic in one panel
+```
+
+
+
+
+## Recommended reading
+
+- Chapters ... of @Wickham2021MasteringShiny *Mastering shiny.* O'Reilly Media. [LINK](https://mastering-shiny.org/action-intro.html)
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

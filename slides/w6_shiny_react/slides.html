@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Introduction to Shiny and Reactive Programming</title>
+  <title>PSYC40940: Introduction to Shiny and Reactive Programming</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -19,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Introduction to Shiny and Reactive Programming',
+                title: 'PSYC40940: Introduction to Shiny and Reactive Programming',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3241,7 +3241,7 @@ z-index: 0;
 .title-slide .date {
 position: relative;
 top: -200px; 
-left: 100px;
+left: 50px;
 }
 
 
@@ -3295,11 +3295,195 @@ font-size: 14px;
 <ul>
 <li>Week 6: Introduction to Shiny and Reactive Programming</li>
 <li>Week 7: Building Interactive UI Components</li>
-<li>Week 8: Linking ggplot2 with Shiny for Dynamic Visualisation</li>
+<li>Week 8: Linking <code>ggplot2</code> with Shiny for Dynamic Visualisation</li>
 <li>Week 9: Creating and Deploying Dashboards</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>What is Shiny?</h2></hgroup><article  id="what-is-shiny">
+</article></slide><slide class=""><hgroup><h2>Objectives for today</h2></hgroup><article  id="objectives-for-today">
+
+<p>By the end of this session, you should be able to \(\dots\)</p>
+
+<ol>
+<li>What are data dashboards and Shiny?</li>
+<li>Anatomy of Shiny Apps</li>
+<li>Reactive programming</li>
+</ol>
+
+<p>Download exercises from Week 6 folder on NOW and move them into your R-project directory.</p>
+
+<button onclick="window.print()">
+
+Print Slides
+
+</button>
+
+</article></slide><slide class=""><hgroup><h2>What are interactive data dashboards?</h2></hgroup><article  id="what-are-interactive-data-dashboards">
+
+<p>Dashboards are interactive tools for data communication and decision-making.</p>
+
+<p>A data dashboard is a visual interface that displays key information, metrics, and insights from data—often in real time—using charts, tables, and interactive controls.</p>
+
+<p>Purpose</p>
+
+<ul>
+<li>Summarise complex data in a digestible format</li>
+<li>Enable exploration and decision-making</li>
+<li>Provide interactivity for filtering, drilling down, and customising views</li>
+</ul>
+
+<p>Common Elements</p>
+
+<ul>
+<li>Inputs: filters, selectors, sliders</li>
+<li>Outputs: plots, tables, maps</li>
+<li>Layout: organised panels or tabs</li>
+<li>Reactivity: updates based on user interaction</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>What are interactive data dashboards?</h2></hgroup><article  id="what-are-interactive-data-dashboards-1">
+
+<p>See here for my <a href='https://jens-roeser.shinyapps.io/multilangapp/' title=''>Multi-language written picture-naming dataset app</a> of the data published in <span class="cite">Torrance et al. (<a href='#ref-torrance2018timed' title=''>2018</a>)</span>.</p>
+
+<p>Other dashboards:</p>
+
+<ul>
+<li>COVID-19 trackers</li>
+<li>Financial dashboards</li>
+<li>Academic performance dashboards (e.g. student engagement)</li>
+<li><a href='https://shiny.posit.co/gallery/' title=''>Shiny Gallery</a></li>
+</ul>
+
+<p>What kinds of decisions can dashboards support?</p>
+
+<p>What makes a dashboard useful vs overwhelming?</p>
+
+</article></slide><slide class=""><hgroup><h2>What kinds of decisions can dashboards support?</h2></hgroup><article  id="what-kinds-of-decisions-can-dashboards-support" class="smaller columns-2">
+
+<p>Strategic Decisions</p>
+
+<ul>
+<li>Business growth planning: Identifying high-performing regions or products.</li>
+<li>Resource allocation: Deciding where to invest time, money, or personnel.</li>
+<li>Market expansion: Evaluating potential new markets based on performance data.</li>
+</ul>
+
+<p>Operational Decisions</p>
+
+<ul>
+<li>Daily performance monitoring: Tracking customer service metrics, or production rates.</li>
+<li>Inventory management: Deciding when to reorder stock or adjust supply chain logistics.</li>
+<li>Staff scheduling: Adjusting shifts based on workload and performance data.</li>
+</ul>
+
+<p>Financial Decisions</p>
+
+<ul>
+<li>Budgeting and forecasting: Comparing actual vs. projected expenses and revenues.</li>
+<li>Cost control: Identifying areas of overspending or inefficiency.</li>
+<li>Profitability analysis: Evaluating which products or services yield the highest margins.</li>
+</ul>
+
+<p>Marketing Decisions</p>
+
+<ul>
+<li>Campaign performance: Assessing ROI of marketing efforts.</li>
+<li>Customer segmentation: Targeting specific groups based on behavior or demographics.</li>
+<li>Channel optimization: Deciding which platforms or strategies are most effective.</li>
+</ul>
+
+<p>HR and Talent Decisions</p>
+
+<ul>
+<li>Hiring needs: Monitoring turnover rates and workforce gaps.</li>
+<li>Employee performance: Identifying top performers or areas needing support.</li>
+<li>Training effectiveness: Evaluating the impact of development programs.</li>
+</ul>
+
+<p>Academic or Research Decisions</p>
+
+<ul>
+<li>Student performance tracking: Identifying trends across classes or schools.</li>
+<li>Experiment monitoring: Visualising data from ongoing studies.</li>
+<li>Resource usage: Deciding how to allocate lab time, equipment, or funding.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>What Makes a Dashboard Overwhelming</h2></hgroup><article  id="what-makes-a-dashboard-overwhelming" class="smaller columns-2">
+
+<p>Too Much Data</p>
+
+<ul>
+<li>Trying to show everything at once leads to cognitive overload.</li>
+<li>No clear focus or prioritization.</li>
+</ul>
+
+<p>Poor Visual Design</p>
+
+<ul>
+<li>Clashing colors, inconsistent chart types, or excessive use of gauges and pie charts.</li>
+<li>Lack of whitespace or visual separation.</li>
+</ul>
+
+<p>Unclear Metrics</p>
+
+<ul>
+<li>Ambiguous labels or unfamiliar acronyms.</li>
+<li>No explanation of what the numbers mean or why they matter.</li>
+</ul>
+
+<p>Lack of Interactivity</p>
+
+<ul>
+<li>Static dashboards that don’t allow users to explore or customize views.</li>
+</ul>
+
+<p>Redundant or Irrelevant Information</p>
+
+<ul>
+<li>Including metrics that don’t support any actionable decision.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>What Makes a Dashboard Useful</h2></hgroup><article  id="what-makes-a-dashboard-useful" class="smaller columns-2">
+
+<p>Clear Purpose</p>
+
+<ul>
+<li>Focused on specific goals or decisions (e.g., tracking student performance, monitoring sales).</li>
+<li>Tailored to the needs of the user or team.</li>
+</ul>
+
+<p>Prioritized Information</p>
+
+<ul>
+<li>Highlights the most important metrics (e.g., KPIs) at the top.</li>
+<li>Uses visual hierarchy to guide attention.</li>
+</ul>
+
+<p>Simple and Intuitive Layout</p>
+
+<ul>
+<li>Clean design with logical grouping of elements.</li>
+<li>Minimal use of colors and charts—only where they add clarity.</li>
+</ul>
+
+<p>Interactive Features</p>
+
+<ul>
+<li>Filters, drill-downs, and time sliders allow users to explore data without cluttering the view.</li>
+</ul>
+
+<p>Contextual Insights</p>
+
+<ul>
+<li>Includes benchmarks, comparisons, or alerts to help interpret data (e.g., &ldquo;above average&rdquo; or &ldquo;needs attention&rdquo;).</li>
+</ul>
+
+<p>Real-Time or Timely Data</p>
+
+<ul>
+<li>Ensures decisions are based on current and relevant information.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>What is Shiny?</h2></hgroup><article  id="what-is-shiny" class="columns-2">
 
 <ul>
 <li>A web application framework for R</li>
@@ -3312,7 +3496,24 @@ install.packages(&quot;shiny&quot;)
 # Load shiny
 library(shiny)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app">
+<p>Short cuts</p>
+
+<ul>
+<li>Type <code>shinyapp</code> (from <code>snippet</code> package)</li>
+<li>From menu: <code>File &gt; New File &gt; Shiny Web App...</code></li>
+<li>Click on &ldquo;Run App&rdquo;</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>App Components</h2></hgroup><article  id="app-components">
+
+<ul>
+<li>Inputs (filters)</li>
+<li>Outputs (plots/tables)</li>
+<li>Layout (<code>fluidPage</code>, <code>sidebarLayout</code>)</li>
+<li>Reactivity (how inputs affect outputs)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App (see <code>0_app.R</code>)</h2></hgroup><article  id="anatomy-of-a-shiny-app-see-0_app.r">
 
 <pre class = 'prettyprint lang-r'>library(shiny)
 
@@ -3334,9 +3535,7 @@ server &lt;- function(input, output, session) {
 
 shinyApp(ui, server)</pre>
 
-<p>See file <code>0_app.R</code></p>
-
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-1" class="columns-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app" class="columns-2">
 
 <p>In the R console you’ll see something like:</p>
 
@@ -3352,7 +3551,7 @@ shinyApp(ui, server)</pre>
 <li>Close the Shiny app window.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-1">
 
 <p>Workflow of Shiny app development</p>
 
@@ -3361,9 +3560,9 @@ shinyApp(ui, server)</pre>
 <li>You don’t even need to stop and re-start: press the Reload app button in the toolbox or use the <code>Cmd/Ctrl + Shift + Enter</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-3" class="columns-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-2" class="columns-2">
 
-<p>Simple app that prints numbers.</p>
+<p>Simple app that prints numbers (see <code>1_app.R</code>).</p>
 
 <ul>
 <li><code>sliderInput</code></li>
@@ -3391,9 +3590,9 @@ server &lt;- function(input, output) {
 
 shinyApp(ui, server)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-4" class="columns-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-3" class="columns-2">
 
-<p>Simple app that prints numbers.</p>
+<p>Simple app that prints numbers (see <code>1_app.R</code>).</p>
 
 <ul>
 <li><code>sliderInput</code>:</li>
@@ -3421,9 +3620,9 @@ server &lt;- function(input, output) {
 
 shinyApp(ui, server)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-5" class="columns-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-4" class="columns-2">
 
-<p>Simple app that prints numbers.</p>
+<p>Simple app that prints numbers (see <code>1_app.R</code>).</p>
 
 <ul>
 <li><code>sliderInput</code>:</li>
@@ -3451,9 +3650,9 @@ server &lt;- function(input, output) {
 
 shinyApp(ui, server)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-6" class="columns-2">
+</article></slide><slide class=""><hgroup><h2>Anatomy of a Shiny App</h2></hgroup><article  id="anatomy-of-a-shiny-app-5" class="columns-2">
 
-<p>Simple app that prints numbers.</p>
+<p>Simple app that prints numbers (see <code>1_app.R</code>).</p>
 
 <ul>
 <li><code>sliderInput</code>:</li>
@@ -3481,12 +3680,11 @@ server &lt;- function(input, output) {
 
 shinyApp(ui, server)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Exercise 1: Modify the App</h2></hgroup><article  id="exercise-1-modify-the-app">
+</article></slide><slide class=""><hgroup><h2>Exercise 1: Modify the App <code>1_app.R</code></h2></hgroup><article  id="exercise-1-modify-the-app-1_app.r">
 
 <ul>
-<li>Open script <code>1_app.R</code></li>
-<li>Add a second input: <code>textInput()</code></li>
-<li>Display both inputs in the output</li>
+<li>Add a second input: <code>textInput(&quot;text&quot;, &quot;Write some text&quot;)</code></li>
+<li>Display both inputs in the output by adding <code>input$text</code> to <code>paste(---, input$num)</code></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>What is Reactive Programming?</h2></hgroup><article  id="what-is-reactive-programming">
@@ -3494,7 +3692,7 @@ shinyApp(ui, server)</pre>
 <p>From <span class="cite">Wickham (<a href='#ref-Wickham2021MasteringShiny' title=''>2021</a>)</span>:</p>
 
 <blockquote>
-<p>&ldquo;[It’s] telling Shiny <em>how</em> to perform a computation, not ordering Shiny to actually go <em>do it</em>. It’s like the difference between giving someone a recipe versus demanding that they go make you a sandwich.&rdquo;*</p>
+<p>&ldquo;[It’s] telling Shiny <em>how</em> to perform a computation, not ordering Shiny to actually go <em>do it</em>. It’s like the difference between giving someone a recipe versus demanding that they go make you a sandwich.&rdquo;</p>
 </blockquote>
 
 </article></slide><slide class=""><hgroup><h2>What is Reactive Programming?</h2></hgroup><article  id="what-is-reactive-programming-1">
@@ -3515,7 +3713,7 @@ shinyApp(ui, server)</pre>
 
 <ul>
 <li><code>input$...</code> Represents user input (e.g., from sliders, text boxes).</li>
-<li><code>render*()</code> Creates reactive outputs (e.g., renderPlot, renderText).</li>
+<li><code>render*()</code> Creates reactive outputs (e.g., <code>renderPlot</code>, <code>renderText</code>).</li>
 <li><code>reactive()</code> Defines reactive expressions (intermediate computations).</li>
 <li><code>observe()</code> Executes code in response to changes, but doesn’t return a value.</li>
 <li><code>observeEvent()</code> Responds to specific events (e.g., button clicks).</li>
@@ -3526,7 +3724,7 @@ shinyApp(ui, server)</pre>
 <p>Imagine this flow:</p>
 
 <ol>
-<li>User changes a slider (input$slider)</li>
+<li>User changes a slider (<code>input$slider</code>)</li>
 <li>A reactive expression recalculates based on that input.</li>
 <li>A render function updates the output (e.g., a plot or text).</li>
 </ol>
@@ -3570,12 +3768,21 @@ server &lt;- function(input, output) {
 
 <p>Btw, notice the parentheses for &ldquo;<code>data()</code>&rdquo;.</p>
 
+</article></slide><slide class=""><hgroup><h2>What is a Reactive Graph?</h2></hgroup><article  id="what-is-a-reactive-graph-2">
+
+<ul>
+<li>Create a reactive expression by wrapping a block of code in <code>reactive({...})</code></li>
+<li>Assign it to a variable: <code>var &lt;- reactive({...})</code></li>
+<li>Use a reactive expression by calling the variable like a function: e.g. <code>var()</code></li>
+<li>The reactive expression (unlike a function) runs the first time it’s called; then it caches its result until it needs to be updated.</li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Exercise 2: Tools to Visualize Reactivity</h2></hgroup><article  id="exercise-2-tools-to-visualize-reactivity">
 
 <ul>
 <li><code>reactlog::reactlog_enable()</code>: Enables a visual debugger for the reactive graph.</li>
 <li>After running your app, press <code>Ctrl + F3</code> (or <code>Cmd + F3</code> on Mac) to open the reactive graph viewer.</li>
-<li>Check <code>2_app.R</code></li>
+<li>Check <code>1_app.R</code> and then compare to <code>2_app.R</code>.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Exercise 3</h2></hgroup><article  id="exercise-3">
@@ -3588,12 +3795,12 @@ server &lt;- function(input, output) {
 </article></slide><slide class=""><hgroup><h2>Understanding <code>observe()</code> and <code>observeEvent()</code></h2></hgroup><article  id="understanding-observe-and-observeevent">
 
 <ul>
+<li><code>observe()</code> and <code>observeEvent()</code> are not part of the reactive graph.</li>
 <li><code>observe()</code> and <code>observeEvent()</code> trigger side effects or respond to events without producing reactive values.</li>
-<li><code>observe()</code> and <code>observeEvent()</code> are not part of the reactive graph – they’re for side effects, not data flow.</li>
 <li>&ldquo;Side effects&rdquo; don’t produce a reactive value but still causes a change – like printing to the console, updating the UI, saving a file, or showing a notification.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>observe()</code></h2></hgroup><article  id="observe">
+</article></slide><slide class=""><hgroup><h2>Observers: <code>observe()</code></h2></hgroup><article  id="observers-observe">
 
 <ul>
 <li>Used to run code in response to reactive changes, but does not return a value.</li>
@@ -3605,7 +3812,7 @@ server &lt;- function(input, output) {
 })</pre>
 
 <ul>
-<li>This runs every time input$slider changes, but doesn’t affect other reactive expressions.
+<li>This runs every time <code>input$slider</code> changes, but doesn’t affect other reactive expressions.
 
 <ul>
 <li><code>reactive()</code> is like a formula in a spreadsheet.</li>
@@ -3614,7 +3821,7 @@ server &lt;- function(input, output) {
 <li>Mixing reactive expressions and observers can lead to unexpected behaviour.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2><code>observeEvent()</code></h2></hgroup><article  id="observeevent">
+</article></slide><slide class=""><hgroup><h2>Observers: <code>observeEvent()</code></h2></hgroup><article  id="observers-observeevent">
 
 <ul>
 <li>Used to respond to a specific event, like a button click.</li>
@@ -3632,13 +3839,13 @@ server &lt;- function(input, output) {
 </article></slide><slide class=""><hgroup><h2>Exercises</h2></hgroup><article  id="exercises">
 
 <ol>
-<li><strong>Logging Input Changes:</strong> Use <code>observe()</code> to print the value of a slider every time it changes. (see <code>4_app.R</code>)</li>
-<li><strong>Button Triggered Action:</strong> Use <code>observeEvent()</code> to show a notification when a button is clicked. (see <code>5_app.R</code>)</li>
+<li><strong>Logging Input Changes:</strong> Use <code>observe()</code> to print the value of a slider every time it changes (see <code>4_app.R</code>).</li>
+<li><strong>Button Triggered Action:</strong> Use <code>observeEvent()</code> to show a notification when a button is clicked (see <code>5_app.R</code>).</li>
 <li><strong>Conditional UI Update:</strong> Use <code>observeEvent()</code> to update a plot only when a button is pressed, not when inputs change.</li>
 </ol>
 
 <ul>
-<li>You want to store and update a value manually: <code>reactiveVal()</code> (see <code>6_app.R</code>)</li>
+<li>You want to store and update a value manually: <code>reactiveVal()</code> (compare <code>6a_app.R</code> to <code>6b_app.R</code>)</li>
 <li>You want to compute a value only when an event occurs: <code>eventReactive()</code> (see <code>7_app.R</code>)</li>
 </ul>
 
@@ -3653,20 +3860,18 @@ server &lt;- function(input, output) {
 <li>A bit of state management</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>App Idea: Interactive Data Explorer with Controlled Updates</h2></hgroup><article  id="app-idea-interactive-data-explorer-with-controlled-updates">
+</article></slide><slide class=""><hgroup><h2>App Idea: Interactive Data Explorer with Controlled Updates (<code>8_app.R</code>)</h2></hgroup><article  id="app-idea-interactive-data-explorer-with-controlled-updates-8_app.r">
 
 <p>Combining a few of these tools:</p>
 
 <ul>
-<li>How to use <code>reactive()</code> for dynamic data</li>
-<li>How to use <code>renderUI()</code> for conditional UI</li>
-<li>How <code>eventReactive()</code> controls updates</li>
-<li>How <code>observeEvent()</code> handles side effects</li>
-<li>How to use <code>reactiveVal()</code> for state tracking</li>
-<li>How to use <code>req()</code> (check required values) to avoid errors from missing inputs</li>
+<li><code>reactive()</code> for dynamic data</li>
+<li><code>renderUI()</code> for conditional UI</li>
+<li><code>eventReactive()</code> controls updates</li>
+<li><code>observeEvent()</code> handles side effects</li>
+<li><code>reactiveVal()</code> for state tracking</li>
+<li><code>req()</code> (check required values) to avoid errors from missing inputs</li>
 </ul>
-
-<p>Check <code>8_app.R</code></p>
 
 </article></slide><slide class=""><hgroup><h2>Extending the App!</h2></hgroup><article  id="extending-the-app">
 
@@ -3681,17 +3886,16 @@ server &lt;- function(input, output) {
 <li>Use <code>reactlog::reactlog_enable()</code> to debug</li>
 <li>Always test small components first</li>
 <li>Use <code>req()</code> to avoid errors from missing inputs</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Short cuts</h2></hgroup><article  id="short-cuts">
-
-<ul>
-<li>Type <code>shinyapp</code> (from <code>snippet</code> package)</li>
-<li>From menu: File &gt; New File &gt; Shiny Web App…</li>
-<li>Click on &ldquo;Run App&rdquo;</li>
+<li><a href='https://shiny.posit.co/blog/posts/shiny-assistant/' title=''>Shiny assistant</a></li>
+<li><a href='https://rstudio.github.io/cheatsheets/shiny.pdf' title=''>Shiny cheatsheet</a></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Recommended reading</h2></hgroup><article  id="recommended-reading">
+
+<ul>
+<li>Chapters 1 and 3: <span class="cite">Wickham (<a href='#ref-Wickham2021MasteringShiny' title=''>2021</a>)</span> <a href='https://mastering-shiny.org/action-intro.html' title=''>LINK</a></li>
+<li>Chapter 16 of <span class="cite">Andrews (<a href='#ref-andrews2021doing' title=''>2021</a>)</span> <a href='https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_16_shiny.pdf' title=''>LINK</a></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references">
 
@@ -3702,9 +3906,18 @@ slides > slide:not(.nobackground):after {
 }
 </style>
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-andrews2021doing" class="csl-entry">
+<p>Andrews, M. (2021). <em>Doing data science in <span>
+R</span>: An introduction for <span>
+Social Scientists</span></em>. SAGE Publications Ltd.</p></div>
+
+<div id="ref-torrance2018timed" class="csl-entry">
+<p>Torrance, M., Nottbusch, G., Alves, R. A., Arfé, B., Chanquoy, L., Chukharev-Hudilainen, E., Dimakos, I., Fidalgo, R., Hyönä, J., Jóhannesson, Ó. I., et al. (2018). Timed written picture naming in 14 <span>
+E</span>uropean languages. <em>Behavior Research Methods</em>, <em>50</em>(2), 744–758.</p></div>
+
 <div id="ref-Wickham2021MasteringShiny" class="csl-entry">
-<p>Wickham, Hadley. 2021. <em>Mastering Shiny</em>. Sebastopol, CA: O’Reilly Media.</p></div></div></article></slide>
+<p>Wickham, H. (2021). <em>Mastering shiny</em>. O’Reilly Media.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>
