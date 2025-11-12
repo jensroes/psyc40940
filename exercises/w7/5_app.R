@@ -19,7 +19,7 @@ ui <- fluidPage(
 )
 
 # Create server
-server <- function(input, output, session) {
+server <- function(input, output) {
   # Filter data for "modality"
   sn_mod <- reactive({
     filter(spellname, modality == input$mod)

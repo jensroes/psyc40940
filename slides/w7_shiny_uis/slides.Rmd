@@ -45,11 +45,12 @@ theme_set(
 
 ## Objectives
 
-By the end of this session, you should be able to $\dots$
 
-1. Input widgets
-2. Layout functions
-2. Making input widgets dynamically
+By the end of this session (and your own reading), you should be able to $\dots$
+
+1. Decide how to choose between different input widgets and how to implement some important ones in Shiny Apps.
+2. Use different layout functions to structure your Shiny App. 
+3. Create input widgets dynamically for an interactive user experience.
 
 Download exercises from Week 7 folder on NOW and move them into your R-project directory.
 
@@ -71,23 +72,50 @@ d_spellname <- summarise(d_spellname,
                       .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
 ```
 
-## Recap of Shiny Basics {.smaller}
+## Recap of Shiny Basics {.smaller .columns-2}
 
-- Anatomy of Shiny Apps: `ui`, `server`, and `shinyApp()`
+```{r eval=F}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput(inputId = "num",
+              label = "Choose a number", 
+              min = 1, 
+              max = 100, 
+              value = 50),
+  textOutput("result")
+)
+
+server <- function(input, output) {
+  output$result <- renderText({
+    paste("You chose", input$num)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+\
+\
+
+
+**Anatomy of Shiny Apps**
+
 - Inputs and outputs
-- Reactivity flow: reactive expressions; observers
+- Reactivity flow: reactive expressions, observers
 
-Tips 
+**Tips**
 
 - Use `reactlog::reactlog_enable()` to debug
 - Always test small components first
 - [Shiny cheatsheet](https://rstudio.github.io/cheatsheets/shiny.pdf)
 
-Short cuts
+**Short cuts**
 
-- Type `shinyapp` (from `snippet` package)
+- Type `shinyapp`
 - From menu: `File > New File > Shiny Web App...`
-- Click on "Run App"; `Cmd/Ctrl + Shift + Enter`
+- Run: `Cmd/Ctrl + Shift + Enter`
+
 
 
 # Input Widgets
@@ -113,20 +141,20 @@ ui <- fluidPage( ... )
 - Dynamic UI with `renderUI()` and `uiOutput()`
 
 
-## Input Widgets: Common structure
+## Common structure {.smaller}
 
 - First argument -- `inputId` -- is the identifier: connects front end with back end
-  - if identifier is "min" then server requires `input$min` for access
-  - name should only be letters, numbers and underscores and it should be unique
-- Second argument: "label" a human-readable label for control. 
-- Third parameter: "value" e.g. default value
+  - if identifier is "favnum" then server requires `input$favnum` for access
+  - name should only be letters, numbers and underscores and it must be unique
+- Second argument: `label` a human-readable label for control. 
+- Third parameter: `value` e.g. default value
 - Remaining parameters are unique to the control
 
 ```{r eval=F}
-sliderInput(inputId = "min", label = "Minimum value", value = 50, min = 0, max = 100)
+sliderInput(inputId = "favnum", label = "Fav number", value = 50, min = 0, max = 100)
 ```
 
-Check
+Check documentation of input:
 
 ```{r eval=F}
 ?sliderInput
@@ -135,7 +163,7 @@ Check
 
 ## Input Widgets: Free text
 
-What kind of input is allowed here?
+What kind of inputs are allowed here?
 
 ```{r eval = F}
 ui <- fluidPage(
@@ -147,7 +175,7 @@ ui <- fluidPage(
 
 ## Input Widgets: Numeric inputs
 
-What kind of input is allowed here?
+What kind of inputs are allowed here?
 
 ```{r eval = F}
 ui <- fluidPage(
@@ -159,19 +187,19 @@ ui <- fluidPage(
 
 ## Input Widgets: Dates
 
-What kind of input is allowed here?
+What kind of inputs are allowed here?
 
 ```{r eval = F}
 ui <- fluidPage(
   dateInput("dob", "When were you born?"),
-  dateRangeInput("holiday", "When do you want to go on vacation next?")
+  dateRangeInput("holiday", "When do you want to go travelling next?")
 )
 ```
 
 
 ## Input Widgets: Limited choices
 
-What kind of input is allowed here?
+What kind of inputs are allowed here?
 
 ```{r eval = F}
 animals <- c("dog", "cat", "mouse", "bird", "other")
@@ -216,31 +244,22 @@ Should be paired with `observeEvent()` or `eventReactive()` in your server funct
 | `textAreaInput()`     | Text               | Multi-line text input                                                       | Enter a paragraph or comment              |
 | `passwordInput()`     | Text (masked)      | Text input with hidden characters                                           | Enter a password                          |
 | `numericInput()`      | Numeric            | Numeric input with optional min/max/step                                   | Set a threshold or value                  |
-| `sliderInput()`       | Numeric (range)    | Slider for selecting a value or range                                       | Choose age or time window                 |
+| `sliderInput()`       | Numeric (range)    | Slider for selecting a value or range                                       | Choose value or range of values                 |
 | `dateInput()`         | Date               | Calendar input for selecting a single date                                 | Pick a birthdate or deadline              |
 | `dateRangeInput()`    | Date (range)       | Select a start and end date                                                | Filter data by date range                 |
-| `checkboxInput()`     | Boolean            | Single checkbox (TRUE/FALSE)                                               | Enable or disable a feature               |
+| `checkboxInput()`     | Boolean            | Single checkbox (`TRUE`/`FALSE`)                                               | Enable or disable a feature               |
 | `checkboxGroupInput()`| Categorical        | Multiple checkboxes for selecting multiple options                         | Choose multiple preferences               |
-| `radioButtons()`      | Categorical        | Radio buttons for selecting one option                                     | Choose gender or mode                     |
-| `selectInput()`       | Categorical        | Dropdown menu for selecting one option                                     | Choose a country or category              |
+| `radioButtons()`      | Categorical        | Radio buttons for selecting one option                                     | Choose between few options                     |
+| `selectInput()`       | Categorical        | Dropdown menu for selecting one option                                     | Choose between many options              |
 | `selectizeInput()`    | Categorical        | Enhanced `selectInput()` with search/autocomplete                          | Searchable dropdown for long lists        |
 | `fileInput()`         | File               | Upload a file from the user's computer                                     | Upload CSV or image file                  |
 | `actionButton()`      | Button             | Triggers an action when clicked                                            | Submit form or refresh plot               |
 | `actionLink()`        | Button (link style)| Like `actionButton()` but styled as a hyperlink                           | Trigger UI change or navigation           |
-| `colorInput()`        | Color              | Color picker widget                                                        | Choose a color for a plot or theme        |
+| `colorInput()`        | Colour              | Colour picker widget                                                        | Choose a colour for a plot or theme        |
 
 
 
 ## Input Widgets {.columns-2 .smaller}
-
-- UI: Use `input$<id>` in the server to access the value of any input widget.
-- Server: `render...` for reactive behaviour.
-- Server: Combine inputs with `observeEvent()` or `reactive()` for dynamic behavior.
-- UI: `...Output` to display information.
-
-\
-\
-\
 
 ```{r eval = F}
 ui <- fluidPage(
@@ -259,6 +278,14 @@ server <- function(input, output) {
 ```
 
 
+- UI: Use `input$<id>` in the server to access the value of any input widget.
+- Server: `render...` for reactive behaviour.
+- Server: Combine inputs with `observeEvent()` or `reactive()` for dynamic behavior.
+- UI: `...Output` to display information.
+
+
+
+
 
 ## Exercise: important input options
 
@@ -275,6 +302,24 @@ Review `inputs.R`
 
 ## UI Layout Functions {.columns-2 .smaller}
 
+
+```{r eval = F}
+ui <- fluidPage(
+  
+  
+  
+  
+  
+  
+  
+  
+)
+```
+
+\
+\
+\
+
 Nesting layouts and organising content
 
 - Static layouts: 
@@ -284,9 +329,41 @@ Nesting layouts and organising content
 - Dynamic layouts:
   - `tabsetPanel()`
   - `conditionalPanel()`
+
+
+## UI Layout Functions {.columns-2 .smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  sidebarLayout(
+
+    
+    
+    
+    
+    
+  )
+)
+```
+
 \
 \
 \
+
+Nesting layouts and organising content
+
+- Static layouts: 
+  - `fluidPage()`
+  - `sidebarLayout()`
+  - `navbarPage()`
+- Dynamic layouts:
+  - `tabsetPanel()`
+  - `conditionalPanel()`
+
+
+## UI Layout Functions {.columns-2 .smaller}
+
 
 ```{r eval = F}
 ui <- fluidPage(
@@ -301,8 +378,9 @@ ui <- fluidPage(
 )
 ```
 
-
-## UI Layout Functions {.columns-2 .smaller}
+\
+\
+\
 
 Nesting layouts and organising content
 
@@ -314,18 +392,128 @@ Nesting layouts and organising content
   - `tabsetPanel()`
   - `conditionalPanel()`
 
-\
-\
-\
-\
+
+## UI Layout Functions {.columns-2 .smaller}
+
+```{r eval=F}
+ui <- navbarPage( # top-level navigation bar.
+       
+  
+  
+  
+  
+  
+  
+  
+  
+  
+)
+```
+
+
+Nesting layouts and organising content
+
+- Static layouts: 
+  - `fluidPage()`
+  - `sidebarLayout()`
+  - `navbarPage()`
+- Dynamic layouts:
+  - `tabsetPanel()`
+  - `conditionalPanel()`
+
+
+## UI Layout Functions {.columns-2 .smaller}
 
 ```{r eval=F}
 ui <- navbarPage( # top-level navigation bar.
         tabPanel( # defines a separate view.
-        
-  )
+  
+          
+          
+          
+          
+          
+          
+          
+      )
 )
 ```
+
+
+Nesting layouts and organising content
+
+- Static layouts: 
+  - `fluidPage()`
+  - `sidebarLayout()`
+  - `navbarPage()`
+- Dynamic layouts:
+  - `tabsetPanel()`
+  - `conditionalPanel()`
+
+
+
+## UI Layout Functions {.columns-2 .smaller}
+
+```{r eval=F}
+ui <- navbarPage( # top-level navigation bar.
+        tabPanel( # defines a separate view.
+           sidebarLayout(
+            
+             
+             
+             
+             
+             
+          )
+      )
+)
+```
+
+
+Nesting layouts and organising content
+
+- Static layouts: 
+  - `fluidPage()`
+  - `sidebarLayout()`
+  - `navbarPage()`
+- Dynamic layouts:
+  - `tabsetPanel()`
+  - `conditionalPanel()`
+
+
+
+
+## UI Layout Functions {.columns-2 .smaller}
+
+```{r eval=F}
+ui <- navbarPage( # top-level navigation bar.
+        tabPanel( # defines a separate view.
+           sidebarLayout(
+              sidebarPanel(
+
+              ),
+              mainPanel (
+
+             )
+          )
+      )
+)
+```
+
+
+Nesting layouts and organising content
+
+- Static layouts: 
+  - `fluidPage()`
+  - `sidebarLayout()`
+  - `navbarPage()`
+- Dynamic layouts:
+  - `tabsetPanel()`
+  - `conditionalPanel()`
+
+
+
+
 
 
 
@@ -348,45 +536,28 @@ ui <- navbarPage( # top-level navigation bar.
 | `conditionalPanel()` | Conditional visibility of UI elements        | Shows/hides UI elements based on JavaScript condition (e.g., `input.x == "yes"`)      | Highly dynamic; useful for reactive UI based on user input                       |
 
 
-## UI Layout Practice {.columns-2 .smaller}
+## Exercise: UI Layout 
+
 
 Review `1_app.R` of the week 7 exercises 
 
-- `selectInput()` for variable choices 
-- `plotOutput()` in the main panel
-
 **Task 1:** Add a sidebar layout `sidebarLayout()` (example in `2a_app.R`)
 
+- Sidebar: `selectInput()` for variable choices 
+- Main panel:  `plotOutput()` 
+
 **Task 2:** Create a copy of `1_app.R` and create two tabs -- i.e. `tabPanel()` -- to show different plots either
-  - using `navbarPage` layout with (example in `2b_app.R`).
-  - or `tabsetPanel()` (example in `2c_app.R`)
 
-\
-\
+- using `navbarPage` layout with (example in `2b_app.R`).
+- or `tabsetPanel()` (example in `2c_app.R`).
 
 
-<div style="width:70%; margin:auto;">
 
-```{r eval = F}
-ui <- fluidPage(
-  sidebarLayout(
-    sidebarPanel(
-
-    ),
-    mainPanel(
-
-    )
-  )
-)
-```
-
-</div>
-
-# Dynamic UI
+# Dynamic User Interface
 
 ## Dynamic UI
 
-- Dynamic UI allows you to change the interface based on user input
+- Change the input options for users based on their input.
 - Useful for customising inputs, showing / hiding elements, and building flexible dashboards
 - Give more information to the user.
 - Make it easier to select from a long list of possible options, through step-by-step filtering. 
@@ -395,30 +566,108 @@ ui <- fluidPage(
 
 There are three key techniques for creating dynamic user interfaces:
 
-- `update` family of functions modifies parameters of input controls.
+- `update`: family of functions modifies parameters of input controls.
 - `tabsetPanel()` conditionally shows and hides parts of the user interface.
 - `uiOutput()` and `renderUI()` generates selected parts of the user interface.
-
-
-## Dynamic UI: Updating inputs {.smaller .columns-2}
-
 - Every input control, e.g. `textInput()`, is paired with an update function, e.g. `updateTextInput()`, that allows you to modify the control after it has been created.
-- Example app (`3_app.R`): input (max) controls the max of slider. 
-- `observeEvent()` triggers `updateSliderInput()` whenever max inputs changes.
-- Update function is linked to input control via `inputId`.
-- **Task**: Add an input to update the min value of the slider.
 
-\
 
-<div style="width:85%; margin:auto;">
+## Dynamic UI: Updating inputs {.smaller}
+
+
 ```{r eval = F}
 ui <- fluidPage(
-  numericInput("max", "Maximum", 30),
-  sliderInput("n", "n",
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+)
+
+server <- function(input, output) {
+  
+  
+  
+  
+}
+```
+
+
+
+## Dynamic UI: Updating inputs {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+
+  numericInput(inputId = "max", 
+               label = "Maximum", 
+               value = 30),
+  
+  sliderInput(inputId = "n",
+              label =  "n",
               value = 20,
               min = 0, 
               max = 100)
 )
+
+server <- function(input, output) {
+
+  
+  
+  
+}
+```
+
+
+## Dynamic UI: Updating inputs {.smaller }
+
+
+```{r eval = F}
+ui <- fluidPage(
+
+  numericInput(inputId = "max", 
+               label = "Maximum", 
+               value = 30),
+  
+  sliderInput(inputId = "n",
+              label =  "n",
+              value = 20,
+              min = 0, 
+              max = 100)
+)
+
+server <- function(input, output) {
+  observeEvent(input$max, {
+
+    
+  })
+}
+```
+
+
+## Dynamic UI: Updating inputs {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+
+  numericInput(inputId = "max", 
+               label = "Maximum", 
+               value = 30),
+  
+  sliderInput(inputId = "n",
+              label =  "n",
+              value = 20,
+              min = 0, 
+              max = 100)
+)
+
 server <- function(input, output) {
   observeEvent(input$max, {
     updateSliderInput(inputId = "n",
@@ -426,27 +675,71 @@ server <- function(input, output) {
   })
 }
 ```
-</div>
 
 
-## Dynamic UI: Simple uses {.columns-2}
 
-- Reset parameters back to their initial value (see `4_app.R`). 
-- **TasK 1:** Change this app so pressing reset, resets the values of 2 different sliders.
-- **TasK 2:** Change this app so you have one button per slider.
 
-\
-\
 
-<div style="width:85%; margin:auto;">
+## Dynamic UI: Updating inputs {.smaller .columns-2}
+
 
 ```{r eval = F}
 ui <- fluidPage(
-  sliderInput("x1", "x1", 
-              value = 0, 
-              min = -10, 
-              max = 10),
-  actionButton("reset", "Reset")
+
+  numericInput(inputId = "max", 
+               label = "Maximum", 
+               value = 30),
+  
+  sliderInput(inputId = "n",
+              label =  "n",
+              value = 20,
+              min = 0, 
+              max = 100)
+)
+
+server <- function(input, output) {
+  observeEvent(input$max, {
+    updateSliderInput(inputId = "n",
+                      max = input$max)
+  })
+}
+```
+\
+\
+\
+
+- Example app (`3_app.R`): input (`max`) controls the max of slider. 
+- `observeEvent()` triggers `updateSliderInput()` whenever `max` inputs changes.
+- Update function is linked to input control via `inputId`.
+- **Task**: Add an input to update the **min** value of the slider.
+
+
+
+<!-- ## Dynamic UI -->
+
+<!-- Tweak the text of an action button so you know exactly what it's going to do. -->
+
+<!-- ```{r eval = F} -->
+<!-- ui <- fluidPage( -->
+<!--   numericInput("n", "Simulations", 10), -->
+<!--   actionButton("simulate", "Simulate") -->
+<!-- ) -->
+
+<!-- server <- function(input, output) { -->
+<!--   observeEvent(input$n, { -->
+<!--     label <- paste0("Simulate ", input$n, " times") -->
+<!--     updateActionButton(inputId = "simulate", label = label) -->
+<!--   }) -->
+<!-- } -->
+<!-- ``` -->
+
+
+## Exercise: Dynamic UI {.smaller}
+
+```{r eval = F}
+ui <- fluidPage(
+  sliderInput(inputId = "x1", label = "x1",  value = 0,  min = -10, max = 10),
+  actionButton(inputId = "reset", label = "Reset")
 )
 
 server <- function(input, output) {
@@ -455,26 +748,12 @@ server <- function(input, output) {
   })
 }
 ```
-</div>
+
+- Reset parameters back to their initial value (see `4_app.R`). 
+- **Task**: Change this app so have two different slides one button for each slider that resets it to the starting value.
 
 
-## Dynamic UI: Simple uses 
 
-Tweak the text of an action button so you know exactly what it's going to do.
-
-```{r eval = F}
-ui <- fluidPage(
-  numericInput("n", "Simulations", 10),
-  actionButton("simulate", "Simulate")
-)
-
-server <- function(input, output) {
-  observeEvent(input$n, {
-    label <- paste0("Simulate ", input$n, " times")
-    updateActionButton(inputId = "simulate", label = label)
-  })
-}
-```
 
 
 
@@ -492,28 +771,127 @@ spellname <- read_csv("../../data/spellname.csv")
 
 
 
-## Dynamic UI: Hierarchical select boxes {.columns-2 .smaller}
+## Dynamic UI: Hierarchical select boxes {.smaller}
 
-Create a user interface where you can (`5_app.R`):
-
-- UI create two select boxes and one output plot. 
-- Select a response modality 
-- Select all responses of a participant 
-- The choices for participant will be dynamically generated (`choices = NULL`).
-
-\
-\
-\
-\
-\
-\
-
-<div style="width:85%; margin:auto;">
 
 ```{r eval = F}
 ui <- fluidPage(
   selectInput("mod", "Modality",
-              choices = mods,
+              choices = mods),
+  selectInput("ppt", "Participants",
+              choices = NULL),
+  plotOutput("plot")
+)
+
+server <- function(input, output) {
+
+  
+  
+  
+  
+  
+  
+  
+  
+}
+
+```
+
+
+
+## Dynamic UI: Hierarchical select boxes {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("mod", "Modality",
+              choices = mods),
+  selectInput("ppt", "Participants",
+              choices = NULL),
+  plotOutput("plot")
+)
+
+server <- function(input, output) {
+  sn_mod <- reactive({
+    filter(spellname, 
+           modality == input$mod)
+  })
+
+  
+  
+  
+  
+  
+}
+
+```
+
+
+## Dynamic UI: Hierarchical select boxes {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("mod", "Modality",
+              choices = mods),
+  selectInput("ppt", "Participants",
+              choices = NULL),
+  plotOutput("plot")
+)
+
+server <- function(input, output) {
+  sn_mod <- reactive({
+    filter(spellname, 
+           modality == input$mod)
+  })
+  observeEvent(sn_mod(), {
+
+    
+    
+  })
+  # [...]
+}
+
+```
+
+
+## Dynamic UI: Hierarchical select boxes {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("mod", "Modality",
+              choices = mods),
+  selectInput("ppt", "Participants",
+              choices = NULL),
+  plotOutput("plot")
+)
+
+server <- function(input, output) {
+  sn_mod <- reactive({
+    filter(spellname, 
+           modality == input$mod)
+  })
+  observeEvent(sn_mod(), {
+    choices <- unique(sn_mod()$ppt_id)
+    
+    
+  })
+  # [...]
+}
+
+```
+
+
+
+
+## Dynamic UI: Hierarchical select boxes {.smaller}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("mod", "Modality",
+              choices = mods),
   selectInput("ppt", "Participants",
               choices = NULL),
   plotOutput("plot")
@@ -534,21 +912,34 @@ server <- function(input, output) {
 
 ```
 
-</div>
+
 
 ## Dynamic UI: Hierarchical select boxes 
 
-**Task**: Create a copy of `5_app.R` and change the code so that:
 
-- The plot compares familiarised and not familiarsed responses for the same image. 
-- So, instead of filtering participants depending on modality and plotting image name, do the opposite.
-- Filter image names depending on modality and plot participants.
-- Add a `sidebarLayout` because its nicer.
+See `5_app.R`: creates a user interface with two select boxes and one output plot. 
+
+- Select a response modality 
+- Select all responses of a participant 
+- The choices for participant will be dynamically generated (`choices = NULL`).
+
+
+## Exercise: Hierarchical select boxes 
+
+The plot in `5_app.R` compares familiarised and not familiarsed responses for the same image. 
+
+
+**Task**: Instead of filtering participants and plotting image names, 
+
+- Filter image names depending and plot participants.
+- Add a `sidebarLayout` with input controls in the side panel and the plot in the main panel.
+
+Start by creating a copy of `5_app.R`; then change the code.
+
 
 ## Dynamic UI: Dynamic visibility 
 
-- See `6_app.R`
-- Selectively show and hide parts of the UI. 
+- See `6_app.R`: Selectively show and hide parts of the UI. 
 - Concealing optional UI with a **tabset**.
 - Show and hide UI as needed, without having to re-generate it from scratch.
 - Use tabset panel with hidden tabs.
@@ -623,6 +1014,31 @@ server <- function(input, output) {
 
 ## Dynamic UI: Creating UI with code {.columns-2 .smaller}
 
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("type", "type",
+              c("slider", "numeric")),
+  uiOutput("numeric")
+)
+
+server <- function(input, output) {
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}
+```
+
+
 See `8a_app.R`
 
 - `uiOutput()` inserts a placeholder in your ui. 
@@ -634,10 +1050,136 @@ For an application see `8b_app.R` which changes input method depending on variab
 
 - Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.
 
-<div style="width:85%; margin:auto;">
+
+
+## Dynamic UI: Creating UI with code {.columns-2 .smaller}
 
 ```{r eval = F}
+ui <- fluidPage(
+  selectInput("type", "type",
+              c("slider", "numeric")),
+  uiOutput("numeric")
+)
 
+server <- function(input, output) {
+  output$numeric <- renderUI({
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  })
+}
+```
+
+
+See `8a_app.R`
+
+- `uiOutput()` inserts a placeholder in your ui. 
+- This leaves a "hole" that your server code can later fill in.
+- `renderUI()` is called within `server()` to fill in the placeholder with dynamically generated UI.
+- Let's add a third option for `selectInput`!
+
+For an application see `8b_app.R` which changes input method depending on variable type.
+
+- Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.
+
+
+
+
+
+
+## Dynamic UI: Creating UI with code {.columns-2 .smaller}
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("type", "type",
+              c("slider", "numeric")),
+  uiOutput("numeric")
+)
+
+server <- function(input, output) {
+  output$numeric <- renderUI({
+    if (input$type == "slider") {
+
+      
+      
+      
+    } else {
+      
+            
+            
+            
+    }        
+  })
+}
+```
+
+
+See `8a_app.R`
+
+- `uiOutput()` inserts a placeholder in your ui. 
+- This leaves a "hole" that your server code can later fill in.
+- `renderUI()` is called within `server()` to fill in the placeholder with dynamically generated UI.
+- Let's add a third option for `selectInput`!
+
+For an application see `8b_app.R` which changes input method depending on variable type.
+
+- Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.
+
+
+
+
+## Dynamic UI: Creating UI with code {.columns-2 .smaller}
+
+```{r eval = F}
+ui <- fluidPage(
+  selectInput("type", "type",
+              c("slider", "numeric")),
+  uiOutput("numeric")
+)
+
+server <- function(input, output) {
+  output$numeric <- renderUI({
+    if (input$type == "slider") {
+      sliderInput("dynamic", 
+                  "Your choice", 
+                  value = 0, 
+                  min = 0, max = 10)
+    } else {
+
+      
+      
+      
+      
+  })
+}
+```
+
+
+See `8a_app.R`
+
+- `uiOutput()` inserts a placeholder in your ui. 
+- This leaves a "hole" that your server code can later fill in.
+- `renderUI()` is called within `server()` to fill in the placeholder with dynamically generated UI.
+- Let's add a third option for `selectInput`!
+
+For an application see `8b_app.R` which changes input method depending on variable type.
+
+- Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.
+
+
+
+
+## Dynamic UI: Creating UI with code {.columns-2 .smaller}
+
+```{r eval = F}
 ui <- fluidPage(
   selectInput("type", "type",
               c("slider", "numeric")),
@@ -659,10 +1201,21 @@ server <- function(input, output) {
     }
   })
 }
-
 ```
 
-</div>
+
+See `8a_app.R`
+
+- `uiOutput()` inserts a placeholder in your ui. 
+- This leaves a "hole" that your server code can later fill in.
+- `renderUI()` is called within `server()` to fill in the placeholder with dynamically generated UI.
+- Let's add a third option for `selectInput`!
+
+For an application see `8b_app.R` which changes input method depending on variable type.
+
+- Whenever the selected variable is numeric, add a histogram of the selected variable or a barplot for anything else.
+
+
 
 
 

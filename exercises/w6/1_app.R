@@ -1,5 +1,6 @@
 # Load packages
 library(shiny)
+reactlog::reactlog_enable()
 
 # User input
 ui <- fluidPage(

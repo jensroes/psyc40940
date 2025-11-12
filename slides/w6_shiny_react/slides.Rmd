@@ -1,5 +1,5 @@
 ---
-title: "PSYC40940: Introduction to Shiny and Reactive Programming"
+title: "PSYC40940: Introduction to Shiny"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
@@ -36,7 +36,7 @@ theme_set(
 
 ## General outline for weeks 6 -- 9
 
-- Week 6: Introduction to Shiny and Reactive Programming
+- Week 6: Introduction to Shiny 
 - Week 7: Building Interactive UI Components
 - Week 8: Linking `ggplot2` with Shiny for Dynamic Visualisation
 - Week 9: Creating and Deploying Dashboards
@@ -44,11 +44,11 @@ theme_set(
 
 ## Objectives for today
 
-By the end of this session, you should be able to $\dots$
+By the end of this session (and your own reading), you should be able to $\dots$
 
-1. What are data dashboards and Shiny?
-2. Anatomy of Shiny Apps
-3. Reactive programming
+1. describe what data dashboards are,
+2. understand the anatomy of Shiny Apps,
+3. understand and employ basic reactive programming.
 
 Download exercises from Week 6 folder on NOW and move them into your R-project directory.
 
@@ -74,7 +74,7 @@ d_spellname <- summarise(d_spellname,
 
 Dashboards are interactive tools for data communication and decision-making.
 
-A data dashboard is a visual interface that displays key information, metrics, and insights from data---often in real time---using charts, tables, and interactive controls.
+A data dashboard is a visual interface that displays key information, metrics, and insights from data, often in real time, using charts, tables, and interactive controls.
 
 Purpose
 
@@ -92,7 +92,9 @@ Common Elements
 
 ## What are interactive data dashboards?
 
-See here for my [Multi-language written picture-naming dataset app](https://jens-roeser.shinyapps.io/multilangapp/) of the data published in @torrance2018timed.
+[Multi-language written picture-naming dataset app](https://jens-roeser.shinyapps.io/multilangapp/) of the data published in @torrance2018timed.
+
+[Non-WEIRD-WEB app](https://jens-roeser.shinyapps.io/Non-WEIRD-WEB/) published in @garcia2022online.
 
 Other dashboards:
 
@@ -100,10 +102,6 @@ Other dashboards:
 - Financial dashboards
 - Academic performance dashboards (e.g. student engagement)
 - [Shiny Gallery](https://shiny.posit.co/gallery/)
-
-What kinds of decisions can dashboards support?
-
-What makes a dashboard useful vs overwhelming?
 
 
 ## What kinds of decisions can dashboards support? {.smaller .columns-2}
@@ -157,6 +155,7 @@ Poor Visual Design
 - Clashing colors, inconsistent chart types, or excessive use of gauges and pie charts.
 - Lack of whitespace or visual separation.
 
+\
 
 Unclear Metrics
 
@@ -178,28 +177,28 @@ Redundant or Irrelevant Information
 
 Clear Purpose
 
-- Focused on specific goals or decisions (e.g., tracking student performance, monitoring sales).
+- Focused on specific goals or decisions (e.g. student performance, monitoring sales).
 - Tailored to the needs of the user or team.
 
 Prioritized Information
 
-- Highlights the most important metrics (e.g., KPIs) at the top.
+- Highlights the most important metrics at the top.
 - Uses visual hierarchy to guide attention.
 
 Simple and Intuitive Layout
 
 - Clean design with logical grouping of elements.
-- Minimal use of colors and charts—only where they add clarity.
+- Minimal use of colors and charts only where they add clarity.
 
 Interactive Features
 
-- Filters, drill-downs, and time sliders allow users to explore data without cluttering the view.
+- Filters, drill-downs, and sliders allow users to explore data without cluttering the view.
 
 Contextual Insights
 
-- Includes benchmarks, comparisons, or alerts to help interpret data (e.g., “above average” or “needs attention”).
+- Includes benchmarks, comparisons, or alerts to help interpret data.
 
-Real-Time or Timely Data
+Real-Time Data
 
 - Ensures decisions are based on current and relevant information.
 
@@ -238,25 +237,18 @@ Short cuts
 
 ```{r eval = F}
 library(shiny)
-
 ui <- fluidPage( # layout function that sets up the basic visual structure of the page.
-  
   # User interface / "frontend": what do you want the user to see / do?
   # This is how the interface should look like and
   # what information the user should be allowed to provide.
   # Input controls lets the user interact with the app by providing values.
-
 )
 
 server <- function(input, output, session) {
-  
   # "Backend": what do you want the app to do?
   # This is the heart of the app: each app should have a purpose. 
-
 }
-
 shinyApp(ui, server)
-
 ```
 
 
@@ -288,18 +280,6 @@ Workflow of Shiny app development
 
 ## Anatomy of a Shiny App {.columns-2}
 
-Simple app that prints numbers (see `1_app.R`).
-
-- `sliderInput` 
-- `input$...`
-- `output$...`
-- `renderText`
-- `textOutput`
-- Use of `{...}`
-
-\
-\
-\
 
 ```{r eval=F}
 library(shiny)
@@ -319,20 +299,19 @@ shinyApp(ui, server)
 
 ```
 
-## Anatomy of a Shiny App {.columns-2}
-
 Simple app that prints numbers (see `1_app.R`).
 
-- `sliderInput`: 
+- `sliderInput` 
 - `input$...`
 - `output$...`
 - `renderText`
 - `textOutput`
 - Use of `{...}`
 
-\
-\
-\
+
+## Anatomy of a Shiny App {.columns-2}
+
+
 
 ```{r eval=F}
 library(shiny)
@@ -352,9 +331,6 @@ shinyApp(ui, server)
 
 ```
 
-
-## Anatomy of a Shiny App {.columns-2}
-
 Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput`: 
@@ -364,9 +340,10 @@ Simple app that prints numbers (see `1_app.R`).
 - `textOutput`
 - Use of `{...}`
 
-\
-\
-\
+
+
+## Anatomy of a Shiny App {.columns-2}
+
 
 ```{r eval=F}
 library(shiny)
@@ -386,9 +363,6 @@ shinyApp(ui, server)
 
 ```
 
-
-## Anatomy of a Shiny App {.columns-2}
-
 Simple app that prints numbers (see `1_app.R`).
 
 - `sliderInput`: 
@@ -398,9 +372,8 @@ Simple app that prints numbers (see `1_app.R`).
 - `textOutput`
 - Use of `{...}`
 
-\
-\
-\
+## Anatomy of a Shiny App {.columns-2}
+
 
 ```{r eval=F}
 library(shiny)
@@ -420,13 +393,23 @@ shinyApp(ui, server)
 
 ```
 
+Simple app that prints numbers (see `1_app.R`).
+
+- `sliderInput`: 
+- `input$...`
+- `output$...`
+- `renderText`
+- `textOutput`
+- Use of `{...}`
 
 
 
 ## Exercise 1: Modify the App `1_app.R`
 
 - Add a second input: `textInput("text", "Write some text")`
-- Display both inputs in the output by adding `input$text` to `paste(---, input$num)`
+- Display both inputs in the output by adding 
+
+`input$text` to `paste(---, input$num)`
 
 
 ## What is Reactive Programming?
@@ -447,7 +430,7 @@ From @Wickham2021MasteringShiny:
 
 
 
-## Key Reactive Components in Shiny
+## Key Reactive Components in Shiny {.columns-2}
 
 - `input$...`	Represents user input (e.g., from sliders, text boxes).
 - `render*()`	Creates reactive outputs (e.g., `renderPlot`, `renderText`).
@@ -455,8 +438,51 @@ From @Wickham2021MasteringShiny:
 - `observe()`	Executes code in response to changes, but doesn’t return a value.
 - `observeEvent()`	Responds to specific events (e.g., button clicks).
 
+<div style="width:85%; margin:auto;">
 
-## How Reactivity Works
+```{r eval = F}
+# User input
+ui <- fluidPage(
+  sliderInput("num", 
+              "Choose a number", 
+              min = 1, 
+              max = 100, 
+              value = 50),
+  textOutput("result")
+)
+
+# Server backend
+server <- function(input, output) {
+  output$result <- renderText({
+    paste("You chose", input$num)
+  })
+}
+```
+</div>
+
+## Rendering and output functions {.smaller}
+
+| Render Function (server)      | UI Output Function       | Purpose                                                                 |
+|-----------------------|---------------------------|-------------------------------------------------------------------------|
+| `renderText()`        | `textOutput()`           | Displays plain text generated on the server.                           |
+| `renderPrint()`       | `verbatimTextOutput()`   | Displays printed R output (e.g., `summary()`, `str()`) in fixed-width font. |
+| `renderTable()`       | `tableOutput()`          | Displays a static HTML table of data.                                  |
+| `renderDataTable()`   | `dataTableOutput()`      | Displays an interactive table using **DT** (sortable, searchable).     |
+| `renderPlot()`        | `plotOutput()`           | Displays a static plot generated by R graphics (e.g., `hist()`, `ggplot()`). |
+| `renderImage()`       | `imageOutput()`          | Displays an image file (e.g., PNG, JPEG).                              |
+| `renderUI()`          | `uiOutput()`             | Dynamically generates UI elements on the server side.                  |
+| `renderText()` + HTML | `htmlOutput()`           | Displays HTML content (formatted text, links, etc.).                   |
+
+## Rendering and output functions
+
+- Render functions live in the server function and create reactive outputs.
+- UI output functions live in the UI and act as placeholders for those outputs.
+- `renderUI()` + `uiOutput()` is special because it lets you create dynamic UI elements.
+- See `2a_app` for `renderPlot()` + `plotOutput()`.
+
+
+
+## What is a Reactive Graph?
 
 Imagine this flow:
 
@@ -466,11 +492,14 @@ Imagine this flow:
 
 This chain of dependencies is what we call the reactive graph.
 
-## What is a Reactive Graph?
+The reactive graph is a conceptual diagram showing how different parts of your Shiny app depend on each other. 
 
-The reactive graph is a conceptual diagram showing how different parts of your Shiny app depend on each other. Each node is a reactive object (input, reactive expression, output), and edges show dependencies.
+Each node is a reactive object (input, reactive expression, output), and edges show dependencies.
 
-## What is a Reactive Graph? {.columns-2 .smaller}
+
+
+
+## What is a Reactive Graph? {.columns-2}
 
 
 ```{r eval = F}
@@ -505,7 +534,29 @@ If `input$n` changes, `data()` recalculates, and `output$hist` re-renders.
 
 Btw, notice the parentheses for "`data()`".
 
-## What is a Reactive Graph? 
+## What is a Reactive Graph? {.columns-2}
+
+
+```{r eval = F}
+ui <- fluidPage(
+  sliderInput("n", "Sample size", 10, 100, 50),
+  plotOutput("hist")
+)
+
+server <- function(input, output) {
+  data <- reactive({
+    rnorm(input$n)
+  })
+
+  output$hist <- renderPlot({
+    histogram(data = NULL, x = data())
+  })
+}
+
+```
+
+\
+
 
 - Create a reactive expression by wrapping a block of code in `reactive({...})` 
 - Assign it to a variable: `var <- reactive({...})`
@@ -515,26 +566,34 @@ Btw, notice the parentheses for "`data()`".
 ## Exercise 2: Tools to Visualize Reactivity
 
 - `reactlog::reactlog_enable()`: Enables a visual debugger for the reactive graph.
-- After running your app, press `Ctrl + F3` (or `Cmd + F3` on Mac) to open the reactive graph viewer.
-- Check `1_app.R` and then compare to `2_app.R`.
+- After running your app, press `Ctrl + F3` (or `Cmd + F3` on Mac) to open the reactive graph viewer (you might need the function key `Fn`).
+- Check `1_app.R` and then compare to `2b_app.R`.
 
 
 ## Exercise 3
 
-- Let's explore how a reactivity graph for multiple inputs looks like.
-- Check `3_app.R`
+Let's explore how a reactivity graph for multiple inputs looks like using `3_app.R`.
+
+In the app `rnorm()` is used to create normal distributed random data. 
+
+```{r eval = F}
+# Example for 1000 normal distributed random data with a mean of 50 and
+# a standard deviation of 10
+rnorm(n = 1000, mean = 50, sd = 10)
+```
+
+Allow the user to define the mean and the SD via input sliders.
 
 
 ## Understanding `observe()` and `observeEvent()`
 
 - `observe()` and `observeEvent()` are not part of the reactive graph.
-- `observe()` and `observeEvent()` trigger side effects or respond to events without producing reactive values.
-- "Side effects" don't produce a reactive value but still causes a change -- like printing to the console, updating the UI, saving a file, or showing a notification.
+- `observe()` and `observeEvent()` trigger "side effects" or respond to events without producing reactive values.
+- **Side effects** don't produce a reactive value but still causes a change: printing to the console, logging, saving data, updating the UI, saving a file, or showing a notification.
 
 ## Observers: `observe()`
 
-- Used to run code in response to reactive changes, but does not return a value.
-- Ideal for side effects like logging, updating UI elements, or saving data.
+Runs code in response to reactive changes but don't return value.
 
 ```{r eval = F}
 observe({
@@ -542,14 +601,14 @@ observe({
 })
 ```
 
-- This runs every time `input$slider` changes, but doesn’t affect other reactive expressions.
-  - `reactive()` is like a formula in a spreadsheet.
-  - `observeEvent()` is like a macro that runs when you click a button.
-- Mixing reactive expressions and observers can lead to unexpected behaviour.
+This runs every time `input$slider` changes, but doesn’t affect other reactive expressions.
+
+- `reactive()` is like a formula in a spreadsheet.
+- `observeEvent()` is like a macro that runs when you click a button.
 
 ## Observers: `observeEvent()`
 
-- Used to respond to a specific event, like a button click.
+- Responds to a specific event like a button click.
 - More efficient than `observe()` when you only care about one trigger.
 
 ```{r eval = F}
@@ -558,15 +617,15 @@ observeEvent(input$goButton, {
 })
 ```
 
-- Only runs when `input$goButton` changes (e.g., is clicked).
+Only runs when `input$goButton` changes (e.g., is clicked).
 
 ## Exercises
 
 1. **Logging Input Changes:** Use `observe()` to print the value of a slider every time it changes (see `4_app.R`).
 2. **Button Triggered Action:** Use `observeEvent()` to show a notification when a button is clicked (see `5_app.R`).
 3. **Conditional UI Update:** Use `observeEvent()` to update a plot only when a button is pressed, not when inputs change.
-  - You want to store and update a value manually: `reactiveVal()` (compare `6a_app.R` to `6b_app.R`)
-  - You want to compute a value only when an event occurs: `eventReactive()` (see `7_app.R`) 
+  - Store and update a value manually: `reactiveVal()` (compare `6a_app.R` to `6b_app.R`)
+  - Compute a value only when an event occurs: `eventReactive()` (see `7_app.R`) 
 
 ## Combining reactive expressions and observers
 
@@ -577,7 +636,7 @@ Let’s level up with a more challenging Shiny app that combines:
 - Conditional UI updates
 - A bit of state management
 
-## App Idea: Interactive Data Explorer with Controlled Updates (`8_app.R`)
+## Interactive Data Explorer with Controlled Updates (`8_app.R`)
 
 Combining a few of these tools:
 
