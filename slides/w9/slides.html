@@ -3037,13 +3037,14 @@ font-size: 14px;
           </hgroup>
   </slide>
 
-<slide class><hgroup><h2>General outline for weeks 6 – 9</h2></hgroup><article id="general-outline-for-weeks-6-9">
+<slide class><hgroup><h2>General outline for weeks 6 – 10</h2></hgroup><article id="general-outline-for-weeks-6-10">
 
 <ul>
 <li><del>Week 6: Introduction to Shiny and Reactive Programming</del></li>
-<li><del>Week 7: Building Interactive UI Components</del></li>
-<li>Week 8: Linking <code>ggplot2</code> with Shiny for Dynamic Visualisation</li>
-<li>Week 9: Creating and Deploying Dashboards</li>
+<li><del>Week 7: Input widgets and UI layout functions</del></li>
+<li><del>Week 8: Building Interactive UI Components</del></li>
+<li>Week 9: Linking <code>ggplot2</code> with Shiny for Dynamic Visualisation</li>
+<li>Week 10: Final support session</li>
 </ul>
 
 </article></slide><slide class><hgroup><h2>Objectives</h2></hgroup><article id="objectives">
@@ -3051,8 +3052,8 @@ font-size: 14px;
 <p>By the end of this session (and your own reading), you should be able to \(\dots\)</p>
 
 <ol>
-<li>Plan your own app.</li>
-<li>Create apps with interactive data visualisations.</li>
+<li>Start planning your own app.</li>
+<li>Create apps with interactive data visualisation features.</li>
 </ol>
 
 <button onclick="window.print()">
@@ -3070,61 +3071,83 @@ Print Slides
 <li>What should the input options be?</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Example data: <code>spellname</code></h2></hgroup><article id="example-data-spellname" class="columns-2">
+</article></slide><slide class><hgroup><h2>Example data: <code>spellname</code></h2></hgroup><article id="example-data-spellname" class="columns-2 smaller">
 
-<pre>Rows: 8,586
+<pre>Rows: 8,584
 Columns: 12
-$ ppt_id            &lt;dbl&gt; 40, 40, 40, 40, 40, 40, 40, 40, 40, 4…
-$ resp              &lt;chr&gt; &quot;almond&quot;, &quot;ambulance&quot;, &quot;aubergine&quot;, &quot;…
-$ name_familiarised &lt;lgl&gt; TRUE, FALSE, FALSE, TRUE, FALSE, TRUE…
-$ cat               &lt;chr&gt; &quot;is natural&quot;, &quot;is manmade&quot;, &quot;is natur…
-$ ppt_vocab         &lt;dbl&gt; 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0…
-$ modality          &lt;chr&gt; &quot;speech&quot;, &quot;speech&quot;, &quot;speech&quot;, &quot;speech…
-$ rt                &lt;dbl&gt; 1312, 1057, 967, 1148, 1100, 1295, 12…
-$ dur               &lt;dbl&gt; 649, 544, 800, 680, 587, 452, 693, 61…
-$ spell_div         &lt;dbl&gt; 0.5290947, 0.3919984, 1.0429388, 1.23…
-$ name_div          &lt;dbl&gt; 3.7269149, 0.1407271, 3.7693227, 2.98…
-$ nsyl              &lt;dbl&gt; 2, 3, 4, 3, 3, 3, 4, 2, 2, 3, 2, 4, 3…
-$ aoa               &lt;dbl&gt; 7.67, 6.16, NA, 6.28, NA, 5.30, 6.79,…</pre>
+$ ppt_id            &lt;dbl&gt; 40, 40, 40, 40, 40, 40…
+$ resp              &lt;chr&gt; &quot;almond&quot;, &quot;ambulance&quot;,…
+$ name_familiarised &lt;lgl&gt; TRUE, FALSE, FALSE, TR…
+$ cat               &lt;chr&gt; &quot;is natural&quot;, &quot;is manm…
+$ ppt_vocab         &lt;dbl&gt; 0.95, 0.95, 0.95, 0.95…
+$ modality          &lt;chr&gt; &quot;speech&quot;, &quot;speech&quot;, &quot;s…
+$ rt                &lt;dbl&gt; 1312, 1057, 967, 1148,…
+$ dur               &lt;dbl&gt; 649, 544, 800, 680, 58…
+$ spell_div         &lt;dbl&gt; 0.5290947, 0.3919984, …
+$ name_div          &lt;dbl&gt; 3.7269149, 0.1407271, …
+$ nsyl              &lt;dbl&gt; 2, 3, 4, 3, 3, 3, 4, 2…
+$ aoa               &lt;dbl&gt; 7.67, 6.16, NA, 6.28, …</pre>
 
 <ul>
-<li>Main question: how does familiariation affect reaction time and response duration?</li>
-<li>Plotting outcome variables individually or combined.</li>
+<li>How does familiariation affect reaction time and response duration?</li>
+<li>Which naming features correlate with one another?</li>
 <li>Do patterns reproduce across response modalities?</li>
+<li>Plotting outcome variables individually or combined.</li>
 <li>Are there any responses (images) that are worth excluding because they are “special”?</li>
 <li>Is it worth excluding participants with low vaocabulary scores?</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Building an app</h2></hgroup><article id="building-an-app-1">
+</article></slide><slide class><hgroup><h2>Building an app</h2></hgroup><article id="building-an-app-1" class="columns-2 smaller">
 
-<pre class="prettyprint lang-r">Start
-│
-├── Layout Type?
-│   ├── Multiple Tabs → navbarPage/tabsetPanel
-│   └── Single View → fluidPage/dashboardPage
-│
-├── Plot Type?
-│   ├── Static → plotOutput + renderPlot
-│   └── Interactive → plotlyOutput + renderPlotly
-│
-├── Inputs Needed?
-│   ├── Variable Selection → selectInput
-│   ├── Numeric Filter → sliderInput
-│   └── Category Filter → checkboxGroupInput/radioButtons
-│
-├── Reactivity?
-│   ├── Direct Mapping → renderPlot/renderPlotly
-│   └── Data Transformation → reactive()
-│
-└── Multiple Plot Types?
-    ├── Yes → Separate tabPanels
-    └── No → Conditional logic in one panel</pre>
+<p>Layout Type?</p>
 
-</article></slide><slide class><hgroup><h2>Your own app!</h2></hgroup><article id="your-own-app">
+<ul>
+<li>Multiple Tabs → navbarPage/tabsetPanel</li>
+<li>Single View → fluidPage/dashboardPage</li>
+</ul>
 
-<p>What would make a dataset interesting to explore interactively? What’s the goal of your app?</p>
+<p>Plot Type?</p>
 
-<p>If you have aleady identified a dataset: What are its key variables? Which ones would users want to filter, compare, or visualise?</p>
+<ul>
+<li>Static → plotOutput + renderPlot</li>
+<li>Interactive → plotlyOutput + renderPlotly</li>
+</ul>
+
+<p>Inputs Needed?</p>
+
+<ul>
+<li>Variable Selection → selectInput</li>
+<li>Numeric Filter → sliderInput</li>
+<li>Category Filter → checkboxGroupInput/radioButtons</li>
+</ul>
+
+<p><br /></p>
+
+<p>Multiple Plot Types?</p>
+
+<ul>
+<li>Yes → Separate tabPanels</li>
+<li>No → Conditional logic in one panel</li>
+</ul>
+
+<p>Reactivity?</p>
+
+<ul>
+<li>Direct Mapping → renderPlot/renderPlotly</li>
+<li>Data Transformation → reactive()</li>
+</ul>
+
+</article></slide><slide class><hgroup><h2>Your own app!</h2></hgroup><article id="your-own-app" class="smaller">
+
+<p>What would make a dataset interesting to explore interactively?</p>
+
+<p>What’s the goal of your app?</p>
+
+<p>If you have already identified a dataset:</p>
+
+<ul>
+<li>What are its key variables? Which ones would users want to filter, compare, or visualise?</li>
+</ul>
 
 <p>Identify user actions:</p>
 
@@ -3170,12 +3193,21 @@ $ aoa               &lt;dbl&gt; 7.67, 6.16, NA, 6.28, NA, 5.30, 6.79,…</pre>
 </tr>
 </table>
 
+</article></slide><slide class><hgroup><h2>We will build an app now!</h2></hgroup><article id="we-will-build-an-app-now">
+
+<ol>
+<li>Create a new R project called <code>psych40940-portfolio.Rproj</code>.</li>
+<li>Move your date (or the <code>spellname</code> dataset) inside your new R project.</li>
+<li>Create an R script called <code>app.R</code>.</li>
+<li>Initialise your app code by typing <code>shinyapp</code>.</li>
+</ol>
+
 </article></slide><slide class><hgroup><h2>Static visualisation</h2></hgroup><article id="static-visualisation">
 
-<p>We will build an app now. Start by creating an app that displays a single visualisation. Use your own data or the <code>spellname</code> dataset.</p>
+<p>Start by creating an app that displays a single visualisation. Use your own data or the <code>spellname</code> dataset.</p>
 
 <pre class="prettyprint lang-r"># Load data
-spellname &lt;- read_csv(&quot;data/spellname.csv&quot;)
+spellname &lt;- read_csv(&quot;spellname.csv&quot;)
 
 # Create user interface
 ui &lt;- fluidPage(
@@ -3222,7 +3254,7 @@ server &lt;- function(input, output) {
   )
 )</pre>
 
-</article></slide><slide class><hgroup><h2>Static visualisation with user input</h2></hgroup><article id="static-visualisation-with-user-input">
+</article></slide><slide class><hgroup><h2>Static visualisation with user input</h2></hgroup><article id="static-visualisation-with-user-input" class="smaller">
 
 <p>In a tab of your choice, allow users to select variables from the input.</p>
 
@@ -3238,7 +3270,7 @@ server &lt;- function(input, output) {
 
 <p>Link the selected variable to the plot:</p>
 
-<pre class="prettyprint lang-r">ggplot(spellname, aes(x = .data[[input$xvar]])) </pre>
+<pre class="prettyprint lang-r">ggplot(spellname, aes(x = .data[[input$var]])) </pre>
 
 </article></slide><slide class><hgroup><h2>Static visualisation with user input</h2></hgroup><article id="static-visualisation-with-user-input-1">
 
@@ -3263,7 +3295,7 @@ output$varout &lt;- renderUI({
   # create a slider for the
   sliderInput(&quot;dynamicVar&quot;, 
               input$var,
-              value = rnd,
+              value = rng,
               min = floor(rng[1]),
               max = ceiling(rng[2]))
 })</pre>
@@ -3275,6 +3307,8 @@ output$varout &lt;- renderUI({
 <pre class="prettyprint lang-r">ggplot(...) +
   ...
   coord_cartesian(xlim = input$dynamicVar)</pre>
+
+<p>Repeat this for another variable (e.g. for the y axis).</p>
 
 </article></slide><slide class><hgroup><h2>Interactive visaulisation</h2></hgroup><article id="interactive-visaulisation">
 
@@ -3294,12 +3328,11 @@ plotOutput(
 
 <p>See Chapter 16 in <span class="cite">Andrews (<a href="#ref-andrews2021doing" title>2021</a>)</span>.</p>
 
-</article></slide><slide class><hgroup><h2>Selecting points</h2></hgroup><article id="selecting-points">
-
-<p>… allows the user to use their cursor to select data points and print them.</p>
+</article></slide><slide class><hgroup><h2>Selecting points</h2></hgroup><article id="selecting-points" class="columns-2">
 
 <pre class="prettyprint lang-r">mainPanel(
-  plotOutput(&quot;scatterPlot&quot;, brush = brushOpts(id = &quot;selected_region&quot;)),
+  plotOutput(&quot;scatterPlot&quot;, 
+             brush = brushOpts(id = &quot;selected_region&quot;)),
   h4(&quot;Selected data&quot;),
   verbatimTextOutput(&quot;selected_info&quot;)
   )</pre>
@@ -3308,20 +3341,46 @@ plotOutput(
   brushedPoints(spellname, input$selected_region)
 })</pre>
 
+<p>… allows the user to use their cursor to select data points and print them.</p>
+
 <ul>
 <li>Add a tab for this functionality.</li>
 <li>Add a scatterplot with two variables of your choice.</li>
 <li>Add the selecting points functionality.</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Zooming into data</h2></hgroup><article id="zooming-into-data">
-
-<p>Allows the user to zoom into a section of the data.</p>
+</article></slide><slide class><hgroup><h2>Selecting points</h2></hgroup><article id="selecting-points-1" class="columns-2">
 
 <pre class="prettyprint lang-r">mainPanel(
-  plotOutput(&quot;scatterPlot&quot;, brush = brushOpts(id = &quot;selected_region&quot;)),
+  ...,
+  DT::DTOutput(&quot;selected_info&quot;)
+  )</pre>
+
+<pre class="prettyprint lang-r">output$selected_info &lt;- DT::renderDT({
+  brushedPoints(spellname, input$selected_region)
+})</pre>
+
+<ul>
+<li>The <code>DT</code> package provides an interactive data table (hence, “DT”).</li>
+<li>This can be used for selected data points.</li>
+<li>Data table is rendered in the server via <code>renderDT</code> that is connected to the UI via <code>DTOutput</code>.</li>
+</ul>
+
+</article></slide><slide class><hgroup><h2>Zooming into data</h2></hgroup><article id="zooming-into-data" class="columns-2">
+
+<pre class="prettyprint lang-r">mainPanel(
+  plotOutput(&quot;scatterPlot&quot;, 
+             brush = brushOpts(id = &quot;selected_region&quot;)),
   plotOutput(&quot;subplot&quot;)
 )</pre>
+
+<ul>
+<li>Allows the user to zoom into a section of the data.</li>
+<li>Create a tab with a scatterplot of two hard coded variables (no user selection).</li>
+<li>Add in an output for a subplot.</li>
+</ul>
+
+</article></slide><slide class><hgroup><h2>Zooming into data</h2></hgroup><article id="zooming-into-data-1" class="columns-2">
 
 <pre class="prettyprint lang-r">xyrange &lt;- reactiveValues(x = NULL, y = NULL)
 
@@ -3337,12 +3396,12 @@ output$subplot &lt;- renderPlot({
 })</pre>
 
 <ul>
-<li>Create a tab with a scatterplot of two hard coded variables (no user selection).</li>
-<li>Add zooming behaviour to this scatterplot amd show both the plot with all data, and the zoomed-in plot.</li>
+<li>In the server, we need to create a new plot similar to the previous scatterplot but with a limited range for both axes.</li>
+<li>Add zooming behaviour to this scatterplot and show both the plot with all data, and the zoomed-in plot.</li>
 <li>Add a title to the plots so the user knows which one is which.</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Zooming into data</h2></hgroup><article id="zooming-into-data-1">
+</article></slide><slide class><hgroup><h2>Zooming into data</h2></hgroup><article id="zooming-into-data-2">
 
 <p>Using <code>fluidRow</code> and <code>column</code> allows you to constrain the width of output elements.</p>
 
@@ -3375,7 +3434,7 @@ plotlyOutput(
   fill = !inline
 )</pre>
 
-</article></slide><slide class><hgroup><h2>Interactive visualisations using <code>plotly</code></h2></hgroup><article id="interactive-visualisations-using-plotly-1">
+</article></slide><slide class><hgroup><h2>Interactive visualisations using <code>plotly</code></h2></hgroup><article id="interactive-visualisations-using-plotly-1" class="columns-2">
 
 <pre class="prettyprint lang-r"># Load package
 library(plotly)
@@ -3387,14 +3446,11 @@ plot &lt;- ggplot(d_blomkvist, aes(x = ...)) +
 # Make the visualisation interactive by using `ggplotly`
 ggplotly(plot)</pre>
 
-<ul>
-<li>For the plot in your tab with user selected variables turn the visualisation into an interactive <code>plotly</code> visualisation.</li>
-<li>Make sure you’re using <code>plotlyOutput</code> (user interface) and <code>renderPlotly</code> (server).</li>
-</ul>
+<p>For the plot in your tab with user selected variables turn the visualisation into an interactive <code>plotly</code> visualisation.</p>
 
-</article></slide><slide class><hgroup><h2>Interactive visualisations using <code>plotly</code></h2></hgroup><article id="interactive-visualisations-using-plotly-2">
+<p>Make sure you’re using <code>plotlyOutput</code> (user interface) and <code>renderPlotly</code> (server).</p>
 
-<p>Add a new tab with sidebar layout that displays a 3D scatterplot.</p>
+</article></slide><slide class><hgroup><h2>Interactive visualisations using <code>plotly</code></h2></hgroup><article id="interactive-visualisations-using-plotly-2" class="columns-2">
 
 <pre class="prettyprint lang-r">library(plotly)
 plot_ly(data = spellname,
@@ -3407,6 +3463,10 @@ plot_ly(data = spellname,
         marker = list(size = 3)
 )</pre>
 
+<p><br /></p>
+
+<p>Add a new tab with sidebar layout that displays a 3D scatterplot.</p>
+
 <p>Allow the user to select variables for the x, y and z axis:</p>
 
 <ul>
@@ -3414,7 +3474,9 @@ plot_ly(data = spellname,
 <li>Then connect the selected variables to the plotting function.</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Preparation for next session</h2></hgroup><article id="preparation-for-next-session">
+<p>Use <code>plotlyOutput</code> (UI) and <code>renderPlotly</code> (server).</p>
+
+</article></slide><slide class><hgroup><h2>Preparation for our final session</h2></hgroup><article id="preparation-for-our-final-session">
 
 <ul>
 <li>Select a data set for your portfolio project.</li>
@@ -3427,7 +3489,9 @@ plot_ly(data = spellname,
 </ul></li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Recommended reading</h2></hgroup><article id="recommended-reading">
+<p>Some inspiration using features we discussed: <a href="https://jens-roeser.shinyapps.io/spellname-app/" title>Spellname-app</a></p>
+
+<p>Recommended reading</p>
 
 <ul>
 <li>Chapter 7 of <span class="cite">Wickham (<a href="#ref-Wickham2021MasteringShiny" title>2021</a>)</span> <a href="https://mastering-shiny.org/action-intro.html" title>LINK</a></li>

@@ -1223,7 +1223,7 @@ For an application see `8b_app.R` which changes input method depending on variab
 
 ## Filtering by a user-selected column
 
-Update UI filter (`sliderInput()`) depending on which variable was selected?
+Update UI filter (`sliderInput()`) depending on which variable was selected.
 
 ```{r eval = F}
 
@@ -1238,7 +1238,7 @@ server <- function(input, output){
     req(input$var)
     data <- spellname[[input$var]]
     rng <- range(data)
-    sliderInput("filterVal", paste("Filter", input$var), min = rng[1], max = rng[2], value = c(rng[1], rng[2]))
+    sliderInput("filterVal", paste("Filter", input$var), min = rng[1], max = rng[2], value = rng)
   })
 }
 ```

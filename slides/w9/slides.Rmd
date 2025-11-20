@@ -33,12 +33,13 @@ theme_set(
 ```
 
 
-## General outline for weeks 6 -- 9
+## General outline for weeks 6 -- 10
 
 - ~~Week 6: Introduction to Shiny and Reactive Programming~~
-- ~~Week 7: Building Interactive UI Components~~
-- Week 8: Linking `ggplot2` with Shiny for Dynamic Visualisation
-- Week 9: Creating and Deploying Dashboards
+- ~~Week 7: Input widgets and UI layout functions~~
+- ~~Week 8: Building Interactive UI Components~~
+- Week 9: Linking `ggplot2` with Shiny for Dynamic Visualisation
+- Week 10: Final support session
 
 
 
@@ -46,8 +47,8 @@ theme_set(
 
 By the end of this session (and your own reading), you should be able to $\dots$
 
-1. Plan your own app.
-2. Create apps with interactive data visualisations.
+1. Start planning your own app.
+2. Create apps with interactive data visualisation features.
 
 
 ```{r, results='asis', echo=FALSE}
@@ -80,55 +81,62 @@ d_spellname <- summarise(d_spellname,
 
 
 
-## Example data: `spellname` {.columns-2}
+## Example data: `spellname` {.columns-2 .smaller}
 
 ```{r echo = F}
-glimpse(d_spellname, width = 65)
+glimpse(d_spellname, width = 50)
 ```
 
 
-
-- Main question: how does familiariation affect reaction time and response duration?
-- Plotting outcome variables individually or combined.
+- How does familiariation affect reaction time and response duration?
+- Which naming features correlate with one another?
 - Do patterns reproduce across response modalities?
+- Plotting outcome variables individually or combined.
 - Are there any responses (images) that are worth excluding because they are "special"?
 - Is it worth excluding participants with low vaocabulary scores?
 
 
-## Building an app
+
+## Building an app {.columns-2 .smaller}
+
+Layout Type?
+
+- Multiple Tabs → navbarPage/tabsetPanel
+- Single View → fluidPage/dashboardPage
 
 
-```{r eval = F}
-Start
-│
-├── Layout Type?
-│   ├── Multiple Tabs → navbarPage/tabsetPanel
-│   └── Single View → fluidPage/dashboardPage
-│
-├── Plot Type?
-│   ├── Static → plotOutput + renderPlot
-│   └── Interactive → plotlyOutput + renderPlotly
-│
-├── Inputs Needed?
-│   ├── Variable Selection → selectInput
-│   ├── Numeric Filter → sliderInput
-│   └── Category Filter → checkboxGroupInput/radioButtons
-│
-├── Reactivity?
-│   ├── Direct Mapping → renderPlot/renderPlotly
-│   └── Data Transformation → reactive()
-│
-└── Multiple Plot Types?
-    ├── Yes → Separate tabPanels
-    └── No → Conditional logic in one panel
-```
+Plot Type?
 
+- Static → plotOutput + renderPlot
+- Interactive → plotlyOutput + renderPlotly
 
-## Your own app!
+Inputs Needed?
 
-What would make a dataset interesting to explore interactively? What's the goal of your app?
+- Variable Selection → selectInput
+- Numeric Filter → sliderInput
+- Category Filter → checkboxGroupInput/radioButtons
 
-If you have aleady identified a dataset: What are its key variables? Which ones would users want to filter, compare, or visualise?
+\
+
+Multiple Plot Types?
+
+- Yes → Separate tabPanels
+- No → Conditional logic in one panel
+
+Reactivity?
+
+- Direct Mapping → renderPlot/renderPlotly
+- Data Transformation → reactive()
+
+## Your own app! {.smaller}
+
+What would make a dataset interesting to explore interactively? 
+
+What's the goal of your app?
+
+If you have already identified a dataset: 
+
+- What are its key variables? Which ones would users want to filter, compare, or visualise?
 
 Identify user actions:
 
@@ -151,14 +159,22 @@ Which of these would make sense for your dataset?
 | Extra features      |               |
 
 
+## We will build an app now!
+
+1. Create a new R project called `psych40940-portfolio.Rproj`.
+2. Move your date (or the `spellname` dataset) inside your new R project.
+3. Create an R script called `app.R`.
+4. Initialise your app code by typing `shinyapp`.
+
+
 ## Static visualisation
 
-We will build an app now. Start by creating an app that displays a single visualisation. Use your own data or the `spellname` dataset.
+Start by creating an app that displays a single visualisation. Use your own data or the `spellname` dataset.
 
 
 ```{r eval = F}
 # Load data
-spellname <- read_csv("data/spellname.csv")
+spellname <- read_csv("spellname.csv")
 
 # Create user interface
 ui <- fluidPage(
@@ -215,7 +231,7 @@ sidebarLayout(
 ```
 
 
-## Static visualisation with user input
+## Static visualisation with user input {.smaller}
 
 In a tab of your choice, allow users to select variables from the input.
 
@@ -236,7 +252,7 @@ selectInput("var", "Title", choices = choices)
 Link the selected variable to the plot:
 
 ```{r eval = F}
-ggplot(spellname, aes(x = .data[[input$xvar]])) 
+ggplot(spellname, aes(x = .data[[input$var]])) 
 ```
 
 
@@ -266,7 +282,7 @@ output$varout <- renderUI({
   # create a slider for the
   sliderInput("dynamicVar", 
               input$var,
-              value = rnd,
+              value = rng,
               min = floor(rng[1]),
               max = ceiling(rng[2]))
 })
@@ -282,9 +298,10 @@ ggplot(...) +
   coord_cartesian(xlim = input$dynamicVar)
 ```
 
+Repeat this for another variable (e.g. for the y axis).
 
 
-## Interactive visaulisation 
+## Interactive visaulisation
 
 ```{r eval = F}
 ?plotOutput
@@ -306,13 +323,12 @@ plotOutput(
 See Chapter 16 in @andrews2021doing.
 
 
-## Selecting points
-
-... allows the user to use their cursor to select data points and print them.
+## Selecting points {.columns-2}
 
 ```{r eval = F}
 mainPanel(
-  plotOutput("scatterPlot", brush = brushOpts(id = "selected_region")),
+  plotOutput("scatterPlot", 
+             brush = brushOpts(id = "selected_region")),
   h4("Selected data"),
   verbatimTextOutput("selected_info")
   )
@@ -324,21 +340,49 @@ output$selected_info <- renderPrint({
 })
 ```
 
+... allows the user to use their cursor to select data points and print them.
+
 - Add a tab for this functionality. 
 - Add a scatterplot with two variables of your choice.
 - Add the selecting points functionality.
 
-
-## Zooming into data
-
-Allows the user to zoom into a section of the data. 
+## Selecting points {.columns-2}
 
 ```{r eval = F}
 mainPanel(
-  plotOutput("scatterPlot", brush = brushOpts(id = "selected_region")),
+  ...,
+  DT::DTOutput("selected_info")
+  )
+```
+
+```{r eval = FALSE}
+output$selected_info <- DT::renderDT({
+  brushedPoints(spellname, input$selected_region)
+})
+```
+
+- The `DT` package provides an interactive data table (hence, "DT").
+- This can be used for selected data points.
+- Data table is rendered in the server via `renderDT` that is connected to the UI via `DTOutput`.
+
+
+
+## Zooming into data {.columns-2}
+
+```{r eval = F}
+mainPanel(
+  plotOutput("scatterPlot", 
+             brush = brushOpts(id = "selected_region")),
   plotOutput("subplot")
 )
 ```
+
+- Allows the user to zoom into a section of the data. 
+- Create a tab with a scatterplot of two hard coded variables (no user selection).
+- Add in an output for a subplot.
+
+## Zooming into data {.columns-2}
+
 
 ```{r eval = F}
 xyrange <- reactiveValues(x = NULL, y = NULL)
@@ -355,8 +399,8 @@ output$subplot <- renderPlot({
 })
 ```
 
-- Create a tab with a scatterplot of two hard coded variables (no user selection).
-- Add zooming behaviour to this scatterplot amd show both the plot with all data, and the zoomed-in plot.
+- In the server, we need to create a new plot similar to the previous scatterplot but with a limited range for both axes.
+- Add zooming behaviour to this scatterplot and show both the plot with all data, and the zoomed-in plot.
 - Add a title to the plots so the user knows which one is which.
 
 ## Zooming into data
@@ -401,7 +445,7 @@ plotlyOutput(
 ```
 
 
-## Interactive visualisations using `plotly`
+## Interactive visualisations using `plotly` {.columns-2}
 
 ```{r eval = F}
 # Load package
@@ -415,15 +459,14 @@ plot <- ggplot(d_blomkvist, aes(x = ...)) +
 ggplotly(plot)
 ```
 
-- For the plot in your tab with user selected variables turn the visualisation into an interactive `plotly` visualisation.
-- Make sure you're using `plotlyOutput` (user interface) and `renderPlotly` (server).
+For the plot in your tab with user selected variables turn the visualisation into an interactive `plotly` visualisation.
+
+Make sure you're using `plotlyOutput` (user interface) and `renderPlotly` (server).
 
 
 
 
-## Interactive visualisations using `plotly`
-
-Add a new tab with sidebar layout that displays a 3D scatterplot.
+## Interactive visualisations using `plotly` {.columns-2}
 
 ```{r eval = F}
 library(plotly)
@@ -438,14 +481,20 @@ plot_ly(data = spellname,
 )
 ```
 
+\
+
+Add a new tab with sidebar layout that displays a 3D scatterplot.
 
 Allow the user to select variables for the x, y and z axis: 
 
 - You'll need `selectInput` to allow users to select variables. 
 - Then connect the selected variables to the plotting function.
 
+Use `plotlyOutput` (UI) and `renderPlotly` (server).
 
-## Preparation for next session
+
+
+## Preparation for our final session
 
 - Select a data set for your portfolio project.
 - Start developing an app around your data set.
@@ -453,9 +502,9 @@ Allow the user to select variables for the x, y and z axis:
   - Create visualisations
   - Add user input features 
 
+Some inspiration using features we discussed: [Spellname-app](https://jens-roeser.shinyapps.io/spellname-app/)
 
-
-## Recommended reading
+Recommended reading
 
 - Chapter 7 of @Wickham2021MasteringShiny [LINK](https://mastering-shiny.org/action-intro.html)
 - Chapter 16 of @andrews2021doing [LINK](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_16_shiny.pdf)

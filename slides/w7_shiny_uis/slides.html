@@ -2993,7 +2993,7 @@ background: rgba(0, 0, 0, 0); z-index: 0;
 .title-slide p,
 .title-slide .date {
 position: relative;
-top: -200px; left: 50px;
+top: -200px; left: 0px;
 }
 slides > slide {
 background-color: #f0f0f0; }
@@ -4311,7 +4311,7 @@ server &lt;- function(input, output) {
 
 </article></slide><slide class><hgroup><h2>Filtering by a user-selected column</h2></hgroup><article id="filtering-by-a-user-selected-column">
 
-<p>Update UI filter (<code>sliderInput()</code>) depending on which variable was selected?</p>
+<p>Update UI filter (<code>sliderInput()</code>) depending on which variable was selected.</p>
 
 <pre class="prettyprint lang-r">ui &lt;- fluidPage(
   selectInput(&quot;var&quot;, &quot;Choose variable:&quot;, choices = names(spellname)),
@@ -4324,7 +4324,7 @@ server &lt;- function(input, output){
     req(input$var)
     data &lt;- spellname[[input$var]]
     rng &lt;- range(data)
-    sliderInput(&quot;filterVal&quot;, paste(&quot;Filter&quot;, input$var), min = rng[1], max = rng[2], value = c(rng[1], rng[2]))
+    sliderInput(&quot;filterVal&quot;, paste(&quot;Filter&quot;, input$var), min = rng[1], max = rng[2], value = rng)
   })
 }</pre>
 

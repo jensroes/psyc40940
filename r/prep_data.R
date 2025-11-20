@@ -42,8 +42,9 @@ bind_rows(d_sp, d_wr) %>%
          dur > 100,
          dur < 4e3,
          resp != "na",
+         str_detect(resp, "forgot| or |forgor", negate = T),
          is_target) %>%
-  select(-is_target, -exp_resp, -mc_resp) %>%
+  select(-is_target, -exp_resp) %>%
   rename(name_familiarised = is_new,
          ppt_vocab = lextale_score,
          rt = onset,
