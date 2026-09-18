@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - **Purpose:** To scaffold learning and provide feedback before the summative portfolio.
 - **Format:** RMarkdown report with embedded visualisations.
-- **Deadline:** 31st October 2025
+- **Deadline:** Friday 30 October 2026
 - **Length:** max 1,000 words
-- **Feedback:** 21st November 2025
+- **Feedback:** Friday 20 November 2026
 
 
 

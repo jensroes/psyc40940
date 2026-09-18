@@ -1,0 +1,395 @@
+---
+title: 'PSYC40940: Visualisation of Behavioural Data and Data Dashboards'
+author: '<span style="font-size: 40px; font-face">Jens Roeser</span>'
+output: 
+  ioslides_presentation:
+    incremental: false
+    transition: slower
+    widescreen: true
+    css: slides.css
+#    logo: ../gfx/ntu.png
+bibliography: "../references.bib"
+csl: "../apa.csl"
+link-citations: yes
+---
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = FALSE, eval = TRUE, message = FALSE, comment=NA)
+options("kableExtra.html.bsTable" = T, digits = 2)
+options(pillar.print_min = 5, pillar.print_max = 6)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(flextable)
+library(ggdist)
+library(ggthemes)
+library(plotly)
+
+nice_table <- function(df, fontsize = 14){
+  if (is_html_output()) {
+    kable(df) %>% kable_styling(font_size = fontsize)
+  } else {
+    flextable(df) |>
+      fontsize(size = fontsize, part = "all") |>     # smaller font (change number as needed)
+      autofit() |>                            # auto fit columns to content
+      width(width = 1)                      # stretch to page width
+  }
+}
+```
+
+## About me: Dr Jens Roeser {.smaller}
+
+<div style="float: left; width: 65%;">
+
+- associate professor in psycholinguistics @ [Nottingham Institute of Psychology](https://www.ntu.ac.uk/staff-profiles/social-sciences/dr-jens-roeser) (Nottingham Trent University)
+- module leader for PSYC40940 and AC for MSc BDS 
+- research:
+  - Language processing (production, acquisition, comprehension) often with focus on writing [@roeser2019advance] and understudied languages [@garcia2023finding].
+  - Bayesian modelling [@roeser2021modelling; @Roeser2025]; keystroke logging; eye tracking
+- teaching: 
+  - $>$ 10 years of experience teaching data science and statistics to UG, PG students, academics and professionals [`psyntur`, @psyntur]
+  - cognitive psychology and language acquisition [@roeser2019language]
+
+</div>
+
+<div style="float: right; width: 30%;">
+
+```{r fig.align='right', out.width="100%", echo = F}
+knitr::include_graphics("../gfx/me2.jpg")
+```
+</div>
+
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
+
+## Module Aims
+
+
+- Data visualisation and interactive data dashboards
+- Theoretical principles of effective data visualisation
+- Practical experience visualising a range of data types using a variety of plotting techniques
+- Publication-quality visualisations for scientific and other research reports
+- Produce visualisations in a dynamic and reproducible manner
+
+
+## Module content
+
+Topics will be covered in this module include:
+
+- Principles of data visualisation (e.g., as explained by Edward R. Tufte).
+- Use of the program R to produce visualisations of data sets.
+- Major visualisation types such as histograms, density plots, boxplots.
+- Dynamic/programmatic production of static, publication-quality plots for presentations and reports.
+- Generation of interactive graphics, using Shiny, that allow for variable selection and parameter modification by users.
+- Approaches to designing interactive data dashboards that enable users to explore data and seek insights.
+
+
+
+## Static data visualisations
+
+
+```{r fig.width=9, fig.height=4.5}
+library(palmerpenguins)
+df <- palmerpenguins::penguins %>% as_tibble() %>% drop_na()
+# Raincloud plot
+ggplot(df, aes(x = species, y = flipper_length_mm, fill = species)) +
+  # half violin (the "cloud")
+  ggdist::stat_halfeye(
+    adjust = 0.45,        # smoothness
+    justification = -0.2, # shift left/right
+    .width = 0,          # no interval bars
+    point_colour = NA
+  ) +
+  # boxplot
+  geom_boxplot(
+    width = 0.15,
+    outlier.shape = NA,
+    alpha = 0.5
+  ) +
+  # jittered points (the "rain")
+  geom_jitter(
+    width = 0.1,
+    alpha = 0.25,
+    size = .5
+  ) +
+  coord_flip() +   # horizontal orientation (typical for rainclouds)
+  theme_bw(base_size = 14) +
+  theme(legend.position = "none") +
+  scale_fill_colorblind() +
+  labs(caption = "Palmer penguins dataset",
+       y = "Flipper length (in mms)",
+       x = "Penguin species")
+
+```
+
+## Dynamic data visualisations
+
+
+```{r fig.width=9, fig.height=4.5} 
+p <- ggplot(df, aes(x = species, y = flipper_length_mm, fill = species)) +
+   labs(caption = "Palmer penguins dataset",
+       y = "Flipper length (in mms)",
+       x = "Penguin species") +
+  # boxplot
+  geom_boxplot(
+    width = 0.15,
+    outlier.shape = NA,
+    alpha = 0.5
+  ) +
+  # jittered points (the "rain")
+  geom_jitter(mapping = aes(text = paste(
+      "Species:", species,
+      "<br>Flipper length:", flipper_length_mm,
+      "<br>Sex:", sex,
+      "<br>Year:", year
+    )),
+    width = 0.1,
+    alpha = 0.5,
+    size = 1
+  ) +
+  coord_flip() +   # horizontal orientation (typical for rainclouds)
+  theme_bw(base_size = 14) +
+  theme(legend.position = "none") +
+  scale_fill_colorblind()
+
+ggplotly(p, tooltip = "text")
+```
+
+## Dynamic data visualisations
+
+```{r fig.width=9, fig.height=5}
+library(plotly)
+
+# Create 3D scatterplot with plotly
+plot_ly(df, 
+        x = ~flipper_length_mm, 
+        y = ~body_mass_g, 
+        z = ~bill_length_mm, 
+        type = "scatter3d", 
+        mode = "markers",
+        color = ~species,
+        colorscale = 'Viridis',
+        showscale = TRUE,
+        hovertemplate = paste(
+                  "Flipper Length (mm): %{x}<br>",
+                  "Body Mass (g): %{y}<br>",
+                  "Bill Length (mm): %{z}<br>"
+        ),
+        marker = list(size = 5)) %>%
+  layout(scene = list(
+    xaxis = list(title = "Flipper Length (mm)"),
+    yaxis = list(title = "Body Mass (g)"),
+    zaxis = list(title = "Bill Length (mm)")
+  ),
+ legend = list(
+      title = list(text = "Penguin species")
+    ))
+
+```
+
+
+```{r eval = F}
+ui <- fluidPage(
+  titlePanel(""),
+
+  fluidRow(
+    column(5,
+           sliderInput("dist", "Difference in means:",
+                       min = -3, max = 3, value = 2, step = 0.25)),
+    column(4,
+           numericInput("n", "Sample size per group:",
+                        value = 100, min = 10, max = 1000, step = 10)
+    )),
+  fluidRow(
+    column(9,
+           plotOutput("raincloudPlot", height = "250px", width = "850px")
+    )),
+)
+
+server <- function(input, output) {
+  output$raincloudPlot <- renderPlot({
+    set.seed(123)
+    N <- input$n
+    center <- 6
+    meanA <- center + (input$dist/2)
+    meanB <- center - (input$dist/2)
+    sdA <- 1
+    sdB <- 1.2
+
+    df <- data.frame(
+      group = rep(c("A", "B"), each = N),
+      value = c(
+        rnorm(N, mean = meanA, sd = sdA),
+        rnorm(N, mean = meanB, sd = sdB)
+      )
+    )
+
+    ggplot(df, aes(x = group, y = value, fill = group)) +
+      ggdist::stat_halfeye(
+        adjust = 0.45,
+        justification = -0.2,
+        .width = 0,
+        point_colour = NA
+      ) +
+      geom_boxplot(
+        width = 0.15,
+        outlier.shape = NA,
+        alpha = 0.5
+      ) +
+      geom_jitter(
+        width = 0.1,
+        alpha = 0.5,
+        size = 1
+      ) +
+      coord_flip(ylim = c(2, 10)) +
+      theme_bw(base_size = 14) +
+      theme(legend.position = "none") +
+      scale_fill_colorblind()
+  })
+}
+
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+
+## Interactive dashboards
+
+See here for my [Multi-language written picture-naming dataset app](https://jens-roeser.shinyapps.io/multilangapp/)
+
+
+
+
+## Module learning outcomes
+
+- MLO1: Demonstrate a critical understanding of the general principles of effective data visualisation. 
+- MLO2: Use state-of-the-art and industry-standard tools to produce high-quality, advanced visualisations of a range of large or complex data sets. 
+- MLO3: Use state-of-the-art and industry-standard tools to produce clear, publication-quality figures that adhere to the principles of reproducibility and data transparency. 
+- MLO4: Demonstrate a comprehensive, practical ability to produce high-quality interactive data visualisations and / or data dashboards that enable users to explore data and gain new insights.
+- MLO5: Demonstrate independence, creativity, and an awareness of practical constraints when selecting and implementing approaches to data visualisation. 
+
+## Schedule 
+
+```{r}
+read_csv("../../../module info/schedule.csv") %>% select(1:3) %>% nice_table()
+```
+
+
+
+## Assessment: Portfolio project {.smaller}
+
+**Task:** Choose one complex behavioural dataset -- i.e., data related to human behaviour (e.g., psychological experiments, survey responses, reaction times, decision-making patterns, social media behaviour, etc.) and produce:
+
+1. **Static Visualisations**:
+   - 4 different visualisation types (e.g., violin plot, contour plot, heat maps). 
+   - Publication-quality formatting. 
+   - Commentary on design choices. 
+2. **Interactive Dashboard** (using Shiny; max 3 tabs):
+   - Allow user input (e.g., variable selection, filters). 
+   - Include at least 2 interactive plots. 
+   - Dashboard should support exploration and insight generation into human behaviour. 
+3. **Reflection Section**:
+   - Discuss challenges, design decisions, and practical constraints. 
+   - Link work to principles of effective visualisation, data communication, and transparency. 
+
+- Word limit (excl. refs): **max 2,000 words**
+- Deadline: **Friday 8 January 2027, before 2 pm**
+- Submission via NOW Dropbox
+
+## Submission format
+
+- *single* zip archive that contains exactly one RMarkdown file, the html generated from this file, the RStudio project file, the relevant data file, and any supplementary files (e.g. for bibliography references, custom R functions etc).  
+- Your work must be reproducible: the RMarkdown and Shiny app must be possible to compile and render by others. All data and R code (with the possible exception of the Shiny app) must be referenced by the RMarkdown document.
+- Please submit the **Generative Artificial Intelligence (GenAI) Usage Declaration Form** along with your coursework. Please explain how you used GenAI to help prepare your work in the "Explanation of AI use" box. 
+
+
+## Useage of GenAI 
+
+Generative Artificial Intelligence (GenAI) should be used to support and enhance your learning, not to replace independent thinking, critical analysis, or academic integrity. 
+
+GenAI use in this assessment is rated as AMBER; which means:
+
+- You are allowed to ask an AI tool to support you to deepen your understanding of a topic, to check that you have understood a concept correctly, or to check that your own writing makes sense.
+- You must not use an AI tool to create any of the text that you actually submit for the assignment; the work you submit must be clearly your own. You also must not use an AI tool as a reference.
+
+
+
+## Assessment criteria
+
+1. **Technical Execution:** Quality of code and reproducibility using RMarkdown and Shiny.
+2. **Visualisation Design:** Effectiveness, clarity, aesthetics, and adherence to principles of good data visualisation. 
+3. **Use of Behavioural Data:** Relevance, complexity, and appropriateness of the chosen behavioural dataset.
+4. **Interactivity & Dashboard Design:** Functionality, user experience, and ability to support data exploration.
+5. **Reflection & Commentary:** Critical thinking, creativity, and awareness of practical constraints.
+6. **Communication & Structure:** Clarity, coherence, and professionalism in writing and presentation.
+
+See NOW learning room for detailed grading matrix.
+
+
+## How to engage with this module?
+
+- Weekly 2 hour workshops
+- Engage with tasks, exercises, homework
+- Engage with recommended reading; if you want additional reading materials, please ask.
+- Ask questions on the Teams Channel of this module
+- Formative assessment
+
+
+## Formative assessment: mini-portfolio project
+
+**Task:** Select a behavioural dataset----i.e., data related to human behaviour (e.g., psychological experiments, survey responses, reaction times, decision-making patterns, social media behaviour, etc.).
+
+- Create 3-4 visualisations using different techniques (e.g., boxplot, scatterplot, density plot).
+- Include brief commentary on:
+  - What each visualisation highlights about the data?
+  - Why each visualisation was chosen?
+  - How each visualisation adheres to principles of effective visualisation (e.g., Tufte's guidelines)?
+  - To what extent the each visualisation may (or may not) obscure the data.
+- **Deadline:** Friday 30 October 2026, before 2 pm
+- **Length:** max 1,000 words
+
+**Feedback focus:**
+
+- Clarity and effectiveness of visualisations.
+- Code quality and reproducibility.
+- Interpretation and communication of behavioural insights.
+
+
+## Where do I find datasets?
+
+- [Open Psychology Data](https://openpsychologydata.metajnl.com/)
+- [Open Science Framework](https://osf.io/)
+- [Rdatasets](http://vincentarelbundock.github.io/Rdatasets/datasets.html)
+- Google search for psychology datasets.
+- Ask your friendly GenAI: *"Can you recommend some repositories that provide large open access psychology data sets?"* 
+
+## Reading recommendations
+
+- @andrews2021doing *Doing Data Science in R: An Introduction for Social Scientists.* Sage Publications. [LINK](https://www.mjandrews.org/book/ddsr/)
+- @Wickham2016 *ggplot2: Elegant Graphics for Data Analysis.* Springer-Verlag. [LINK](https://ggplot2-book.org)
+- @wickham2016r *R for data science.* O'Reilly Media. [LINK](https://r4ds.had.co.nz/)
+- @Wickham2021MasteringShiny *Mastering shiny.* O'Reilly Media. [LINK](https://mastering-shiny.org/action-intro.html)
+- @Tufte2001VisualDisplay *The visual display of quantitative information.* 2nd edition. Graphics Press. [LINK](https://llr.primo.exlibrisgroup.com/permalink/44NTU_INST/16gp82k/alma990004565400107181)
+
+
+
+
+
+
+## References {.smaller}
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+
+

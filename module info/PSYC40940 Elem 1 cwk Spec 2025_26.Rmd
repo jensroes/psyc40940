@@ -38,7 +38,7 @@ nice_table <- function(df){
 - Weighting: 100 per cent
 - Word limit (excl. refs): **max 2,000 words**
 
-**Deadline: Friday 9th January 2026**
+**Deadline: Friday 8 January 2027**
 
 You will receive a provisional grade and feedback on or before: **30th January 2026**
 

@@ -1,0 +1,144 @@
+---
+title: "PSYC40940: Dynamic User Interfaces"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "../references.bib"
+csl: "../apa.csl"
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = FALSE, message = FALSE)
+```
+
+## General outline for the Shiny block
+
+- Week 6: Shiny basics and reactivity
+- Week 7: Layout and observers
+- Week 8: Dynamic UI
+- Week 9: Dashboard workshop
+
+## Objectives
+
+By the end of this session, you should be able to:
+
+1. identify when a static UI is enough,
+2. update an existing input from the server,
+3. generate UI elements with `uiOutput()` and `renderUI()`,
+4. build a simple dependent-filter interface.
+
+Use `2026/exercises/w8/starter_app.R` for today's individual task.
+
+```{r, results='asis', echo=FALSE}
+cat('<button onclick="window.print()">Print Slides</button>')
+```
+
+## Static first
+
+Start with a static UI whenever possible.
+
+```{r, eval=FALSE}
+selectInput("modality", "Modality", choices = c("spoken", "written"))
+selectInput("participant", "Participant", choices = unique(d_spellname$ppt_id))
+```
+
+Static inputs are easier to read, debug, and assess.
+
+Use dynamic UI only when the available choices genuinely depend on user input or data.
+
+## Updating an existing input
+
+For dependent choices, keep the input and update its choices.
+
+```{r, eval=FALSE}
+observeEvent(input$modality, {
+  choices <- d_spellname |>
+    filter(modality == input$modality) |>
+    pull(ppt_id) |>
+    unique()
+
+  updateSelectInput(session, "participant", choices = choices)
+})
+```
+
+This is simpler than generating a new input from scratch.
+
+## Generated UI
+
+Sometimes the type of control depends on the selected variable.
+
+In the UI:
+
+```{r, eval=FALSE}
+uiOutput("filter_control")
+```
+
+In the server:
+
+```{r, eval=FALSE}
+output$filter_control <- renderUI({
+  selectInput("selected_value", "Value", choices = c("A", "B", "C"))
+})
+```
+
+`uiOutput()` is the placeholder. `renderUI()` creates the UI.
+
+## When to use `renderUI()`
+
+Use `renderUI()` when:
+
+- the number of controls is unknown,
+- the type of control depends on data,
+- a selected variable determines the next input,
+- static UI would require many irrelevant controls.
+
+Avoid `renderUI()` when a normal input plus `update*Input()` is enough.
+
+## A dependent-filter pattern
+
+```{r, eval=FALSE}
+output$filter_control <- renderUI({
+  req(input$filter_variable)
+
+  values <- d_spellname |>
+    pull(input$filter_variable) |>
+    unique()
+
+  selectInput("filter_value", "Value", choices = values)
+})
+```
+
+Use `req()` when the output needs an input that may not exist yet.
+
+## Individual exercise
+
+Open `2026/exercises/w8/starter_app.R`.
+
+Your task:
+
+1. Run the app.
+2. Make the participant choices depend on modality.
+3. Add a generated filter control with `uiOutput()` and `renderUI()`.
+4. Use the selected dynamic value in the plot.
+
+Use `worked_example_app.R` only after you have tried the starter.
+
+## Checkpoint
+
+Before next session, make sure you can answer:
+
+- When is `updateSelectInput()` enough?
+- What does `uiOutput()` do?
+- Where does `renderUI()` go?
+- Why can dynamic UI make apps harder to debug?
+
+## Next session
+
+We will use the Shiny pieces together in an assessment-style dashboard workshop.

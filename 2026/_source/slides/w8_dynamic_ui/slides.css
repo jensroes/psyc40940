@@ -1,0 +1,11 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.slides > article {
+  font-size: 28px;
+}
+
+pre {
+  font-size: 20px;
+}

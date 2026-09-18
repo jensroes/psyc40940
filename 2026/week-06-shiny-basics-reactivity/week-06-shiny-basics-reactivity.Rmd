@@ -1,0 +1,182 @@
+---
+title: "PSYC40940: Shiny Basics and Reactivity"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = FALSE, message = FALSE)
+```
+
+## General outline for the Shiny block
+
+- Week 6: Shiny basics and reactivity
+- Week 7: Layout and observers
+- Week 8: Dynamic UI
+- Week 9: Dashboard workshop
+
+## Objectives
+
+By the end of this session, you should be able to:
+
+1. explain the role of the user interface and server in a Shiny app,
+2. connect one input to one or more outputs,
+3. use `reactive()` to avoid repeating the same filtering or transformation code,
+4. run and modify a simple Shiny app independently.
+
+Use `2026/starter_app.R` for today's individual task.
+
+
+## What is a dashboard?
+
+A dashboard is an interactive interface for exploring and communicating data.
+
+Most Shiny dashboards combine:
+
+- inputs: controls selected by the user,
+- outputs: plots, tables, text, or interactive widgets,
+- layout: where things appear on the page,
+- reactivity: how outputs update when inputs change.
+
+## Minimal Shiny app
+
+```{r, eval=FALSE}
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("A minimal Shiny app"),
+  sliderInput("n", "Sample size", min = 10, max = 500, value = 100),
+  plotOutput("hist")
+)
+
+server <- function(input, output, session) {
+  output$hist <- renderPlot({
+    hist(rnorm(input$n))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## The user interface
+
+The UI defines what the user sees.
+
+```{r, eval=FALSE}
+ui <- fluidPage(
+  titlePanel("Reaction times"),
+  selectInput("modality", "Modality", choices = c("spoken", "written")),
+  plotOutput("rt_plot")
+)
+```
+
+Inputs need an `inputId`. Outputs need an `outputId`. These IDs connect the UI to the server.
+
+## The server
+
+The server defines what the app does.
+
+```{r, eval=FALSE}
+server <- function(input, output, session) {
+  output$rt_plot <- renderPlot({
+    # Keep the filtering step separate so it is easy to inspect.
+    filtered <- filter(d_spellname, modality == input$modality)
+
+    ggplot(filtered, aes(name_familiarised, rt)) +
+      geom_boxplot()
+  })
+}
+```
+
+The output name, here `rt_plot`, must match the ID used in `plotOutput("rt_plot")`.
+
+## Reactivity
+
+Shiny automatically reruns code that depends on changed inputs.
+
+```{r, eval=FALSE}
+filtered_data <- reactive({
+  # This code reruns when input$modality changes.
+  filtered <- filter(d_spellname, modality == input$modality)
+  filtered
+})
+```
+
+Use the reactive value with parentheses:
+
+```{r, eval=FALSE}
+output$rt_plot <- renderPlot({
+  ggplot(filtered_data(), aes(name_familiarised, rt)) +
+    geom_boxplot()
+})
+```
+
+## Why use `reactive()`?
+
+Use `reactive()` when the same data preparation is needed in several outputs.
+
+```{r, eval=FALSE}
+output$rt_plot <- renderPlot({
+  ggplot(filtered_data(), aes(name_familiarised, rt)) +
+    geom_boxplot()
+})
+
+output$summary <- renderTable({
+  # Call the reactive expression before summarising it.
+  filtered <- filtered_data()
+  summarise(filtered, mean_rt = mean(rt), n = n())
+})
+```
+
+This keeps the app shorter and reduces inconsistent filtering.
+
+## Individual exercise
+
+Open `2026/starter_app.R`.
+
+Your task:
+
+1. Run the app.
+2. Add one input that filters the data.
+3. Add one plot output.
+4. Add one table output.
+5. Move the shared filtering code into `reactive()`.
+
+Use `worked_example_app.R` only after you have tried the starter.
+
+## Checkpoint
+
+Before next session, make sure you can answer:
+
+- Which part of the app creates controls?
+- Which part creates plots or tables?
+- Where do input IDs and output IDs need to match?
+- When is `reactive()` useful?
+
+## Next session
+
+We will add dashboard structure and controlled updates:
+
+- sidebars,
+- tabs,
+- action buttons,
+- `observeEvent()`,
+- `eventReactive()`.
+
+## Recommended Reading
+
+For support with this week's material, use:
+
+- @Wickham2021MasteringShiny, Chapters 1 and 3: Shiny basics and basic reactivity.
+- @andrews2021doing, Chapter 16: Shiny apps for social science data work.
+
+## References

@@ -1,0 +1,500 @@
+---
+title: 'PSYC40940: RMarkdown for visualisation reports'
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    transition: slower
+    widescreen: true
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = NA
+)
+options(digits = 2)
+library(tidyverse)
+library(knitr)
+```
+
+
+## Today
+
+- Understand what an `.Rmd` file is for
+- Render an RMarkdown file to HTML
+- Recognise YAML, Markdown text, R chunks, and inline R code
+- Add a figure, a table, citations, and references
+- Use cross-references for figures and tables
+- Start a guided individual exercise
+
+## First: Create a Module Project
+
+We will keep all module work inside one RStudio Project.
+
+In RStudio:
+
+1. Click `File` > `New Project`.
+2. Choose `New Directory`.
+3. Choose `New Project`.
+4. Name the folder `PSYC40940`.
+5. Choose where to save it on your computer.
+6. Click `Create Project`.
+
+You only need to do this once for the module.
+
+## RStudio Projects
+
+An RStudio Project is a folder-based workspace.
+
+It helps because:
+
+- the module has one clear home folder,
+- data, scripts, reports, and outputs stay together,
+- file paths are easier to manage,
+- the whole analysis is easier to share or submit.
+
+A good workflow is to create one project folder for this module and keep the files you are currently working on inside it. For Week 1, we will move the Week 1 practical files into the project folder.
+
+## Download the Week 1 Files
+
+Download the Week 1 materials.
+
+1. Download `psyc40940-week-01-introduction.zip` from the Learning Room.
+2. Extract/unzip the folder.
+3. Open the extracted `psyc40940-week-01-introduction` folder.
+4. Move the contents of that folder into your `PSYC40940` project folder.
+5. In RStudio, open the Week 1 `.Rmd` files from the project folder.
+
+Do not work inside the zip file. The folder must be extracted first.
+
+## Why Folders Matter
+
+The Week 1 files should now be in your `PSYC40940` project folder.
+
+Because the Week 1 `.Rmd` files are in the same folder as `data/`, they load data with:
+
+```{r eval=FALSE}
+read_csv("data/blomkvist.csv")
+```
+
+If a file cannot be found, first check that `data/` is inside your `PSYC40940` project folder and that the `.Rmd` file is saved there too.
+
+## What Is In This Folder?
+
+After moving the Week 1 files, your module project should contain:
+
+```{r eval=FALSE}
+PSYC40940/
+  PSYC40940.Rproj
+  01_rmarkdown_demo.Rmd
+  02_rmarkdown_exercise.Rmd
+  README.md
+  references.bib
+  apa.csl
+  data/
+    blomkvist.csv
+```
+
+The slide files are uploaded separately. The weekly zip contains the files you need for exercises and practical work.
+
+## Why RMarkdown in this module?
+
+In this module, you will make visualisations and dashboards from data.
+
+RMarkdown helps because:
+
+- the data, code, figures, tables, and written explanation stay connected
+- figures can be regenerated when code or data change
+- numbers in the text can be calculated by R
+- citations and references can be handled automatically
+- the final report can be checked and rerun
+
+This is the practical side of reproducible reporting [@xie2017dynamic].
+
+## What is RMarkdown?
+
+An `.Rmd` file combines:
+
+- a YAML header with document settings
+- Markdown text for headings and paragraphs
+- R code chunks for code, tables, and figures
+- inline R code for values inside sentences
+- citation keys linked to a bibliography file
+
+The important workflow is simple: edit the `.Rmd`, render it, inspect the HTML output, then fix anything that did not work.
+
+## Find the Parts First
+
+Open `01_rmarkdown_demo.Rmd`.
+
+Before we go through the next slides, find these parts in the file:
+
+- the YAML header at the top
+- Markdown headings and ordinary text
+- the setup chunk
+- the chunk that loads packages
+- the chunk that loads the data
+- inline R code inside a sentence
+- the chunk that creates a table
+- the chunk that creates a figure
+- a citation and the references section
+
+## YAML Header {.columns-2 .smaller}
+
+<div>
+
+The YAML header is at the top of the file.
+
+```yaml
+---
+title: "Week 1 Demonstration"
+author: "PSYC40940"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+```
+
+We use HTML output because it supports dynamic outputs such as interactive plots, scrollable tables and Shiny-style elements.
+</div>
+
+<div>
+
+
+
+Key settings:
+
+- `toc: false`: no table of contents,
+- `number_sections: false`: no numbered headings,
+- `global_numbering: true`: figures and tables are numbered globally,
+- `fig_caption: true`: figure captions are shown,
+- `bibliography` and `csl`: citations and reference style.
+
+</div>
+
+## Markdown Text
+
+Markdown is a simple way to format text using plain-text markers.
+
+```markdown
+# Main heading
+
+## Subheading
+
+This is ordinary text.
+
+This word is **bold** and this word is *italic*.
+```
+
+The markers tell RMarkdown which parts should become headings, paragraphs, bold text, or italic text.
+
+## R Code Chunks
+
+R code chunks start and end with three backticks.
+
+<pre class="prettyprint lang-r"><code>```{r load-data}
+# Read the CSV file and store it in an object.
+blomkvist <- <span class="r-function-call">read_csv</span>("data/blomkvist.csv")
+```</code></pre>
+
+The chunk label, here `load-data`, should be short and unique.
+
+## Chunk Options: `echo`
+
+Chunk options change how a chunk behaves in the rendered HTML.
+
+<pre class="prettyprint lang-r"><code>```{r data-preview, echo=FALSE}
+<span class="r-function-call">slice</span>(blomkvist, 1:6)
+```</code></pre>
+
+The most useful option today is `echo`:
+
+- `echo=TRUE`: run the code and show the code,
+- `echo=FALSE`: run the code but hide the code,
+- use `echo=FALSE` when the report should show the result but not the code.
+
+During learning, `echo=TRUE` is useful because it shows what produced the output.
+
+## Setup Chunk
+
+The setup chunk usually goes near the top of the document.
+
+<pre class="prettyprint lang-r"><code>```{r setup, include=FALSE}
+knitr::<span class="r-function-call">opts_chunk$set</span>(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```</code></pre>
+
+Use it for options that should apply to the whole document.
+
+## Load Packages
+
+Load packages before using their functions.
+
+```{r eval=FALSE}
+# tidyverse gives us read_csv(), select(), drop_na(), summarise(), and ggplot().
+library(tidyverse)
+
+# knitr gives us kable(), which creates simple tables.
+library(knitr)
+```
+
+If rendering says there is no package called something, install it once in the Console with `install.packages()`.
+
+Do not leave `install.packages()` in a chunk that runs when the document renders. If you include it in an `.Rmd` file as a reminder, use `eval=FALSE`.
+
+## Loading Data Into R
+
+The file `blomkvist.csv` is stored inside the `data` folder.
+
+This code reads the file and saves it as an R object:
+
+```{r eval=FALSE}
+blomkvist <- read_csv("data/blomkvist.csv")
+```
+
+Read the line from right to left:
+
+- `read_csv()` reads a CSV file,
+- `"data/blomkvist.csv"` tells R where the file is,
+- `<-` assigns the result to a name,
+- `blomkvist` is the object we can use later.
+
+After this line has run, `blomkvist` should appear in the Environment pane.
+
+## Load and Inspect Data {.smaller}
+
+Use a clear object name and a clear comment.
+
+```{r eval=FALSE}
+# Read the CSV file and store it in an object called blomkvist.
+blomkvist <- read_csv("data/blomkvist.csv")
+```
+
+Then inspect the object:
+
+```{r eval=FALSE}
+# Show rows 1 to 6 in the Console.
+slice(blomkvist, 1:6)
+
+# Open the data in RStudio's spreadsheet-style viewer.
+View(blomkvist)
+
+# Count rows and columns.
+nrow(blomkvist)
+ncol(blomkvist)
+```
+
+The object name matters. If you save the data as `blomkvist`, later code must use `blomkvist`, not another name.
+
+## Inline R Code
+
+Inline R code puts calculated values inside sentences.
+
+```{r echo=FALSE}
+blomkvist <- read_csv("data/blomkvist.csv")
+```
+
+In the `.Rmd` file, write:
+
+<pre><code>The dataset contains &#96;r nrow(blomkvist)&#96; rows.</code></pre>
+
+In the rendered HTML, this becomes:
+
+The dataset contains `r nrow(blomkvist)` rows.
+
+## First Render: Demo File
+
+With `01_rmarkdown_demo.Rmd` open in RStudio:
+
+1. Click **Knit**.
+2. Check that an `.html` file appears.
+3. Open the HTML file.
+4. Find the rendered table, figure, citations, and references.
+
+Rendering runs the document from top to bottom in a clean order.
+
+## Common Render Problems
+
+Start by reading the first useful error near the end of the render output.
+
+- `file not found`: check the file path and folder structure
+- `there is no package called ...`: install the package, then render again
+- `object not found`: create the object before using it
+- `duplicate chunk label`: make every chunk label unique
+- citations missing: check the `.bib` file path and citation key
+
+## Prepare Data
+
+Write data preparation in small steps.
+
+```{r eval=FALSE}
+# Keep only the variables used in this report.
+selected_data <- select(
+  blomkvist,
+  id,
+  sex,
+  age,
+  smoker,
+  rt_hand_d,
+  rt_hand_nd
+)
+
+# Remove rows with missing reaction-time values.
+plot_data <- drop_na(selected_data, rt_hand_d, rt_hand_nd)
+```
+
+Readable code is easier to debug than compact code.
+
+## Figures
+
+A figure is created by an R chunk.
+
+<pre class="prettyprint lang-r"><code>```{r scatter-plot, fig.cap="Reaction times for dominant and non-dominant hand responses."}
+<span class="r-function-call">ggplot</span>(plot_data, <span class="r-function-call">aes</span>(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  <span class="r-function-call">geom_point</span>(alpha = 0.75) +
+  <span class="r-function-call">geom_smooth</span>(method = "lm", se = FALSE) +
+  <span class="r-function-call">theme_minimal</span>()
+```</code></pre>
+
+The chunk label is used for cross-referencing.
+
+## Cross-Reference a Figure
+
+With `bookdown::html_document2`, a labelled figure can be referenced in text.
+
+Write this in the `.Rmd` file:
+
+```markdown
+Figure \@ref(fig:scatter-plot) shows the relationship between the two reaction-time measures.
+```
+
+The `fig:` part tells RMarkdown that the reference points to a figure.
+
+## Tables
+
+Use `kable()` for simple formatted tables.
+
+```{r eval=FALSE}
+summary_table <- summarise(
+  plot_data,
+  mean_rt = round(mean(rt_hand_d), 1),
+  sd_rt = round(sd(rt_hand_d), 1),
+  n = n(),
+  .by = smoker
+)
+
+kable(
+  summary_table,
+  caption = "Dominant-hand reaction time by smoking status."
+)
+```
+
+## Cross-Reference a Table
+
+A table chunk can be referenced in text.
+
+Write this in the `.Rmd` file:
+
+```markdown
+Table \@ref(tab:summary-table) summarises reaction time by smoking status.
+```
+
+The `tab:` part tells RMarkdown that the reference points to a table.
+
+## Citations
+
+Citations come from a `.bib` file.
+
+The YAML header needs:
+
+```yaml
+bibliography: references.bib
+csl: apa.csl
+```
+
+Then cite with the citation key from `references.bib`:
+
+```markdown
+The data come from a reaction-time study [@blomkvist2017reference].
+```
+
+Add a final heading called `# References` so the reference list appears.
+
+## Adding a BibTeX Entry {.columns-2 .smaller}
+
+<div>
+
+In the exercise, `@blomkvist2017reference` is already in `references.bib`.
+
+For the extension task, turn this APA reference into a BibTeX entry:
+
+Whelan, R. (2008). Effective analysis of reaction time data. *The Psychological Record, 58*, 475-482. https://doi.org/10.1007/BF03395630
+
+Then cite it with `@whelan2008reactiontime`.
+
+</div>
+
+<div>
+
+How to get the BibTeX entry:
+
+1. Search for the paper title in Google Scholar.
+2. Click **Cite**.
+3. Click **BibTeX**.
+4. Copy the entry into `references.bib`.
+5. Check author, year, title, journal, volume, pages, and DOI.
+
+You can also ask ChatGPT or Copilot for a BibTeX entry, then check the details before using it.
+
+</div>
+
+## Week 1 Exercise Workflow
+
+You have already rendered `01_rmarkdown_demo.Rmd`.
+
+For the individual exercise:
+
+1. Open `02_rmarkdown_exercise.Rmd`.
+2. Replace each `___` blank.
+3. Render to HTML.
+4. Fix one error at a time if rendering fails.
+5. Check the HTML output against the render checklist.
+
+## What You Need After Today
+
+By next week, you should be able to:
+
+- open and render an `.Rmd` file
+- keep data and references in the right folders
+- load packages and data
+- write short comments in code chunks
+- create one figure and one table
+- refer to figures and tables in text
+- cite a source from a bibliography file
+- use inline R for simple reported values
+
+## Recommended Reading
+
+For support with RMarkdown, use:
+
+- @andrews2021doing, Chapter 7: reproducible reports with RMarkdown. [Chapter link](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_07_reproducible.pdf)
+- @wickham2016r, Chapter 27: R Markdown in *R for Data Science*. [Chapter link](https://r4ds.had.co.nz/r-markdown.html)
+
+Use these as reference material while completing `02_rmarkdown_exercise.Rmd`.
+
+## References {.smaller}

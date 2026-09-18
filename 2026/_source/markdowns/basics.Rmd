@@ -1,0 +1,51 @@
+---
+title: "Basics"
+author: "Jens Roeser"
+date: "`r Sys.Date()`"
+output: bookdown::html_document2
+bibliography: references.bib
+biblio-style: apalike
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+# R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+sums <- summary(cars);sums
+```
+
+Table \@ref(tab:smoker) from @blomkvist2017reference
+
+```{r smoker, results='asis'}
+kable(sums,
+      booktabs = TRUE,
+        digits = 2,
+        align = 'c', # centre value in each column
+        caption = 'Descriptives of age by smoker.') 
+```
+
+
+
+
+
+## Including Plots
+
+You can also embed plots, for example see Figure \@ref(fig:pressure)
+
+```{r pressure, echo=FALSE, fig.cap="My scatterplot."}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+# References

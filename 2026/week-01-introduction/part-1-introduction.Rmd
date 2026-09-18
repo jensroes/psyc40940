@@ -1,0 +1,192 @@
+---
+title: 'PSYC40940: Visualisation of Behavioural Data and Data Dashboards'
+author: '<span style="font-size: 40px; font-face">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    transition: slower
+    widescreen: true
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, comment = NA)
+options(kableExtra.html.bsTable = TRUE, digits = 2)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+nice_table <- function(df, fontsize = 14) {
+  table <- kable(df)
+  table <- kable_styling(table, font_size = fontsize)
+  table
+}
+```
+
+
+## About me: Dr Jens Roeser {.smaller}
+
+<div style="float: left; width: 65%;">
+
+- Associate Professor in Psycholinguistics
+- Module leader for PSYC40940
+- Research interests:
+  - language processing in production, acquisition, and comprehension,
+  - writing and spelling [@roeser2019advance],
+  - understudied languages [@garcia2023finding],
+  - Bayesian modelling [@roeser2021modelling; @Roeser2025], keystroke logging, and eye tracking.
+- Teaching experience across data science, statistics, cognitive psychology, and language acquisition [@psyntur; @roeser2019language].
+
+</div>
+
+<div style="float: right; width: 30%;">
+
+```{r fig.align='right', out.width="100%"}
+knitr::include_graphics("gfx/me2.jpg")
+```
+
+</div>
+
+
+## For Today
+
+Part 1:
+
+- module overview,
+- assessment expectations,
+- schedule and dataset planning.
+
+Part 2:
+
+- install/check R and RStudio,
+- render an RMarkdown file to HTML,
+- complete the individual RMarkdown exercise.
+
+
+## What this module is about
+
+This module is about using R to communicate behavioural data clearly.
+
+You will learn how to:
+
+- choose suitable visualisations for different data structures,
+- build publication-quality static figures,
+- write reproducible reports in RMarkdown,
+- build interactive dashboards in Shiny,
+- explain and defend visualisation design choices.
+
+## Why this matters
+
+Good visualisation is not decoration.
+
+It helps people:
+
+- understand patterns in complex behavioural data,
+- notice uncertainty, variation, and outliers,
+- avoid misleading summaries,
+- explore data interactively,
+- connect evidence to a clear argument.
+
+## Module learning outcomes
+
+By the end of the module, you should be able to:
+
+- demonstrate a critical understanding of effective data visualisation,
+- use R to produce high-quality visualisations of behavioural data,
+- produce clear, reproducible visualisation reports,
+- build interactive visualisations or dashboards using Shiny,
+- make independent design decisions and explain their practical constraints.
+
+
+## Schedule 
+
+```{r}
+schedule <- read_csv("schedule.csv")
+schedule <- select(schedule, Session, Date, Title)
+nice_table(schedule, fontsize = 18)
+```
+
+## Assessment Overview 
+
+The summative assessment is a portfolio project.
+
+You will choose one complex behavioural dataset and produce:
+
+1. **Static visualisations**: four different visualisation types with publication-quality formatting.
+2. **Interactive dashboard**: a Shiny dashboard with user input and at least two interactive plots.
+3. **Reflection**: short commentary on design choices, constraints, and links to effective visualisation principles.
+
+Deadline: **Friday 8 January 2027, before 2 pm**.
+
+## Submission Format
+
+Submit one zip archive containing:
+
+- one RMarkdown file,
+- the rendered HTML file,
+- the RStudio project file,
+- the relevant data file,
+- any supporting files, such as bibliography files, images, or helper scripts,
+- the GenAI Usage Declaration Form.
+
+Your work must be reproducible by someone else from the submitted files.
+
+## Formative Assessment 
+
+The formative assessment is a mini-portfolio project.
+
+You will:
+
+- select a behavioural dataset,
+- create 3-4 visualisations using different techniques,
+- write brief commentary on what each visualisation shows,
+- explain why each visualisation was chosen,
+- reflect on clarity, limitations, and possible misleading features.
+
+Deadline: **Friday 30 October 2026, before 2 pm**.
+
+## Dataset Support
+
+Finding a suitable dataset is part of the module.
+
+You do not need to solve this alone:
+
+- we will discuss dataset ideas during tutorials,
+- you can bring candidate datasets for feedback,
+- I can help you judge whether a dataset is suitable in scope and complexity,
+- early dataset choices can be refined before the formative assessment.
+
+Useful starting points include Open Science Framework, Open Psychology Data, Rdatasets, and published paper repositories.
+
+
+## How to Engage
+
+To do well in this module:
+
+- attend the weekly sessions,
+- complete the individual exercises,
+- keep your RMarkdown files, data, and outputs organised,
+- ask questions in class, or MS Teams,
+- use feedback from the formative assessment to improve the final portfolio,
+- engage with recommended reading (I'll refer you to specific chapters).
+
+
+
+## Recommended Reading
+
+The two main books we will return to are:
+
+- @andrews2021doing: practical R, RMarkdown, data wrangling, visualisation, and Shiny support.
+- @wickham2016ggplot2: the main reference for `ggplot2` and static visualisation.
+- @Wickham2021MasteringShiny: the main reference for Shiny apps and dashboards.
+
+## References {.smaller}
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>

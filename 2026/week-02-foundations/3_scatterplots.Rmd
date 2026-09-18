@@ -1,0 +1,79 @@
+---
+title:             'Exercise 3: Scatterplots'
+output:            html_document
+bibliography:      "references.bib"
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Here and all other exercises, whenever you encounter `---` in the code chunks, your task is to replace `---` correctly with a variable name, argument, function, code, etc. The instructions will help you. You will not be able to `knit` this RMarkdown document until you completed all tasks.
+
+Load `tidyverse` package. 
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+Load the data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("data/blomkvist.csv")
+```
+
+
+Explore the data `d_blomkvist` with `glimpse`. For now just get an idea of the variables includes in the data and their types (i.e. numeric, categorical).
+
+```{r}
+glimpse(---) # replace "---" with the name of the data variable
+```
+
+These are average reaction time data for people playing a video game published in @blomkvist2017reference.
+
+Let's check how strong the relationship between age and the reaction time is. Map `age` on the x-axis and the rt (in msecs) of the dominant hand on the y-axis.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, y = ---)) +
+  stat_smooth(method = "lm", se = FALSE)
+```
+
+This looks massive right? All we're seeing here is a regression model. `ggplot2` with by-default reduce the y-axis to the size that optimises the visability of the line. In other words, the y-axis is very constrained at the moment. In the following example, check what happens if you scale the y-axis up to range from 0 to 3 secs. In the following code, `ylim` takes as input a minimum and a maximum value in the format `c(minimum, maximum)`. Replace the minimum and maximum correctly. 
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  stat_smooth(method = "lm", se = FALSE) +
+  coord_cartesian(ylim = c(---, ---))
+```
+
+Suddenly the relationship looks much weaker, right? Maybe this isn't fair. There are no error bars which means we don't actualy know how much variability there is in the data. Let's turn on the 95% confidence interval by switching `se` to `TRUE`.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  stat_smooth(method = "lm", se = ---) 
+```
+
+Still quite a massive relationship between age and reaction time. Now in the last step, add points to the plot to see the actual data. Which `geom_` do you need? You might need to reduce the size of the points if they make it difficult to see the regression line.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  stat_smooth(method = "lm", se = TRUE) +
+  ---
+```
+
+The points really put the size of the relationship into perspective! Did you notice how the format of the visualisation affects out interpretation of how much slower older participants respond compared to younger participants? Also until the last plot we weren't aware that there is more variability among older participants than younger participants.
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+
+
+# References

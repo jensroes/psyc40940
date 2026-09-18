@@ -1,0 +1,182 @@
+---
+title: "PSYC40940: Layout and Observers"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = FALSE, message = FALSE)
+```
+
+## General outline for the Shiny block
+
+- Week 6: Shiny basics and reactivity
+- Week 7: Layout and observers
+- Week 8: Dynamic UI
+- Week 9: Dashboard workshop
+
+## Objectives
+
+By the end of this session, you should be able to:
+
+1. choose a simple layout for a dashboard,
+2. place controls and outputs in a sidebar layout,
+3. use tabs for separate views,
+4. use buttons and observers when updates should be deliberate rather than automatic.
+
+Use `2026/starter_app.R` for today's individual task.
+
+
+## Why layout matters
+
+Layout should make the app easier to use.
+
+Common patterns:
+
+- filters on the left, outputs on the right,
+- one tab per question or view,
+- one screen that answers one clear question,
+- controls close to the output they affect.
+
+## Sidebar layout
+
+```{r, eval=FALSE}
+ui <- fluidPage(
+  titlePanel("Reaction time dashboard"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("modality", "Modality", choices = c("spoken", "written"))
+    ),
+    mainPanel(
+      plotOutput("rt_plot"),
+      tableOutput("summary")
+    )
+  )
+)
+```
+
+Use this when the app has a small set of controls that affect the main display.
+
+## Tabs
+
+```{r, eval=FALSE}
+ui <- navbarPage(
+  "Reaction time dashboard",
+  tabPanel("Plot", plotOutput("rt_plot")),
+  tabPanel("Summary", tableOutput("summary"))
+)
+```
+
+Tabs are useful when outputs answer different questions or need more space.
+
+Avoid using tabs to hide an overloaded app. If students need many tabs, the dashboard question may be too broad.
+
+## Automatic updates
+
+Most Shiny outputs update automatically.
+
+```{r, eval=FALSE}
+filtered_data <- reactive({
+  # This version updates automatically when input$modality changes.
+  filtered <- filter(d_spellname, modality == input$modality)
+  filtered
+})
+```
+
+This is ideal for cheap operations and direct exploration.
+
+## Controlled updates
+
+Sometimes outputs should update only after a button click.
+
+```{r, eval=FALSE}
+selected_modality <- eventReactive(input$update, {
+  input$modality
+})
+
+filtered_data <- reactive({
+  # This version updates only after selected_modality() changes.
+  filtered <- filter(d_spellname, modality == selected_modality())
+  filtered
+})
+```
+
+Use this when updates are slow, distracting, or should feel deliberate.
+
+## Observers
+
+Observers run code for its side effects.
+
+```{r, eval=FALSE}
+observeEvent(input$reset, {
+  updateSelectInput(session, "modality", selected = "spoken")
+})
+```
+
+Use observers to:
+
+- update an existing input,
+- reset controls,
+- switch tabs,
+- show notifications.
+
+Do not use observers to return data for plots. Use `reactive()` or `eventReactive()` for that.
+
+## Layout and observers together
+
+A common dashboard pattern:
+
+1. Put controls in a sidebar.
+2. Add a button for deliberate updates.
+3. Use `eventReactive()` to store the selected values.
+4. Use `observeEvent()` for resets or UI changes.
+5. Show plots and tables in the main panel or tabs.
+
+## Individual exercise
+
+Open `2026/starter_app.R`.
+
+Your task:
+
+1. Move the controls into a sidebar.
+2. Add a second tab with a summary table.
+3. Add an update button so the plot changes only after the button is clicked.
+4. Add a reset button for the modality input.
+
+Use `worked_example_app.R` only after you have tried the starter.
+
+## Checkpoint
+
+Before next session, make sure you can answer:
+
+- When would a sidebar layout help?
+- When are tabs useful?
+- What is the difference between `reactive()` and `eventReactive()`?
+- Why does `observeEvent()` not return a value for plotting?
+
+## Next session
+
+We will build user interfaces that change depending on previous choices:
+
+- updating select boxes,
+- generated controls,
+- `uiOutput()`,
+- `renderUI()`.
+
+## Recommended Reading
+
+For support with this week's material, use:
+
+- @Wickham2021MasteringShiny, Chapters 2 and 10: UI layout and reactive flow.
+- @andrews2021doing, Chapter 16: Shiny app structure and controlled interaction.
+
+## References

@@ -47,3 +47,14 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+.positai
+# Student data, submissions, grades, and assessment feedback
+2025/final-assessment/
+2025/formative-assessment/feedback/
+2025/formative-assessment/r/
+2025/ml/
+2026/admin/classlist.txt
+# Local/generated upload checks
+*.Rproj.user/
+2025/formative-assessment/submissions/
+module info/PSYC40940-mysay.html

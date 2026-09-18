@@ -1,0 +1,1287 @@
+---
+title: "PSYC40940: Grammar of Graphics"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+library(magick)
+library(patchwork)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+
+d_spellname <- read_csv("data/spellname.csv")
+
+
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) %>% 
+    mutate(across(name_familiarised, ~case_when(. ~ "familiar name",
+                                              !. ~ "unfamiliar name")),
+         group = str_c("Modality: ", modality, "; ", name_familiarised)) 
+
+```
+
+
+## General outline for weeks 2 -- 5
+
+- ~~Week 2: Principles of data visualisation~~
+- Week 3: Grammar of Graphics; aesthetics and attributes
+- Week 4: Major visualisation tools
+- Week 5: Customising visualisations (scales, themes, and labels)
+
+## Objectives for today
+
+- Understanding the principle of the Grammar of Graphics
+- Differentiating between aesthetics and attributes
+- Using a variety of geometries, aesthetics and attributions in data visualization
+- Deciding between appropriate aesthetics for continuous and categorical variables
+
+Download exercises from Week 3 folder on NOW and move them into your R-project directory.
+
+
+
+
+# Grammar of Graphics and `ggplot2`
+
+## What do all data visualisations have in common?
+
+
+
+```{r fig.width=10, fig.height=4.5, echo = F}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = group)) +
+  geom_point(size = .75) +
+  theme(legend.position = "right",
+        legend.justification = "top",
+        legend.direction = "vertical") +
+  stat_smooth(method = "lm", se = F) +
+  labs(x = "Response duration (in msecs)",
+       y = "Reaction time (in msecs)",
+       subtitle = "Some inspiration...")
+```
+
+## Core copmonents {.smaller}
+
+
+| Component             | Example            | Description                                       |
+| --------------------- | ------------------ | ------------------------------------------------- |
+| **Data**              | `d_spellname`           | The dataset being plotted                         |
+| **Aesthetics (aes)**  | `x = dur, y = rt`  | How data variables map to visual properties       |
+| **Geometries (geom)** | `geom_point()`     | The type of plot element (points, bars, lines)    |
+| **Statistics (stat)** | `stat_smooth()`    | Transformations of data (e.g., regression lines)  |
+| **Scales**            | `scale_x_log10()`  | How data values are converted to aesthetics       |
+| **Facets**            | `facet_wrap(~group)` | Splitting data into small multiples               |
+| **Coordinate system** | `coord_polar()`    | The space where data are drawn (Cartesian, polar) |
+| **Theme**             | `theme_minimal()`  | Non-data display elements (fonts, text, grids, etc.)    |
+
+
+## Grammar of Graphics | @wilkinson2005grammar
+
+- `ggplot2` is an R package for creating statistical / data graphics  
+- It’s based on a *Grammar of Graphics* [@wilkinson2005grammar], hence "gg"
+- Framework for data visualisation emphasising a layered approach.
+- You assemble plots by combining independent components  
+- Default settings allow rapid production of high-quality plots  
+- The theming system allows custom styling  
+- See also @wickham2016ggplot2, @wickham2010layered
+
+
+## Grammar of Graphics | @wilkinson2005grammar
+
+- Fundamental features that underlie all statistical graphics.
+- Grammar of Graphics answera the question "what is a statistical graphic"? 
+- `ggplot2` builds on Wilkinson’s grammar by focussing on the primacy of layers and adapting it for use in R [@wickham2010layered]. 
+- Grammar describes how graphics map between **data** → **aesthetics / attributes** (colour, shape, size) → **geometric objects** (points, lines, bars). 
+- Higher-level plotting system (vs `plot()`, `hist()`)
+- Complex visualisations can be creased with a minimal amount of code
+- Supports *statistical transformations* and *coordinate systems*  
+- Enables *faceting* (splitting data into subsets)  
+- Themes control visual appearance (fonts, backgrounds, etc.) 
+
+
+
+## Grammar of Graphics | @wilkinson2005grammar {.smaller}
+
+*Think about language* where grammar determines how words can be combined into sentences
+
+- "words": graphics consist of distinct layers of grammatical elements (data, aesthetics, geometries)
+- "grammar": graphics are built around mappings that determine how data, aesthetics and geometries are combined.
+
+- Grammatical elements are organised as layers
+- Underlying grammar controls how graphics are combined
+- System of rules for mapping variables to graphical properties
+- Instead of memorising "plot types," Grammar of Graphics teaches how plots are built.
+- It gives flexibility: you can create any plot by combining consistent building blocks.
+
+
+
+
+
+
+## Obligatory grammatical elements
+
+- **data:** the data you want to visualise indicated as `ggplot(data = ...)`
+- **aesthetics:** mapping of data to graphic properties (axes, size, colour) indicated as `mapping = aes()`
+- **geometries:** visual elements encoding the data indicated as `geom_...()`
+
+
+---
+
+<div style="float: left; width: 40%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt))
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r echo = FALSE, out.width = "100%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt))
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 40%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  ###<b>
+  geom_point()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r echo = FALSE, out.width = "100%"}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point()
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 40%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  ###<b>
+  geom_quantile()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r echo = FALSE, out.width = "100%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_quantile() 
+
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 40%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  ###<b>
+  geom_rug()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r echo = FALSE, out.width = "100%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_rug() 
+
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 40%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  ###<b>
+  geom_point() +
+  geom_quantile() +
+  geom_rug()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r echo = FALSE, out.width = "100%"}
+ggplot(d_spellname, aes(x = dur, y = rt))  +
+  geom_point() +
+  geom_quantile() +
+  geom_rug() 
+```
+</div>
+
+
+## Optional grammatical elements
+
+- **facets:** dividing data into subplots
+- **statistics:** summarising representations
+- **coordinates:** plotting space
+- **theme:** visual properties not related to the data (font, background)
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width = "90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point()
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point()
+```
+
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  facet_grid( ~ modality)
+```
+
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  facet_grid( ~ modality)
+  ###</b>
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+- statistics
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE) 
+```
+
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  stat_smooth(method = "lm", se = FALSE) 
+  ###</b>
+```
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+- statistics
+- coordinates
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo=FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  coord_trans(x = "log", y = "log")
+```
+
+```{r eval=FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  coord_trans(x = "log", y = "log")
+  ###</b>
+```
+
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+- statistics
+- coordinates
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo=FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  coord_flip()
+```
+
+```{r eval=FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  coord_flip()
+  ###</b>
+```
+
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+- statistics
+- coordinates
+- theme
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo=FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  theme_dark()
+```
+
+```{r eval=FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  theme_dark()
+  ###</b>
+```
+
+</div>
+
+
+---
+
+<div style="float: left; width: 20%;">
+- data
+- aesthetics
+- geometries
+- facets
+- statistics
+- coordinates
+- theme
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo=FALSE, out.width="90%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  theme(panel.background = element_blank())
+```
+
+```{r eval=FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  ###<b>
+  theme(panel.background = element_blank())
+  ###</b>
+```
+
+</div>
+
+
+## Grammatical elements in action
+
+Complete RMarkdown document **1a_gog.Rmd**
+
+Bonus: **1b_gog.Rmd**
+
+
+
+## Which layer corresponds to which part of the grammar? {.columns-2}
+
+```{r fig.width=10, fig.height=8, echo = T, out.width="100%"}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = group)) +
+  geom_point(size = .75) +
+  stat_smooth(method = "lm", se = F) +
+  labs(x = "Response duration (in msecs)",
+       y = "Reaction time (in msecs)") +
+  theme(legend.position = "right",
+       legend.justification = "top",
+       legend.direction = "vertical") 
+
+```
+
+
+# Aesthetics vs Attributes
+
+
+## Aesthetics vs Attributes 
+
+**Aesthetics**: visual properties mapped to variables (data-driven)
+e.g. `aes(x = duration, y = time, colour = group)`
+→ colour changes with data
+
+**Attributes**: visual properties set manually (constant)
+e.g. `geom_point(colour = "blue", size = 2)`
+→ colour is fixed, not mapped to data
+
+*Think*:
+
+Aesthetic = mapping (data → visual)
+
+Attribute = setting (visual → fixed property)
+
+
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point(colour = "red")
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point(colour = "red")
+```
+
+</div>
+
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point(aes(colour = modality))
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point(aes(colour = modality))
+```
+
+</div>
+
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point(aes(colour = modality)) +
+  stat_smooth(method = "lm")
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point(aes(colour = modality)) +
+  stat_smooth(method = "lm")
+```
+
+</div>
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point() +
+  stat_smooth(aes(colour = modality), method = "lm")
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point() +
+  stat_smooth(aes(colour = modality), method = "lm")
+```
+
+</div>
+
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, 
+       mapping = aes(x = dur, 
+                     y = rt)) +
+  geom_point(aes(colour = modality)) +
+  stat_smooth(aes(colour = modality), method = "lm")
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt)) +
+  geom_point(aes(colour = modality)) +
+  stat_smooth(aes(colour = modality), method = "lm")
+```
+
+</div>
+
+
+
+## Aesthetics vs Attributes
+
+<div style="float: left; width: 35%;">
+- appearance of geometries
+- e.g. colour, size, shape
+- attributes take properties
+- aesthetics take variables
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = FALSE, out.width="80%"}
+ggplot(data = d_spellname, mapping = aes(x = dur, y = rt, colour = modality)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = modality)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+</div>
+
+
+
+## Aesthetics vs Attributes 
+
+```{r out.width="50%"}
+ggplot(d_spellname, aes(x = dur, y = rt, shape = modality)) +
+  geom_point(size = 2.5, colour = "red") 
+```
+
+
+
+## Aesthetics vs Attributes 
+
+
+```{r out.width="50%"}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = modality)) +
+  geom_point(size = 2.5)
+```
+
+
+## Aesthetics vs Attributes 
+
+```{r out.width="50%"}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = modality, shape = modality))   +
+  geom_point(size = 2.5)
+```
+
+
+## Aesthetics vs Attributes 
+
+```{r out.width="50%"}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = modality, shape = name_familiarised)) +
+  geom_point(size = 2.5)
+```
+
+
+
+## Aesthetics vs Attributes 
+
+```{r out.width="50%"}
+ggplot(d_spellname, aes(x = dur, y = rt, colour = interaction(name_familiarised, modality, sep = "; "))) +
+  geom_point(size = 2.5) +
+  labs(colour = "")
+```
+
+
+
+## Aesthetics | typically `x`, `y`, `colour`, `fill`, `group`
+
+<div style="float: left; width: 40%;">
+- some are required by geometries; others are optional
+- continuous vs discrete variables:
+    - e.g. shape and label can only be used for categorical values
+- should be chosen to facilitate comprehension
+</div>
+
+<div style="float: right; width: 55%;">
+```{r echo = F}
+env <- asNamespace("ggplot2")
+all_Geoms <- ls(envir = env, pattern = "^Geom.+")
+all_Geoms <- mget(all_Geoms, env)
+all_aes <- map(all_Geoms, ~.$aesthetics())
+
+names(all_aes) <- 
+  names(all_aes) %>%
+  substr(5,nchar(.)) %>% 
+  tolower() %>% 
+  paste0("geom_",.)
+
+# remove if geom_* doesn't exist
+all_aes[!names(all_aes) %in% ls(envir = env)] <- NULL
+
+```
+
+- scatterplot: `geom_point()`
+```{r echo = FALSE, results=TRUE}
+cat(paste(all_aes$geom_point, collapse = ", "))
+```
+
+- barplot: `geom_bar()`
+```{r echo = FALSE, results=TRUE}
+cat(paste(all_aes$geom_bar, collapse = ", "))
+```
+
+- boxplot: `geom_boxplot()`
+```{r echo = FALSE, results=TRUE}
+x <- paste(all_aes$geom_boxplot, collapse = ", ")
+stri_sub(x, 60, 58) <- "\n"
+stri_sub(x, 121, 119) <- "\n"
+cat(x)
+```
+
+</div>
+
+
+## Aesthetics vs Attributes
+
+Complete RMarkdown documents
+
+- **2a_attributes.R** for attributes
+- **2b_aesthetics.R** for aesthetics
+
+
+## Continuous vs Categorical Variables {.columns-1 .smaller}
+
+The type---`<dbl>` and `<chr>`---determines which aesthetics you can map to it, and how `ggplot2` interprets it visually.
+
+```{r}
+glimpse(d_spellname)
+```
+
+
+
+`ggplot2` automatically detects variable type:
+
+- Continuous: numeric variables (e.g., age, height, RT, temperature)
+- Categorical: factors or character variables (e.g., group, species, modality)
+
+Sometimes categorical variables are coded as numbers; condition = 1, 2, 3, 4; male = 1, female = 2
+
+
+
+## Continuous Variables: Visual Decoding {.columns-2 .smaller}
+
+```{r echo = F, fig.cap="See @wong2010points page 665", out.width="90%"}
+image_read("gfx/wong2010c.png") %>%   
+  image_scale("50%") 
+```
+
+
+- Examples: age, height, RT, duration, temperature
+- Convey *magnitude* and *order*
+
+Best represented using gradual or quantitative encodings:
+
+- position on an aligned scale (x, y)
+- length, angle, area, volume
+- colour gradients (e.g., light → dark)
+  - monochromatic colour spectrum (saturation, grey scale)
+  - pure spectrum colours
+- size (circle area, line width)
+
+
+
+
+
+## Continuous Variables: Position on common scale
+
+
+<div style="float: left; width: 45%;">
+
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = modality, y = rt)) +
+  geom_jitter() 
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = FALSE, out.width="100%"}
+ggplot(d_spellname, 
+       aes(x = modality, 
+           y = rt)) +
+  geom_jitter(size = 3, width = .25, alpha = .25)
+```
+</div>
+
+
+## Continuous Variables: Non-aligned scale
+
+<div style="float: left; width: 45%;">
+```{r eval = FALSE}
+ggplot(d_spellname, aes(x = modality, y = rt)) +
+  geom_jitter() +
+  facet_wrap(~modality, scales = "free") 
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = FALSE, out.width="100%"}
+ggplot(d_spellname, aes(x = modality, y = rt)) +
+  geom_jitter(size = 3, width = .25, alpha = .25) +
+  facet_wrap(~modality, scales = "free", nrow = 1) +
+  theme(strip.background = element_blank(),
+        strip.text = element_blank())
+```
+</div>
+
+
+
+## Continuous Variables: Colour gradients {.columns-2}
+
+```{r out.width="100%"}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = ppt_vocab)) +
+  geom_point() +
+  scale_colour_gradient(high = "darkred", low = "yellow")
+```
+
+
+## Categorical Variables: Visual Decoding {.columns-2 .smaller}
+
+
+```{r echo = F, fig.cap="See @wong2010points page 665", out.width="90%"}
+image_read("gfx/wong2010ab.png") %>% 
+  image_resize("50%")
+  
+```
+
+- Examples of categorical variables: condition, response modality, species
+- Convey *difference in kind*, not quantity
+
+Best represented using distinct encodings:
+
+- position on discrete axis (x)
+- distinct shapes
+- distinct hues (qualitative color palette)
+
+
+
+## Categorical Variables: Colour gradients {.columns-2}
+
+```{r out.width="100%"}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = modality)) +
+  geom_point() +
+  scale_colour_brewer(type = "qual")
+```
+
+
+## Categorical Variables: `text` / `labels`
+
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        label = modality)) +
+  geom_text(size = 3)
+```
+
+</div>
+
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+
+## Categorical Variables: `shape`
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        shape = modality)) +
+  geom_point(size = 3)
+
+```
+
+</div>
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+
+## Categorical Variables: Hue
+
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        colour = modality)) +
+  geom_point(size = 3)
+
+```
+
+</div>
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+
+
+## Categorical Variables: Hue
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        colour = modality)) +
+  stat_smooth(method = "lm", se = F)
+```
+
+</div>
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+
+
+## Categorical Variables: `linetype`
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        linetype = modality)) +
+  stat_smooth(method = "lm", se = F)
+```
+
+</div>
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+
+## Categorical Variables: `size`
+
+<div style="float: left; width: 55%;">
+
+```{r  out.width="100%", fig.height=4}
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt,
+                        size = modality)) +
+  stat_smooth(method = "lm", se = F)
+```
+
+</div>
+
+
+<div style="float: right; width: 40%;">
+- qualitative colours, labels, line colours
+- sequential colours, shape outlines, line type
+- filled shapes, hatching (shading with lines), line width
+</div>
+
+## Continuous vs Categorical Variables {.smaller}
+
+
+| **Variable Type** | **Typical Aesthetics**              | **Visual Encoding** | 
+| ----------------- | ----------------------------------- | ------------------- | 
+| Continuous        | x, y, size, color (gradient), alpha | magnitude, order    | 
+| Categorical       | x, shape, color (hue), fill         | category, grouping  | 
+
+
+
+
+
+
+## Visual Encoding Hierarchy {.smaller}
+
+Which aesthetics are most effective for continuous vs categorical variables? 
+
+Principles of perceptual psychology and visual encoding theory are underpinning the Grammar of Graphics and `ggplot2`'s design choices [@wilkinson2005grammar;@cleveland1984graphical]
+
+The human visual system perceives some encodings more accurately than others.
+
+
+| **Accuracy (for continuous data)**   | **Visual Encoding**              | **Example in ggplot2**         |
+| ------------------------------------ | -------------------------------- | ------------------------------ |
+| **Position on a common scale**   | where a point lies along an axis | `aes(x, y)`                    |
+| **Length / Size (1D)**           | bar height, line length          | `geom_bar()`, `aes(size)`      |
+| **Angle / Slope**                | pie chart slices, line angle     | `coord_polar()`, `geom_line()` |
+| **Area (2D size)**               | circle or bubble area            | `aes(size)` (use carefully)    |
+| **Colour luminance / saturation** | brightness / lightness gradient  | `scale_colour_gradient()`      |
+| **Colour hue**                    | qualitative differences          | `scale_colour_brewer()`        |
+| **Shape / Symbol type**          | triangle, circle, square         | `aes(shape)`                   |
+| **Spatial region / volume**      | map regions, 3D volume           | `geom_polygon()`               |
+
+
+\
+
+- The top of the hierarchy (position, length) is best for continuous variables
+- The bottom (hue, shape) is best for categorical variables
+
+
+
+## Applied to `ggplot2` {.smaller .columns-2}
+
+**Continuous variables** prefer position / gradual encodings:
+
+- `x`, `y`: continuous scales (most accurate)
+- `size`: can work, avoid misleading area scaling
+- `colour`: use gradients 
+- `alpha`: transparency can suggest intensity
+
+Avoid using hue or shape: humans don’t perceive continuous changes in colour hue or shape as ordered or proportional.
+
+
+**Categorical variables** prefer distinct encodings:
+
+- `x`, `colour`, `fill`, `shape`, `linetype`
+- Use qualitative palettes (e.g., `scale_colour_brewer(type = "qual")`)
+- Don’t map numeric variables to hue unless they’re binned or converted to factors.
+
+Each category should be visually distinct: no gradient or ordering implied.
+
+
+## Which plot communicates difference better? {.columns-2}
+
+
+## Which plot communicates difference better? {.columns-2}
+
+
+```{r echo = T, eval = F}
+# Modality as character
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = modality)) +
+  geom_point() 
+
+# Convert modality to numbers
+d_spell_2 <- mutate(d_spellname, 
+                    mod_2 = as.numeric(factor(modality))) 
+
+ggplot(d_spell_2, aes(x = dur, 
+                          y = rt, 
+                          colour = mod_2)) +
+  geom_point() 
+```
+
+
+```{r echo = F, fig.width=6, fig.height = 5.5, out.width="100%"}
+plot_1 <- ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = modality)) +
+  geom_point(size = .75) 
+
+# Convert modality to numbers
+d_spell_2 <- mutate(d_spellname, 
+                        mod_2 = as.numeric(factor(modality))) 
+plot_2 <- ggplot(d_spell_2, aes(x = dur, 
+                          y = rt, 
+                          colour = mod_2)) +
+  geom_point(size = .75) 
+
+plot_1 / plot_2 +
+  plot_annotation(tag_levels = "A")
+
+```
+
+
+## Which plot shows quantity more precisely? {.columns-2}
+
+
+
+
+```{r echo = T, eval = F}
+# ppt_vocab as numeric
+ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = ppt_vocab)) +
+  geom_point() 
+
+# Convert ppt_vocab to characters
+d_spell_2 <- mutate(d_spellname, 
+                        vocab_2 = as.character(ppt_vocab))
+
+ggplot(d_spell_2, aes(x = dur, 
+                          y = rt, 
+                          colour = vocab_2)) +
+  geom_point() 
+```
+
+
+```{r echo = F, fig.width=6, fig.height = 6, out.width="100%"}
+plot_1 <- ggplot(d_spellname, aes(x = dur, 
+                        y = rt, 
+                        colour = ppt_vocab)) +
+  geom_point(size = .75) 
+
+# Convert modality to numbers
+d_spell_2 <- mutate(d_spellname, 
+                        vocab_2 = as.character(ppt_vocab))
+
+plot_2 <- ggplot(d_spell_2, aes(x = dur, 
+                          y = rt, 
+                          colour = vocab_2)) +
+  geom_point(size = .75) 
+
+plot_1 / plot_2 +
+  plot_annotation(tag_levels = "A")
+
+```
+
+
+## Summary Hierarchy {.smaller}
+
+| **Aesthetic**         | **Best For** | **Why**                              |
+| --------------------- | ------------ | ------------------------------------ |
+| **Position (x, y)**   | Continuous   | Most precise, linear mapping         |
+| **Length / Size**     | Continuous   | Perceived magnitude                  |
+| **Color (lightness)** | Continuous   | Suggests intensity or order          |
+| **Color (hue)**       | Categorical  | Distinct, unordered groups           |
+| **Shape / Linetype**  | Categorical  | Symbolic differences                 |
+| **Fill / Alpha**      | Either       | Can show density or group separation |
+
+
+## What does “Hue” mean? {.columns-2 .smaller}
+
+Hue refers to the type of colour; what we usually mean when we say red, blue, green, yellow, etc.
+
+It distinguishes different colours along the colour wheel, not how bright or dark they are.
+
+- Hue = the colour family
+- Lightness / Luminance 
+- Saturation = pure or intense
+
+
+```{r echo = F, fig.width=9, out.width="100%"}
+image_read("gfx/colours.png") %>% 
+  image_ggplot()
+```
+
+
+## In `ggplot2` terms {.smaller .columns-2}
+
+When you map a categorical variable to `colour` (or `fill`), `ggplot2` typically varies the hue:
+
+Each penguin species (`palmerpenguins::penguins`) gets a different hue (blue, green, red).
+
+This uses a qualitative palette, where hues are different but brightness is roughly equal.
+
+There’s no order implied; just distinct color identities.
+
+```{r echo=F, out.width="100%"}
+ggplot(palmerpenguins::penguins, aes(x = species, fill = species)) +
+  geom_bar()
+```
+
+
+
+
+
+## Example: Hue vs. Brightness
+
+| Type                             | Used For                          | Visual Meaning          |
+| -------------------------------- | --------------------------------- | ----------------------- |
+| **Hue-based (qualitative)**      | Categorical data                  | Different kinds         |
+| **Lightness-based (sequential)** | Continuous data                   | More ↔ Less             |
+| **Diverging (two hues)**         | Continuous data around a midpoint | Below vs. above average |
+
+
+
+
+## Aesthetics vs Attributes
+
+Complete RMarkdown document **3_aaa.Rmd** for combining attributes and aesthetics.
+
+## Recommended Reading
+
+For support with this week's material, use:
+
+- @andrews2021doing, Chapter 4: data visualisation in R.
+- @wickham2016r, Chapter 3: data visualisation with `ggplot2`.
+
+Use the `ggplot2` online book as an optional reference when you want more detail on aesthetics, scales, and facets.
+
+## Homework
+
+Identify a dataset you would like to use for the formative assessment: post a description on our Teams channel.
+
+Think about what you would like to visualise about these data: 
+
+- Combination of variables
+- Variable types and appropriate aesthetics
+- Raw data and / or summary statistics
+- Look for appropriate visualisation tools [HERE](https://www.data-to-viz.com/)
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

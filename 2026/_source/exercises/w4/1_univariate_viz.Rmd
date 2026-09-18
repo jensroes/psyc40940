@@ -1,0 +1,225 @@
+---
+title: 'Exercise 1: Univariate distributions'
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+
+We have already seen before how to create a histogram using `ggplot2`. Create a histogram for age.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+
+Btw, code for `ggplot2`-style histograms can also be found in `psyntur`.
+
+```{r}
+# Load psyntur
+library(psyntur)
+# Create boxplot
+histogram(data = d_blomkvist, x = age)
+```
+
+First, let's return to the warning "stat_bin()` using `bins = 30`. Pick better value with `binwidth`.". As mentioned before, this means that there are 30 bins in the plot so the age variable was divided into 30 bins such that each bin spans over the following number of years.
+
+Age has a range form:
+```{r}
+(age_range <- range(d_blomkvist$age)) # age range
+```
+
+This spans over the following number of years:
+
+```{r}
+(age_range_diff <- diff(age_range)) # age span
+```
+
+
+Divided by the number of bins that was used by `geom_histogram` (i.e. 30), each bin contains an age span of
+
+```{r}
+age_range_diff/30 # years per bin
+```
+
+So `bins = 30` is, for these data, equivalent to a `binwidth` of 2.533. In other words using 2.533 for `binwidth` or, even better, using `age_range_diff/30` should be reasonably close to the default of `bins = 30` implied above.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---(binwidth = ---)
+```
+
+
+Let's look at another variable. Create a histogram of the rt of the dominant hand.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+We have seen so far how we can look at the distribution of a variable overall. How can we compare the unimodal distributions for different groups? One way is to break up the histogram into 3 facets. Use the variable `smoker` in the plot below to split up the rt data using faceting.
+
+What do you learn form this plot? Probably only that there were overall more observations from non-smokers.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_histogram() +
+  facet_grid(~ ---)
+```
+
+If we use aesthetics to colour code the bins into the different smoker groups, we have to be careful with what this visualisation shows. Use the `fill` argument to colour code the rt data by smoker.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, fill = ---)) +
+  geom_---()
+```
+
+By default the three groups are shown as "stacked" bars. The `geom_histogram` function invokes its default setting `position = "stack"` which doesn't need to be written in the code (see "Usage" section in the documentation available via "?geom_histogram"). In contrary to what we can read of the y axis (counts), it is not that the most data come fom former smokers. The bars are stacked, which means that there are not a lot of former smokers; the bars for the former smokers sit on the top of the smokers and non-smokers (for alphabetical reasons). We know from before that most observations come from non-smokers. Hence, this plot is potentially misleading.
+
+Better ways of representing these data which is less misleading are the following two options:
+
+First, we can specify position as "identity" which shows the position in the same place but behind one another. We'll lower the opacity to make the bars in the background visible. Set alpha to, for example, .5.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, fill = ---)) +
+  geom_histogram(position = "---", alpha = ---)
+```
+
+Now it's clear again that there are less former smokers and smokers than non-smokers. The green area is substantially larger than the other two areas.
+
+Second, we can "dodge" the position of the bars to display them next to each other.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, fill = ---)) +
+  geom_histogram(position = "---")
+```
+
+Arguably, this visualisation can be misleading too as some bars will be displayed further to the right, hence slower, even though they are within the same bin as the other groups (`binwidth` was divided by number of levels of the grouping variable).
+
+Another way of visualisting the distribution of rt data is using frequency polygons which are rendered using `geom_freqpoly`. Try out here:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+
+Another way of visualising the distribution of rt data is density plots. The geometry is called `geom_density`. Try:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+
+Densities make group comparisons easier to visualise, as for differences in rt speed for smokers.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, colour = ---)) +
+  geom_---()
+```
+
+However, it is not visible anymore, in comparison to the histogram, that there are substantial differences in the number of observations across the three smoker groups. This is due to how kernel densities are estimated (i.e. within group).
+
+To make the group comparisons easier readable, add filling for smokers and reduce the opacity to .25.
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, colour = ---, fill = ---)) +
+  geom_density(alpha = ---)
+```
+
+
+As another example for a unimodal distribution add a rug to this density plot:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, colour = ---, fill = ---)) +
+  geom_---(alpha = ---) +
+  geom_---()
+```
+
+So far we have looked at unimodal distrributions of continuous variables. You can also create a unimodal distribution for the number of different smoker types using `geom_bar`:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---)) +
+  geom_---()
+```
+
+It is often easier to understand bar plots of categorical data, certainly for groups with many levels, if we order the bars by size.
+
+The following code will add a variable `n` to the data that shows the number of people in each of the three smoker types. Check the output of `glimpse` for the new data frame `d_blomkvist_2`.
+
+
+```{r}
+d_blomkvist_2 <- mutate(d_blomkvist, n = n(), .by = smoker)
+glimpse(---)
+```
+
+We can then use the new variable `n` to reorder the smoker levels:
+
+```{r}
+ggplot(---, aes(x = reorder(smoker, ---))) +
+  geom_bar()
+```
+
+To reverse the order of the bars we can add a minus sign before the `n` variable inside the `reorder` function.
+
+```{r}
+ggplot(d_blomkvist_2, aes(x = reorder(smoker, ---))) +
+  geom_bar()
+```
+
+
+Finally we can separate the bars by another categorical variable. Try to change the colouring for `sex` otherwise using the same plot as before.
+
+```{r}
+ggplot(d_blomkvist_2, aes(x = reorder(---, ---), colour = ---, fill = ---)) +
+  geom_bar(position = "dodge")
+
+```
+
+Distributions of categorical data are often visualised as pie chats which can be thought of as a stacked version of the bar plot above. Except, instead of representing the bars stacked in one column, we have to arrange them in a circle.
+
+```{r}
+ggplot(d_blomkvist, aes(x = 0, fill = smoker)) +
+  geom_bar() 
+```
+
+To do so, we need to invoke one of the coordinate layers which we will get back to later. Here just a brief visualisation.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = "", fill = smoker)) +
+  geom_bar() +
+  coord_polar(theta = "y")
+```
+
+
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

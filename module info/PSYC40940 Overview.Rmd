@@ -228,7 +228,7 @@ read_csv("schedule.csv") %>%
 
 ## Formative assessment
 
-Deadline: **31st October 2025 (2.00 pm)**
+Deadline: **Friday 30 October 2026 (2.00 pm)**
 Submission via NOW Learning Room Dropbox
 
 For details see: 
@@ -236,7 +236,7 @@ For details see:
 
 ## Summative assessment
 
-Deadline: **9th January 2026 (2.00 pm)**
+Deadline: **Friday 8 January 2027 (2.00 pm)**
 Submission via NOW Learning Room Dropbox
 
 For details see: 

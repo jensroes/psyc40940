@@ -1,0 +1,208 @@
+---
+title: 'Exercise 3: Group comparisons'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+# Box-and-whisker plots
+
+When we speak of group comparisons we mean comparing the distribution of responses or data across two or more groups or experimental conditions. In this context "group" really just means level of a categorical variable. 
+
+Similar to examples before you will explore the rt data from the dominant hand. In this example you will save the plot into a variable called `plot_rts` because we want to show how the same data are rendered with different visualisation techniques. Saving the plot into a variable saves us repeating the same code. Also in the example below we will use `coord_cartesian` to fix the width of the x axis (we will talk about this later).
+
+```{r}
+# Save plot into variable called "plot_rts"
+plot_rts <- ggplot(data = ---, aes(y = ---, x = 0)) +
+  coord_cartesian(xlim = c(-1,1)) # fix the width of the x axis
+
+# Show plot so far
+plot_rts
+```
+
+At this point we only have an empty plot (canvas). The information plotted on the x-axis is not meaningful at all.
+
+Lets start by showing the data as normal points using `geom_point()`:
+
+```{r}
+plot_rts + ---
+```
+
+Add the geom for jittered points which is `geom_jitter()`.
+
+```{r}
+plot_rts + ---
+```
+
+The information represented as points can be summarised as a boxplot. Add the geom for boxplots. Boxplots turn raw data into summary statistics involving the median and the inter-quartile range (IQR). 
+
+```{r}
+plot_rts + ---
+```
+
+Btw, code for `ggplot2`-style boxplots can also be found in `psyntur`.
+
+```{r}
+# Load psyntur
+library(psyntur)
+# Create boxplot
+tukeyboxplot(data = d_blomkvist, y = rt_hand_d)
+```
+
+
+
+Of course we can combine geometries such as `geom_boxplot` and `geom_jitter` to illustrate how boxplots simplify information compared to jittered dots. Notice how the box minics the points. Also, notice that the order in which you add these two geometries matters. The plot will look different depending on which geometry is added first and second.
+
+```{r}
+plot_rts + 
+  geom_---() +
+  geom_---()
+```
+
+
+What the boxplots represents is described in the documentation (see `?geom_boxplot`) which I summarise below.
+
+The solid line inside the box is the median. The lower and upper ends of the box correspond to the 25th and 75th percentiles which can be calculated using the `quantile` function. We need to specify the data we want to summarise and the probabilities (e.g. .25 for 25%, and .75 for 75%). The `$` notation allows us to say "use `rt_hand_d` which is in the data frame `d_blomkvist`.
+
+```{r}
+quantile(d_blomkvist$rt_hand_d, probs = c(.25, ---))
+```
+
+
+The lower and upper end of the whisker are calculated using this formula
+
+$$
+\text{median} \pm 1.5 \times \text{IQR}
+$$
+
+which is the median plus / minus 1.5 times the IQR, where the inter-quartile range IQR is the distance between the bottom and top of the box. Using the values generated the `quantile` function above, what is the IQR (i.e. difference between upper and lower bound):
+
+```{r}
+--- - --- # remove the ---; there is a minus symbol in between which needs to stay
+```
+
+or using the `IQR` function
+
+```{r}
+IQR(d_blomkvist$---) # add the name of the rt measure
+```
+
+
+Any data beyond the end of the whiskers are plotted individually. 
+
+We can calculate the summary statistics visualised by the boxplot manually using the `summarise` function which is more elegant than using the `$` notation above because we only need to specify the name of the data frame once. The `summarise` function takes as input a data frame and as many summary statistics as we need. Below you see how we can calculate the median using the `median` function and assign it as `mdn`, the inter-quartile range using the `IQR` function, and then the lower and upper bound (`lb`, `ub`) using the equation above. Have a go at completing the missing bits in the code:
+
+
+```{r}
+summarise(.data = d_blomkvist, 
+          mdn = median(rt_hand_d),
+          iqr = IQR(---),
+          lb = mdn - 1.5 * iqr,
+          ub = --- + 1.5 * ---)
+```
+
+Convince yourself that the values you obtained are identical to the values in the boxplot above. If they aren't, check for mistakes.
+
+Finally instead of using a placeholder for x (we used 0 above instead of a variable), we can add a categorical variable such as `smoker` to allow for easy comparisons between the rts of the different smoker groups. Let's start with jittered dots again, so we don't miss any information that is aggregated by the boxplots. The `width` argument of the jittered dots allows us to reduce the width of the horizontal jitter (which looks better); try a width of 0.25.
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  geom_---(---) 
+```
+
+Try adding a boxplot using `geom_boxplot()` on the top of the jitter. The boxplot function takes arguments `outliers =` which can take the values `TRUE` and `FALSE` if you want to show values that `geom_boxplot` shows outside the whisker ends and `width` which changes the width of the boxes. Remove the "outliers" generated by `geom_boxplot` and reduce the width of the boxplots to .5. Removing the outliers generated by the boxplot function makes sense because we are using jittered points too. We don't want to show the same data twice.
+
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  geom_jitter(width = .25) +
+  geom_---(---, ---)
+```
+
+You will see that the boxes are hiding some dots. You can reduce the opacity of the boxplots using the `alpha` argument. Try to make the boxes more translucent. 
+
+
+
+# Bonus exercise
+
+Dynamite plots are frequently used to compare groups although there are good reasons to avoid these. For practice here is how to create a dynamite plot (properly).
+
+`stat_summary` allows us to calculate summary statistics such as the mean and error bars. Complete the following code to show medians as point. `fun` is short for "function" an needs to know the name of a summary statistic like "median", "mean", "sd", etc; `geom` is a geometry like dots when using "point" or bars when using "bar". `fill` allows you to pick a colour.
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  stat_summary(fun = ---, geom = "---", fill = "grey")
+```
+
+Try to show bars instead of points and use the mean instead of the median.
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  stat_summary(fun = ---, geom = "---", fill = "grey")
+```
+
+The top end of the bar is the mean (if you think that's misleading, you're right).
+
+Repeat the above for the first `stat_summary` function below to regenerate the bars for means. The second `stat_summary()` is meant to generate errorbars. Add the geometry "errorbar", set width to 0.5 to reduce the width of the end bits of the errorbars, and then use the function `mean_sdl` to add two standard deviations above and below the mean.
+
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  stat_summary(fun = ---, geom = "---", fill = "grey") +
+  stat_summary(fun.data = ---, geom = "---", width = ---)
+```
+
+Done? Terrible, right?
+
+Let's repeat what the problem is with these dynamite plots?
+
+1. We know little about the distribution of the data (plot suggests they are normal distributed with no skew),
+2. We don't know how many observation we have in each group?
+3. Bars suggest data where there are none (e.g. rts close to zero).
+4. There are values above the bar that are not shown.
+
+Overall, dynamite plots conceal and distort information more than they reveal. Don't bother with dynamite plots :) Also, the alternatives are much easier to create as you saw in the examples above (e.g. boxplots).
+
+Another useful alternative is easy to generate by using again dots for means instead of the long bars. The compositional logic of `ggplot` allows us to add the raw data in addition to summary statistics. 
+
+We can use the jitter geom to show the raw data. Then, we use two summary statistics: first the mean shown as points; second, add the 95% confidence intervals shown as error bars instead of 2 times standard deviations. The function you need is called `mean_cl_normal`. I've added some colour below to create a contrast between raw data and summary statistics. Complete this code:
+
+```{r}
+ggplot(data = d_blomkvist, aes(x = smoker, y = rt_hand_d)) +
+  geom_---(width = .1, alpha = .25) +
+  ---(fun = ---, geom = "point", size = 5, colour = "darkred") +
+  stat_summary(fun.data = ---,
+               geom = "---",
+               colour = "darkred",
+               width = .25)
+```
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

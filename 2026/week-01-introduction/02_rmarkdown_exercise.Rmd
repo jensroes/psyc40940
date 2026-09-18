@@ -1,0 +1,185 @@
+---
+title: "Week 1 Exercise: Build and Render an RMarkdown Report"
+author: "Your name"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+# Global chunk options control how code and output appear in the HTML file.
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = NA,
+  fig.width = 7,
+  fig.height = 4.5
+)
+```
+
+# Aim
+
+In this exercise you will complete a short RMarkdown report and render it to HTML.
+
+Replace each `___` blank with the correct code or text. The document will not render until all blanks are completed.
+
+This report should demonstrate:
+
+- section headings,
+- R code chunks and simple chunk options such as `echo`,
+- inline R code,
+- loading packages and data,
+- rendering a table and a figure,
+- cross-referencing a table and a figure,
+- citing a source from a `.bib` file.
+
+The data used in this exercise come from a reaction-time study by Blomkvist and colleagues. Cite the paper here using the existing BibTeX entry in `references.bib`: `___`.
+
+# Load Packages
+
+Load the packages needed for this report.
+
+```{r packages}
+# Load the package that contains read_csv(), select(), drop_na(), summarise(), and ggplot().
+library(___)
+
+# Load the package that contains kable().
+library(___)
+```
+
+# Load Data
+
+Load the `blomkvist.csv` dataset from the local week data folder.
+
+```{r load-data}
+# Read the CSV file and store it in an object called blomkvist.
+blomkvist <- read_csv("___")
+```
+
+The dataset contains `r ___(blomkvist)` rows and `r ___(blomkvist)` columns.
+
+# Inspect Data
+
+Table \@ref(tab:data-preview) shows rows 1 to 6 of the dataset.
+
+```{r data-preview, echo=___}
+# Create an object that contains rows 1 to 6 of the data.
+first_rows <- ___(blomkvist, ___)
+
+# Render the first rows as a table.
+kable(
+  first_rows,
+  caption = "Rows 1 to 6 of the Blomkvist dataset."
+)
+```
+
+# Prepare Data
+
+Create a smaller dataset for plotting. Keep `id`, `sex`, `age`, `smoker`, `rt_hand_d`, and `rt_hand_nd`, then remove missing values from the two reaction-time variables.
+
+```{r prepare-data}
+# Keep only the variables used in this short report.
+selected_data <- select(
+  blomkvist,
+  ___,
+  ___,
+  ___,
+  ___,
+  ___,
+  ___
+)
+
+# Remove rows with missing values in either reaction-time variable.
+plot_data <- drop_na(selected_data, ___, ___)
+```
+
+After removing missing values, the plotting dataset contains `r ___(plot_data)` rows.
+
+# Create a Figure
+
+Figure \@ref(fig:scatter-plot) shows the relationship between reaction times for the dominant and non-dominant hand.
+
+Complete the plot code. Add a useful figure caption in the chunk header.
+
+```{r scatter-plot, fig.cap="___"}
+# Start with the data and define the variables used in the plot.
+ggplot(plot_data, aes(x = ___, y = ___, colour = ___)) +
+  geom_point(alpha = 0.75) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "___",
+    y = "___",
+    colour = "___"
+  ) +
+  theme_minimal()
+```
+
+# Create a Summary Table
+
+Table \@ref(tab:summary-table) summarises dominant-hand reaction times by smoking status.
+
+Complete the summary table code.
+
+```{r summary-table}
+# Calculate descriptive statistics for each smoking-status group.
+summary_table <- summarise(
+  plot_data,
+  mean_rt = round(mean(___), 1),
+  sd_rt = round(sd(___), 1),
+  n = n(),
+  .by = ___
+)
+
+# Put the table rows into a predictable order.
+summary_table <- arrange(summary_table, ___)
+
+# Render the summary data frame as a table in the HTML output.
+kable(
+  ___,
+  caption = "Dominant-hand reaction time by smoking status."
+)
+```
+
+# Interpretation
+
+Write one short sentence that uses inline R code to report the average dominant-hand reaction time.
+
+The average dominant-hand reaction time in the cleaned dataset is `r round(mean(___), 1)` ms.
+
+# Optional Citation Practice
+
+Complete this extension task after your report renders successfully.
+
+Add this reaction-time methods article to the report.
+
+APA reference to turn into a BibTeX entry:
+
+Whelan, R. (2008). Effective analysis of reaction time data. *The Psychological Record, 58*, 475-482. https://doi.org/10.1007/BF03395630
+
+1. Open `references.bib`.
+2. Add a BibTeX entry for the Whelan article at the end of the file. You can get the entry from Google Scholar or ask ChatGPT/Copilot to create one from the APA reference above.
+3. Use a clear citation key, for example `whelan2008reactiontime`.
+4. Replace the comment below with one sentence that cites the article using `@whelan2008reactiontime`.
+5. Render again and check that the citation appears in the text and in the reference list.
+
+<!-- Replace this comment with one sentence about reaction-time data that cites @whelan2008reactiontime. -->
+
+# Render Checklist
+
+Before you finish, check that:
+
+- the document knits to HTML,
+- the citation appears in the text,
+- the reference list appears at the end,
+- Figure \@ref(fig:scatter-plot) is numbered,
+- Table \@ref(tab:summary-table) is numbered,
+- the inline R values appear as numbers rather than code.
+
+# References

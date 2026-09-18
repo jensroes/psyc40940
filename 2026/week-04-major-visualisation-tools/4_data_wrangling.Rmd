@@ -1,0 +1,244 @@
+---
+title: 'Exercise 4: Data wrangling'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+
+Data visualisation often requires you to transform data frames into a format that is appropriate for visualisation. What "appropriate" means depends on your visualisation goal.
+
+You have already seen many ways in which the Blomkvist-data can be visualised. For example, I can test whether there is a relationship between rts of the dominant hand and the non-dominant hand by plotting them against each other:
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, y = ---)) +
+  geom_point()
+```
+
+Can we tell from this plot if participants are generally slower with their non-dominant hand? Not really. Boxplots would be much nicer for this purpose. Given what we know so far, we could create to boxplots, one for each hand, so first of the dominant hand
+
+```{r}
+ggplot(d_blomkvist, aes(x = 0, y = ---)) +
+  geom_boxplot()
+```
+
+and then of the non-dominant hand
+
+```{r}
+ggplot(d_blomkvist, aes(x = 0, y = ---)) +
+  geom_boxplot()
+```
+
+This doesn't really help. What we really want is boxplots next to each other in one plot. To do this, we need to transform the data frame into a long format.
+
+
+# Transforming between long and wide data frames
+
+Let's look at the data again:
+
+```{r}
+d_blomkvist
+```
+
+Notice that the rt data of the dominant and non-dominant hand are in two different columns (i.e. two different variables). What we need is one column with the rts of both hands so we can map these onto an axis in the code.
+
+The solution is to transform the currently *wide* data frame into a *long* data frame. This is what `pivot_longer` does. It takes a data frame as input and stacks columns on the top of each other. `cols` needs to know which columns to combine; you need the column names of the rt data of the dominant and non-dominant hand. We then assign the resulting data frame to a new data frame variable, called `d_bk_long`.
+
+
+```{r}
+# Transform data frame
+d_bk_long <- pivot_longer(data = d_blomkvist, 
+                           cols = c(---, ---))
+
+# Show preview of data frame
+d_bk_long
+```
+
+You should be able to see two new columns, one called `name`, the other called `value`. Both are on the right end. `name` is a new grouping variable with levels `rt_hand_d` and `rt_hand_nd` which were the column headers previously. The corresponding rt values are in the `value` column.
+
+With this new data frame we can generate a boxplot that compares directly the rt data of the dominant hand and the non-dominant hand. `x` needs to be the variable that contains `rt_hand_d` and `rt_hand_nd` and `y` needs to be the new rt data column.
+
+```{r}
+ggplot(d_bk_long, aes(x = ---, y = ---)) +
+  geom_boxplot()
+```
+
+Here is a more advanced example. Say you want to compare dominant and non-dominant but also hand and foot rts. Have a look at the wide data frame again:
+
+```{r}
+d_blomkvist
+```
+
+There are four rt variables that we want to stack on the top of each other. You could repeat the code from above and just add in the foot data, or you could do this in a smarter way. 
+
+Again, we use `pivot_longer` with three differences to the code before. We use `starts_with` to select all variables in the data that start with "rt". We are specifying `names_to` to use specify the name of the resulting column that was previously just called "name". However, combined with `names_sep` to separate the name of the existing columns. Look at our four "rt" variables. All of them start with "rt", followed by whether it's hand or foot, and finishing with "d" for dominant and "nd" for non-dominant. These three bits of information are separated by underscores. Using `names_sep` we can specify how the four column names should be separated (on the basis of underscores, i.e. "_"), and using `names_to` we can tell `pivot_longer` what to do with the separated names. Using `.value` (notice the full stop at the beginning) we are saying we want to use the first part of the names (i.e. `rt` as column name for the values; i.e. the rt data). The hand / foot group should receive the header "hand_foot" and d / nd should receive the column header "dominance". 
+
+Make sure you replace the "---" correctly following the instructions above.
+
+
+```{r}
+# Transform data frame
+d_bk_long <- pivot_longer(data = d_blomkvist, 
+                           cols = starts_with("rt"),
+                           names_to = c(".value", "---", "---"),
+                           names_sep = "---")
+
+# Show preview of data frame
+d_bk_long
+```
+
+Look at the resulting data frame and make sure you understand the difference between the wide data format and the new long data format. Using this data frame we can now plot both the hand / foot information (on the x-axis) as well as the dominant / non-dominant information (as colour).
+
+```{r}
+ggplot(d_bk_long, aes(y = rt, x = ---, colour = ---)) +
+  geom_boxplot()
+```
+
+
+So what if I don't want to go from wide to long but from long to wide (data come in all sorts of formats). Let's look at this by back-transforming the long data frame to the initial wide data frame.
+
+Instead of the `pivot_longer` function we need to use the `pivot_wider` function. The function needs to know which column headers to use for the wide data frame format and where it should take the values from. The column headers should come from two values, namely `hand_foot` and `dominance`. The values should come from the `rt` column of the long data frame. Just to make the new data frame look exactly like the data frame we started with we can use `names_prefix` to prefix all new variables with "rt_".
+
+```{r}
+# Transform data from long to wide
+d_bk_wide <- ---(data = d_bk_long,
+                          names_from = c(hand_foot, dominance),
+                          values_from = ---, 
+                          names_prefix = "rt_")
+
+# Check out data frame
+d_bk_wide
+```
+
+
+# Frequently used data wranging functions
+
+Data come in all sorts of formats. So knowing some important data-wrangling functions is useful and gives you flexibility with visualisations and inferential analysis.
+
+First, `filter` allows you to remove observations in the data. For example, if I only want to retain smokers younger than 30, I can do this:
+
+```{r}
+# Filter data
+d_young_smokers <- filter(.data = d_blomkvist, 
+                          smoker == "yes", # "==" means is equal to
+                          age < 30) # "<" smaller than, ">" larger than, "<=" smaller than or equal to
+
+# Preview resulting data frame
+d_young_smokers
+```
+
+Task: Write code to filter for participants that take no medicine, are female and, 45 years of younger.
+
+```{r}
+# Add you filtering code here
+---
+
+```
+
+Next is `select`. `select` allows you to remove columns. This is very handy for large datasets because it is easier and more efficient to work with small datasets with less variables   
+
+The following code is selecting the variables `id`, `age`, and all variables that start with "rt". Notice the use of `starts_with`.
+
+```{r}
+# Select variables
+d_rt <- select(.data = d_blomkvist, id, age, starts_with("rt"))
+
+# Preview data
+d_rt
+```
+
+Task: Your turn. Write code where select `id`, `smoker`, and all variables that contain the word "hand". There is a function called `contains` that works like `starts_with` but it doesn't look for variables that start with a particular letter sequence, but for variables that contain a particular letter sequence (`contains` has a wider search scope than `starts_with`; btw, there is also `ends_with`).
+
+```{r}
+# Add you selecting code
+---
+
+```
+
+
+Finally, there is `mutate` which is probably the most important one. `mutate` allows you to add new variables to change existing ones. To better see the new variable created by `mutate`, lets use `d_rt` which we created above using `select`. Run the following code and look at the new variable `rt_hand_diff` that appears on the right end of the data frame. As you can see in the code, `rt_hand_diff` is the difference between `rt_hand_nd` and `rt_hand_d`, so a measure of how much slower people are with their non-dominant hand compared to their dominant hand.
+
+
+```{r}
+# Get difference between dominant and non-dominant hand
+d_rt_diff <- mutate(.data = d_rt,
+                     rt_hand_diff = rt_hand_nd - rt_hand_d)
+
+# Preview data
+d_rt_diff
+```
+
+Here's another example how to create a new variable based on another variable. Have a look at the code, run it, and have a look at the new variable `age_group` that was appended to the right end of the data frame. I'll explain what `case_when` does below.
+
+
+```{r}
+# create age groups
+d_age_groups <- mutate(.data = d_rt,
+                         age_group = case_when(age < 35 ~ "young",
+                                               age < 55 ~ "mid",
+                                               TRUE ~ "old"))
+
+# Preview data
+d_age_groups
+```
+
+`case_when` is super useful. `case_when` (see documentation by running `?case_when`) allows you to define a new variable based on properties of one or many other variables. In this example, I created a categorical variable based on the participants' age. I grouped participants into three groups (i.e. young, mid, old). Inside of `case_when`, on the left of the tilde symbol (squiggly line, i.e. $\sim$) is a condition. For example `age < 35` and on the right side of the tilde symbol is the value the new variable `age_group` should receive if the condition is met. So if the age of a participant is smaller than (not equal to) 35, the participant is classified as "young"; if the condition is not met, the other conditions will be tested. Notice that participants younger than 35 not classified as "mid" even although the next condition `age < 55` is also true for these participants participants. Finally `TRUE ~ "old"` means that every participant who wasn't covered by any of the other conditions in `case_when` will be classified as old. What's the minimum age for a participant to be classified as "old"?
+
+
+Your turn:
+
+Task: Create a variable `log_rt` which is the logarithm of the dominant hand. You need the `log` function. For example, the logarithm of a hypothetical variable `x` is `x = log(x)`.
+
+```{r}
+# Add you mutate code
+---
+
+```
+
+And your last data-wrangling task.
+
+Heads-up, I'm throwing you now into the deep end: Let's combine these three tools now. Write code, where you first select id, age and medicine, then, from the resulting new data frame, filter for participants older than 50 that take any medicine, and, again for the new resulting data frame, add a new variable that is the centered rt of the dominant hand. To center a variable you need to subtract the mean of that variable so for example, the centered version of a hypothetical variable `x` is `x - mean(x)`. Finally create a histogram of the centered rt variable.
+
+
+```{r}
+# Filter
+
+# Select
+
+# Mutate
+
+# Histogram of centered rt data (distribution should be centered around 0)
+
+```
+
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

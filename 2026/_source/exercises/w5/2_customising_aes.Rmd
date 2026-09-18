@@ -1,0 +1,110 @@
+---
+title: 'Exercise 2: Customising colour aesthetics'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6)
+```
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+We will create a plot first and then change the colour of the colour aesthetic. Use `smoker` for `colour`.
+
+```{r}
+plot_rt <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = ---)) +
+  geom_point(size = 3)
+
+plot_rt
+```
+
+You can change the colour used for the aesthetics mapping of points manually by providing colour value. Here is an overview of colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour). In the following code, use the colours "firebrick", "turquoise2", and "springgreen".
+
+
+```{r}
+plot_rt + scale_colour_manual(values = c("---", "---", "---"))
+```
+
+You can define colours yourself but often it is easier to use functions that provide colour schemes. The advantage is that the colours used by existing schemes are designed to be easily distinguishable. For example, try `scale_colour_viridis_d()`:
+
+```{r}
+plot_rt + ---
+```
+
+The package `ggthemes` brings up many other colour schemes and `themes`. You may need to isntall `ggthemes`.
+
+
+```{r eval = FALSE}
+install.packages("ggthemes")
+```
+
+
+```{r}
+library(ggthemes)
+```
+
+Here are two examples of `ggthemes` colour schemes. The first one is designed for people that struggle to distinguish colours (e.g. because of age). Also colourblind colours are still distinguishable when printed on a grey scale (many journal have additional charges for each figure printed in colour but not for their online versions). 
+
+
+```{r}
+plot_rt + scale_colour_colorblind() # `ggthemes` package
+plot_rt + scale_color_wsj() # `ggthemes` package
+```
+There are many more. In the following code, have a look other colour schemes. Click in the code chunk and move the cursor on the right side of the second underscore "_". You should be able to see a list of all functions that start with `scale_colour_`. Try out a few of those that are indicated as coming from `ggthemes`.
+
+```{r}
+plot_rt + scale_colour_---()
+```
+
+You can also use RGB codes instead of funky colour names. There are many ways to get these codes. Google and chatGPT can help. Here is an example: the `scale` package as a function called `show_col` which allows you to extract all 8 colour codes of the `colourblind` palette (i.e. "pal").
+
+```{r}
+# RGB codes of "colorblind" function
+scales::show_col(colorblind_pal()(8))
+```
+You can then save the codes into a variable. Add the missing one.
+
+```{r }
+# RGB codes of "colorblind" function
+mycolours <- c("#000000", "#E69F00", "---", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+Then add the first 3 to you code by indexing the first three values stored in `mycolour`.
+
+```{r}
+plot_rt + scale_colour_manual(values = mycolours[---])
+```
+
+Above we focused on colour aesthetics. The same principles apply to `fill` aesthetics but instead of `scale_colour_` you need `scale_fill_`. 
+
+**Task:** In the following code, change the colours used for `fill` and replace them with colours from the `colourblind` palette. Then, add also the `colour` aesthetic in and pair colours used for `fill` with the colours used for `colour`. Consider lowering the opacity for the densities to reduce overplotting.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, fill = smoker)) +
+  geom_density()
+```
+
+Once you've completed all tasks above you can `knit` this document to HTML.

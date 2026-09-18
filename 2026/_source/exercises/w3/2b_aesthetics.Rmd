@@ -1,0 +1,120 @@
+---
+title:  'Exercise 2b: Aesthetics'
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA, 
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data. 
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker
+d_blomkvist <- drop_na(d_blomkvist, smoker)
+```
+
+For the plot below we will look at different ways of grouping the data for the variable smoker. First lets have a look at the relationship between age and rts of the dominant hand. To make this relationship clearer, add a regression model using `stat_smooth(method = "lm")`.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point() +
+  ---
+```
+
+Attributes take properties but aesthetics take variables. In other words, the property that the data take on depends on the value of another variable which can be continuous or categorical. To make clear that an argument, such as `colour` should be interpreted as an aesthetic and not an attribute, it needs to be used within the `aes` (i.e. aesthetics) function.
+
+Let's start by rending the data in different colours for each level of `smoker`.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, colour = ---)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+As you can see, not just the dots were rendered in different colours but there are also 3 different regression lines, one for each level of smoker. This works because of two reasons:
+
+1. We specified the colour `aesthetic` on the top level of the code rather than within a geometry or statistics layer. 
+2. The `colour` aesthetic is available for both the point geometry `geom_point` and the statistics layer `stat_smooth`.
+
+
+For example, using the `linetype` aesthetic for smoker types will not have an effect on dots but only on how lines are rendered. 
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, linetype = ---)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+Which aesthetics do and do not exist for the statistics layer can be found in the documentation in the "Aesthetics" section available via the `?` operator:
+
+```{r eval = F}
+?stat_smooth
+```
+
+
+Similarly, the shapes argument will not have an effect on the regression lines but on the dots.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, ---)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+If we want to use different colours for the regression lines but not for the dots, we can specify the aesthetics mapping inside the statistics layer.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d)) +
+  geom_point() +
+  stat_smooth(mapping = aes(colour = ---), method = "lm")
+```
+
+
+
+So far we have looked at aesthetics for categorical variables. Of course we can also use continuous variables for aesthetics. However, it is important to note that some aesthetics arguments are not available for continuous variables. For example `shape` is only available for categorical variable types, not for continuous variable types. 
+
+For example, we can let the size of the dots vary but how much medicine a participant is taking medication is possibly confounding age, as older participants are more likely to take more medication than younger participants (maybe). To do this, we will add the size argument to the top layer. You could also add the size argument to the aesthetics mapping of `geom_point`. What is the name of the variable you need for `size`?
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, size = ---)) +
+  geom_point() 
+```
+
+There is some overlapping between data points. We can change attributes to make the data more visible. For example, we can use non-filled shapes. Or we can change the opacity if the dots by lowering their `alpha` value (0 = fully transparent, 1 = fully opaque). Try for example .25 as value for alpha.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, size = ---)) +
+  geom_point(alpha = ---) 
+```
+
+Or even better, we can support the size differences in medicine by using `alpha` as an aesthetic so that participants that use more medicine are not just shown as larger dots but also as more opaque dots. Note, that it is important to include `alpha` inside the `aes` function to make clear that it should be treated as an aesthetic and not as an attribute.
+
+```{r}
+ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, size = ---, alpha = ---)) +
+  geom_point() 
+```
+
+
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

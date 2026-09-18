@@ -1,0 +1,124 @@
+---
+title: "PSYC40940: Dashboard Workshop"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = FALSE, message = FALSE)
+```
+
+## Objectives
+
+By the end of this session, you should be able to:
+
+1. plan a small dashboard around a clear data question,
+2. combine layout, reactivity, observers, and dynamic UI where appropriate,
+3. decide what belongs in the assessment dashboard,
+4. check whether your app is reproducible for marking.
+
+Use `2026/starter_app.R` for today's workshop.
+
+
+## Assessment-ready dashboard scope
+
+A strong dashboard does not need to show everything.
+
+Aim for:
+
+- one clear behavioural dataset,
+- two or three focused views,
+- filters that support interpretation,
+- at least two useful plots,
+- readable labels and layout,
+- reproducible source files.
+
+## Suggested structure
+
+```{r, eval=FALSE}
+ui <- navbarPage(
+  "Behavioural data dashboard",
+  tabPanel("Overview", ...),
+  tabPanel("Explore", ...),
+  tabPanel("Summary", ...)
+)
+```
+
+Keep the number of tabs small. Each tab should answer a different question.
+
+## A practical build order
+
+1. Load and clean the data.
+2. Make one static plot outside Shiny.
+3. Put the plot into a minimal app.
+4. Add one input.
+5. Add layout.
+6. Add a second output.
+7. Add dynamic UI only if it solves a real problem.
+8. Test the app from a fresh R session.
+
+## Workshop task
+
+Open `2026/starter_app.R`.
+
+Your task:
+
+1. Choose two views for the same dataset.
+2. Add a tab for each view.
+3. Add filters that support both views.
+4. Add one summary table.
+5. Check that the app still runs after restarting R.
+
+Use `worked_example_app.R` as a reference after attempting the starter.
+
+## Reproducibility checklist
+
+Before submission, check:
+
+- the app runs from the project folder,
+- all data files are included,
+- package calls are at the top of the script,
+- file paths are relative,
+- the RMarkdown report can knit,
+- the dashboard and report use the same dataset,
+- the submitted zip contains only the required files.
+
+## Dashboard design checklist
+
+Ask:
+
+- What question does this dashboard help answer?
+- Are the controls necessary?
+- Can a marker understand the app without extra explanation?
+- Are labels meaningful?
+- Are colours readable and consistent?
+- Is anything visually impressive but analytically unnecessary?
+
+## Optional extension
+
+If the core dashboard works, consider one extension:
+
+- an interactive `plotly` version of an existing plot,
+- a generated filter control,
+- a controlled update button,
+- a small written interpretation embedded in the app.
+
+Do not add an extension until the basic app is reliable.
+
+## Recommended Reading
+
+For support with this week's material, use:
+
+- @Wickham2021MasteringShiny, Chapter 7: graphics and interactive output in Shiny.
+- @andrews2021doing, Chapter 16: Shiny apps, dashboards, and reproducible app structure.
+
+## References

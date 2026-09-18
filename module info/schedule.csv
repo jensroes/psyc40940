@@ -1,11 +1,11 @@
-"Session","Date","Title","Topic","homework / reading","duration"
-1,"25/09/25","Introduction to “Visualisation of Behavioural Data and Data Dashboards”","Get to know the group, outline, formative, summative assessment, RMarkdown and psyntur plots",,"2hrs"
-2,"02/10/25","Foundations of Data Visualisation and ggplot2","Static data visualisation: principles of data visualisation",,"2hrs"
-3,"09/10/25","Exploring Aesthetics and Geometries","Static data visualisation: grammar of graphics",,"2hrs"
-4,"16/10/25","Major visualisation tools","Static data visualisation: major visualisation tools"," help with formative assessment","2hrs"
-5,"23/10/25","Customising visualisations: scales, themes, and labels","Static data visualisation: creating publication-quality plots; labelling, themes, saving, size; manually changing colours and shapes;help with formative assessment",,"2hrs"
-6,"30/10/25","Introduction to Shiny and Reactive Programming","Interactive data visualisation: translating static into interactive data visualisation ","Deadline for formative assessments: 31st Oct 2025","2hrs"
-7,"06/11/25","Building Interactive UI Components","Interactive data visualisation: dashboards / web apps",,"2hrs"
-8,"13/11/25","Linking ggplot2 with Shiny for Dynamic Visualisation","Interactive data visualisation: dashboards / web apps",,"2hrs"
-9,"20/11/25","Creating and Deploying Dashboards","Interactive data visualisation: dashboards / web apps",,"2hrs"
-10,"27/11/25","Wrap up","Open questions for assessment"," support with assessment","2hrs"
+Session,Date,Title,Topic,homework / reading,duration
+1,24/09/26,Introduction to Visualisation of Behavioural Data and Data Dashboards,"Module overview, assessment, datasets, reproducibility workflow",,2hrs
+2,01/10/26,Foundations of Data Visualisation and ggplot2,Static data visualisation: principles of effective visualisation,,2hrs
+3,08/10/26,Exploring Aesthetics and Geometries,Static data visualisation: grammar of graphics,,2hrs
+4,15/10/26,Major Visualisation Tools,"Static data visualisation: distributions, group comparisons, and selected data wrangling",Support with formative assessment,2hrs
+5,22/10/26,Customising Visualisations,"Publication-quality plots: labels, colour, themes, and export",Support with formative assessment,2hrs
+6,29/10/26,Shiny Basics and Reactivity,"Interactive visualisation: inputs, outputs, render functions, and reactive expressions",Formative assessment deadline: Friday 30 October 2026,2hrs
+7,05/11/26,Layout and Observers,"Dashboard structure, tabs, sidebars, action buttons, observeEvent, and eventReactive",,2hrs
+8,12/11/26,Dynamic User Interfaces,"Updating inputs, dependent filters, uiOutput, and renderUI",,2hrs
+9,19/11/26,Interactive Dashboards with Plotly and Deployment,"Adding interactive plotly outputs to Shiny dashboards, 3D/interactive plots, deployment options, and reproducibility checks",,2hrs
+10,26/11/26,Wrap Up and Assessment Support,"Open questions, project checks, and individual support",Support with assessment,2hrs

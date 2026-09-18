@@ -1,0 +1,1568 @@
+---
+title: "PSYC40940: Customising visualisations"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+#logo: gfx/ntu.png
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringi)
+library(ggthemes)
+library(kableExtra)
+library(knitr)
+options("kableExtra.html.bsTable" = T)
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+
+```
+
+
+## Before we start
+
+1. Please complete the **Student Voice** section on NOW.
+2. Complete last week's exercises.
+3. This is the last session on `ggplot2`. We will move one to shiny apps next week.
+
+
+## General outline for weeks 2 -- 5
+
+- ~~Week 2: Principles of data visualisation~~
+- ~~Week 3: Grammar of graphics; aesthetics and attributes~~
+- ~~Week 4: Major visualisation tools~~
+- Week 5: Customising visualisations (scales, themes, and labels)
+
+
+```{r echo = F}
+d_spellname <- read_csv("data/spellname.csv")
+```
+
+
+```{r echo = F}
+d_spellname <- summarise(d_spellname, 
+                      rt = mean(rt),
+                      dur = mean(dur),
+                      .by = c(ppt_id, name_familiarised, ppt_vocab, modality)) 
+```
+
+
+## Objectives for today
+
+By the end of this session, you should be able to $\dots$
+
+1. Customise `ggplot2` visualisations using scales, themes, and labels to enhance clarity and impact.
+2. Apply design principles (e.g., Tufte's guidelines) to reduce chartjunk and improve interpretability.
+3. Tailor visualisations for different audiences and media, ensuring accessibility and effective communication.
+
+
+Download exercises from Week 5 folder on NOW and move them into your R-project directory.
+
+
+
+
+## Why customisation matters in data visualisation
+
+1. **Visuals shape understanding**: a well-designed plot doesn't just show data; it tells a story. Ensure that the story is clear, accurate, and compelling.
+2. **Audiences vary**: tailor your visuals to the audience's needs and expectations.
+3. **Medium matters**: plots for journal articles, posters, or interactive dashboards each require different design choices. 
+4. **Avoiding misinterpretation**: poor design choices -- like misleading axes or cluttered legends -- can obscure key insights or even lead to incorrect conclusions.
+5. **Accessibility and inclusivity**: thoughtful use of colour, labels, and themes can make your plots more accessible (e.g. people with visual impairments).
+
+
+## Maximising clarity and minimising chartjunk through thoughtful design choices!
+
+Revisiting Tufte's Principles [@Tufte2001VisualDisplay]:
+
+- **Data-Ink ratio**: Maximise the proportion of ink that represents data.
+- **Chartjunk**: Avoid unnecessary decoration (3D effects, heavy gridlines, etc.).
+- **Small multiples**: Use consistent scales and layout to compare across categories.
+- **Narrative graphics**: Use annotations and labels to guide interpretation.
+
+
+
+## Applying Tufte to `ggplot2`
+
+How does `ggplot2` supports Tufte's principles:
+
+- Minimal and custom themes to improve readability (`theme_minimal()`, `theme_void()`)
+- Transform and resize scales to reduce distortion 
+- Direct labeling vs legends to make plots self-explanatory
+- Faceting for small multiples (`facet_wrap()`, `facet_grid()`)
+- Reduce overplotting: `position_dodge()`, `alpha = .5`, `size = .5`
+- Inclusive colour schemes, grey scale, combining aesthetics
+
+
+The grammar of graphics implemented in `ggplot2` by Hadley Wickham aligns with Tufte's principles.
+
+
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs()
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs()
+  ###</b>
+```
+
+
+</div>
+
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo=F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(title = "My scatter plot")
+  ###</b>
+```
+
+```{r eval=F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(title = "My scatter plot")
+  ###</b>
+```
+
+</div>
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(title = "My scatter plot", 
+       subtitle = "I'm a subtitle")
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(title = "My scatter plot", 
+       subtitle = "I'm a subtitle")
+  ###</b>
+```
+
+
+</div>
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(caption = "Caption for data source")
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(caption = "Caption for data source")
+  ###</b>
+```
+
+
+</div>
+
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(tag = "A")
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(tag = "A")
+  ###</b>
+```
+
+
+</div>
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(x = "Production duration in msecs", 
+       y = "Reaction time in msecs")
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(x = "Production duration in msecs", 
+       y = "Reaction time in msecs")
+  ###</b>
+```
+
+
+</div>
+
+## Changing text: `labs`
+
+<div style="float: left; width: 35%;">
+- `title`
+- `subtitle`
+- `caption`
+- `tag`
+- `x`
+- `y`
+- `colour`, `shape`, `linetype`, `fill`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(colour = "Legend\ntitle:")
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur,
+                          colour = modality)) +
+  geom_point() + 
+  ###<b>
+  labs(colour = "Legend\ntitle:")
+  ###</b>
+```
+
+
+</div>
+
+## Exercise 1: Changing text
+
+Complete RMarkdown document `1_add_labs.Rmd`
+
+
+## Changing text: legend keys {.smaller}
+
+<div style="float: left; width: 35%;">
+- `scale_colour_discrete`
+- `scale_colour_continuous`
+- `scale_colour_manual`
+- or any other aesthetic instead of `colour`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_discrete(
+    labels = c("Spoken output", "Written output")) 
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_discrete(
+    labels = c("Spoken output", "Written output")) 
+  ###</b>
+```
+
+
+</div>
+
+
+
+## Changing text: legend keys
+
+<div style="float: left; width: 35%;">
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- `ggthemes`
+
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo =F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_manual(labels = c("Spoken output", "Written output"),
+        values = c("firebrick", "turquoise2"))
+  ###</b>
+```
+
+
+```{r eval =F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_manual(
+    labels = c("Spoken output", "Written output"),
+    values = c("firebrick", "turquoise2"))
+  ###</b>
+```
+
+
+</div>
+
+
+
+
+## Changing text: legend keys
+
+<div style="float: left; width: 35%;">
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- `ggthemes`
+
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r }
+# RGB codes of "colorblind" function
+mycolours <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+</div>
+
+---
+
+```{r}
+# RGB codes of "colorblind" function
+scales::show_col(colorblind_pal()(8))
+```
+
+
+
+## Changing text: legend keys
+
+<div style="float: left; width: 35%;">
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- `ggthemes`
+
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_manual(labels = c("Spoken output", "Written output"),
+        values = mycolours[1:2])
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_manual(
+    labels = c("Spoken output", "Written output"),
+    values = mycolours[1:2])
+  ###</b>
+```
+
+
+</div>
+
+
+## Changing text: legend keys
+
+<div style="float: left; width: 35%;">
+- Change colour values manually
+- Colour names: [link](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- `ggthemes`
+</div>
+
+<div style="float: right; width: 60%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_colorblind(
+    labels = c("Spoken output", "Written output"))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() +  
+  ###<b>
+  scale_colour_colorblind(
+    labels = c("Spoken output", "Written output"))
+  ###</b>
+```
+
+
+</div>
+
+## Exercise 2: Customising colour aesthetics
+
+Complete the RMarkdown `2_customising_aes.Rmd`
+
+
+
+
+## Changing text: strips 
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality)
+  ###</b>
+```
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality)
+  ###</b>
+```
+
+</div>
+
+
+## Changing text: strips 
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality, labeller = label_both)
+  ###</b>
+```
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality, labeller = label_both)
+  ###</b>
+```
+
+</div>
+
+
+## Changing text: strips 
+
+<div style="float: left; width: 45%;">
+
+```{r echo = F, out.width="100%"}
+p <- ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality, labeller = label_both)
+  ###</b>
+```
+
+```{r}
+###<b>
+d_spellname <- mutate(d_spellname, 
+                    modality = recode(modality, 
+                    "speech" = "Spoken output",
+                    "writing" = "Written output"))
+###</b>
+```
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+p
+```
+
+</div>
+
+
+## Changing text: strips 
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+###<b>
+d_spellname <- mutate(d_spellname, 
+                    modality = recode(modality, 
+                    "speech" = "Spoken output",
+                    "writing" = "Written output"))
+###</b>
+```
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  facet_grid(~modality)
+  ###</b>
+```
+
+</div>
+
+
+
+
+## Themes {.smaller}
+
+- Specify appearance of non-data related ink
+- Can be done manually using `themes()` or using wrapper functions
+- All `ggplot2` wrappers:
+
+```{r echo = F}
+env <- asNamespace("ggplot2")
+all_themes <- ls(envir = env, pattern = "^theme_+")
+all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray|sub_")]
+print(all_themes)
+```
+
+- e.g. `ggthemes` package for more themes:
+
+```{r echo = F}
+env <- asNamespace("ggthemes")
+all_themes <- ls(envir = env, pattern = "^theme_+")
+all_themes <- all_themes[!str_detect(all_themes, "all|get|replace|set|test|update|gray")]
+print(all_themes)
+```
+
+
+## Themes (`ggplot2` default)
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_grey(base_size = 11)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_grey(base_size = 11)
+  ###</b>
+```
+
+</div>
+
+## Themes
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_minimal(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_minimal(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_light(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_light(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes 
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_dark(base_size = 14)
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_dark(base_size = 14)
+  ###</b>
+```
+
+</div>
+
+## Themes (`ggthemes`)
+
+<div style="float: left; width: 45%;">
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_clean()
+  ###</b>
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  ###<b>
+  theme_clean()
+  ###</b>
+```
+
+</div>
+
+
+
+## Themes {.smaller}
+
+<div style="float: left; width: 30%;">
+
+- `axis`
+- `legend`
+- `panel`
+- `plot`
+- `strip`
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+
+</div>
+
+## Themes: `axis` {.smaller}
+
+<div style="float: left; width: 30%;">
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.text = element_text(face = "italic"))
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.text = element_text(face = "italic"))
+  ###</b>
+```
+
+
+</div>
+
+
+## Themes: `axis` {.smaller}
+
+<div style="float: left; width: 30%;">
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.title = element_text(face = "bold"))
+  ###</b>
+```
+
+```{r eval = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.title = element_text(face = "bold"))
+  ###</b>
+```
+
+
+</div>
+
+
+
+## Themes: `axis` {.smaller}
+
+<div style="float: left; width: 30%;">
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="100%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.title.y = element_text(face = "bold"))
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) + 
+  geom_point() +
+  ###<b>
+  theme(axis.title.y = element_text(face = "bold"))
+  ###</b>
+```
+
+
+</div>
+
+
+## Themes: `legend` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+
+</div>
+
+
+## Themes: `legend` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme(legend.position = "top")
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme(legend.position = "top")
+  ###</b>
+```
+
+
+</div>
+
+## Themes: `legend` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme(legend.position = "top",
+        legend.justification = "right")
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) + 
+  geom_point() +
+  ###<b>
+  theme(legend.position = "top",
+        legend.justification = "right")
+  ###</b>
+```
+
+
+</div>
+
+## Themes: `legend` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality)) +
+  geom_point() + 
+  ###<b>
+  theme(legend.position = c(.15,.8))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur, colour = modality))+
+  geom_point() + 
+  ###<b>
+  theme(legend.position = c(.15,.8))
+  ###</b>
+```
+
+</div>
+
+
+## Themes: `panel` {.smaller}
+
+<div style="float: left; width: 30%;">
+
+- `panel.background`
+- `panel.border`
+- `panel.spacing`
+- `panel.grid`
+  - `panel.grid.major`
+  - `panel.grid.minor`
+
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme()
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme()
+  ###</b>
+```
+
+</div>
+
+## Themes: `panel` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `panel.background`
+- `panel.border`
+- `panel.spacing`
+- `panel.grid`
+  - `panel.grid.major`
+  - `panel.grid.minor`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme(panel.background = element_blank())
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme(panel.background = element_blank())
+  ###</b>
+```
+
+
+</div>
+
+
+## Themes: `plot` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+</div>
+
+
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+</div>
+
+
+
+
+## Themes: `plot` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+</div>
+
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme(plot.background = element_rect(fill = "pink"))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme(plot.background = element_rect(fill = "pink"))
+  ###</b>
+```
+
+
+## Themes: `plot` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  ###<b>
+  theme(plot.background = element_rect(fill = "pink"),
+        plot.margin = unit(c(2,2,2,2), "cm"))
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  theme(plot.background = element_rect(fill = "pink"),
+  ###<b>
+        plot.margin = unit(c(2,2,2,2), "cm"))
+  ###</b>
+```
+</div>
+
+
+
+
+
+## Themes: `plot` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  labs(title = "I'm a title") +
+  ###<b>
+  theme(plot.title = element_text(colour = "pink"))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  labs(title = "I'm a title") +
+  ###<b>
+  theme(plot.title = element_text(colour = "pink"))
+  ###</b>
+```
+
+## Themes: `plot` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  labs(caption = "I'm a caption") +
+  ###<b>
+  theme(plot.caption = element_text(face = "italic"))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  labs(caption = "I'm a caption") +
+  ###<b>
+  theme(plot.caption = element_text(face = "italic"))
+  ###</b>
+```
+
+
+
+
+## Themes: facet strips {.smaller}
+
+<div style="float: left; width: 30%;">
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+</div>
+
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme()
+  ###</b>
+```
+
+
+</div>
+
+
+## Themes: `strip.background` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_blank())
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_blank())
+  ###</b>
+```
+
+</div>
+
+## Themes: `strip.background` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"))
+  ###</b>
+```
+
+</div>
+
+
+## Themes: `strip.text` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0))
+  ###</b>
+```
+
+```{r eval = F}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both)+
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0))
+  ###</b>
+```
+
+</div>
+
+
+## Themes: `strip.text` {.smaller}
+
+<div style="float: left; width: 30%;">
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+</div>
+
+<div style="float: right; width: 65%;">
+
+```{r echo = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both)+
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0, 
+                                  face = "bold", size = 16, angle = 180))
+  ###</b>
+```
+
+```{r eval = F, out.width="80%"}
+ggplot(d_spellname, aes(y = rt, x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both) +
+  ###<b>
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0, 
+                                  face = "bold", size = 16, 
+                                  angle = 180))
+  ###</b>
+```
+
+</div>
+
+
+## Exercise 3: creating your own theme {.smaller .columns-2}
+
+Complete RMarkdown `3_defining_themes.Rmd`
+
+
+
+## Saving your plot
+
+```{r eval = FALSE}
+ggsave("name of plot.png", width = 5, height = 5)
+```
+
+- `.eps`, `.pdf`, `.svg`, `.wmf`, `.png`, `.jpg`, `.bmp`, `.tiff`
+- sizes requires some manual adjustment (or `fig.width` in RMarkdown)
+- make sure fonts are not too small / large
+- keep the aspect ratio sensible
+- or export function in **plots** panel
+
+
+
+
+## Useful resources for data visualisation
+
+- Choosing the right visualisation: [data-to-viz.com](https://www.data-to-viz.com/)
+- Rick Scavetta's course: [datacamp.com](https://learn.datacamp.com/skill-tracks/data-visualization-with-r)
+- `ggplot2` [CheatSheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- Most important functions: [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/reference/)
+
+```{r echo=F, eval = F}
+#- need a data set for practicing: [vincentarelbundock.github.io](https://vincentarelbundock.github.io/Rdatasets/datasets.html)
+
+```
+
+## Recommended Reading
+
+For support with this week's material, use:
+
+- @andrews2021doing, Chapter 4: data visualisation in R.
+- The `ggplot2` online book sections on scales, labels, themes, and saving plots as optional extra support.
+
+
+## Formative assessment {.smaller}
+
+**Task:** Select a behavioural dataset----i.e., data related to human behaviour (e.g., psychological experiments, survey responses, reaction times, decision-making patterns, social media behaviour, etc.).
+
+- Create 3-4 visualisations using different techniques (e.g., boxplot, scatterplot, density plot).
+- Include brief commentary on:
+  - What each visualisation highlights about the data?
+  - Why each visualisation was chosen?
+  - How each visualisation adheres to principles of effective visualisation (e.g., Tufte's guidelines)?
+  - To what extent the each visualisation may (or may not) obscure the data.
+- **Deadline:** Friday 30 October 2026, before 2 pm
+- **Length:** max 1,000 words
+
+**Feedback focus:**
+
+- Clarity and effectiveness of visualisations.
+- Code quality and reproducibility.
+- Interpretation and communication of behavioural insights.
+
+## Time permitted!
+
+Let's rework a figures (e.g. Figure 4) from [@vanLieburg2023abstract](https://link.springer.com/article/10.1007/s41809-023-00131-5); code and data are [HERE](https://osf.io/x8ejm/).
+
+
+
+## References
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+</style>
+

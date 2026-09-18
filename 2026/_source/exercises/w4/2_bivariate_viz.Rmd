@@ -1,0 +1,240 @@
+---
+title: 'Exercise 2: Bivariate distributions'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("../../data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+
+Bivariate data visualisations allow you to inspect the relationship between two variables, often two continuous numeric variables. 
+
+The most useful tool for initial exploratory data analysis is `geom_point`. Let's start by plotting only one variable on the x axis and hold y constant by setting it to 0. For x use `rt_hand_d`.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, y = 0)) +
+  geom_---()
+```
+
+From this plot you will see that most rts are between 400 and 800 msecs and rts above 1 sec are rare. This isn't super clear as there is a lot of overplotting on the lower end. Adding ` position_jitter()` to the `position` argument will add noise to the y location of the data. So the relative position of dots is now determined by the rt of the dominant hand on the horizontal axis and is random on the y axis. However it is easier to see now that there are substantially more data below 800 msecs.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, y = 0)) +
+  geom_point(position = ---)
+```
+
+For bivariate visualisations we don't use random location for the y axis but we use another variable. In the example below use the rt of the dominant hand for the x axis and the rt of the non-dominant hand on the y axis. 
+
+```{r}
+ggplot(d_blomkvist, aes(x = ---, y = ---)) +
+  geom_point()
+```
+
+The relative position of each point (participant) in the plotting space is determined on the basis of the rt of each of their hands. There is a clear pattern: participants that are slower with their dominant hand are also slower with ther non-dominant hand.
+
+Using the `stat_smooth()` function you can add a statistical model to the data. By default, `stat_smooth` is using a "loess" model. 
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = ---)) +
+  geom_point() +
+  ---
+```
+
+You can also use other statistical models, like for example a linear regression:
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = ---)) +
+  geom_point() +
+  ---(method = "lm")
+```
+
+and you can colour code the data using a categorical variable; try `meds_cat`.
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = ---)) +
+  geom_point() +
+  ---(method = "lm")
+```
+
+The grey area (ribbon) around the regression lines show 95% confidence intervals. These can be removed by setting `se` (short for "standard error") to `FALSE` (default is `TRUE`).
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = ---)) +
+  geom_point() +
+  ---(method = "lm", se = ---)
+```
+
+Finally, you can customise the shape of the regression line. For example, you can use log transform the predictor by adding `y ~ log(x)` to the `formula` argument (default is a standard linear regression, i.e. `y ~ x`).
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = ---)) +
+  geom_point() +
+  ---(method = "lm", formula = ---)
+```
+
+
+If you want to add univariate distributions to the plot you can use the `ggExtra` package to add plots to the margins of the text. To do so, you need to assign the plot to a variable, below `p`, and use the variable name with the `ggMarginal` function.
+
+
+```{r}
+library(ggExtra) # you might need to install "ggExtra"
+p <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point() 
+
+ggMarginal(---)
+```
+
+Try to run `?ggMarginal` and work out how you can change the type argument of `ggMarginal` to show "densigrams" in the margins (i.e. desnity plots combined with histograms).
+
+```{r}
+ggMarginal(p, type = ---)
+```
+
+There are other ways to illustrate bivariate relationships. The `geom_density_2d` function adds contours as geometry to the plot which illustrates the 2D kernel density. This is showing where the most frequent observations are. The plot can be understand like mountains on maps. Higher inclines on maps are indicated by lines that are closer to each other. 
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  ---()
+```
+
+The same can be illustrated with `geom_density_2d_filled` which adds filling to the plot instead of contour lines. You will also notice that compared to the contour plot above, filled densities will not truncated the axes for values with a low frequency.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  ---()
+```
+
+Finally, we can of course combine visualisation tools. However, to make things nicely visible we need some modifications. Make the points smaller, for example use 0.25. Reduce opacity (`alpha`) to the filled densities to make them more transparent, otherwise you won't see the points. Also, remove the legend. Try `?geom_density_2d_filled` if you're unsure how (use the `?` operate combined with the function name and run your RStudio console).
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point(size = ---) +
+  geom_density_2d_filled(show.legend = ---, ---)
+```
+
+
+
+This is slightly leading beyond the topic of this exercise. But, that we added densities to the plots above means that we touch upon tri-variate relationships. In case you're wondering, tri-variate visualisations can also be created using 3D plots for which we need the package `plotly`. Two warnings though: First, don't use 3D plots just because they look fancy. If a simpler (2D) visualisation is an option, it's probably wise to use these. Second, 3D plots are misleading and can conceal data if they are not interactive (i.e. if you can't turn it in a 3D space) because patterns will look different depending on the angle you used. For publications interactive plots are often not an option.
+
+Therefore this 3D plot is just a demo for you, in case you like it. In the plot below add the age of participants to the z axis and work out show to remove the legend for this plot (focus on the arguments used in the code).
+
+```{r}
+library(plotly)
+
+# Create 3D scatterplot with plotly
+plot_ly(d_blomkvist, 
+        x = ~rt_hand_d, 
+        y = ~rt_hand_nd, 
+        z = ~---, 
+        color = ~age,
+        colorscale = 'Viridis',
+        showscale = TRUE,
+        type = "scatter3d", 
+        mode = "markers",
+        marker = list(size = 4))
+
+```
+
+The `plotly` package is closely related to `ggplot2` and uses a similar logic. One useful feature is that the `plotly` function `ggplotly` allows you to turn any `ggplot2` plot into an interactive visualisation. Here is an example:
+
+```{r}
+# Create a ggplot2 plot and save it in `plot`
+plot <- ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point()
+
+# Make the visualisation interactive by using `ggplotly`
+ggplotly(plot)
+```
+
+You can now interact with the plot by, for example, selecting particular regions of the visualisation.
+
+
+Above we have focused on bivariate relationships between continuous variables. Of course you can also illustrate relationships between two categorical variables. We will come back to relationships between categorical and continuous variables later.
+
+Say we want to test whether smokers tend to take more medicine than non-smokers. We will focus on `meds_cat` instead of `medicine` just because we want to illustrate a relationship between two categorical variables. 
+
+One way of showing the relationship between two categorical variables is by using a mosaic plot using `geom_mosaic` from the `ggmosaic` package (you might need to install `ggmosaic`). Add the names of the categorical variables to `product` and use `smoker` for `fill`. This plot will show the frequency of participants in each group visualized by the size of the individual tiles (rectangles). Which one are the largest and the smallest group?
+
+
+```{r}
+library(ggmosaic)
+
+ggplot(d_blomkvist) +
+  ---(aes(x = product(---, ---), fill = ---))
+
+```
+
+
+Of course these counts could be misleading if we are interested in which group takes the most medicine cause clearly we have more non-smokers than smokers. In other words, there are two dimension that are not controlled for size. To remove the confound that there are more non-smokers in the data, let's calculate the proportion of each meds group within smoker. To do this we will count how many participants are in each combination of `meds_cat` and `smoker`. Add the two variable names to this code:
+
+
+```{r}
+# Create a count table
+d_bk_count <- count(d_blomkvist, ---, ---)
+```
+
+View counts; and notice the new variable `n` which is the number of participants within each group.
+
+```{r}
+d_bk_count
+```
+
+To get the proportion of each meds group within smoker we divide the number of participants over the total of participants (i.e. `sum(n)`) within each smoker group (i.e. `.by = smoker`). This is what the following code does. It adds a variable called `prop`.
+
+```{r}
+d_bk_prop <- mutate(d_bk_count, prop = n / sum(n), .by = smoker)
+```
+
+Have a look at the variables in the new data frame. If you're not sure that `prop` is, re-read the previous paragraph :)
+
+```{r}
+d_bk_prop
+```
+
+Now, add the new data variable that contains the proportions to the code below, add both categorical variables to x and y (you dicide which variables goes where) and use the proportion for the `fill` argument. Use the geometry `geom_tile` which will render the data as tiles. The third line in the code will make sure that higher proportion values will be shown as darker colours and lower values as lighter colours. For some reason, `fill` is doing the opposite for continuous variables by default.
+
+```{r}
+ggplot(d_bk_prop, aes(x = ---, y = --, fill = ---)) +
+  ---() +
+  scale_fill_gradient(low = "white", high = "blue")
+```
+
+
+
+
+
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

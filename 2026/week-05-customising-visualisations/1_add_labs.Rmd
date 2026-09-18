@@ -1,0 +1,113 @@
+---
+title: 'Exercise 1: Adding labels'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+# No need to run this chunk unless you're "knitting"
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+Load `tidyverse` package using the `library` function.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+
+Labels allow us to make plots more self-explanatory. There are two skills we need:
+
+- Changing text where ever text can appear.
+- Changing text properties like size, font face.
+
+There is different ways to change the text on a plot. We will cover all of them but generally it's a good a idea to use precise and brief text; even if you know how to use all plot labels, use them wisely. 
+
+The first function you need is `labs`. The most important two labels are the `x` and `y` axis labels which you can use as arguments in the `labs` function. Create meaningful labels for both axes.
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point() +
+  labs(--- = ---, --- = ---)
+```
+
+For legend titles you need to name the aesthetic or aesthetics you used for the legend (e.g. `colour`, `shape`, `linetype`, `fill`). Take the plot below for example. Try to change the smoker legend title to "Smoker Type" using `labs(colour = "---")`.
+
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point() 
+```
+
+Task: Add `shape = smoker` to the aesthetics of the plot and make sure that you only see one legend by adding `shape` to `labs` too.
+
+How about the legend keys? There are two ways: First, you can change key labels using the `scale_` function for colour. Try to give the legend keys better names than "former", "yes", "no":
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point() +
+  scale_colour_discrete(labels = c("---", "---", "---"))
+```
+
+Second you can use `recode` to change the group levels of `smoker` in the data before creating the visualisation. Try to give the legend keys better names than "former", "yes", "no":
+
+```{r}
+d_blomkvist_2 <- mutate(d_blomkvist, smoker = recode(smoker, former = "---",
+                                                             yes = "---",
+                                                             no = "---"))
+
+ggplot(---, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point()
+```
+
+There are some more: `title`, `subtitle`, `caption`, `tag`. Add values to each of them in the plot below and observe were the text appears.
+
+```{r}
+ggplot(d_blomkvist, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point() +
+  labs(title = "---", subtitle = "---", caption = "---", tag = "---")
+```
+
+Lastly, we will look at an example of how we can adjust the text that appears on the plot axes. Run the code below and have a look at the plot. Make sure you use the right version of the data frames for `---`.
+
+```{r fig.width=3.25, fig.height=5}
+d_blomkvist_2 <- mutate(---, smoker = recode(smoker, former = "Former smoker",
+                                                             yes = "Current smoker",
+                                                             no = "Never smoked"))
+
+p_smoker <- ggplot(---, aes(x = smoker, y = rt_hand_nd)) +
+  geom_jitter(width = .25) +
+  labs(x = "Smoker type", y = "Reaction time of the non-dominant hand (in msecs)") 
+
+p_smoker
+```
+
+I deliberately made the names of the smoker levels longer and the plot narrower to create overlap between the labels (which we of course don't want). Now we will ignore that the obvious solution to avoid overlap is to make the names shorter or the plot wider :)
+
+The `theme` function allows the modification of non-data related ink, so aspects of the plot that require ink like text, borders, grids, strips but the data themselves (points, boxplots, lines). We can change the size of box axis titles using the `size` argument. If we only want to change it for either x or y, we need to change `axis.title` to `axis.title.x` to change the x-title. Try and change both titles to size 10. The `element_text` arguments for the title are the same in the axis text, so the numbers and the smoker names displayed on the axes above. `axis.text.x` operates only on the x-axis text.  We'll leave the size as is but to reduce the overlap between axis text we will tilt the text by changing `angle` to 45. `hjust` changes the horizontal alignment. Set it to 1 so the text alignes with the ticks on the x axis.
+
+
+```{r fig.width=3.25, fig.height=5}
+p_smoker +
+  theme(axis.title = element_text(size = ---),
+        axis.text.x = element_text(angle = ---, hjust = ---))
+```
+
+Once you've completed all tasks above you can `knit` this document to HTML.
+
+

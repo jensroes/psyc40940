@@ -10,23 +10,22 @@ d_sem <- read_csv("data/zzz/semcat.csv") %>%
   select(image_id, cat, semcat)
 
 d_item <- read_csv("data/zzz/by_item.csv") %>%
-  select(image_id, mc_resp = resp, nsyl, nchar, nphon) %>%
+  select(image_id, mc_resp = resp, nsyl, nchar, nphon, freq_sp = fr_sp_pm, freq_wr = fr_wr_pm) %>%
   glimpse()
 
 d_sp <- read_csv("data/zzz/spoken_production_familiarisation.csv" ) %>%
-  rename(freq = fr_sp_pm) %>%
+  select(-fr_sp_pm) %>%
   mutate(modality = "speech") %>%
   glimpse()
 
 d_wr <- read_csv("data/zzz/written_production_familiarisation.csv" ) %>%
-  rename(freq = fr_wr_pm) %>%
+  select(-fr_wr_pm) %>%
   mutate(dur = sum(iki[loc != "onset"]), .by = c(id, item)) %>%
   filter(loc == "onset", !full_word_deleted) %>%
   mutate(modality = "writing",
          is_target = T) %>%
   rename(onset = iki) %>%
   glimpse()
-
 
 bind_rows(d_sp, d_wr) %>%
   select(-offset, -item) %>%
@@ -35,7 +34,8 @@ bind_rows(d_sp, d_wr) %>%
   select(-key:-nchar, -nsyl, -nphon, -semcat) %>%
   left_join(d_item, by = join_by(image_id)) %>%
   left_join(d_sem, by = join_by(image_id)) %>%
-  mutate(freq = freq + 3,
+  mutate(freq_sp = freq_sp + 3,
+         freq_wr = freq_wr + 3,
          semcat = scale(log(semcat))[,1]) %>%
   filter(onset > 200,
          onset < 1e4,

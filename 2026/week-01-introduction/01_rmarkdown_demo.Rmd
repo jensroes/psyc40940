@@ -1,0 +1,153 @@
+---
+title: "Week 1 Demonstration: Rendering an RMarkdown Report"
+author: "PSYC40940"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+# Global chunk options control how code and output appear in the HTML file.
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = NA,
+  fig.width = 7,
+  fig.height = 4.5
+)
+```
+
+# Aim
+
+This document demonstrates the main RMarkdown features you will need in this module:
+
+- section headings,
+- R code chunks,
+- inline R code,
+- loading packages and data,
+- rendering tables and figures,
+- cross-referencing tables and figures,
+- citing a source from a `.bib` file,
+- rendering the document to HTML.
+
+RMarkdown is useful because it keeps text, code, results, and figures in one reproducible document. This idea is closely related to literate programming [@knuth1984literate] and dynamic documents [@xie2017dynamic].
+
+# Load Packages
+
+```{r packages}
+# tidyverse gives us read_csv(), select(), drop_na(), summarise(), arrange(), and ggplot().
+library(tidyverse)
+
+# knitr gives us kable(), which creates simple tables in rendered documents.
+library(knitr)
+```
+
+# Load Data
+
+We will use the `blomkvist.csv` dataset. The data are stored in the local `data` folder for this week.
+
+```{r load-data}
+# Read the CSV file and store it in an object called blomkvist.
+blomkvist <- read_csv("data/blomkvist.csv")
+```
+
+The dataset contains `r nrow(blomkvist)` rows and `r ncol(blomkvist)` columns. Inline R code is useful when values should update automatically if the data change.
+
+# Inspect Data
+
+Table \@ref(tab:data-preview) shows rows 1 to 6 of the dataset.
+
+```{r data-preview, echo=FALSE}
+# slice() can select rows by position. Here we keep rows 1 to 6.
+first_rows <- slice(blomkvist, 1:6)
+
+# kable() turns a data frame into a formatted table in the HTML output.
+kable(
+  first_rows,
+  caption = "Rows 1 to 6 of the Blomkvist dataset."
+)
+```
+
+# Prepare Data
+
+Here we keep a few variables and remove missing reaction-time values.
+
+```{r prepare-data}
+# Keep only the variables used in this short report.
+selected_data <- select(
+  blomkvist,
+  id,
+  sex,
+  age,
+  smoker,
+  rt_hand_d,
+  rt_hand_nd
+)
+
+# Remove rows with missing values in either reaction-time variable.
+plot_data <- drop_na(selected_data, rt_hand_d, rt_hand_nd)
+```
+
+After removing missing values, the plotting dataset contains `r nrow(plot_data)` rows.
+
+# Create a Figure
+
+Figure \@ref(fig:scatter-plot) shows the relationship between reaction times for the dominant and non-dominant hand. The plot is included directly from the R code chunk.
+
+```{r scatter-plot, fig.cap="Reaction times for dominant and non-dominant hand responses."}
+# Start with the data and define the variables used in the plot.
+ggplot(plot_data, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point(alpha = 0.75) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Dominant hand reaction time",
+    y = "Non-dominant hand reaction time",
+    colour = "Smoking status"
+  ) +
+  theme_minimal()
+```
+
+# Create a Summary Table
+
+Table \@ref(tab:summary-table) summarises the dominant-hand reaction times by smoking status.
+
+```{r summary-table}
+# Calculate descriptive statistics for each smoking-status group.
+summary_table <- summarise(
+  plot_data,
+  mean_rt = round(mean(rt_hand_d), 1),
+  sd_rt = round(sd(rt_hand_d), 1),
+  n = n(),
+  .by = smoker
+)
+
+# Put the table rows into a predictable order.
+summary_table <- arrange(summary_table, smoker)
+
+# Render the summary data frame as a table in the HTML output.
+kable(
+  summary_table,
+  caption = "Dominant-hand reaction time by smoking status."
+)
+```
+
+# Interpretation
+
+The average dominant-hand reaction time in the cleaned dataset is `r round(mean(plot_data$rt_hand_d), 1)` ms. When writing up visualisations, combine code-generated values with a short explanation of what the plot or table shows.
+
+# How to Render
+
+To render this document in RStudio:
+
+1. Click **Knit**.
+2. Check that the output HTML file appears in the same folder.
+3. Open the HTML file and check that the table, figure, citations, and references appear correctly.
+
+# References
