@@ -19,8 +19,9 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   comment = NA,
-  fig.width = 7,
-  fig.height = 4.5
+  fig.width = 4.5,
+  fig.height = 3.2,
+  out.width = "50%"
 )
 ```
 
@@ -40,7 +41,7 @@ This report should demonstrate:
 - cross-referencing a table and a figure,
 - citing a source from a `.bib` file.
 
-The data used in this exercise come from a reaction-time study by Blomkvist and colleagues. Cite the paper here using the existing BibTeX entry in `references.bib`: `___`.
+The data used in this exercise come from a study on reaction time and ageing using the Nintendo Wii Balance Board by Blomkvist and colleagues. Cite the paper here using the existing BibTeX entry in `references.bib`: `___`.
 
 # Load Packages
 
@@ -66,6 +67,17 @@ blomkvist <- read_csv("___")
 The dataset contains `r ___(blomkvist)` rows and `r ___(blomkvist)` columns.
 
 # Inspect Data
+
+Insert a new R code chunk below this paragraph. First, click in the RMarkdown document at the place where you want the new chunk to appear.
+
+In RStudio, click the green **Insert** icon just above the RMarkdown editing view and choose **R**. The default keyboard shortcut is **Ctrl + Alt + I** on Windows/Linux or **Cmd + Option + I** on Mac.
+
+Label the chunk `inspect-data` by editing the chunk header so it starts with `{r inspect-data}`. Inside the chunk, write one short comment that says what the code does, then use `glimpse()` to inspect `blomkvist`.
+
+Your chunk should contain code that follows this structure:
+
+- a comment beginning with `#` that explains what the code does,
+- one line that uses `glimpse()` to show the variables and first values in `blomkvist`.
 
 Table \@ref(tab:data-preview) shows rows 1 to 6 of the dataset.
 
@@ -131,8 +143,8 @@ Complete the summary table code.
 # Calculate descriptive statistics for each smoking-status group.
 summary_table <- summarise(
   plot_data,
-  mean_rt = round(mean(___), 1),
-  sd_rt = round(sd(___), 1),
+  mean_rt = mean(___),
+  sd_rt = sd(___),
   n = n(),
   .by = ___
 )
@@ -143,6 +155,7 @@ summary_table <- arrange(summary_table, ___)
 # Render the summary data frame as a table in the HTML output.
 kable(
   ___,
+  digits = ___,
   caption = "Dominant-hand reaction time by smoking status."
 )
 ```

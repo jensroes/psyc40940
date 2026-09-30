@@ -764,26 +764,37 @@ slides > slide:not(.nobackground):before {
   background-size: 100px 30px;
 }
 
-/* Bibliography slides with many citations. */
-#refs,
-.references,
-section[role="doc-bibliography"] {
-  column-count: 2;
-  column-gap: 34px;
+/* Bibliography slides with many citations. Apply columns only to the bibliography body. */
+.references {
   font-size: 15px;
   line-height: 1.22;
 }
 
-#refs .csl-entry,
-.references .csl-entry,
-section[role="doc-bibliography"] .csl-entry {
+.references #refs,
+.references section[role="doc-bibliography"] {
+  column-count: 2;
+  column-gap: 34px;
+}
+
+.references #refs .csl-entry,
+.references section[role="doc-bibliography"] .csl-entry {
   break-inside: avoid;
   margin-bottom: 7px;
 }
 
-#refs p,
-.references p,
-section[role="doc-bibliography"] p {
+.references #refs p,
+.references section[role="doc-bibliography"] p {
   margin-top: 0;
 }
 
+.figure-source {
+  font-size: 16px;
+  line-height: 1.2;
+  margin-top: -4px;
+}
+
+.compact-take-home {
+  font-size: 21px;
+  margin-top: 16px;
+  padding: 10px 16px;
+}

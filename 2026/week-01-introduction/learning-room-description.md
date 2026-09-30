@@ -16,7 +16,25 @@ By the end of Week 1, you should be able to:
 - use basic cross-references for tables and figures,
 - cite a source using a BibTeX entry in `references.bib`.
 
-Please download the Week 1 zip folder, unzip it, and move the contents into your module RStudio Project folder. Do not work inside the zip file. The slides are provided separately in the Learning Room.
+## Before the practical work: RStudio Project and Week 1 files
+
+All practical files should be stored inside your module RStudio Project folder. Do not work inside the zip file.
+
+If you have not created an RStudio Project for this module yet:
+
+1. Open RStudio.
+2. Go to **File > New Project...**.
+3. Choose **New Directory**.
+4. Choose **New Project**.
+5. Give the project a clear name, for example `psyc40940-visdata`.
+6. Choose a sensible location on your computer.
+7. Click **Create Project**.
+
+Then download the Week 1 zip folder from the Week 1 section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files, `data` folder, bibliography file, and citation style file together. The slides are provided separately in the Learning Room.
+
+## Homework before Week 2
+
+Please complete `02_rmarkdown_exercise.Rmd`, render it to HTML, and fix any remaining errors. After the exercise, check that you understand the steps listed on the slide **What You Need After Today**. You should also start looking for a behavioural dataset that you might use for the formative assessment.
 
 ## Week 1 files
 

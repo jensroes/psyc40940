@@ -12,6 +12,22 @@ By the end of Week 10, you should be able to:
 - explain how your visualisation choices relate to the data and task,
 - plan any remaining work before submission.
 
+## Before the practical work: RStudio Project and weekly files
+
+All practical files should be stored inside your module RStudio Project folder. Do not work inside the zip file.
+
+If you have not created an RStudio Project for this module yet:
+
+1. Open RStudio.
+2. Go to **File > New Project...**.
+3. Choose **New Directory**.
+4. Choose **New Project**.
+5. Give the project a clear name, for example `psyc40940-visdata`.
+6. Choose a sensible location on your computer.
+7. Click **Create Project**.
+
+Then download the Week 10 zip folder from this week's section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files or app files together with any `data` folder and supporting files.
+
 ## Week 10 files
 
 `psyc40940-week-10-wrap-up-assessment-support.zip`  

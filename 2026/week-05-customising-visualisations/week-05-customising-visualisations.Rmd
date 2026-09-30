@@ -1226,6 +1226,7 @@ ggplot(d_spellname, aes(y = rt, x = dur)) +
   ###</b>
 ```
 
+</div>
 
 ## Themes: `plot` {.smaller}
 
@@ -1294,6 +1295,8 @@ ggplot(d_spellname, aes(y = rt, x = dur)) +
   ###</b>
 ```
 
+</div>
+
 ## Themes: `plot` {.smaller}
 
 <div style="float: left; width: 30%;">
@@ -1325,8 +1328,7 @@ ggplot(d_spellname, aes(y = rt, x = dur)) +
   ###</b>
 ```
 
-
-
+</div>
 
 ## Themes: facet strips {.smaller}
 
@@ -1528,8 +1530,8 @@ ggsave("name of plot.png", width = 5, height = 5)
 
 For support with this week's material, use:
 
-- @andrews2021doing, Chapter 4: data visualisation in R.
-- The `ggplot2` online book sections on scales, labels, themes, and saving plots as optional extra support.
+- @andrews2021doing, Chapter 4: data visualisation in R. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf)
+- The `ggplot2` online book sections on scales, labels, themes, and saving plots as optional extra support. [Online book](https://ggplot2-book.org/)
 
 
 ## Formative assessment {.smaller}

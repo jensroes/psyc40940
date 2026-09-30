@@ -7,7 +7,7 @@ output:
     transition: slower
     widescreen: true
     css: slides.css
-bibliography: "references.bib"
+bibliography: "slides-references.bib"
 csl: "apa.csl"
 ---
 
@@ -73,18 +73,6 @@ Download the Week 1 materials.
 
 Do not work inside the zip file. The folder must be extracted first.
 
-## Why Folders Matter
-
-The Week 1 files should now be in your `PSYC40940` project folder.
-
-Because the Week 1 `.Rmd` files are in the same folder as `data/`, they load data with:
-
-```{r eval=FALSE}
-read_csv("data/blomkvist.csv")
-```
-
-If a file cannot be found, first check that `data/` is inside your `PSYC40940` project folder and that the `.Rmd` file is saved there too.
-
 ## What Is In This Folder?
 
 After moving the Week 1 files, your module project should contain:
@@ -102,6 +90,19 @@ PSYC40940/
 ```
 
 The slide files are uploaded separately. The weekly zip contains the files you need for exercises and practical work.
+
+## Why Folders Matter
+
+The Week 1 files should now be in your `PSYC40940` project folder.
+
+Because the Week 1 `.Rmd` files are in the same folder as `data/`, they load data with:
+
+```{r eval=FALSE}
+read_csv("data/blomkvist.csv")
+```
+
+If a file cannot be found, first check that `data/` is inside your `PSYC40940` project folder and that the `.Rmd` file is saved there too.
+
 
 ## Why RMarkdown in this module?
 
@@ -129,7 +130,7 @@ An `.Rmd` file combines:
 
 The important workflow is simple: edit the `.Rmd`, render it, inspect the HTML output, then fix anything that did not work.
 
-## Find the Parts First
+## Find the Parts First {.smaller}
 
 Open `01_rmarkdown_demo.Rmd`.
 
@@ -144,6 +145,8 @@ Before we go through the next slides, find these parts in the file:
 - the chunk that creates a table
 - the chunk that creates a figure
 - a citation and the references section
+
+You can't **knit** this just yet, but I can.  Let's check what this file does!
 
 ## YAML Header {.columns-2 .smaller}
 
@@ -211,7 +214,20 @@ blomkvist <- <span class="r-function-call">read_csv</span>("data/blomkvist.csv")
 
 The chunk label, here `load-data`, should be short and unique.
 
-## Chunk Options: `echo`
+
+## Run Chunks Before Rendering
+
+You can run code chunks while editing the `.Rmd` file.
+
+In RStudio:
+
+- click the green play button on a chunk,
+- or use the **Run** menu,
+- then check the Console, Environment, and Plots panes.
+
+This helps you find problems before clicking **Knit**.
+
+## Chunk Options: `echo` and `eval`
 
 Chunk options change how a chunk behaves in the rendered HTML.
 
@@ -219,13 +235,14 @@ Chunk options change how a chunk behaves in the rendered HTML.
 <span class="r-function-call">slice</span>(blomkvist, 1:6)
 ```</code></pre>
 
-The most useful option today is `echo`:
+Useful options today:
 
 - `echo=TRUE`: run the code and show the code,
 - `echo=FALSE`: run the code but hide the code,
-- use `echo=FALSE` when the report should show the result but not the code.
+- `eval=TRUE`: run the code when rendering,
+- `eval=FALSE`: show the code but do not run it when rendering.
 
-During learning, `echo=TRUE` is useful because it shows what produced the output.
+Use `eval=FALSE` for examples such as `install.packages()`.
 
 ## Setup Chunk
 
@@ -240,6 +257,20 @@ knitr::<span class="r-function-call">opts_chunk$set</span>(
 ```</code></pre>
 
 Use it for options that should apply to the whole document.
+
+
+## Install Packages
+
+For Week 1, we will use these packages:
+
+- `tidyverse`: assumed to be installed already,
+- `knitr`: creates tables and helps render RMarkdown,
+- `rmarkdown`: renders `.Rmd` files,
+- `bookdown`: supports figure and table cross-references.
+
+RStudio includes Pandoc, which helps render RMarkdown files. R packages are separate. Some may already be installed, but install missing packages once if needed.
+
+The demo file includes an `install.packages()` chunk with `eval=FALSE` so it is shown but not run when rendering. **Run this R chunk now!**
 
 ## Load Packages
 
@@ -256,6 +287,7 @@ library(knitr)
 If rendering says there is no package called something, install it once in the Console with `install.packages()`.
 
 Do not leave `install.packages()` in a chunk that runs when the document renders. If you include it in an `.Rmd` file as a reminder, use `eval=FALSE`.
+
 
 ## Loading Data Into R
 
@@ -364,7 +396,7 @@ Readable code is easier to debug than compact code.
 
 A figure is created by an R chunk.
 
-<pre class="prettyprint lang-r"><code>```{r scatter-plot, fig.cap="Reaction times for dominant and non-dominant hand responses."}
+<pre class="prettyprint lang-r"><code>```{r scatter-plot, fig.cap="Reaction times."}
 <span class="r-function-call">ggplot</span>(plot_data, <span class="r-function-call">aes</span>(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
   <span class="r-function-call">geom_point</span>(alpha = 0.75) +
   <span class="r-function-call">geom_smooth</span>(method = "lm", se = FALSE) +
@@ -380,7 +412,7 @@ With `bookdown::html_document2`, a labelled figure can be referenced in text.
 Write this in the `.Rmd` file:
 
 ```markdown
-Figure \@ref(fig:scatter-plot) shows the relationship between the two reaction-time measures.
+Figure \@ref(fig:scatter-plot) shows the relationship between ...
 ```
 
 The `fig:` part tells RMarkdown that the reference points to a figure.
@@ -392,14 +424,15 @@ Use `kable()` for simple formatted tables.
 ```{r eval=FALSE}
 summary_table <- summarise(
   plot_data,
-  mean_rt = round(mean(rt_hand_d), 1),
-  sd_rt = round(sd(rt_hand_d), 1),
+  mean_rt = mean(rt_hand_d),
+  sd_rt = sd(rt_hand_d),
   n = n(),
   .by = smoker
 )
 
 kable(
   summary_table,
+  digits = 1,
   caption = "Dominant-hand reaction time by smoking status."
 )
 ```
@@ -488,12 +521,21 @@ By next week, you should be able to:
 - cite a source from a bibliography file
 - use inline R for simple reported values
 
+## Homework Before Week 2
+
+Before next week:
+
+- complete `02_rmarkdown_exercise.Rmd`
+- render the exercise to HTML and fix any remaining errors
+- check that you understand each step in **What You Need After Today**
+- start looking for a behavioural dataset you might use for the formative assessment
+
 ## Recommended Reading
 
 For support with RMarkdown, use:
 
-- @andrews2021doing, Chapter 7: reproducible reports with RMarkdown. [Chapter link](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_07_reproducible.pdf)
-- @wickham2016r, Chapter 27: R Markdown in *R for Data Science*. [Chapter link](https://r4ds.had.co.nz/r-markdown.html)
+- @andrews2021doing, Chapter 7: reproducible reports with RMarkdown. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_07_reproducible.pdf)
+- @wickham2016r, Chapter 27: R Markdown in *R for Data Science*. [Online chapter](https://r4ds.had.co.nz/r-markdown.html)
 
 Use these as reference material while completing `02_rmarkdown_exercise.Rmd`.
 

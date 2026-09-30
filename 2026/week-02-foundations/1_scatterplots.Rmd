@@ -1,124 +1,172 @@
 ---
-title:             'Exercise 1: Scatterplots'
-output:            html_document
-bibliography:      "references.bib"
+title: "Exercise 1: Scatterplots with ggplot2"
+author: "Your name"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: "references.bib"
 ---
 
-
 ```{r setup, include=FALSE}
-# No need to run this chunk unless you're "knitting"
-knitr::opts_chunk$set(echo = TRUE,
-                      comment= NA, 
-                      warning = FALSE,
-                      message = FALSE)
+# Global chunk options control how code and output appear in the HTML file.
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = NA,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 5,
+  fig.height = 3.5,
+  out.width = "60%"
+)
 ```
 
+# Aim
 
-Here and all other exercises, whenever you encounter `---` in the code chunks, your task is to replace `---` correctly with a variable name, argument, function, code, etc. The instructions will help you. You will not be able to `knit` this RMarkdown document until you completed all tasks.
+In this exercise you will create exploratory scatterplots with `ggplot2`.
 
-If you haven't installed `tidyverse`, un-comment (delete the "#") and run the next line:
+By the end, you should have loaded a data file, inspected its variables, completed basic `ggplot()` code, and written short interpretations of the plots you created.
 
-```{r}
-# install.packages("tidyverse")
+Replace each `___` blank with the correct code. The document will not render until all blanks are completed.
+
+When you see a blank, use the instructions immediately above the code chunk and the comments inside the code chunk. For example, if the instruction says to use the `age` variable on the x-axis, replace `x = ___` with `x = age`.
+
+The data come from a study on reaction time and ageing using the Nintendo Wii Balance Board [@blomkvist2017reference].
+
+# Load Packages
+
+```{r packages}
+# Replace ___ with tidyverse.
+# This loads ggplot2, read_csv(), glimpse(), and other useful functions.
+library(___)
 ```
 
-Load the `tidyverse` package (which includes `ggplot2` and many other useful functions for data processing) using the `library` function.
+# Load Data
 
-```{r}
-# Load tidyverse
-library(tidyverse)
+The data file is in the local `data` folder for Week 2. Keep this `.Rmd` file and the `data` folder together.
+
+```{r load-data}
+# read_csv() reads a csv file and stores it as a data frame.
+# The object name on the left, blomkvist, is the name we use for the data in R.
+blomkvist <- read_csv("data/blomkvist.csv")
 ```
 
-We also need the `psyntur` package. Again, if `psyntur` is not installed, please run the `install.packages` command.
+# Inspect Data
 
-```{r}
-# install.packages("psyntur")
-# Load psyntur
-library(psyntur)
+Use `glimpse()` to inspect the variables and their types.
+
+```{r inspect-data}
+# Replace ___ with the name of the data object: blomkvist.
+# glimpse() shows the variable names, variable types, and first values.
+glimpse(___)
 ```
 
+The variables used in this exercise are:
 
-We are ready to load some data. These data are published in @blomkvist2017reference.
+- `rt_hand_d`: dominant-hand reaction time,
+- `rt_hand_nd`: non-dominant-hand reaction time,
+- `age`: participant age,
+- `id`: participant identifier.
 
-The data file is in the `data` folder inside this weekly folder. Keep the `data` folder and this `.Rmd` file together, and the path below should work when you run chunks or knit the document.
+# Scatterplot
 
-If the following code returns `Error: 'data/blomkvist.csv' does not exist in current working directory`, check that you are working from the extracted weekly folder and that the `data` folder has not been moved.
+Figure \@ref(fig:hand-scatter) shows the relationship between dominant-hand and non-dominant-hand reaction time.
 
-```{r}
-# Load the data
-d_blomkvist <- read_csv("data/blomkvist.csv")
-```
+Complete the code by mapping dominant-hand reaction time to the x-axis and non-dominant-hand reaction time to the y-axis.
 
-
-Explore the data `d_blomkvist` with `glimpse`. For now just get an idea of the variables includes in the data and their types (i.e. numeric, categorical).
-
-```{r}
-glimpse(---) # replace "---" with the name of the data variable
-```
-
-These are average reaction time data for people playing a video game published in @blomkvist2017reference.
-
-Make sure you have an idea of the variable names in the data. For example, `rt_hand_d` means reaction time of hand dominant (`_nd` is for non-dominant, etc.).
-
-Let's start with a scatterplot: `psyntur` has plotting functions that are built around `ggplot2` and allow quick plotting. For example try running this line:
-
-```{r scatterplot, fig.cap="Scatterplot"}
-scatterplot(data = d_blomkvist, x = rt_hand_d, y = rt_hand_nd)
-```
-
-What does the plot show you? (complete the following sentence)
-
-The scatterplot in Figure \@ref(fig:scatterplot) illustrates ...
-
-Now, the `psyntur` functions are helpful for quick plotting. We are going to focus on `ggplot2` for plotting as it allows for more flexibile and more advanced data visualisation.
-
-Complete the code for the `ggplot2` scatterplot below so it illustrates the same information as the `psyntur` scatterplot, i.e. map the rt of the dominant hand on the x-axis and rt of the non-dominant hand on the y-axis.
-
-```{r}
-ggplot(data = d_blomkvist, mapping = aes(x = ---, y = ---)) +
+```{r hand-scatter, fig.cap="Dominant-hand and non-dominant-hand reaction time."}
+# In aes(), x controls the horizontal axis and y controls the vertical axis.
+# Replace the first ___ with rt_hand_d.
+# Replace the second ___ with rt_hand_nd.
+ggplot(data = blomkvist, mapping = aes(x = ___, y = ___)) +
   geom_point()
 ```
 
-Also, use `Figure \@ref(fig:---)` to crossreference the new `ggplot2` scatterplot in this text.
+Write one sentence interpreting Figure \@ref(fig:hand-scatter).
 
+The scatterplot shows that ...
 
-There are some participants with more extreme values. Let's see who those individuals are. 
+# Improve the Same Plot
 
-Do the following using the code below
+The next code chunk starts from the same variables as Figure \@ref(fig:hand-scatter). Instead of rebuilding the plot several times, complete the additions that make the plot easier to read.
 
-1. Map rt of dominant hand on the x-axis and rt of non-dominant hand on the y-axis (as before).
-2. Map id on label.
-3. Replace `geom_point()` with `geom_text()` or `geom_label()`.
+Fill in the blanks to:
 
-```{r}
-ggplot(data = d_blomkvist, mapping = aes(x = ---, y = ---, label = ---)) +
-  geom_point()
+- make the points slightly transparent,
+- add a linear trend line,
+- add clearer axis labels.
+
+```{r improved-scatter, fig.cap="Dominant-hand and non-dominant-hand reaction time with clearer labels and a trend line."}
+# The x- and y-variables are already filled in.
+# alpha controls point transparency. Use a value between 0 and 1, such as 0.6.
+# method tells geom_smooth() which trend line to fit. Use "lm" for a linear model.
+ggplot(data = blomkvist, mapping = aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point(alpha = ___) +
+  geom_smooth(method = "___", se = FALSE) +
+  labs(
+    x = "Dominant-hand reaction time (ms)",
+    y = "Non-dominant-hand reaction time (ms)"
+  )
 ```
 
-It's hard to see the participants on the lower end. Use the logarithm for both axis to increase the distance between values on the lower end of the scale.
+Compare Figure \@ref(fig:hand-scatter) and Figure \@ref(fig:improved-scatter). What changed?
 
-1. `x` and `y` as previously.
-2. I've already added `scale_y_log10()` to log transform the y-axis.
-3. Do the same for the x-axis.
+The improved plot is easier to read because ...
 
-```{r}
-ggplot(data = blomkvist, mapping = aes(x = ---, y = ---)) +
-  geom_point() + # Replace the points with text or labels (see above).
-  scale_y_log10() +
-  --- # add code to log transform the x axis 
+# Use Colour Carefully
+
+Colour can add information, but it should be used for a reason.
+
+In Figure \@ref(fig:colour-scatter), the x- and y-variables are already filled in. Complete the code so the points are coloured by smoking status.
+
+```{r colour-scatter, fig.cap="Reaction time by smoking status."}
+# colour adds a visual grouping variable.
+# Replace ___ with smoker so each point is coloured by smoking status.
+ggplot(data = blomkvist, mapping = aes(x = rt_hand_d, y = rt_hand_nd, colour = ___)) +
+  geom_point(alpha = 0.6) +
+  labs(
+    x = "Dominant-hand reaction time (ms)",
+    y = "Non-dominant-hand reaction time (ms)",
+    colour = "Smoking status"
+  )
 ```
 
-Finally, copy the last code and insert below to add a linear model to the data using `+ stat_smooth(method = "lm")`.
+Write one sentence describing whether the colour mapping helps interpretation.
 
-```{r}
+The colour mapping is useful / not useful because ...
 
---- # complete this
+# Choose Different Variables
 
+Now create a different scatterplot. Use age on the x-axis and dominant-hand reaction time on the y-axis.
+
+Then decide whether the plot should include a trend line.
+
+```{r age-scatter, fig.cap="Age and dominant-hand reaction time."}
+# Create a new plot.
+# Replace the first ___ with age.
+# Replace the second ___ with rt_hand_d.
+ggplot(data = blomkvist, mapping = aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    x = "Age (years)",
+    y = "Dominant-hand reaction time (ms)"
+  )
 ```
 
+Write one sentence interpreting Figure \@ref(fig:age-scatter).
 
-Once you've completed all tasks above you can `knit` this document to HTML.
+The plot suggests that ...
 
+# Reflection
 
+Answer briefly:
+
+- Which plot in this exercise is most useful for understanding the data?
+- Which visual choice made the biggest difference?
+- What would you check next?
 
 # References

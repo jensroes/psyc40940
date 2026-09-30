@@ -1,5 +1,5 @@
 ---
-title: "PSYC40940: Foundations of Data Visualisation and `ggplot2`"
+title: "PSYC40940: Principles of Data Visualisation and `ggplot2`"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output: 
   ioslides_presentation:
@@ -8,8 +8,9 @@ output:
         transition: slower
         css: slides.css
 #        logo: gfx/ntu.png
-bibliography: "references.bib"
+bibliography: "slides-references.bib"
 csl: "apa.csl"
+link-citations: yes
 ---
 
 
@@ -28,56 +29,80 @@ knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE)
 
-theme_set(
-  theme_gray(base_size = 17) +
-  theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+#theme_set(
+#  theme_gray(base_size = 17) +
+#  theme(plot.background = element_rect(fill = "transparent", colour = NA)))
 
 ```
 
 
-## General outline for weeks 2 -- 5
+## From last week to this week
 
-- Week 2: Principles of data visualisation
-- Week 3: Grammar of graphics; aesthetics and attributes
-- Week 4: Major visualisation tools
-- Week 5: Customising visualisations (scales, themes, and labels)
+Last week:
+
+- module overview and assessment
+- RMarkdown, code chunks, citations, and rendering to HTML
+- organising files in an RStudio Project
+
+This week:
+
+- why visualisation matters for behavioural data
+- first `ggplot2` plots
+- principles for clear and honest visualisation
 
 
-## Overview
+## Get the Week 2 files
 
-- Motivation / Relevance
-- `ggplot2` teaser
-- Principles of data visualisation
+1. Download `psyc40940-week-02-foundations.zip` from the Week 2 section in the NOW Learning Room.
+2. Unzip the file on your computer.
+3. Move the contents into your module RStudio Project folder.
+4. Open `1_scatterplots.Rmd` from inside RStudio.
 
-Download ["Exercises" folder](https://now.ntu.ac.uk/d2l/le/lessons/1111404/topics/14295810) from NOW Learning Room (week 2). Move files into R-Project folder.
+Keep the `.Rmd` files and the `data` folder together. The code expects them to stay in the same project folder.
 
+
+## Today's session
+
+Today we will move from first exploratory plots to the question of why visualisation matters for behavioural data.
+
+We will:
+
+- build and interpret simple scatterplots in `ggplot2`
+- compare summary statistics with plotted data
+- discuss how visual design choices can shape interpretation
+- identify practical principles for clearer and more responsible visualisation
+
+<p class="take-home">By the end of the session, take away that visualisation is not just presentation. It helps us notice patterns, check claims, question summaries, and communicate evidence carefully.</p>
+
+
+## What is data visualisation?
+
+- Using graphics to understand data
+- Using graphics to communicate evidence
+- Exploratory: what patterns are in the data?
+- Explanatory: what should the audience take away?
+
+Common plot types:
+
+- scatterplots, line plots, bar plots
+- histograms, boxplots, density plots
+- pie charts, maps, heatmaps
 
 
 ## The data {.columns-2}
 
 - Picture naming task 
 - Written and spoken responses
-- Manipulation: Prior familiarisation with most-common name for a picture
+- Outcome: response onset time
+- Data/materials: @roeser2025writtenPictureNaming
 
 
 ```{r echo = F, fig.width=4}
-image_read("gfx/binoculars.jpg") %>% 
+image_read("gfx/binoculars.jpg") %>%
+  image_border("white", "18x18") %>%
+  image_border("#333333", "4x4") %>%
   image_ggplot()
 ```
-
-
-<!-- ## Exploring data -->
-
-<!-- ```{r eval = F} -->
-<!-- d_spellname <- read_csv("data/spellname.csv") -->
-<!-- glimpse(d_spellname) -->
-<!-- ``` -->
-
-
-<!-- ```{r echo = F} -->
-<!-- d_spellname <- read_csv("data/spellname.csv") -->
-<!-- glimpse(d_spellname) -->
-<!-- ``` -->
 
 
 ## Exploring data
@@ -85,198 +110,201 @@ image_read("gfx/binoculars.jpg") %>%
 ```{r echo = F}
 d_spellname <- read_csv("data/spellname.csv") 
 
-d_spellname %>% 
-  select(-trial_id) %>% 
-  relocate(starts_with("ppt"), image_id, resp, name_familiarised, modality) %>% 
-  glimpse(width = 120)
-```
-
-
-
-## Exploring data
-
-```{r}
-d_ppt_pic <- distinct(d_spellname, ppt_id, image_id)
-count(d_ppt_pic, ppt_id)
-```
-
-## What is data visualisation?
-
-- Graphical representation of data
-- Graphical data analysis 
-- What do we want to know?
-- What do we want to communicate?
-- What do people take away from your visualisation?
-- Exploratory plots (for small specialist audience)
-- Explanatory plots: inform and persuade wider audience
-
-
-## Building up a plot
-
-
-```{r}
 d_vocab <- summarise(d_spellname, 
-                      rt = mean(rt),
-                      .by = c(ppt_id, ppt_vocab, modality)) 
-glimpse(d_vocab, width = 120)
+                     rt = mean(rt),
+                     .by = c(ppt_id, ppt_vocab, modality)) 
+
+d_vocab
 ```
 
 
+## Discuss in pairs (2 mins)
 
-## Building up a plot
+What is the first thing you notice in each plot? What did you learn from it?
 
-<div style="float: left; width: 40%;">
-```{r eval = FALSE}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt)) 
+```{r pair-discussion-plots, echo=FALSE, fig.width=9, fig.height=4, out.width="90%"}
+d_modality <- summarise(d_vocab,
+                        rt = mean(rt),
+                        .by = modality)
+
+p_bar <- ggplot(data = d_modality,
+                mapping = aes(x = modality, y = rt)) +
+  geom_col(fill = "grey70", colour = "grey30", width = 0.65) +
+  labs(x = "Response modality",
+       y = "Average reaction time (ms)") 
+
+p_scatter <- ggplot(data = d_vocab,
+                    mapping = aes(x = ppt_vocab,
+                                  y = rt,
+                                  colour = modality)) +
+  geom_point(alpha = 0.45) +
+  stat_smooth(method = "lm", se = FALSE) +
+  labs(x = "Vocabulary score",
+       y = "Average reaction time (ms)",
+       colour = "Response modality") +
+  theme(legend.position = "top")
+
+p_bar + p_scatter + plot_annotation(tag_levels = "A")
+```
+
+
+## Building up a plot: data and aesthetics
+
+<div style="float: left; width: 58%; font-size: 60%; line-height: 1.0;">
+```{r, eval = FALSE}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt))
 ```
 </div>
 
-<div style="float: right; width: 60%;">
-```{r echo = FALSE, out.width = "100%"}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt)) 
+<div style="float: left; width: 38%; margin-left: 1.5%; text-align: center;">
+```{r ggplot-build-aes, echo=FALSE, fig.width=6.4, fig.height=4.6, out.width="116%"}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
+  theme(text = element_text(size = 15),
+        plot.margin = margin(0, 0, 0, 0))
 ```
 </div>
 
-## Building up a plot
+## Building up a plot: add points
 
-<div style="float: left; width: 40%;">
-```{r eval = FALSE}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt))  +
-  ### <b>
-  geom_point()  
-  ### </b>
-```
-</div>
-
-<div style="float: right; width: 60%;">
-```{r echo = FALSE, out.width = "100%"}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt)) +
+<div style="float: left; width: 58%; font-size: 60%; line-height: 1.0;">
+```{r, eval = FALSE}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
   geom_point()
 ```
 </div>
 
-
-
-## Building up a plot
-
-<div style="float: left; width: 40%;">
-```{r eval = FALSE}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt)) +
-  geom_point() +
-  ### <b>
-  stat_smooth(method = "lm") 
-  ### </b>
+<div style="float: left; width: 38%; margin-left: 1.5%; text-align: center;">
+```{r ggplot-build-points, echo=FALSE, fig.width=6.4, fig.height=4.6, out.width="116%"}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
+  geom_point(size = 2.6) +
+  theme(text = element_text(size = 15),
+        plot.margin = margin(0, 0, 0, 0))
 ```
 </div>
 
-<div style="float: right; width: 60%;">
-```{r echo = FALSE, out.width = "100%"}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt)) +
+## Building up a plot: add a trend
+
+<div style="float: left; width: 58%; font-size: 60%; line-height: 1.0;">
+```{r, eval = FALSE}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
   geom_point() +
-  stat_smooth(method = "lm") 
+  stat_smooth(method = "lm")
 ```
 </div>
 
+<div style="float: left; width: 38%; margin-left: 1.5%; text-align: center;">
+```{r ggplot-build-trend, echo=FALSE, fig.width=6.4, fig.height=4.6, out.width="116%"}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
+  geom_point(size = 2.6) +
+  stat_smooth(method = "lm") +
+  theme(text = element_text(size = 15),
+        plot.margin = margin(0, 0, 0, 0))
+```
+</div>
 
+## Building up a plot: add a group
 
-## Building up a plot
+<div style="float: left; width: 58%; font-size: 60%; line-height: 1.0;">
+```{r, eval = FALSE}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt,
+           colour = modality)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+</div>
 
-<div style="float: left; width: 40%;">
-```{r eval = FALSE}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
+<div style="float: left; width: 38%; margin-left: 1.5%; text-align: center;">
+```{r ggplot-build-group, echo=FALSE, fig.width=6.4, fig.height=4.6, out.width="116%"}
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt,
+           colour = modality)) +
+  geom_point(alpha = 0.45, size = 2.6) +
+  stat_smooth(method = "lm", se = FALSE) +
+  theme(text = element_text(size = 15),
+        legend.position = "top",
+        plot.margin = margin(0, 0, 0, 0))
+```
+</div>
+
+## A more polished version
+
+We can add labels, colour choices, and a cleaner theme later.
+
+```{r ggplot-build-polished, echo=FALSE, fig.width=6, fig.height=4, out.width="60%"}
+ggplot(data = d_vocab,
+       mapping = aes(x = ppt_vocab,
                      y = rt,
-                     ### <b>
-                     colour = modality)) +
-                     ### </b>
-  geom_point() +
-  stat_smooth(method = "lm") 
+                     colour = modality,
+                     linetype = modality)) +
+  geom_point(alpha = 0.35) +
+  stat_smooth(method = "lm", se = FALSE, fullrange = T) +
+  scale_y_continuous(labels = scales::comma) +
+  ggthemes::scale_color_colorblind() +
+  labs(x = "Vocabulary score",
+       y = "Average reaction time (ms)",
+       colour = "Response modality",
+       linetype = "Response modality") +
+  ggthemes::theme_clean(base_size = 14) +
+  theme(legend.position = "top",
+        legend.justification = "right")
 ```
+
+## What to recognise today
+
+<div style="float: left; width: 32%; font-size: 82%; line-height: 1.15;">
+
+- `data = ...`: which dataset should R use?
+- `aes(...)`: which variables go on the plot?
+- `geom_point()`: draw points
+- `stat_smooth()`: add a trend line
+- `labs()`: write clearer labels
+
 </div>
 
-<div style="float: right; width: 60%;">
-```{r echo = FALSE, out.width = "100%"}
-ggplot(data = d_vocab, mapping = aes(x = ppt_vocab, y = rt, colour = modality)) +
-  geom_point() +
-  stat_smooth(method = "lm") 
-```
-</div>
-
-
-
-## Building up a plot {.columns-2}
+<div style="float: right; width: 64%; font-size: 88%;">
 
 ```{r, eval = FALSE}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt, 
-                     colour = modality,
-                     linetype = modality))  +
-  geom_point(alpha = .25) +
-  stat_smooth(method = "lm", se = T, fullrange = TRUE) +
-  scale_y_continuous(labels = scales::comma) +
-  ggthemes::theme_clean() +
-  ggthemes::scale_color_colorblind() +
-  labs(y = "Average reaction time (in msecs)", 
-       x = "Vocabulary score",
-       colour = "Response modality",
-       linetype = "Response modality") +
-  theme(legend.position = "top",
-        legend.justification = "right",
-        axis.title = element_text(hjust = 0))
+ggplot(data = d_vocab,
+       aes(x = ppt_vocab, y = rt)) +
+  geom_point() +
+  stat_smooth(method = "lm") +
+  labs(x = "Vocabulary score",
+       y = "Average reaction time (ms)")
 ```
 
+Next week we will slow down and unpack the layer logic properly.
 
-
-```{r, echo = FALSE, results=TRUE, fig.width=5, fig.height=4.25}
-ggplot(data = d_vocab, 
-       mapping = aes(x = ppt_vocab, 
-                     y = rt, 
-                     colour = modality,
-                     linetype = modality))  +
-  geom_point(alpha = .25) +
-  scale_y_continuous(labels = scales::comma) +
-  stat_smooth(method = "lm", se = T, fullrange = TRUE) +
-  ggthemes::theme_clean() +
-  ggthemes::scale_color_colorblind() +
-  labs(y = "Average reaction time (in msecs)", 
-       x = "Vocabulary score",
-       colour = "Response modality",
-       linetype = "Response modality") +
-  theme(legend.position = "top",
-        legend.justification = "right",
-        axis.title = element_text(hjust = 0))
-```
+</div>
 
 
 ## Creating an exploratory plot
 
-Open RMarkdown document **1_scatterplots.Rmd**
+**15 minutes:** work on **1_scatterplots.Rmd**
+
+Aim: complete the main blanks, render the document, and write short interpretations.
+
+Start in class and finish at home if needed.
 
 
-## Why data visualisation? | "[data visualization] forces us to notice what we never expected to see." [@tukey1977exploratory]
+## Why data visualisation? {.smaller}
 
-- exploring structures in the data 
-- relationship between variables
-- distribution of data
-- develop an understanding of patterns (beyond means and SDs)
-- selecting appropriate stats
-- prevent wrong conclusions about data / theory
+> "[data visualisation] forces us to notice what we never expected to see." [@tukey1977exploratory]
 
+Behavioural data are usually noisy and full of individual differences. A good visualisation helps us ask better questions before decide for a summary or model.
 
+- **See what summaries hide:** distributions, clusters, outliers, and non-linear patterns
+- **Check the story:** does the plot support the claim made by the mean, correlation, or model?
+- **Choose better analyses:** visual patterns can suggest transformations, grouping variables, or model problems
+- **Communicate responsibly:** design choices can make effects look larger, smaller, clearer, or more uncertain
 
+<p class="take-home">Plots are not decoration. They are part of how we reason about evidence.</p>
 
 
 
@@ -346,460 +374,322 @@ anscombe %>% rename(`Data set` = Set) %>%
 
 ## The datasaurus dozen | @matejka2017same: [see link](https://www.autodeskresearch.com/publications/samestats)
 
-Open RMarkdown document: **2_tdd.Rmd**
+**15 minutes:** Open RMarkdown document **2_tdd.Rmd**
+
+Aim: compare summary statistics with the plotted data.
+
+Finish at home if needed.
 
 
 
 
 
-## Principles of data visualisation
 
-- No "one fits all" method
-- Some methods are more informative than others
-- Maximise what we can learn from data
-- Going beyond summary statistics
-- Descriptive summary statistics may conceal / obscure important patterns but minimise what we want to communicate
-- Visualisation helps us to understand patterns, structures, relationships
-- Prevent wrong conclusions about data / theory
+## Visualisation is not neutral
 
-## Principles of data visualisation {.columns-2}
+Anscombe's quartet and the Datasaurus Dozen make the same point:
 
+- the same summary statistics can describe very different data
+- a mean, standard deviation, correlation, or model line can hide the pattern
+- plotting the data can reveal outliers, clusters, curves, and unusual cases
+- the visualisation changes what we notice and what we think needs explaining
 
-@hartwig1979exploratory:
+<p class="take-home">Plots are not decoration after the analysis. They are part of how we understand the data.</p>
 
-- *Skepticism:* any visualization might obscure or misrepresent data
-- *Openness:* there might be patterns and structures that we were not expecting
+## How plots shape beliefs
 
+Next, we will look at examples from media and public communication.
 
-@tufte1983visual:
+For each example, ask:
 
-- Above all else show the data
-- Avoid distorting what the data have to say
-- Present many numbers in a small space
-- Encourage the eye to compare different pieces of data
-- Reveal data at several levels of detail, from broad overview to fine structures
+- what does the plot make easy to believe?
+- what design choice creates that impression?
+- what information is missing, hidden, or emphasised?
+- how could the plot be changed to support a fairer comparison?
 
+<p class="take-home">Design choices can persuade or mislead, even when the numbers are real [@pandey2014persuasive].</p>
 
-## 6 plots of the same data
+## Pair activity: media examples
 
-```{r fig.width=10, echo = F}
-plot_2 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = F) +
-  coord_cartesian(ylim = c(0, 10000))
+**5 minutes preparation**
 
-plot_3 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = F) +
-  coord_cartesian(ylim = c(0, 5000))
+Each pair takes one example. Be ready to tell us:
 
-plot_4 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = F) +
-  coord_cartesian(ylim = c(0, 2500))
+- what the plot makes easy to believe
+- which design choice creates that impression
+- how you would improve it
 
-plot_5 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = F) 
+1. [Truncated y-axis in a cable-news chart](https://datafield.dev/data-visualization-python/part-01/chapter-04/case-study-01.html)
+2. [Pie chart for responses that add up to more than 100%](https://flowingdata.com/2009/11/26/fox-news-makes-the-best-pie-chart-ever/)
+3. [Election maps and the problem that land does not vote](https://storymaps.arcgis.com/stories/0e636a652d44484b9457f953994b212b)
+4. [Reuters Florida gun-deaths chart with an inverted axis](https://www.livescience.com/45083-misleading-gun-death-chart.html)
 
-plot_6 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = T) 
+## Pair activity: main points
 
-plot_7 <- d_vocab %>% 
-  ggplot(aes(y = rt, x = ppt_vocab)) +
-  stat_smooth(method = "lm", se = T) +
-  geom_point(size = .25)
+- **Truncated y-axis:** small numerical changes can look dramatic when the baseline is hidden.
+- **Wrong chart type:** a pie chart implies parts of one whole, so it misleads when categories overlap or add to more than 100%.
+- **Election maps:** large areas can look more important than densely populated areas.
+- **Inverted axis:** reversing the axis can make increases look like decreases.
+
+<p class="take-home">Visual design choices, data choices, and wording can change the story people see.</p>
+
+## Same numbers, different beliefs {.columns-2}
+
+A bar can make the mean look like a container for the data.
+
+Viewers can treat values inside the bar as more likely than equally distant values outside it [@correll2014error].
 
 
-plot_2 + plot_3 + plot_4 + plot_5 + plot_6 + plot_7 +
-  plot_annotation(tag_levels = "A")
-
-```
-
-
-## Obscuring data and misleading information
-
-Open RMarkdown document **3_scatterplots.Rmd**
-
-
-
-## Principles of data visualisation {.columns-2}
-
-Edward Tufte's principles emphasise clarity, precision, and efficiency in the visual display of information. Tufte's principles guide us to create visualizations that are:
-
-- Clear
-- Honest
-- Efficient
-- Insightful
-
-## Principles of data visualisation {.smaller .columns-2}
-
-**Principle 1:** Show the Data
-
-- Focus on the data itself
-- Avoid unnecessary decoration
-- Let the data tell the story
-
-
-**Principle 2:** Maximize Data-Ink Ratio
-
-- Minimize non-essential elements
-- Every visual element should serve a purpose
-
-
-**Principle 3:** Avoid Chartjunk
-
-- Eliminate decorative elements that obscure the message
-- Simplicity and clarity are key
+Better alternative: show the distribution, not only the summary.
 
 \columnbreak
 
-```{r echo = F, fig.width=5.5}
-d_vocab %>% 
-  ggplot(aes(x = ppt_vocab, y = rt, label = ppt_vocab)) +
-  geom_point() +
-  geom_text() +
-  stat_smooth(aes(colour = modality, linetype = modality, size = modality, label = modality), method = "lm") +
-  theme(panel.grid = element_line(colour = "black"),
-        legend.text = element_text(size = 5)) +
-  labs(caption = "Numbers indicate ppt_vocab",
-       title = "Why is this plot terrible?",
-       y = "")
+```{r belief-example, echo=FALSE, fig.width=5.2, fig.height=4.6}
+set.seed(40940)
+d_belief <- tibble(
+  condition = rep("Condition A", 160),
+  score = rnorm(160, mean = 54, sd = 11)
+)
 
+mean_score <- mean(d_belief$score)
+se_score <- sd(d_belief$score) / sqrt(nrow(d_belief))
+summary_belief <- tibble(
+  condition = "Condition A",
+  mean_score = mean_score,
+  lower = mean_score - 1.96 * se_score,
+  upper = mean_score + 1.96 * se_score
+)
+
+p_bar <- ggplot(summary_belief, aes(x = condition, y = mean_score)) +
+  geom_col(fill = "grey75", colour = "grey30", width = 0.55) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.12) +
+  coord_cartesian(ylim = c(0, 70)) +
+  labs(title = "Summary only", x = NULL, y = "Score") +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_blank())
+
+p_dist <- ggplot(d_belief, aes(x = condition, y = score)) +
+  geom_jitter(width = 0.12, alpha = 0.35, size = 1.2, colour = "#2c7fb8") +
+  geom_hline(yintercept = mean_score, linewidth = 1, colour = "#d95f0e") +
+  coord_cartesian(ylim = c(0, 70)) +
+  labs(title = "Distribution visible", x = NULL, y = "Score") +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_blank())
+
+p_bar + p_dist + plot_annotation(tag_levels = "A")
 ```
 
+## Encoding choices matter {.columns-2}
 
+Cleveland and McGill showed that some visual comparisons are easier than others [@cleveland1984graphical].
 
-## Principles of data visualisation {.smaller .columns-2}
+Easier:
 
-**Principle 1:** Show the Data
+- position on a common scale
+- aligned lengths
 
-- Focus on the data itself
-- Avoid unnecessary decoration
-- Let the data tell the story
+Harder:
 
-
-**Principle 2:** Maximize Data-Ink Ratio
-
-- Minimize non-essential elements
-- Every visual element should serve a purpose
-
-
-**Principle 3:** Avoid Chartjunk
-
-- Eliminate decorative elements that obscure the message
-- Simplicity and clarity are key
+- angles
+- areas
+- colour intensity
 
 \columnbreak
 
-```{r echo = F, fig.width=5, echo = F}
-d_vocab %>% 
-  mutate(across(modality, ~factor(., levels = c("writing", "speech"), ordered = T))) %>% 
-  ggplot(aes(x = ppt_vocab, y = rt, colour = modality)) +
-  geom_point() +
-  stat_smooth(method = "lm") +
-  theme_tufte(base_size = 16) +
-  labs(y = "reaction time",
-       x = "vocabulary scores") +
-  theme(legend.position = "top",
-        legend.justification = "right")
+```{r encoding-example, echo=FALSE, fig.width=5.2, fig.height=4.6}
+d_encode <- tibble(
+  category = c("A", "B", "C", "D"),
+  value = c(34, 37, 49, 58)
+)
 
+p_dot <- ggplot(d_encode, aes(x = value, y = category)) +
+  geom_point(size = 3, colour = "#2c7fb8") +
+  scale_x_continuous(limits = c(0, 65)) +
+  labs(title = "Position", x = "Value", y = NULL) +
+  theme_minimal(base_size = 13)
+
+p_bubble <- ggplot(d_encode, aes(x = category, y = 1, size = value)) +
+  geom_point(alpha = 0.65, colour = "#d95f0e") +
+  scale_size_area(max_size = 18) +
+  labs(title = "Area", x = NULL, y = NULL, size = "Value") +
+  theme_void(base_size = 13) +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5))
+
+p_dot + p_bubble + plot_annotation(tag_levels = "A")
 ```
 
+## Principles for this module {.smaller}
 
-## Principles of data visualisation {.smaller .columns-2}
+<p class="take-home compact-take-home">A useful plot should help the viewer reason about the evidence, not just decorate the analysis.</p>
 
-**Principle 4:** Use Small Multiples
+Drawing on exploratory data analysis and visualisation principles [@hartwig1979exploratory; @tufte1983visual; @cleveland1984graphical], use these checks:
 
-- Repeat charts across categories for comparison
-- Supports pattern recognition
+- **Show the data and variation:** make distributions, outliers, clusters, and uncertainty visible where they matter.
+- **Make comparisons easy:** arrange the plot around the question the viewer needs to answer.
+- **Use scales honestly:** avoid truncated, inverted, unequal, or area-based encodings that distort effects.
+- **Label enough for interpretation:** make variables, units, groups, and the intended comparison clear.
+- **Remove competing design:** decoration, heavy gridlines, and excessive colour should not compete with the evidence.
+- **Stay skeptical and open:** every plot is a choice; use visualisation for discovery, not only confirmation.
 
-**Principle 5:** Encourage Visual Comparisons
+## Same data, different design
 
-- Design graphics to make comparisons easy
-- Align scales and axes
-
-\columnbreak
-
-```{r fig.width=5.5, echo = F}
-d_vocab %>% 
+```{r design-comparison, echo=FALSE, fig.width=9, fig.height=4, out.width="90%"}
+p_hidden <- summarise(d_vocab, rt = mean(rt), .by = modality) %>%
   ggplot(aes(x = modality, y = rt)) +
-  geom_boxplot() +
-  labs(subtitle = "Good")
+  geom_col(fill = "grey75", colour = "grey30", width = 0.65) +
+  coord_cartesian(ylim = c(1350, 1700)) +
+  labs(title = "Summary + cropped axis",
+       x = "Response modality",
+       y = "Average reaction time (ms)") +
+  theme_minimal(base_size = 13)
 
+p_visible <- ggplot(d_vocab, aes(x = modality, y = rt)) +
+  geom_jitter(width = 0.12, alpha = 0.25, size = 1, colour = "#2c7fb8") +
+  geom_boxplot(width = 0.35, outlier.shape = NA, alpha = 0.25) +
+  labs(title = "Distribution visible",
+       x = "Response modality",
+       y = "Average reaction time (ms)") +
+  theme_minimal(base_size = 13)
 
+p_hidden + p_visible + plot_annotation(tag_levels = "A")
 ```
 
+What changes in your interpretation?
 
-## Principles of data visualisation {.smaller .columns-2}
+## Make comparisons easy
 
-**Principle 4:** Use Small Multiples
-
-- Repeat charts across categories for comparison
-- Supports pattern recognition
-
-**Principle 5:** Encourage Visual Comparisons
-
-- Design graphics to make comparisons easy
-- Align scales and axes
-
-\columnbreak
-
-```{r fig.width=5.5, echo = F}
-d_vocab %>% 
-  ggplot(aes(y = rt, x = "")) +
-  geom_boxplot() +
-  facet_grid(~modality, scales = "free_x") +
-  theme(axis.ticks.x = element_blank()) +
-  labs(x = "", subtitle = "Bad")
-```
-
-
-## Principles of data visualisation {.smaller .columns-2}
-
-**Principle 4:** Use Small Multiples
-
-- Repeat charts across categories for comparison
-- Supports pattern recognition
-
-**Principle 5:** Encourage Visual Comparisons
-
-- Design graphics to make comparisons easy
-- Align scales and axes
-
-\columnbreak
-
-```{r fig.width=5.5, echo = F}
-
-d_vocab %>% 
-  ggplot(aes(y = rt, x = "")) +
-  geom_boxplot() +
-  facet_wrap(~modality, scales = "free") +
-  theme(axis.ticks.x = element_blank()) +
-  labs(x = "", subtitle = "Ugly")
-
-```
-
-
-## Principles of data visualisation {.smaller .columns-2}
-
-
-
-
-**Principle 6:** Integrate Words, Numbers, and Images
-
-- Labels should be clear and close to the data
-- Avoid legends that require back-and-forth viewing
-
-\columnbreak
-
-```{r fig.width=5.25, fig.height=4.75, echo = F}
-p1 <- d_vocab %>% 
-  ggplot(aes(x = modality, y = rt)) +
-  geom_boxplot() +
-  labs(x = "")
-
-p2 <- d_vocab %>% 
-  ggplot(aes(x = "", y = rt, colour = modality)) +
-  geom_boxplot() +
-  labs(x = "") +
-  theme(axis.ticks.x = element_blank())
-
-p1 / p2 + plot_annotation(tag_levels = "A")
-```
-
-
-## Principles of data visualisation {.smaller .columns-2}
-
-
-**Principle 7:** Content Over Decoration
-
-- Focus on substance, not style
-- The story should come from the data
-
-\columnbreak
-
-```{r fig.width=5.5, fig.height=4.5, echo = F}
-# Overdecorated boxplot
-ggplot(d_vocab, aes(x = modality, y = rt, fill = modality)) +
-  geom_boxplot(color = "green", size = 1.5, outlier.colour = "red") +
-  theme_dark() +
-  theme(
-    panel.grid.major = element_line(color = "orange", size = 1),
-    panel.background = element_rect(fill = "lightblue"),
-    plot.title = element_text(size = 20, face = "bold", color = "red")
-  ) +
-  labs(
-    title = "Fancy Boxplot!",
-    fill = "output modality\nused by the participants",
-    x = "Two levels of response modality",
-    y = "reaction time measure recorded from picture onset to\nresponse onset"
-  ) +
-  scale_fill_manual(values = c("magenta", "cyan", "yellow"))
-
-```
-
-
-## Principles of data visualisation {.smaller .columns-2}
-
-**Principle 8:** Use Multivariate Displays
-
-- Show multiple variables when appropriate
-- Balance complexity with readability
-
-\columnbreak
-
-
-```{r fig.width=5, fig.height=4.75, echo = F}
-d_vocab_2 <- summarise(d_spellname, 
-                      rt = mean(rt),
-                      .by = c(ppt_id, ppt_vocab, cat, modality)) %>% 
+```{r comparison-easy, echo=FALSE, fig.width=9, fig.height=4, out.width="90%"}
+d_vocab_2 <- summarise(d_spellname,
+                       rt = mean(rt),
+                       .by = c(ppt_id, ppt_vocab, cat, modality)) %>%
   drop_na()
 
-d_vocab_2 %>%
-  mutate(group = str_c(modality, cat, sep = "; ")) %>% 
+p_hard <- d_vocab_2 %>%
+  mutate(group = str_c(modality, cat, sep = "; ")) %>%
   ggplot(aes(x = group, y = rt)) +
   geom_boxplot() +
-  labs(x = "") +
-  theme(axis.ticks.x = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+  labs(title = "Harder comparison", x = NULL, y = "Average reaction time (ms)") +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
 
+p_easy <- ggplot(d_vocab_2, aes(x = modality, y = rt, colour = cat)) +
+  geom_boxplot(outlier.alpha = 0.25) +
+  labs(title = "Easier comparison", x = "Response modality", y = "Average reaction time (ms)",
+       colour = "Category") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top")
+
+p_hard + p_easy + plot_annotation(tag_levels = "A")
 ```
 
-## Principles of data visualisation {.smaller .columns-2}
+<p class="take-home">Good plots make the intended comparison visually easy.</p>
 
-**Principle 8:** Use Multivariate Displays
+## Use labels to reduce effort
 
-- Show multiple variables when appropriate
-- Balance complexity with readability
+<div style="float: left; width: 45%;">
 
-\columnbreak
+Good labels answer:
+
+- What is measured?
+- What are the units?
+- What do colours or groups mean?
+- What should the viewer compare?
+
+</div>
+
+<div style="float: right; width: 50%;">
+```{r label-example, echo=FALSE, fig.width=4.8, fig.height=3.8, out.width="95%"}
+ggplot(d_vocab, aes(x = ppt_vocab, y = rt, colour = modality)) +
+  geom_point(alpha = 0.35) +
+  stat_smooth(method = "lm", se = FALSE) +
+  labs(x = "Vocabulary score",
+       y = "Average reaction time (ms)",
+       colour = "Response modality") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "top")
+```
+</div>
+
+## Common visualisation pitfalls
+
+Use the principles as a checklist when judging plots.
 
 
-```{r fig.width=5, fig.height=4.75, echo = F}
-d_vocab_2 %>% 
-  ggplot(aes(x = modality, y = rt, colour = cat)) +
-  geom_boxplot() +
-  labs(x = "",
-       colour = "category") +
-  theme(legend.position = "top",
-        legend.title = element_text(size = 12),
-        legend.text = element_text(size = 10))
+| Pitfall | Why it matters | Principle |
+|---|---|---|
+| Truncated or inverted axes | changes apparent size or direction of effects | avoid distortion |
+| Overplotting | hides density and individual observations | show the data |
+| Poor chart type | makes the wrong comparison easy | make comparisons easy |
+| Too much decoration | competes with the evidence | remove competing design |
+| Missing uncertainty | makes estimates look more precise | show the data and variation |
+| Weak labels or legends | increases interpretation effort | label enough for interpretation |
 
+## What's wrong with these? (1)
+
+**If time: 2 minutes in pairs** which pitfall is most important in each example.
+
+```{r bad-examples-1, fig.cap="", fig.width=8, fig.height=3, out.width="78%", echo=FALSE}
+plot_example_image <- function(path) {
+  image_read(path) %>%
+    image_trim(fuzz = 8) %>%
+    image_border("white", "8x8") %>%
+    image_ggplot() +
+    theme(plot.margin = margin(0, 0, 0, 0))
+}
+
+p_bad_a <- plot_example_image("gfx/bubbles.png")
+p_bad_b <- plot_example_image("gfx/spss.png")
+
+p_bad_a + p_bad_b +
+  plot_annotation(tag_levels = "A") &
+  theme(plot.margin = margin(0, 0, 0, 0))
+```
+
+::: {.figure-source}
+Sources: A: @ke2024simultaneous; B: @rubiah2024effect.
+:::
+
+## What's wrong with these? (2)
+
+**If time: 2 minutes in pairs** which pitfall is most important in each example.
+
+```{r bad-examples-2, fig.cap="", fig.width=8, fig.height=3.4, out.width="78%", echo=FALSE}
+p_bad_c <- plot_example_image("gfx/cbsn.png")
+p_bad_d <- plot_example_image("gfx/errorbars.png")
+
+p_bad_c + p_bad_d +
+  plot_annotation(tag_levels = "A") &
+  theme(plot.margin = margin(0, 0, 0, 0))
+```
+
+::: {.figure-source}
+Sources: A: CBSN; B: @Gong2022.
+:::
+
+## What's wrong with these? (3)
+
+**If time: 2 minutes in pairs** which pitfall is most important in each example.
+
+```{r bad-examples-3, fig.cap="", fig.width=8, fig.height=3.4, out.width="78%", echo=FALSE}
+p_bad_e <- plot_example_image("gfx/3dbar.png")
+p_bad_f <- plot_example_image("gfx/pie.jpeg")
+
+p_bad_e + p_bad_f +
+  plot_annotation(tag_levels = "A") &
+  theme(plot.margin = margin(0, 0, 0, 0))
 ```
 
 
-## Principles of data visualisation {.smaller .columns-2}
+## What's wrong with these? (4)
 
-**Principle 8:** Use Multivariate Displays
+**If time: 1 minutes in pairs** which pitfall is most important in this example.
 
-- Show multiple variables when appropriate
-- Balance complexity with readability
-
-\columnbreak
-
-
-```{r fig.width=5, fig.height=4.75, echo = F}
-d_vocab_2 %>% 
-  ggplot(aes(x = cat, y = rt, colour = modality)) +
-  geom_boxplot() +
-  labs(x = "",
-       colour = "modality") +
-  theme(legend.position = "top",
-        legend.title = element_text(size = 12),
-        legend.text = element_text(size = 10))
-
+```{r bad-examples-4, fig.cap="", fig.width=6, fig.height=3.7, out.width="66%", echo=FALSE}
+plot_example_image("gfx/women.png") +
+  theme(plot.margin = margin(0, 0, 0, 0))
 ```
 
-
-
-## Principles of data visualisation {.smaller .columns-2}
-
-
-**Principle 9:** Avoid Distorting the Data
-
-- Maintain proportionality and scale
-- Avoid misleading visuals
-
-
-\columnbreak
-
-
-```{r fig.width=5.25, fig.height=4.75, echo = F}
-
-p1 <- d_vocab %>% 
-  ggplot(aes(x = modality, y = rt)) +
-  geom_boxplot() +
-  labs(x = "")
-
-p2 <- d_vocab %>% 
-  summarise(rt = mean(rt), .by = modality) %>% 
-  ggplot(aes(x = modality, y = rt)) +
-  geom_col() +
-  coord_cartesian(ylim = c(1300, 1750)) +
-  labs(x = "")
-
-p1 / p2 + plot_annotation(tag_levels = "A")
-
-```
-
-## Principles of data visualisation
-
-- Clarity: Avoid clutter; make the message obvious
-- Accuracy: Represent data truthfully
-- Efficiency: Use the right chart for the right data
-- Consistency: Use consistent scales, colors, and labels
-- Accessibility: Consider colorblind-friendly palettes and readable fonts
-
-
-
-
-
-
-## What's wrong with these? 
-
-
-```{r fig.cap="", fig.width=10, fig.height=10, echo = F}
-p1 <- image_read("gfx/errorbars.png") %>% 
-  image_ggplot() +
-  labs(caption = "Source: Gong and Liu (2022)")
-
-#p2 <- image_read("gfx/trivial.jpg") %>% 
-#  image_ggplot()
-
-p2 <- image_read("gfx/3dbar.png") %>% 
-  image_ggplot()
-
-p3 <- image_read("gfx/pie.jpeg") %>% 
-  image_ggplot()
-
-p4 <- image_read("gfx/women.png") %>% 
-  image_ggplot()
-
-p5 <- image_read("gfx/bubbles.png") %>% 
-  image_ggplot() +
-  labs(caption = "Source: Ke (2024)")
-
-p6 <- image_read("gfx/spss.png") %>% 
-  image_ggplot() +
-  labs(caption = "Source: Rubiah et al. (2024)")
-
-p7 <- image_read("gfx/cbsn.png") %>% 
-  image_ggplot() +
-  labs(caption = "Source: CBSN")
-
-
-p1 + p2 + p3 + p4 + p5 + p6 + p7 +
-  plot_annotation(tag_levels = "A")
-
-```
-
-See @Gong2022 (now retracted), @rubiah2024effect, and @ke2024simultaneous for examples.
-
-Check Figures in [@vanLieburg2023abstract](https://link.springer.com/article/10.1007/s41809-023-00131-5); code and data are [HERE](https://osf.io/x8ejm/).
-
-<!-- ## Fixing poor data visualisations -->
 
 
 
@@ -807,8 +697,8 @@ Check Figures in [@vanLieburg2023abstract](https://link.springer.com/article/10.
 
 For support with this week's material, use:
 
-- @andrews2021doing, Chapter 4: data visualisation in R.
-- @wickham2016r, Chapter 3: data visualisation with `ggplot2`.
+- @andrews2021doing, Chapter 4: data visualisation in R. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf)
+- @wickham2016r, Chapter 3: data visualisation with `ggplot2`. [Online chapter](https://r4ds.had.co.nz/data-visualisation.html)
 
 For deeper background on visualisation principles, see @Tufte2001VisualDisplay.
 
@@ -818,12 +708,16 @@ For deeper background on visualisation principles, see @Tufte2001VisualDisplay.
 
 ## Homework
 
-Identify a dataset for the formative assessment.
+Before next week:
 
-On Teams, share a poor data visualisation (from a published research papers, news websites, social media, etc) and your reason why it is poor. Which principle(s) of data visualisation were violated?
+- complete the Week 2 visualisation exercises if you did not finish them in class
+- continue looking for a behavioural dataset for the formative assessment
+- bring dataset questions to the tutorial checkpoint on 21 October
+
+Suggestion for formative assessment: rework (some) figures reported in @vanLieburg2023abstract: [article](https://link.springer.com/article/10.1007/s41809-023-00131-5), [code and data](https://osf.io/x8ejm/).
 
 
-## References
+## References {.references .smaller}
 
 <style>
 slides > slide { overflow: scroll; }
@@ -832,3 +726,12 @@ slides > slide:not(.nobackground):after {
 }
 </style>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("span.cite").forEach(function (el) {
+    if (el.textContent.trim().startsWith("(")) {
+      el.classList.add("cite-parenthetical");
+    }
+  });
+});
+</script>

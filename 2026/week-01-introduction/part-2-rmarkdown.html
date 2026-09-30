@@ -85,6 +85,7 @@ src: url(data:font/ttf;base64,AAEAAAAPAIAAAwBwRkZUTWaiaLcAAKVwAAAAHE9TLzJyvPgMAA
 }
 </style>
   <style type="text/css">@charset "UTF-8";
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -105,37 +106,48 @@ font: inherit;
 font-size: 100%;
 vertical-align: baseline;
 }
+
 html {
 line-height: 1.2;
 }
+
 ul {
 list-style: none;
 }
+
 table {
 border-collapse: collapse;
 border-spacing: 0;
 }
+
 caption, th, td {
 font-weight: normal;
 vertical-align: middle;
 }
+
 q, blockquote {
 quotes: none;
 }
+
 q:before, q:after, blockquote:before, blockquote:after {
 content: "";
 content: none;
 }
+
 a img {
 border: none;
 }
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
 display: block;
 }
+
+
 html {
 height: 100%;
 overflow: hidden;
 }
+
 body {
 margin: 0;
 padding: 0;
@@ -155,15 +167,19 @@ color: #fff;
 -o-transition: opacity 250ms ease-in 100ms;
 transition: opacity 250ms ease-in 100ms;
 }
+
 body.loaded {
 opacity: 1 !important;
 }
+
 input, button {
 vertical-align: middle;
 }
+
 slides > slide[hidden] {
 display: none !important;
 }
+
 slides {
 width: 100%;
 height: 100%;
@@ -191,6 +207,7 @@ transform-style: preserve-3d;
 -o-transition: opacity 250ms ease-in 100ms;
 transition: opacity 250ms ease-in 100ms;
 }
+
 slides > slide {
 display: block;
 position: absolute;
@@ -201,16 +218,22 @@ top: 50%;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 }
+
+
+
+
 ::selection {
 color: white;
 background-color: #ffd14d;
 text-shadow: none;
 }
+
 ::-webkit-scrollbar {
 height: 16px;
 overflow: visible;
 width: 16px;
 }
+
 ::-webkit-scrollbar-thumb {
 background-color: rgba(0, 0, 0, 0.1);
 background-clip: padding-box;
@@ -222,24 +245,30 @@ padding: 100px 0 0;
 box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
 border-width: 1px 1px 1px 6px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
 background-color: rgba(0, 0, 0, 0.5);
 }
+
 ::-webkit-scrollbar-button {
 height: 0;
 width: 0;
 }
+
 ::-webkit-scrollbar-track {
 background-clip: padding-box;
 border: solid transparent;
 border-width: 0 0 0 4px;
 }
+
 ::-webkit-scrollbar-corner {
 background: transparent;
 }
+
 body {
 background: black;
 }
+
 slides > slide {
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
@@ -259,11 +288,14 @@ border-radius: 5px;
 -o-transition: all 0.6s ease-in-out;
 transition: all 0.6s ease-in-out;
 }
+
 slides > slide.far-past {
 }
+
 slides > slide.past {
 opacity: 0;
 }
+
 slides > slide.current {
 display: block;
 opacity: 1;
@@ -272,24 +304,30 @@ z-index: 1;
 slides > slide:not(.current) {
 z-index: 0;
 }
+
 slides > slide.current .auto-fadein {
 opacity: 1;
 }
+
 slides > slide.current .gdbar {
 -webkit-background-size: 100% 100%;
 -moz-background-size: 100% 100%;
 -o-background-size: 100% 100%;
 background-size: 100% 100%;
 }
+
 slides > slide.next {
 opacity: 0;
 pointer-events: none;
 }
+
 slides > slide.far-next {
 }
+
 slides > slide.dark {
 background: #515151 !important;
 }
+
 slides > slide:not(.nobackground):after {
 font-size: 12pt;
 content: attr(data-slide-num) "/" attr(data-total-slides);
@@ -298,6 +336,7 @@ bottom: 20px;
 right: 60px;
 line-height: 1.9;
 }
+
 slides > slide.title-slide:after {
 content: '';
 position: absolute;
@@ -306,6 +345,7 @@ right: 40px;
 width: 100%;
 height: 60px;
 }
+
 slides > slide.backdrop {
 z-index: -10;
 display: block !important;
@@ -316,32 +356,41 @@ background: -o-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
 background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
 background-color: white;
 }
+
 slides > slide.backdrop:after, slides > slide.backdrop:before {
 display: none;
 }
+
 slides > slide > hgroup + article {
 margin-top: 45px;
 }
+
 slides > slide > hgroup + article.flexbox.vcenter, slides > slide > hgroup + article.flexbox.vleft, slides > slide > hgroup + article.flexbox.vright {
 height: 80%;
 }
+
 slides > slide > hgroup + article p {
 margin-bottom: 1em;
 }
+
 slides > slide > article:only-child {
 height: 100%;
 }
+
 slides > slide > article:only-child > iframe {
 height: 95%;
 }
+
 slides.layout-faux-widescreen > slide {
 padding: 40px 160px;
 }
+
 slides.layout-widescreen > slide,
 slides.layout-faux-widescreen > slide {
 margin-left: -550px;
 width: 1100px;
 }
+
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
 -webkit-transform: translate(-2260px);
@@ -355,22 +404,26 @@ transform: translate(-2260px);
 -o-transform: translate3d(-2260px, 0, 0);
 transform: translate3d(-2260px, 0, 0);
 }
+
 slides.layout-widescreen > slide.past,
 slides.layout-faux-widescreen > slide.past {
 display: block;
 opacity: 0;
 }
+
 slides.layout-widescreen > slide.current,
 slides.layout-faux-widescreen > slide.current {
 display: block;
 opacity: 1;
 }
+
 slides.layout-widescreen > slide.next,
 slides.layout-faux-widescreen > slide.next {
 display: block;
 opacity: 0;
 pointer-events: none;
 }
+
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
 -webkit-transform: translate(2260px);
@@ -384,34 +437,42 @@ transform: translate(2260px);
 -o-transform: translate3d(2260px, 0, 0);
 transform: translate3d(2260px, 0, 0);
 }
+
 slides.layout-widescreen #prev-slide-area,
 slides.layout-faux-widescreen #prev-slide-area {
 margin-left: -650px;
 }
+
 slides.layout-widescreen #next-slide-area,
 slides.layout-faux-widescreen #next-slide-area {
 margin-left: 550px;
 }
+
 b {
 font-weight: 600;
 }
+
 a {
 color: #2a7cdf;
 text-decoration: none;
 border-bottom: 1px solid rgba(42, 124, 223, 0.5);
 }
+
 a:hover {
 color: black !important;
 }
+
 h1, h2, h3 {
 font-weight: 600;
 }
+
 h2 {
 font-size: 45px;
 line-height: 65px;
 letter-spacing: -2px;
 color: #515151;
 }
+
 h3 {
 font-size: 30px;
 letter-spacing: -1px;
@@ -419,6 +480,7 @@ line-height: 2;
 font-weight: inherit;
 color: #797979;
 }
+
 ol, ul {
 margin-left: 1.2em;
 margin-bottom: 1em;
@@ -427,24 +489,29 @@ position: relative;
 ol {
 margin-left: 1.4em;
 }
+
 ol li,
 ul li {
 margin-bottom: 0.5em;
 }
+
 ul li ul {
 margin-left: 2em;
 margin-bottom: 0;
 }
+
 ul li ul li:before {
 content: '-';
 font-weight: 600;
 }
+
 ul > li:before {
 content: '\00B7';
 margin-left: -1em;
 position: absolute;
 font-weight: 600;
 }
+
 ul ul,
 ol ul {
 margin-top: .5em;
@@ -453,6 +520,7 @@ ol ul,
 ol ol {
 margin-top: .5em;
 }
+
 .highlight-code slide.current pre > * {
 opacity: 0.25;
 -webkit-transition: opacity 0.5s ease-in;
@@ -460,9 +528,11 @@ opacity: 0.25;
 -o-transition: opacity 0.5s ease-in;
 transition: opacity 0.5s ease-in;
 }
+
 .highlight-code slide.current b {
 opacity: 1;
 }
+
 pre {
 font-family: 'Source Code Pro', 'Courier New', monospace;
 font-size: 20px;
@@ -476,10 +546,12 @@ position: relative;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
+
 }
 .prettyprint {
 background-color: #e6e6e6;
 }
+
 pre[data-lang]:after {
 content: attr(data-lang);
 background-color: darkgrey;
@@ -491,14 +563,17 @@ color: white;
 padding: 2px 25px;
 text-transform: uppercase;
 }
+
 pre[data-lang="go"] {
 color: #333;
 }
+
 code {
 font-size: 95%;
 font-family: 'Source Code Pro', 'Courier New', monospace;
 color: black;
 }
+
 iframe {
 width: 100%;
 height: 510px;
@@ -508,9 +583,11 @@ border: 1px solid #e6e6e6;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 }
+
 dt {
 font-weight: bold;
 }
+
 button {
 display: inline-block;
 background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #f9f9f9), color-stop(70%, #e3e3e3));
@@ -534,9 +611,11 @@ cursor: pointer;
 text-shadow: 1px 1px white;
 font-size: 10pt;
 }
+
 button:not(:disabled):hover {
 border-color: #515151;
 }
+
 button:not(:disabled):active {
 background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #e3e3e3), color-stop(70%, #f9f9f9));
 background: -webkit-linear-gradient(#e3e3e3 40%, #f9f9f9 70%);
@@ -544,63 +623,83 @@ background: -moz-linear-gradient(#e3e3e3 40%, #f9f9f9 70%);
 background: -o-linear-gradient(#e3e3e3 40%, #f9f9f9 70%);
 background: linear-gradient(#e3e3e3 40%, #f9f9f9 70%);
 }
+
 :disabled {
 color: darkgrey;
 }
+
 .blue {
 color: #4387fd;
 }
+
 .blue2 {
 color: #3c8ef3;
 }
+
 .blue3 {
 color: #2a7cdf;
 }
+
 .yellow {
 color: #ffd14d;
 }
+
 .yellow2 {
 color: #f9cc46;
 }
+
 .yellow3 {
 color: #f6c000;
 }
+
 .green {
 color: #0da861;
 }
+
 .green2 {
 color: #00a86d;
 }
+
 .green3 {
 color: #009f5d;
 }
+
 .red {
 color: #f44a3f;
 }
+
 .red2 {
 color: #e0543e;
 }
+
 .red3 {
 color: #d94d3a;
 }
+
 .gray {
 color: #e6e6e6;
 }
+
 .gray2 {
 color: darkgrey;
 }
+
 .gray3 {
 color: #797979;
 }
+
 .gray4 {
 color: #515151;
 }
+
 .white {
 color: white !important;
 }
+
 .black {
 color: black !important;
 }
+
 .columns-2 {
 -webkit-column-count: 2;
 -moz-column-count: 2;
@@ -608,9 +707,11 @@ color: black !important;
 -o-column-count: 2;
 column-count: 2;
 }
+
 .columns-2 ul, .columns-2 ol {
 -webkit-transform: translate3d(0, 0, 0);
 }
+
 table.rmdtable {
 width: 100%;
 border-collapse: -moz-initial;
@@ -618,13 +719,16 @@ border-collapse: initial;
 border-spacing: 2px;
 border-bottom: 1px solid #797979;
 }
+
 table.rmdtable tr > td:first-child, table th {
 font-weight: 600;
 color: #515151;
 }
+
 table.rmdtable tr:nth-child(odd) {
 background-color: #e6e6e6;
 }
+
 table.rmdtable th {
 color: white;
 font-size: 18px;
@@ -634,10 +738,12 @@ background: -moz-linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
 background: -o-linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
 background: linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
 }
+
 table.rmdtable td, table th {
 font-size: 18px;
 padding: 1em 0.5em;
 }
+
 table.rmdtable td.highlight {
 color: #515151;
 background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #ffd14d), color-stop(80%, #f6c000)) no-repeat;
@@ -646,24 +752,29 @@ background: -moz-linear-gradient(top, #ffd14d 40%, #f6c000 80%) no-repeat;
 background: -o-linear-gradient(top, #ffd14d 40%, #f6c000 80%) no-repeat;
 background: linear-gradient(top, #ffd14d 40%, #f6c000 80%) no-repeat;
 }
+
 table.rmdtable.rows {
 border-bottom: none;
 border-right: 1px solid #797979;
 }
+
 q {
 font-size: 45px;
 line-height: 72px;
 }
+
 q:before {
 content: '\201C';
 position: absolute;
 margin-left: -0.5em;
 }
+
 q:after {
 content: '\201D';
 position: absolute;
 margin-left: 0.1em;
 }
+
 slide.fill {
 background-repeat: no-repeat;
 -webkit-border-radius: 5px;
@@ -676,26 +787,34 @@ border-radius: 5px;
 -o-background-size: cover;
 background-size: cover;
 }
+
+
 article.smaller p, article.smaller ul, article.smaller ol {
 font-size: 20px;
 line-height: 24px;
 letter-spacing: 0;
 }
+
 article.smaller table td, article.smaller table th {
 font-size: 14px;
 }
+
 article.smaller pre {
 font-size: 15px;
 line-height: 20px;
 letter-spacing: 0;
 }
+
 article.smaller q {
 font-size: 40px;
 line-height: 48px;
 }
+
 article.smaller q:before, article.smaller q:after {
 font-size: 60px;
 }
+
+
 .build > * {
 -webkit-transition: opacity 0.5s ease-in-out;
 -webkit-transition-delay: 0.2s;
@@ -703,50 +822,69 @@ font-size: 60px;
 -o-transition: opacity 0.5s ease-in-out 0.2s;
 transition: opacity 0.5s ease-in-out 0.2s;
 }
+
 .build .to-build {
 opacity: 0;
 }
+
 .build .build-fade {
 opacity: 0.3;
 }
+
 .build .build-fade:hover {
 opacity: 1.0;
 }
+
 .popup .next .build .to-build {
 opacity: 1;
 }
+
 .popup .next .build .build-fade {
 opacity: 1;
 }
+
+
 .prettyprint .str,
 .prettyprint .atv {
+
 color: #009f5d;
 }
+
 .prettyprint .kwd,
 .prettyprint .tag {
+
 color: #0066cc;
 }
+
 .prettyprint .com {
+
 color: #797979;
 font-style: italic;
 }
+
 .prettyprint .lit {
+
 color: #7f0000;
 }
+
 .prettyprint .pun,
 .prettyprint .opn,
 .prettyprint .clo {
 color: #515151;
 }
+
 .prettyprint .typ,
 .prettyprint .atn,
 .prettyprint .dec,
 .prettyprint .var {
+
 color: #d94d3a;
 }
+
 .prettyprint .pln {
 color: #515151;
 }
+
 .note {
 position: absolute;
 z-index: 100;
@@ -793,6 +931,7 @@ transform: translateY(350px);
 -o-transition: all 0.4s ease-in-out;
 transition: all 0.4s ease-in-out;
 }
+
 .note > section {
 background: #fff;
 -webkit-border-radius: 5px;
@@ -806,6 +945,7 @@ box-shadow: 0 0 10px #797979;
 width: 60%;
 padding: 2em;
 }
+
 .with-notes.popup slides.layout-widescreen slide.next,
 .with-notes.popup slides.layout-faux-widescreen slide.next {
 -webkit-transform: translate3d(690px, 80px, 0) scale(0.35);
@@ -814,6 +954,7 @@ padding: 2em;
 -o-transform: translate3d(690px, 80px, 0) scale(0.35);
 transform: translate3d(690px, 80px, 0) scale(0.35);
 }
+
 .with-notes.popup slides.layout-widescreen slide .note,
 .with-notes.popup slides.layout-faux-widescreen slide .note {
 -webkit-transform: translate3d(300px, 800px, 0) scale(1.5);
@@ -822,6 +963,7 @@ transform: translate3d(690px, 80px, 0) scale(0.35);
 -o-transform: translate3d(300px, 800px, 0) scale(1.5);
 transform: translate3d(300px, 800px, 0) scale(1.5);
 }
+
 .with-notes.popup slide {
 overflow: visible;
 background: white;
@@ -836,6 +978,7 @@ pointer-events: none;
 -o-transform-origin: 0 0;
 transform-origin: 0 0;
 }
+
 .with-notes.popup slide:not(.backdrop) {
 -webkit-transform: scale(0.6) translate3d(0.5em, 0.5em, 0);
 -moz-transform: scale(0.6) translate3d(0.5em, 0.5em, 0);
@@ -846,6 +989,7 @@ transform: scale(0.6) translate3d(0.5em, 0.5em, 0);
 -moz-box-shadow: 0 0 10px #797979;
 box-shadow: 0 0 10px #797979;
 }
+
 .with-notes.popup slide.backdrop {
 background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 600, color-stop(0%, #b1dfff), color-stop(100%, #4387fd));
 background-image: -webkit-radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
@@ -853,6 +997,7 @@ background-image: -moz-radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
 background-image: -o-radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
 background-image: radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
 }
+
 .with-notes.popup slide.next {
 -webkit-transform: translate3d(570px, 80px, 0) scale(0.35);
 -moz-transform: translate3d(570px, 80px, 0) scale(0.35);
@@ -861,9 +1006,11 @@ background-image: radial-gradient(50% 50%, #b1dfff 0%, #4387fd 600px);
 transform: translate3d(570px, 80px, 0) scale(0.35);
 opacity: 1 !important;
 }
+
 .with-notes.popup slide.next .note {
 display: none !important;
 }
+
 .with-notes.popup .note {
 width: 109%;
 height: 260px;
@@ -882,6 +1029,7 @@ transform: translate3d(250px, 800px, 0) scale(1.5);
 -o-transition: opacity 400ms ease-in-out;
 transition: opacity 400ms ease-in-out;
 }
+
 .with-notes.popup .note > section {
 background: #fff;
 -webkit-border-radius: 5px;
@@ -900,6 +1048,7 @@ box-shadow: none;
 overflow: auto;
 padding: 1em;
 }
+
 .with-notes .note {
 opacity: 1;
 -webkit-transform: translateY(0);
@@ -909,6 +1058,7 @@ opacity: 1;
 transform: translateY(0);
 pointer-events: auto;
 }
+
 .source {
 font-size: 14px;
 color: darkgrey;
@@ -916,9 +1066,11 @@ position: absolute;
 bottom: 70px;
 left: 60px;
 }
+
 .centered {
 text-align: center;
 }
+
 .reflect {
 -webkit-box-reflect: below 3px -webkit-linear-gradient(rgba(255, 255, 255, 0) 85%, white 150%);
 -moz-box-reflect: below 3px -moz-linear-gradient(rgba(255, 255, 255, 0) 85%, white 150%);
@@ -926,6 +1078,7 @@ text-align: center;
 -ms-box-reflect: below 3px -ms-linear-gradient(rgba(255, 255, 255, 0) 85%, white 150%);
 box-reflect: below 3px linear-gradient(rgba(255, 255, 255, 0) 85%, #ffffff 150%);
 }
+
 .flexbox {
 display: -webkit-box !important;
 display: -moz-box !important;
@@ -933,6 +1086,7 @@ display: -ms-box !important;
 display: -o-box !important;
 display: box !important;
 }
+
 .flexbox.vcenter {
 -webkit-box-orient: vertical;
 -moz-box-orient: vertical;
@@ -949,6 +1103,7 @@ box-pack: center;
 height: 100%;
 width: 100%;
 }
+
 .flexbox.vleft {
 -webkit-box-orient: vertical;
 -moz-box-orient: vertical;
@@ -965,6 +1120,7 @@ box-pack: center;
 height: 100%;
 width: 100%;
 }
+
 .flexbox.vright {
 -webkit-box-orient: vertical;
 -moz-box-orient: vertical;
@@ -981,6 +1137,7 @@ box-pack: center;
 height: 100%;
 width: 100%;
 }
+
 .auto-fadein {
 -webkit-transition: opacity 0.6s ease-in;
 -webkit-transition-delay: 0.6s;
@@ -989,6 +1146,8 @@ width: 100%;
 transition: opacity 0.6s ease-in 0.6s;
 opacity: 0;
 }
+
+
 .slide-area {
 z-index: 1000;
 position: absolute;
@@ -1001,49 +1160,62 @@ top: 50%;
 cursor: pointer;
 margin-top: -350px;
 }
+
 #prev-slide-area {
 margin-left: -550px;
 }
+
 #next-slide-area {
 margin-left: 450px;
 }
+
+
 .logoslide img {
 width: 383px;
 height: 92px;
 }
+
 .segue {
 padding: 60px 120px;
 }
+
 .segue h2 {
 color: #e6e6e6;
 font-size: 60px;
 }
+
 .segue h3 {
 color: #e6e6e6;
 line-height: 2.8;
 }
+
 .segue hgroup {
 position: absolute;
 bottom: 225px;
 }
+
 .thank-you-slide {
 background: #4387fd !important;
 color: white;
 }
+
 .thank-you-slide h2 {
 font-size: 60px;
 color: inherit;
 }
+
 .thank-you-slide article > p {
 margin-top: 2em;
 font-size: 20pt;
 }
+
 .thank-you-slide > p {
 position: absolute;
 bottom: 80px;
 font-size: 24pt;
 line-height: 1.3;
 }
+
 aside.gdbar {
 height: 97px;
 width: 215px;
@@ -1069,18 +1241,22 @@ background-size: 0% 100%;
 -moz-transition: all 0.5s ease-out 0.5s;
 -o-transition: all 0.5s ease-out 0.5s;
 transition: all 0.5s ease-out 0.5s;
+
 }
+
 aside.gdbar.right {
 right: 0;
 left: -moz-initial;
 left: initial;
 top: 254px;
+
 -webkit-transform: rotateZ(180deg);
 -moz-transform: rotateZ(180deg);
 -ms-transform: rotateZ(180deg);
 -o-transform: rotateZ(180deg);
 transform: rotateZ(180deg);
 }
+
 aside.gdbar.right img {
 -webkit-transform: rotateZ(180deg);
 -moz-transform: rotateZ(180deg);
@@ -1088,11 +1264,13 @@ aside.gdbar.right img {
 -o-transform: rotateZ(180deg);
 transform: rotateZ(180deg);
 }
+
 aside.gdbar.bottom {
 top: -moz-initial;
 top: initial;
 bottom: 60px;
 }
+
 aside.gdbar img {
 width: 85px;
 height: 85px;
@@ -1100,46 +1278,56 @@ position: absolute;
 right: 0;
 margin: 8px 15px;
 }
+
 .title-slide hgroup {
 bottom: 100px;
 }
+
 .title-slide hgroup h1 {
 font-size: 65px;
 line-height: 1.4;
 letter-spacing: -3px;
 color: #515151;
 }
+
 .title-slide hgroup h2 {
 font-size: 34px;
 color: darkgrey;
 font-weight: inherit;
 }
+
 .title-slide hgroup p {
 font-size: 20px;
 color: #797979;
 line-height: 1.3;
 margin-top: 2em;
 }
+
 .quote {
 color: #e6e6e6;
 }
+
 .quote .author {
 font-size: 24px;
 position: absolute;
 bottom: 80px;
 line-height: 1.4;
 }
+
 [data-config-contact] a {
 color: white;
 border-bottom: none;
 }
+
 [data-config-contact] span {
 width: 115px;
 display: inline-block;
 }
+
 .overview.popup .note {
 display: none !important;
 }
+
 .overview slides slide {
 display: block;
 cursor: pointer;
@@ -1152,16 +1340,20 @@ background: -o-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
 background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
 background-color: white;
 }
+
 .overview slides slide.backdrop {
 display: none !important;
 }
+
 .overview slides slide.far-past, .overview slides slide.past, .overview slides slide.next, .overview slides slide.far-next, .overview slides slide.far-past {
 opacity: 0.5;
 display: block;
 }
+
 .overview slides slide.current {
 opacity: 1;
 }
+
 .overview .slide-area {
 display: none;
 }
@@ -1173,10 +1365,12 @@ slides > slide {
 opacity: 0;
 }
 @media print {
+
 @page {
 size: landscape;
 margin: 0;
 }
+
 slides slide {
 display: block !important;
 position: relative;
@@ -1201,35 +1395,44 @@ margin-left: 0 !important;
 opacity: 1 !important;
 color: #555;
 }
+
 slides slide.far-past, slides slide.past, slides slide.next, slides slide.far-next, slides slide.far-past, slides slide.current {
 opacity: 1 !important;
 display: block !important;
 }
+
 slides slide .build > * {
 -webkit-transition: none;
 -moz-transition: none;
 -o-transition: none;
 transition: none;
 }
+
 slides slide .build .to-build,
 slides slide .build .build-fade {
 opacity: 1;
 }
+
 slides slide .auto-fadein {
 opacity: 1 !important;
 }
+
 slides slide.backdrop {
 display: none !important;
 }
+
 slides slide table.rows {
 border-right: 0;
 }
+
 slides slide[hidden] {
 display: none !important;
 }
+
 .slide-area {
 display: none;
 }
+
 .reflect {
 -webkit-box-reflect: none;
 -moz-box-reflect: none;
@@ -1237,10 +1440,12 @@ display: none;
 -ms-box-reflect: none;
 box-reflect: none;
 }
+
 pre, code {
 font-family: monospace !important;
 }
 }
+
 label {
 display: block;
 margin-bottom: 4px;
@@ -1255,6 +1460,7 @@ width: 220px;
 .jslider {
 margin-top: 8px;
 }
+
 .dataTables_info, .dataTables_paginate {
 font-size: 14px;
 }
@@ -1334,24 +1540,24 @@ PR['registerLangHandler'](
     PR['createSimpleLexer'](
         [
             [PR['PR_PLAIN'],       /^[\t\n\r \xA0]+/, null, '\t\n\r \xA0'],
-        [PR['PR_STRING'],      /^\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)/, null, '"'],
-        [PR['PR_STRING'],      /^\'(?:[^\'\\]|\\[\s\S])*(?:\'|$)/, null, "'"]
+	    [PR['PR_STRING'],      /^\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)/, null, '"'],
+	    [PR['PR_STRING'],      /^\'(?:[^\'\\]|\\[\s\S])*(?:\'|$)/, null, "'"]
         ],
         [
             [PR['PR_COMMENT'],     /^#.*/],
-        [PR['PR_KEYWORD'],     /^(?:if|else|for|while|repeat|in|next|break|return|switch|function)(?![A-Za-z0-9_.])/],
-        // hex numbes
-        [PR['PR_LITERAL'], /^0[xX][a-fA-F0-9]+([pP][0-9]+)?[Li]?/],
-        // Decimal numbers
+	    [PR['PR_KEYWORD'],     /^(?:if|else|for|while|repeat|in|next|break|return|switch|function)(?![A-Za-z0-9_.])/],
+	    // hex numbes
+	    [PR['PR_LITERAL'], /^0[xX][a-fA-F0-9]+([pP][0-9]+)?[Li]?/],
+	    // Decimal numbers
             [PR['PR_LITERAL'], /^[+-]?([0-9]+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?[Li]?/],
-        // builtin symbols
-        [PR['PR_LITERAL'], /^(?:NULL|NA(?:_(?:integer|real|complex|character)_)?|Inf|TRUE|FALSE|NaN|\.\.(?:\.|[0-9]+))(?![A-Za-z0-9_.])/],
-        // assignment, operators, and parens, etc.
-        [PR['PR_PUNCTUATION'], /^(?:<<?-|->>?|-|==|<=|>=|<|>|&&?|!=|\|\|?|\*|\+|\^|\/|!|%.*?%|=|~|\$|@|:{1,3}|[\[\](){};,?])/],
-        // valid variable names
-        [PR['PR_PLAIN'], /^(?:[A-Za-z]+[A-Za-z0-9_.]*|\.[a-zA-Z_][0-9a-zA-Z\._]*)(?![A-Za-z0-9_.])/],
-        // string backtick
-        [PR['PR_STRING'], /^`.+`/]
+	    // builtin symbols
+	    [PR['PR_LITERAL'], /^(?:NULL|NA(?:_(?:integer|real|complex|character)_)?|Inf|TRUE|FALSE|NaN|\.\.(?:\.|[0-9]+))(?![A-Za-z0-9_.])/],
+	    // assignment, operators, and parens, etc.
+	    [PR['PR_PUNCTUATION'], /^(?:<<?-|->>?|-|==|<=|>=|<|>|&&?|!=|\|\|?|\*|\+|\^|\/|!|%.*?%|=|~|\$|@|:{1,3}|[\[\](){};,?])/],
+	    // valid variable names
+	    [PR['PR_PLAIN'], /^(?:[A-Za-z]+[A-Za-z0-9_.]*|\.[a-zA-Z_][0-9a-zA-Z\._]*)(?![A-Za-z0-9_.])/],
+	    // string backtick
+	    [PR['PR_STRING'], /^`.+`/]
         ]),
     ['r', 's', 'R', 'S', 'Splus']);
 </script>
@@ -2908,6 +3114,7 @@ transition: all 0.6s ease-in-out;
 transition: opacity 0.6s ease-in 0.6s;
 opacity: 0;
 }
+
 slide:not(.current) .plotly.html-widget{
 display: block;
 }
@@ -2952,7 +3159,36 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } code span.at { color: #7d9029; } code span.bn { color: #40a070; } code span.bu { color: #008000; } code span.cf { color: #007020; font-weight: bold; } code span.ch { color: #4070a0; } code span.cn { color: #880000; } code span.co { color: #60a0b0; font-style: italic; } code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } code span.do { color: #ba2121; font-style: italic; } code span.dt { color: #902000; } code span.dv { color: #40a070; } code span.er { color: #ff0000; font-weight: bold; } code span.ex { } code span.fl { color: #40a070; } code span.fu { color: #06287e; } code span.im { color: #008000; font-weight: bold; } code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } code span.kw { color: #007020; font-weight: bold; } code span.op { color: #666666; } code span.ot { color: #007020; } code span.pp { color: #bc7a00; } code span.sc { color: #4070a0; } code span.ss { color: #bb6688; } code span.st { color: #4070a0; } code span.va { color: #19177c; } code span.vs { color: #4070a0; } code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } </style>
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
 
   <style type="text/css">
 .title-slide {
@@ -2992,6 +3228,7 @@ display: inline-block;
 font-size: 0.82em;
 margin-top: 10px;
 }
+
 .bluesky-account {
 align-items: center;
 display: inline-flex;
@@ -3011,6 +3248,7 @@ width: 1.24em;
 color: inherit;
 text-decoration: none;
 }
+
 .topic-label {
 color: #0868ac;
 font-weight: bold;
@@ -3043,10 +3281,12 @@ padding: 14px 20px;
 font-size: 25px;
 line-height: 1.45;
 }
+
 .intro-profile {
 align-items: start;
 display: grid;
 gap: 28px;
+
 grid-template-columns: minmax(0, 1fr) 520px;
 margin-top: 8px;
 }
@@ -3067,13 +3307,16 @@ border: 1px solid #d1d5db;
 border-radius: 4px;
 overflow: hidden;
 position: relative;
+
 width: 520px;
 }
 .intro-profile .location-map {
 display: block;
 height: auto;
+
 width: 520px;
 }
+
 .map-arrow {
 background: #1f2937;
 height: 2px;
@@ -3085,6 +3328,7 @@ transform-origin: left center;
 width: 136px;
 z-index: 2;
 }
+
 .map-arrow::before {
 border-bottom: 5px solid transparent;
 border-right: 9px solid #1f2937;
@@ -3094,6 +3338,7 @@ position: absolute;
 left: -8px;
 top: -4px;
 }
+
 .map-label {
 background: rgba(255, 255, 255, 0.92);
 border: 1px solid #d1d5db;
@@ -3109,6 +3354,7 @@ top: 2.9%;
 white-space: nowrap;
 z-index: 2;
 }
+
 .uk-inset {
 background: #eef6fb;
 border: 2px solid #ffffff;
@@ -3122,12 +3368,14 @@ right: 10px;
 width: 170px;
 z-index: 3;
 }
+
 .uk-inset img {
 left: -1386px;
 position: absolute;
 top: -210px;
 width: 3100px;
 }
+
 .uk-dot {
 background: #b42318;
 border: 2px solid #ffffff;
@@ -3152,6 +3400,7 @@ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 .columns-2 > div {
 min-width: 0;
 }
+
 .two-col {
 align-items: stretch;
 box-sizing: border-box;
@@ -3163,6 +3412,7 @@ margin-right: auto;
 margin-top: 18px;
 max-width: 88%;
 }
+
 .plain-panel {
 background: #f7fbff;
 border: 2px solid #0868ac;
@@ -3183,6 +3433,7 @@ margin-bottom: 8px;
 .plain-panel p {
 margin: 0;
 }
+
 .pipeline {
 align-items: stretch;
 display: flex;
@@ -3222,6 +3473,7 @@ color: #0868ac;
 font-size: 32px;
 font-weight: bold;
 }
+
 .stimulus-table {
 border-collapse: collapse;
 font-size: 28px;
@@ -3251,6 +3503,7 @@ display: block;
 font-size: 15px;
 margin-top: 6px;
 }
+
 .reading-columns {
 display: grid;
 gap: 28px;
@@ -3265,6 +3518,7 @@ padding-left: 20px;
 .reading-columns li {
 margin-bottom: 8px;
 }
+
 .comparison-grid {
 display: grid;
 font-size: 18px;
@@ -3313,6 +3567,7 @@ width: 39% !important;
 .comparison-table td:nth-child(3) {
 width: 52% !important;
 }
+
 .function-overview table {
 font-size: 22px;
 line-height: 1.22 !important;
@@ -3342,8 +3597,10 @@ width: 34%;
 width: 66%;
 }
 .pivot-exercise-note {
+
 margin-top: -4px !important;
 }
+
 pre {
 background: #f7fbff !important;
 border: 1px solid #c7dceb !important;
@@ -3375,6 +3632,7 @@ padding: 10px 14px 10px 18px !important;
 text-align: left;
 width: calc(100% - 96px);
 }
+
 pre.r-output,
 pre.lang-r-output,
 slides > slide pre:not(.prettyprint) {
@@ -3399,6 +3657,7 @@ padding: 10px 14px 10px 18px !important;
 white-space: pre;
 width: calc(100% - 96px);
 }
+
 pre.r-output *,
 pre.lang-r-output *,
 slides > slide pre:not(.prettyprint) * {
@@ -3406,6 +3665,7 @@ color: inherit !important;
 font-style: normal !important;
 font-weight: inherit !important;
 }
+
 pre.r-output .r-missing-value,
 pre.lang-r-output .r-missing-value,
 slides > slide pre:not(.prettyprint) .r-missing-value {
@@ -3482,6 +3742,7 @@ color: #455a64;
 slides > slide {
 color: #222222;
 }
+
 .compact-table {
 margin-left: auto;
 margin-right: auto;
@@ -3512,6 +3773,7 @@ padding: 5px 10px !important;
 height: auto !important;
 min-height: 0 !important;
 }
+
 .dataset-example-table {
 margin: 12px auto 14px;
 width: 78%;
@@ -3531,6 +3793,7 @@ font-size: 19px;
 line-height: 1.14;
 padding: 4px 10px !important;
 }
+
 .module-team-grid {
 display: grid;
 gap: 16px;
@@ -3562,6 +3825,7 @@ font-size: 14px;
 line-height: 1.1;
 margin: 4px 0;
 }
+
 slide article p code,
 slide article li code,
 slide article td code {
@@ -3579,6 +3843,7 @@ border: 0;
 padding: 0;
 white-space: pre;
 }
+
 .smalltable .table {
 font-size: 18px;
 }
@@ -3587,6 +3852,7 @@ width: 128px;
 height: 33px;
 background-size: 100px 30px;
 }
+
 #refs,
 .references,
 section[role="doc-bibliography"] {
@@ -3623,7 +3889,7 @@ margin-top: 0;
           </hgroup>
   </slide>
 
-<slide class><hgroup><h2>Today</h2></hgroup><article id="today">
+<slide class=""><hgroup><h2>Today</h2></hgroup><article  id="today">
 
 <ul>
 <li>Understand what an <code>.Rmd</code> file is for</li>
@@ -3634,7 +3900,7 @@ margin-top: 0;
 <li>Start a guided individual exercise</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>First: Create a Module Project</h2></hgroup><article id="first-create-a-module-project">
+</article></slide><slide class=""><hgroup><h2>First: Create a Module Project</h2></hgroup><article  id="first-create-a-module-project">
 
 <p>We will keep all module work inside one RStudio Project.</p>
 
@@ -3651,7 +3917,7 @@ margin-top: 0;
 
 <p>You only need to do this once for the module.</p>
 
-</article></slide><slide class><hgroup><h2>RStudio Projects</h2></hgroup><article id="rstudio-projects">
+</article></slide><slide class=""><hgroup><h2>RStudio Projects</h2></hgroup><article  id="rstudio-projects">
 
 <p>An RStudio Project is a folder-based workspace.</p>
 
@@ -3666,7 +3932,7 @@ margin-top: 0;
 
 <p>A good workflow is to create one project folder for this module and keep the files you are currently working on inside it. For Week 1, we will move the Week 1 practical files into the project folder.</p>
 
-</article></slide><slide class><hgroup><h2>Download the Week 1 Files</h2></hgroup><article id="download-the-week-1-files">
+</article></slide><slide class=""><hgroup><h2>Download the Week 1 Files</h2></hgroup><article  id="download-the-week-1-files">
 
 <p>Download the Week 1 materials.</p>
 
@@ -3680,21 +3946,11 @@ margin-top: 0;
 
 <p>Do not work inside the zip file. The folder must be extracted first.</p>
 
-</article></slide><slide class><hgroup><h2>Why Folders Matter</h2></hgroup><article id="why-folders-matter">
-
-<p>The Week 1 files should now be in your <code>PSYC40940</code> project folder.</p>
-
-<p>Because the Week 1 <code>.Rmd</code> files are in the same folder as <code>data/</code>, they load data with:</p>
-
-<pre class="prettyprint lang-r">read_csv(&quot;data/blomkvist.csv&quot;)</pre>
-
-<p>If a file cannot be found, first check that <code>data/</code> is inside your <code>PSYC40940</code> project folder and that the <code>.Rmd</code> file is saved there too.</p>
-
-</article></slide><slide class><hgroup><h2>What Is In This Folder?</h2></hgroup><article id="what-is-in-this-folder">
+</article></slide><slide class=""><hgroup><h2>What Is In This Folder?</h2></hgroup><article  id="what-is-in-this-folder">
 
 <p>After moving the Week 1 files, your module project should contain:</p>
 
-<pre class="prettyprint lang-r">PSYC40940/
+<pre class = 'prettyprint lang-r'>PSYC40940/
   PSYC40940.Rproj
   01_rmarkdown_demo.Rmd
   02_rmarkdown_exercise.Rmd
@@ -3706,7 +3962,17 @@ margin-top: 0;
 
 <p>The slide files are uploaded separately. The weekly zip contains the files you need for exercises and practical work.</p>
 
-</article></slide><slide class><hgroup><h2>Why RMarkdown in this module?</h2></hgroup><article id="why-rmarkdown-in-this-module">
+</article></slide><slide class=""><hgroup><h2>Why Folders Matter</h2></hgroup><article  id="why-folders-matter">
+
+<p>The Week 1 files should now be in your <code>PSYC40940</code> project folder.</p>
+
+<p>Because the Week 1 <code>.Rmd</code> files are in the same folder as <code>data/</code>, they load data with:</p>
+
+<pre class = 'prettyprint lang-r'>read_csv(&quot;data/blomkvist.csv&quot;)</pre>
+
+<p>If a file cannot be found, first check that <code>data/</code> is inside your <code>PSYC40940</code> project folder and that the <code>.Rmd</code> file is saved there too.</p>
+
+</article></slide><slide class=""><hgroup><h2>Why RMarkdown in this module?</h2></hgroup><article  id="why-rmarkdown-in-this-module">
 
 <p>In this module, you will make visualisations and dashboards from data.</p>
 
@@ -3722,7 +3988,7 @@ margin-top: 0;
 
 <p>This is the practical side of reproducible reporting <span class="cite">(Xie, 2017)</span>.</p>
 
-</article></slide><slide class><hgroup><h2>What is RMarkdown?</h2></hgroup><article id="what-is-rmarkdown">
+</article></slide><slide class=""><hgroup><h2>What is RMarkdown?</h2></hgroup><article  id="what-is-rmarkdown">
 
 <p>An <code>.Rmd</code> file combines:</p>
 
@@ -3736,7 +4002,7 @@ margin-top: 0;
 
 <p>The important workflow is simple: edit the <code>.Rmd</code>, render it, inspect the HTML output, then fix anything that did not work.</p>
 
-</article></slide><slide class><hgroup><h2>Find the Parts First</h2></hgroup><article id="find-the-parts-first">
+</article></slide><slide class=""><hgroup><h2>Find the Parts First</h2></hgroup><article  id="find-the-parts-first" class="smaller">
 
 <p>Open <code>01_rmarkdown_demo.Rmd</code>.</p>
 
@@ -3754,15 +4020,17 @@ margin-top: 0;
 <li>a citation and the references section</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>YAML Header</h2></hgroup><article id="yaml-header" class="columns-2 smaller">
+<p>You can’t <strong>knit</strong> this just yet, but I can. Let’s check what this file does!</p>
+
+</article></slide><slide class=""><hgroup><h2>YAML Header</h2></hgroup><article  id="yaml-header" class="columns-2 smaller">
 
 <div>
 <p>The YAML header is at the top of the file.</p>
 
-<pre class="prettyprint lang-yaml">---
+<pre class = 'prettyprint lang-yaml'>---
 title: &quot;Week 1 Demonstration&quot;
 author: &quot;PSYC40940&quot;
-date: &quot;2026-09-18&quot;
+date: &quot;2026-09-30&quot;
 output:
   bookdown::html_document2:
     toc: false
@@ -3786,11 +4054,11 @@ csl: apa.csl
 <li><code>bibliography</code> and <code>csl</code>: citations and reference style.</li>
 </ul></div>
 
-</article></slide><slide class><hgroup><h2>Markdown Text</h2></hgroup><article id="markdown-text">
+</article></slide><slide class=""><hgroup><h2>Markdown Text</h2></hgroup><article  id="markdown-text">
 
 <p>Markdown is a simple way to format text using plain-text markers.</p>
 
-<pre class="prettyprint lang-markdown"># Main heading
+<pre class = 'prettyprint lang-markdown'># Main heading
 
 ## Subheading
 
@@ -3800,18 +4068,32 @@ This word is **bold** and this word is *italic*.</pre>
 
 <p>The markers tell RMarkdown which parts should become headings, paragraphs, bold text, or italic text.</p>
 
-</article></slide><slide class><hgroup><h2>R Code Chunks</h2></hgroup><article id="r-code-chunks">
+</article></slide><slide class=""><hgroup><h2>R Code Chunks</h2></hgroup><article  id="r-code-chunks">
 
 <p>R code chunks start and end with three backticks.</p>
 
 <pre class="prettyprint lang-r"><code>```{r load-data}
 # Read the CSV file and store it in an object.
-blomkvist &lt;- <span class="r-function-call">read_csv</span>(&quot;data/blomkvist.csv&quot;)
+blomkvist <- <span class="r-function-call">read_csv</span>("data/blomkvist.csv")
 ```</code></pre>
 
 <p>The chunk label, here <code>load-data</code>, should be short and unique.</p>
 
-</article></slide><slide class><hgroup><h2>Chunk Options: <code>echo</code></h2></hgroup><article id="chunk-options-echo">
+</article></slide><slide class=""><hgroup><h2>Run Chunks Before Rendering</h2></hgroup><article  id="run-chunks-before-rendering">
+
+<p>You can run code chunks while editing the <code>.Rmd</code> file.</p>
+
+<p>In RStudio:</p>
+
+<ul>
+<li>click the green play button on a chunk,</li>
+<li>or use the <strong>Run</strong> menu,</li>
+<li>then check the Console, Environment, and Plots panes.</li>
+</ul>
+
+<p>This helps you find problems before clicking <strong>Knit</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Chunk Options: <code>echo</code> and <code>eval</code></h2></hgroup><article  id="chunk-options-echo-and-eval">
 
 <p>Chunk options change how a chunk behaves in the rendered HTML.</p>
 
@@ -3819,17 +4101,18 @@ blomkvist &lt;- <span class="r-function-call">read_csv</span>(&quot;data/blomkvi
 <span class="r-function-call">slice</span>(blomkvist, 1:6)
 ```</code></pre>
 
-<p>The most useful option today is <code>echo</code>:</p>
+<p>Useful options today:</p>
 
 <ul>
 <li><code>echo=TRUE</code>: run the code and show the code,</li>
 <li><code>echo=FALSE</code>: run the code but hide the code,</li>
-<li>use <code>echo=FALSE</code> when the report should show the result but not the code.</li>
+<li><code>eval=TRUE</code>: run the code when rendering,</li>
+<li><code>eval=FALSE</code>: show the code but do not run it when rendering.</li>
 </ul>
 
-<p>During learning, <code>echo=TRUE</code> is useful because it shows what produced the output.</p>
+<p>Use <code>eval=FALSE</code> for examples such as <code>install.packages()</code>.</p>
 
-</article></slide><slide class><hgroup><h2>Setup Chunk</h2></hgroup><article id="setup-chunk">
+</article></slide><slide class=""><hgroup><h2>Setup Chunk</h2></hgroup><article  id="setup-chunk">
 
 <p>The setup chunk usually goes near the top of the document.</p>
 
@@ -3843,11 +4126,26 @@ knitr::<span class="r-function-call">opts_chunk$set</span>(
 
 <p>Use it for options that should apply to the whole document.</p>
 
-</article></slide><slide class><hgroup><h2>Load Packages</h2></hgroup><article id="load-packages">
+</article></slide><slide class=""><hgroup><h2>Install Packages</h2></hgroup><article  id="install-packages">
+
+<p>For Week 1, we will use these packages:</p>
+
+<ul>
+<li><code>tidyverse</code>: assumed to be installed already,</li>
+<li><code>knitr</code>: creates tables and helps render RMarkdown,</li>
+<li><code>rmarkdown</code>: renders <code>.Rmd</code> files,</li>
+<li><code>bookdown</code>: supports figure and table cross-references.</li>
+</ul>
+
+<p>RStudio includes Pandoc, which helps render RMarkdown files. R packages are separate. Some may already be installed, but install missing packages once if needed.</p>
+
+<p>The demo file includes an <code>install.packages()</code> chunk with <code>eval=FALSE</code> so it is shown but not run when rendering. <strong>Run this R chunk now!</strong></p>
+
+</article></slide><slide class=""><hgroup><h2>Load Packages</h2></hgroup><article  id="load-packages">
 
 <p>Load packages before using their functions.</p>
 
-<pre class="prettyprint lang-r"># tidyverse gives us read_csv(), select(), drop_na(), summarise(), and ggplot().
+<pre class = 'prettyprint lang-r'># tidyverse gives us read_csv(), select(), drop_na(), summarise(), and ggplot().
 library(tidyverse)
 
 # knitr gives us kable(), which creates simple tables.
@@ -3857,13 +4155,13 @@ library(knitr)</pre>
 
 <p>Do not leave <code>install.packages()</code> in a chunk that runs when the document renders. If you include it in an <code>.Rmd</code> file as a reminder, use <code>eval=FALSE</code>.</p>
 
-</article></slide><slide class><hgroup><h2>Loading Data Into R</h2></hgroup><article id="loading-data-into-r">
+</article></slide><slide class=""><hgroup><h2>Loading Data Into R</h2></hgroup><article  id="loading-data-into-r">
 
 <p>The file <code>blomkvist.csv</code> is stored inside the <code>data</code> folder.</p>
 
 <p>This code reads the file and saves it as an R object:</p>
 
-<pre class="prettyprint lang-r">blomkvist &lt;- read_csv(&quot;data/blomkvist.csv&quot;)</pre>
+<pre class = 'prettyprint lang-r'>blomkvist &lt;- read_csv(&quot;data/blomkvist.csv&quot;)</pre>
 
 <p>Read the line from right to left:</p>
 
@@ -3876,16 +4174,16 @@ library(knitr)</pre>
 
 <p>After this line has run, <code>blomkvist</code> should appear in the Environment pane.</p>
 
-</article></slide><slide class><hgroup><h2>Load and Inspect Data</h2></hgroup><article id="load-and-inspect-data" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Load and Inspect Data</h2></hgroup><article  id="load-and-inspect-data" class="smaller">
 
 <p>Use a clear object name and a clear comment.</p>
 
-<pre class="prettyprint lang-r"># Read the CSV file and store it in an object called blomkvist.
+<pre class = 'prettyprint lang-r'># Read the CSV file and store it in an object called blomkvist.
 blomkvist &lt;- read_csv(&quot;data/blomkvist.csv&quot;)</pre>
 
 <p>Then inspect the object:</p>
 
-<pre class="prettyprint lang-r"># Show rows 1 to 6 in the Console.
+<pre class = 'prettyprint lang-r'># Show rows 1 to 6 in the Console.
 slice(blomkvist, 1:6)
 
 # Open the data in RStudio&#39;s spreadsheet-style viewer.
@@ -3897,19 +4195,19 @@ ncol(blomkvist)</pre>
 
 <p>The object name matters. If you save the data as <code>blomkvist</code>, later code must use <code>blomkvist</code>, not another name.</p>
 
-</article></slide><slide class><hgroup><h2>Inline R Code</h2></hgroup><article id="inline-r-code">
+</article></slide><slide class=""><hgroup><h2>Inline R Code</h2></hgroup><article  id="inline-r-code">
 
 <p>Inline R code puts calculated values inside sentences.</p>
 
 <p>In the <code>.Rmd</code> file, write:</p>
 
-<pre><code>The dataset contains `r nrow(blomkvist)` rows.</code></pre>
+<pre><code>The dataset contains &#96;r nrow(blomkvist)&#96; rows.</code></pre>
 
 <p>In the rendered HTML, this becomes:</p>
 
 <p>The dataset contains 267 rows.</p>
 
-</article></slide><slide class><hgroup><h2>First Render: Demo File</h2></hgroup><article id="first-render-demo-file">
+</article></slide><slide class=""><hgroup><h2>First Render: Demo File</h2></hgroup><article  id="first-render-demo-file">
 
 <p>With <code>01_rmarkdown_demo.Rmd</code> open in RStudio:</p>
 
@@ -3922,7 +4220,7 @@ ncol(blomkvist)</pre>
 
 <p>Rendering runs the document from top to bottom in a clean order.</p>
 
-</article></slide><slide class><hgroup><h2>Common Render Problems</h2></hgroup><article id="common-render-problems">
+</article></slide><slide class=""><hgroup><h2>Common Render Problems</h2></hgroup><article  id="common-render-problems">
 
 <p>Start by reading the first useful error near the end of the render output.</p>
 
@@ -3934,11 +4232,11 @@ ncol(blomkvist)</pre>
 <li>citations missing: check the <code>.bib</code> file path and citation key</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Prepare Data</h2></hgroup><article id="prepare-data">
+</article></slide><slide class=""><hgroup><h2>Prepare Data</h2></hgroup><article  id="prepare-data">
 
 <p>Write data preparation in small steps.</p>
 
-<pre class="prettyprint lang-r"># Keep only the variables used in this report.
+<pre class = 'prettyprint lang-r'># Keep only the variables used in this report.
 selected_data &lt;- select(
   blomkvist,
   id,
@@ -3954,79 +4252,80 @@ plot_data &lt;- drop_na(selected_data, rt_hand_d, rt_hand_nd)</pre>
 
 <p>Readable code is easier to debug than compact code.</p>
 
-</article></slide><slide class><hgroup><h2>Figures</h2></hgroup><article id="figures">
+</article></slide><slide class=""><hgroup><h2>Figures</h2></hgroup><article  id="figures">
 
 <p>A figure is created by an R chunk.</p>
 
-<pre class="prettyprint lang-r"><code>```{r scatter-plot, fig.cap=&quot;Reaction times for dominant and non-dominant hand responses.&quot;}
+<pre class="prettyprint lang-r"><code>```{r scatter-plot, fig.cap="Reaction times."}
 <span class="r-function-call">ggplot</span>(plot_data, <span class="r-function-call">aes</span>(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
   <span class="r-function-call">geom_point</span>(alpha = 0.75) +
-  <span class="r-function-call">geom_smooth</span>(method = &quot;lm&quot;, se = FALSE) +
+  <span class="r-function-call">geom_smooth</span>(method = "lm", se = FALSE) +
   <span class="r-function-call">theme_minimal</span>()
 ```</code></pre>
 
 <p>The chunk label is used for cross-referencing.</p>
 
-</article></slide><slide class><hgroup><h2>Cross-Reference a Figure</h2></hgroup><article id="cross-reference-a-figure">
+</article></slide><slide class=""><hgroup><h2>Cross-Reference a Figure</h2></hgroup><article  id="cross-reference-a-figure">
 
 <p>With <code>bookdown::html_document2</code>, a labelled figure can be referenced in text.</p>
 
 <p>Write this in the <code>.Rmd</code> file:</p>
 
-<pre class="prettyprint lang-markdown">Figure \@ref(fig:scatter-plot) shows the relationship between the two reaction-time measures.</pre>
+<pre class = 'prettyprint lang-markdown'>Figure \@ref(fig:scatter-plot) shows the relationship between ...</pre>
 
 <p>The <code>fig:</code> part tells RMarkdown that the reference points to a figure.</p>
 
-</article></slide><slide class><hgroup><h2>Tables</h2></hgroup><article id="tables">
+</article></slide><slide class=""><hgroup><h2>Tables</h2></hgroup><article  id="tables">
 
 <p>Use <code>kable()</code> for simple formatted tables.</p>
 
-<pre class="prettyprint lang-r">summary_table &lt;- summarise(
+<pre class = 'prettyprint lang-r'>summary_table &lt;- summarise(
   plot_data,
-  mean_rt = round(mean(rt_hand_d), 1),
-  sd_rt = round(sd(rt_hand_d), 1),
+  mean_rt = mean(rt_hand_d),
+  sd_rt = sd(rt_hand_d),
   n = n(),
   .by = smoker
 )
 
 kable(
   summary_table,
+  digits = 1,
   caption = &quot;Dominant-hand reaction time by smoking status.&quot;
 )</pre>
 
-</article></slide><slide class><hgroup><h2>Cross-Reference a Table</h2></hgroup><article id="cross-reference-a-table">
+</article></slide><slide class=""><hgroup><h2>Cross-Reference a Table</h2></hgroup><article  id="cross-reference-a-table">
 
 <p>A table chunk can be referenced in text.</p>
 
 <p>Write this in the <code>.Rmd</code> file:</p>
 
-<pre class="prettyprint lang-markdown">Table \@ref(tab:summary-table) summarises reaction time by smoking status.</pre>
+<pre class = 'prettyprint lang-markdown'>Table \@ref(tab:summary-table) summarises reaction time by smoking status.</pre>
 
 <p>The <code>tab:</code> part tells RMarkdown that the reference points to a table.</p>
 
-</article></slide><slide class><hgroup><h2>Citations</h2></hgroup><article id="citations">
+</article></slide><slide class=""><hgroup><h2>Citations</h2></hgroup><article  id="citations">
 
 <p>Citations come from a <code>.bib</code> file.</p>
 
 <p>The YAML header needs:</p>
 
-<pre class="prettyprint lang-yaml">bibliography: references.bib
+<pre class = 'prettyprint lang-yaml'>bibliography: references.bib
 csl: apa.csl</pre>
 
 <p>Then cite with the citation key from <code>references.bib</code>:</p>
 
-<pre class="prettyprint lang-markdown">The data come from a reaction-time study [@blomkvist2017reference].</pre>
+<pre class = 'prettyprint lang-markdown'>The data come from a reaction-time study [@blomkvist2017reference].</pre>
 
 <p>Add a final heading called <code># References</code> so the reference list appears.</p>
 
-</article></slide><slide class><hgroup><h2>Adding a BibTeX Entry</h2></hgroup><article id="adding-a-bibtex-entry" class="columns-2 smaller">
+</article></slide><slide class=""><hgroup><h2>Adding a BibTeX Entry</h2></hgroup><article  id="adding-a-bibtex-entry" class="columns-2 smaller">
 
 <div>
 <p>In the exercise, <code>@blomkvist2017reference</code> is already in <code>references.bib</code>.</p>
 
 <p>For the extension task, turn this APA reference into a BibTeX entry:</p>
 
-<p>Whelan, R. (2008). Effective analysis of reaction time data. <em>The Psychological Record, 58</em>, 475-482. <a href="https://doi.org/10.1007/BF03395630" title>https://doi.org/10.1007/BF03395630</a></p>
+<p>Whelan, R. (2008). Effective analysis of reaction time data. <em>The Psychological Record, 58</em>, 475-482. <a href='https://doi.org/10.1007/BF03395630' title=''>https://doi.org/10.1007/BF03395630</a></p>
 
 <p>Then cite it with <code>@whelan2008reactiontime</code>.</p></div>
 
@@ -4043,7 +4342,7 @@ csl: apa.csl</pre>
 
 <p>You can also ask ChatGPT or Copilot for a BibTeX entry, then check the details before using it.</p></div>
 
-</article></slide><slide class><hgroup><h2>Week 1 Exercise Workflow</h2></hgroup><article id="week-1-exercise-workflow">
+</article></slide><slide class=""><hgroup><h2>Week 1 Exercise Workflow</h2></hgroup><article  id="week-1-exercise-workflow">
 
 <p>You have already rendered <code>01_rmarkdown_demo.Rmd</code>.</p>
 
@@ -4057,7 +4356,7 @@ csl: apa.csl</pre>
 <li>Check the HTML output against the render checklist.</li>
 </ol>
 
-</article></slide><slide class><hgroup><h2>What You Need After Today</h2></hgroup><article id="what-you-need-after-today">
+</article></slide><slide class=""><hgroup><h2>What You Need After Today</h2></hgroup><article  id="what-you-need-after-today">
 
 <p>By next week, you should be able to:</p>
 
@@ -4072,18 +4371,29 @@ csl: apa.csl</pre>
 <li>use inline R for simple reported values</li>
 </ul>
 
-</article></slide><slide class><hgroup><h2>Recommended Reading</h2></hgroup><article id="recommended-reading">
+</article></slide><slide class=""><hgroup><h2>Homework Before Week 2</h2></hgroup><article  id="homework-before-week-2">
+
+<p>Before next week:</p>
+
+<ul>
+<li>complete <code>02_rmarkdown_exercise.Rmd</code></li>
+<li>render the exercise to HTML and fix any remaining errors</li>
+<li>check that you understand each step in <strong>What You Need After Today</strong></li>
+<li>start looking for a behavioural dataset you might use for the formative assessment</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Recommended Reading</h2></hgroup><article  id="recommended-reading">
 
 <p>For support with RMarkdown, use:</p>
 
 <ul>
-<li><span class="cite">Andrews (2021)</span>, Chapter 7: reproducible reports with RMarkdown. <a href="https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_07_reproducible.pdf" title>Chapter link</a></li>
-<li><span class="cite">Wickham &amp; Grolemund (2016)</span>, Chapter 27: R Markdown in <em>R for Data Science</em>. <a href="https://r4ds.had.co.nz/r-markdown.html" title>Chapter link</a></li>
+<li><span class="cite">Andrews (2021)</span>, Chapter 7: reproducible reports with RMarkdown. <a href='https://www.mjandrews.org/book/ddsr/assets/chapter_07_reproducible.pdf' title=''>Online chapter</a></li>
+<li><span class="cite">Wickham &amp; Grolemund (2016)</span>, Chapter 27: R Markdown in <em>R for Data Science</em>. <a href='https://r4ds.had.co.nz/r-markdown.html' title=''>Online chapter</a></li>
 </ul>
 
 <p>Use these as reference material while completing <code>02_rmarkdown_exercise.Rmd</code>.</p>
 
-</article></slide><slide class><hgroup><h2>References</h2></hgroup><article id="references" class="unnumbered smaller">
+</article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references" class="unnumbered smaller">
 
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-andrews2021doing" class="csl-entry">

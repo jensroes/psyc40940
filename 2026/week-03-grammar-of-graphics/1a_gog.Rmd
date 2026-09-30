@@ -1,6 +1,7 @@
 ---
 title:          'Exercise 1a: grammar of graphics'
 output:         html_document
+bibliography:  "references.bib"
 ---
 
 ```{r setup, include=FALSE}

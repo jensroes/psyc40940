@@ -7,7 +7,7 @@ output:
     transition: slower
     widescreen: true
     css: slides.css
-bibliography: "references.bib"
+bibliography: "slides-references.bib"
 csl: "apa.csl"
 ---
 
@@ -151,14 +151,52 @@ Deadline: **Friday 30 October 2026, before 2 pm**.
 
 Finding a suitable dataset is part of the module.
 
-You do not need to solve this alone:
+Before the formative assessment, you should start by looking for possible open behavioural datasets and checking whether they have clear documentation, usable variables, and a source you can cite.
 
-- we will discuss dataset ideas during tutorials,
-- you can bring candidate datasets for feedback,
+There will be a tutorial checkpoint on **21 October 2026**, before the formative deadline, where you can bring candidate datasets, links, codebooks, or early ideas for feedback.
+
+After the formative assessment, dataset ideas can still be refined for the final portfolio:
+
+- you can bring revised candidate datasets for feedback,
 - I can help you judge whether a dataset is suitable in scope and complexity,
-- early dataset choices can be refined before the formative assessment.
+- early ideas can be refined into a workable final portfolio dataset.
 
-Useful starting points include Open Science Framework, Open Psychology Data, Rdatasets, and published paper repositories.
+## Places to Search for Data
+
+Useful starting points include:
+
+- Journal of Open Psychology Data: <https://openpsychologydata.metajnl.com/articles>
+- OSF Search: <https://osf.io/search/>
+- Rdatasets: <https://vincentarelbundock.github.io/Rdatasets/datasets.html>
+- Kaggle Datasets: <https://www.kaggle.com/datasets>
+- OpenPsychometrics: <https://openpsychometrics.org/_rawdata/>
+- ICPSR: <https://www.icpsr.umich.edu/sites/ICPSR/find-data>
+- Figshare: <https://figshare.com/search>
+- Zenodo: <https://zenodo.org/search>
+- OpenNeuro for neuroimaging data: <https://openneuro.org/search>
+
+## Search Strategy
+
+Search with a topic plus terms such as `open data`, `dataset`, `CSV`, `codebook`, `OSF`, or `reaction time`.
+
+Examples:
+
+- `sleep questionnaire open data`
+- `memory reaction time dataset OSF`
+- `anxiety wellbeing csv codebook`
+- `attention experiment trial-level data`
+
+Then check whether the dataset has a usable behavioural outcome, meaningful predictors, documentation, and a licence or source that allows reuse.
+
+## Using AI Tools for Dataset Search
+
+ChatGPT, Copilot, and similar tools can help generate search terms and identify possible repositories.
+
+Example prompt:
+
+> Suggest open datasets on sleep, wellbeing, or attention that could be used for a behavioural data visualisation project. For each suggestion, tell me where the original data are hosted, what the unit of observation is, what outcome variables might be useful, and what I need to verify before using it.
+
+They are not sources. Always verify suggestions yourself by checking the original source, documentation, licence, variables, and file format.
 
 
 ## How to Engage
@@ -176,11 +214,12 @@ To do well in this module:
 
 ## Recommended Reading
 
-The two main books we will return to are:
+The three main books we will return to are:
 
-- @andrews2021doing: practical R, RMarkdown, data wrangling, visualisation, and Shiny support.
-- @wickham2016ggplot2: the main reference for `ggplot2` and static visualisation.
-- @Wickham2021MasteringShiny: the main reference for Shiny apps and dashboards.
+- @andrews2021doing: practical R, RMarkdown, data wrangling, visualisation, and Shiny support. [Online chapter preprints](https://www.mjandrews.org/book/ddsr/)
+- @wickham2016ggplot2: the main reference for `ggplot2` and static visualisation. [Online book](https://ggplot2-book.org/)
+- @Wickham2021MasteringShiny: the main reference for Shiny apps and dashboards. [Online book](https://mastering-shiny.org/)
+
 
 ## References {.smaller}
 

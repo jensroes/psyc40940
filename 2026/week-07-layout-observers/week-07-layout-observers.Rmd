@@ -176,7 +176,7 @@ We will build user interfaces that change depending on previous choices:
 
 For support with this week's material, use:
 
-- @Wickham2021MasteringShiny, Chapters 2 and 10: UI layout and reactive flow.
-- @andrews2021doing, Chapter 16: Shiny app structure and controlled interaction.
+- @Wickham2021MasteringShiny, Chapters 2, 6, and 10: UI layout, app layout, and dynamic UI. [Chapter 2](https://mastering-shiny.org/basic-ui.html); [Chapter 6](https://mastering-shiny.org/action-layout.html); [Chapter 10](https://mastering-shiny.org/action-dynamic.html)
+- @andrews2021doing, Chapter 16: Shiny app structure and controlled interaction. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_16_shiny.pdf)
 
 ## References

@@ -19,8 +19,9 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   comment = NA,
-  fig.width = 7,
-  fig.height = 4.5
+  fig.width = 4.5,
+  fig.height = 3.2,
+  out.width = "50%"
 )
 ```
 
@@ -39,7 +40,22 @@ This document demonstrates the main RMarkdown features you will need in this mod
 
 RMarkdown is useful because it keeps text, code, results, and figures in one reproducible document. This idea is closely related to literate programming [@knuth1984literate] and dynamic documents [@xie2017dynamic].
 
+# Install Packages
+
+RStudio includes Pandoc, which helps render RMarkdown files. The packages used in this document are separate R packages.
+
+Only run this chunk if a package is missing. The chunk uses `eval=FALSE`, so the code is shown in the rendered HTML but is not run when the document renders.
+
+```{r install-packages, eval=FALSE}
+# This installs missing packages as a one-time setup step.
+# eval=FALSE means this code is shown, but not run when knitting.
+# Packages do not need to be installed every time the file is rendered.
+install.packages(c("knitr", "rmarkdown", "bookdown"))
+```
+
 # Load Packages
+
+Run this chunk before rendering to check that the packages are available.
 
 ```{r packages}
 # tidyverse gives us read_csv(), select(), drop_na(), summarise(), arrange(), and ggplot().
@@ -51,7 +67,7 @@ library(knitr)
 
 # Load Data
 
-We will use the `blomkvist.csv` dataset. The data are stored in the local `data` folder for this week.
+We will use the `blomkvist.csv` dataset. These data come from a study on reaction time and ageing using the Nintendo Wii Balance Board [@blomkvist2017reference]. The data are stored in the local `data` folder for this week.
 
 ```{r load-data}
 # Read the CSV file and store it in an object called blomkvist.
@@ -122,8 +138,8 @@ Table \@ref(tab:summary-table) summarises the dominant-hand reaction times by sm
 # Calculate descriptive statistics for each smoking-status group.
 summary_table <- summarise(
   plot_data,
-  mean_rt = round(mean(rt_hand_d), 1),
-  sd_rt = round(sd(rt_hand_d), 1),
+  mean_rt = mean(rt_hand_d),
+  sd_rt = sd(rt_hand_d),
   n = n(),
   .by = smoker
 )
@@ -134,6 +150,7 @@ summary_table <- arrange(summary_table, smoker)
 # Render the summary data frame as a table in the HTML output.
 kable(
   summary_table,
+  digits = 1,
   caption = "Dominant-hand reaction time by smoking status."
 )
 ```

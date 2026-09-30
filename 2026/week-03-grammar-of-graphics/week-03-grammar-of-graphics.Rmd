@@ -7,7 +7,7 @@ output:
     widescreen: true
     transition: slower
     css: slides.css
-bibliography: "references.bib"
+bibliography: "slides-references.bib"
 csl: "apa.csl"
 ---
 
@@ -1259,10 +1259,10 @@ Complete RMarkdown document **3_aaa.Rmd** for combining attributes and aesthetic
 
 For support with this week's material, use:
 
-- @andrews2021doing, Chapter 4: data visualisation in R.
-- @wickham2016r, Chapter 3: data visualisation with `ggplot2`.
+- @andrews2021doing, Chapter 4: data visualisation in R. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf)
+- @wickham2016r, Chapter 3: data visualisation with `ggplot2`. [Online chapter](https://r4ds.had.co.nz/data-visualisation.html)
 
-Use the `ggplot2` online book as an optional reference when you want more detail on aesthetics, scales, and facets.
+Use the `ggplot2` online book as an optional reference when you want more detail on aesthetics, scales, and facets. [Online book](https://ggplot2-book.org/)
 
 ## Homework
 

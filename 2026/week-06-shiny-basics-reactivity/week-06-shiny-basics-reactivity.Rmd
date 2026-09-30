@@ -176,7 +176,7 @@ We will add dashboard structure and controlled updates:
 
 For support with this week's material, use:
 
-- @Wickham2021MasteringShiny, Chapters 1 and 3: Shiny basics and basic reactivity.
-- @andrews2021doing, Chapter 16: Shiny apps for social science data work.
+- @Wickham2021MasteringShiny, Chapters 1 and 3: Shiny basics and basic reactivity. [Chapter 1](https://mastering-shiny.org/basic-app.html); [Chapter 3](https://mastering-shiny.org/basic-reactivity.html)
+- @andrews2021doing, Chapter 16: Shiny apps for social science data work. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_16_shiny.pdf)
 
 ## References

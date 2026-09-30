@@ -118,7 +118,7 @@ Do not add an extension until the basic app is reliable.
 
 For support with this week's material, use:
 
-- @Wickham2021MasteringShiny, Chapter 7: graphics and interactive output in Shiny.
-- @andrews2021doing, Chapter 16: Shiny apps, dashboards, and reproducible app structure.
+- @Wickham2021MasteringShiny, Chapter 7: graphics and interactive output in Shiny. [Online chapter](https://mastering-shiny.org/action-graphics.html)
+- @andrews2021doing, Chapter 16: Shiny apps, dashboards, and reproducible app structure. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_16_shiny.pdf)
 
 ## References

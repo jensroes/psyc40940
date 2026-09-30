@@ -1,82 +1,136 @@
 ---
-title:             'Exercise 2: The datasaurus dozen'
-output:            html_document
-bibliography:      "references.bib"
+title: "Exercise 2: The Datasaurus Dozen"
+author: "Your name"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: "references.bib"
 ---
 
-
 ```{r setup, include=FALSE}
-# No need to run this chunk unless you're "knitting"
-knitr::opts_chunk$set(echo = TRUE,
-                      comment= NA, 
-                      warning = FALSE,
-                      message = FALSE)
+# Global chunk options control how code and output appear in the HTML file.
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = NA,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 6,
+  fig.height = 4,
+  out.width = "70%"
+)
 ```
 
+# Aim
 
-```{r echo = F}
-library(tidyverse)
+In this exercise you will use the Datasaurus Dozen to see why visualisation is necessary even when summary statistics look identical.
+
+By the end, you should have compared summary statistics with plots and explained why looking at the data visually can change what we understand from the same numbers.
+
+The Datasaurus Dozen shows several datasets with very similar summary statistics but very different visual patterns [@matejka2017same]. It extends the same lesson as Anscombe's quartet [@anscombe1973graphs; @tufte1989].
+
+Replace each `___` blank with the correct code. The document will not render until all blanks are completed.
+
+When you see a blank, read the sentence immediately above the code chunk and the comments inside the code chunk. Most blanks ask you to insert either the data object name, `tdd`, or one of the variable names: `dataset`, `x`, or `y`.
+
+# Load Packages
+
+```{r packages}
+# Replace ___ with tidyverse.
+# This loads read_csv(), glimpse(), count(), summarise(), and ggplot().
+library(___)
 ```
 
+# Load Data
 
-In this example you will see what the datasaurus dozen is about [@matejka2017same] [see link](https://www.autodeskresearch.com/publications/samestats). This is a more advanced example of Anscombe's quartet [@anscombe1973graphs; @tufte1989].
-
-Let's start by loading the data.
-
-
-```{r}
-# Load data frame
+```{r load-data}
+# read_csv() reads a csv file and stores it as a data frame.
+# The object name on the left, tdd, is the name we use for the data in R.
 tdd <- read_csv("data/tdd.csv")
 ```
 
-As usual start by inspecting the information contained in the data frame.
+# Inspect Data
 
-```{r}
-# Inspect data frame
-glimpse(---)
+Start by inspecting the data frame.
+
+```{r inspect-data}
+# Replace ___ with the name of the data object: tdd.
+# glimpse() shows the variable names, variable types, and first values.
+glimpse(___)
 ```
 
+The data frame contains several datasets stored in one file. Count the number of rows in each dataset.
 
-There are 13 datasets in this data frame with 142 observations each. Check this:
-
-```{r}
-# Count observations by dataset
-count(tdd, dataset)
+```{r count-datasets}
+# count(data, variable) counts how many rows there are in each group.
+# Replace the first ___ with the data object: tdd.
+# Replace the second ___ with the grouping variable: dataset.
+count(___, ___)
 ```
 
+# Summary Statistics
 
-Calculate the mean and the standard deviation for each of the 13 data sets contained in the data. Convince yourself that all dataset have the same mean and standard deviation for `x` and `y`. You need to add the name of the dataset and the dataset identifier variable in the data, i.e. the variable that has a number for each dataset.
+Calculate the mean and standard deviation of `x` and `y` for each dataset.
 
-```{r}
-summarise(.data = ---, # name of the data frame
-          mean_x = mean(x),
-          sd_x = sd(x),
-          mean_y = mean(y),
-          sd_y = sd(y),
-          .by = ---) # name of a grouping variable, i.e. the name of the dataset identifier variable
+```{r summary-statistics}
+# summarise() calculates summary values.
+# .data tells R which data frame to use. Replace ___ with tdd.
+# .by tells R which variable to group by. Replace ___ with dataset.
+summarise(
+  .data = ___,
+  mean_x = mean(x),
+  sd_x = sd(x),
+  mean_y = mean(y),
+  sd_y = sd(y),
+  .by = ___
+)
 ```
 
-We can use regression models to illustrate that the relationship between `x` and `y` is the same for each of the 13 datasets. Complete the following code.
+Look at the output. The summary statistics are very similar across datasets.
 
-```{r}
-ggplot(data = tdd, aes(y = ---, x = ---)) +
-  facet_wrap(~dataset, labeller = label_both) + # show different facets for each dataset
-  geom_smooth(method = "---", fullrange = T, se = F) # add regression line
+Write one sentence describing why this could be misleading.
+
+The summary statistics could be misleading because ...
+
+# Regression Lines
+
+The code below shows the linear trend for each dataset. Complete the missing values.
+
+```{r regression-lines, fig.cap="Regression lines for the Datasaurus Dozen datasets."}
+# ggplot(data = ..., mapping = aes(...)) starts a plot.
+# Replace data = ___ with data = tdd.
+# Replace x = ___ with x = x and y = ___ with y = y.
+# facet_wrap(~dataset) makes one panel for each dataset.
+# Replace method = "___" with method = "lm" for a linear model.
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  facet_wrap(~dataset, labeller = label_both) +
+  geom_smooth(method = "___", fullrange = TRUE, se = FALSE)
 ```
 
-The last line in the previous code creates the regression lines.
+# Scatterplots
 
-**Task:** Create a scatterplot with points instead of regression lines by adding `+ geom_point(size = 0.5)` to the code.
+Now show the actual data points.
 
-```{r}
-ggplot(data = tdd, aes(y = y, x = x)) +
-  facet_wrap(~dataset, labeller = label_both)
-
+```{r datasaurus-points, fig.cap="Scatterplots for the Datasaurus Dozen datasets."}
+# The data object is already filled in.
+# Replace x = ___ with x = x and y = ___ with y = y.
+# geom_point() draws the actual observations as points.
+ggplot(data = tdd, mapping = aes(x = ___, y = ___)) +
+  facet_wrap(~dataset, labeller = label_both) +
+  geom_point(size = 0.6)
 ```
 
+Write one sentence explaining what Figure \@ref(fig:datasaurus-points) shows that the summary statistics did not show.
 
-Now, convince yourself that the relationship between y and x are very different for each of the data sets.
+The scatterplots show that ...
 
-Once you've completed all tasks above you can `knit` this document to HTML.
+# Take-Home Point
+
+Write one short take-home point from the exercise.
+
+My take-home point is ...
 
 # References

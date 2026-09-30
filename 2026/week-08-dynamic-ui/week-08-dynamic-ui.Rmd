@@ -145,7 +145,7 @@ We will use the Shiny pieces together in an assessment-style dashboard workshop.
 
 For support with this week's material, use:
 
-- @Wickham2021MasteringShiny, Chapter 10 and the dynamic UI sections: updating controls and generating UI.
-- @andrews2021doing, Chapter 16: Shiny apps and reactive interfaces.
+- @Wickham2021MasteringShiny, Chapter 10 and the dynamic UI sections: updating controls and generating UI. [Online chapter](https://mastering-shiny.org/action-dynamic.html)
+- @andrews2021doing, Chapter 16: Shiny apps and reactive interfaces. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_16_shiny.pdf)
 
 ## References

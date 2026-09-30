@@ -3844,6 +3844,26 @@ width: 128px;
 height: 33px;
 background-size: 100px 30px;
 }
+
+#refs,
+.references,
+section[role="doc-bibliography"] {
+column-count: 2;
+column-gap: 34px;
+font-size: 15px;
+line-height: 1.22;
+}
+#refs .csl-entry,
+.references .csl-entry,
+section[role="doc-bibliography"] .csl-entry {
+break-inside: avoid;
+margin-bottom: 7px;
+}
+#refs p,
+.references p,
+section[role="doc-bibliography"] p {
+margin-top: 0;
+}
 </style>
 
 </head>
@@ -3902,7 +3922,7 @@ background-size: 100px 30px;
 
 </article></slide><slide class=""><hgroup><h2>Maximising clarity and minimising chartjunk through thoughtful design choices!</h2></hgroup><article  id="maximising-clarity-and-minimising-chartjunk-through-thoughtful-design-choices">
 
-<p>Revisiting Tufte’s Principles <span class="cite">(<a href='#ref-Tufte2001VisualDisplay' title=''>Tufte, 2001</a>)</span>:</p>
+<p>Revisiting Tufte’s Principles <span class="cite">(Tufte, 2001)</span>:</p>
 
 <ul>
 <li><strong>Data-Ink ratio</strong>: Maximise the proportion of ink that represents data.</li>
@@ -4594,7 +4614,7 @@ scales::show_col(colorblind_pal()(8))</pre>
 <pre class = 'prettyprint lang-r'>ggplot(d_spellname, aes(y = rt, x = dur)) +
   geom_point() + 
 <b>  theme(plot.background = element_rect(fill = &quot;pink&quot;))
-</b></pre>
+</b></pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Themes: <code>plot</code></h2></hgroup><article  id="themes-plot-2" class="smaller">
 
@@ -4636,7 +4656,7 @@ scales::show_col(colorblind_pal()(8))</pre>
   geom_point() + 
   labs(title = &quot;I&#39;m a title&quot;) +
 <b>  theme(plot.title = element_text(colour = &quot;pink&quot;))
-</b></pre>
+</b></pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Themes: <code>plot</code></h2></hgroup><article  id="themes-plot-4" class="smaller">
 
@@ -4657,7 +4677,7 @@ scales::show_col(colorblind_pal()(8))</pre>
   geom_point() + 
   labs(caption = &quot;I&#39;m a caption&quot;) +
 <b>  theme(plot.caption = element_text(face = &quot;italic&quot;))
-</b></pre>
+</b></pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Themes: facet strips</h2></hgroup><article  id="themes-facet-strips" class="smaller">
 
@@ -4783,8 +4803,8 @@ scales::show_col(colorblind_pal()(8))</pre>
 <p>For support with this week’s material, use:</p>
 
 <ul>
-<li><span class="cite">Andrews (<a href='#ref-andrews2021doing' title=''>2021</a>)</span>, Chapter 4: data visualisation in R.</li>
-<li>The <code>ggplot2</code> online book sections on scales, labels, themes, and saving plots as optional extra support.</li>
+<li><span class="cite">Andrews (2021)</span>, Chapter 4: data visualisation in R. <a href='https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf' title=''>Online chapter</a></li>
+<li>The <code>ggplot2</code> online book sections on scales, labels, themes, and saving plots as optional extra support. <a href='https://ggplot2-book.org/' title=''>Online book</a></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Formative assessment</h2></hgroup><article  id="formative-assessment" class="smaller">
@@ -4816,7 +4836,7 @@ scales::show_col(colorblind_pal()(8))</pre>
 </article></slide><slide class=""><hgroup><h2>Time permitted!</h2></hgroup><article  id="time-permitted">
 
 <p>Let’s rework a figures (e.g. Figure 4) from <a href='https://link.springer.com/article/10.1007/s41809-023-00131-5' title=''><span class="cite"><span class="nocase">
-van Lieburg et al.</span> (<a href='#ref-vanLieburg2023abstract' title=''>2023</a>)</span></a>; code and data are <a href='https://osf.io/x8ejm/' title=''>HERE</a>.</p>
+van Lieburg et al.</span> (2023)</span></a>; code and data are <a href='https://osf.io/x8ejm/' title=''>HERE</a>.</p>
 
 </article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references">
 
@@ -4825,7 +4845,7 @@ slides > slide { overflow: scroll; }
 slides > slide:not(.nobackground):after {
   content: '';
 }
-</style></div></div></div>
+</style>
 
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-andrews2021doing" class="csl-entry">

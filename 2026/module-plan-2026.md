@@ -14,15 +14,15 @@ This plan adapts the 2025 materials for a lighter 2026 delivery. The main change
 
 | Session | Topic | Core outcome | Exercise model |
 |---|---|---|---|
-| 1 | Module introduction and reproducibility workflow | Understand assessment, datasets, project structure, and reproducible reporting | Dataset search and project setup |
-| 2 | Foundations of visualisation and `ggplot2` | Build and interpret simple plots | One scatterplot exercise plus optional extension |
+| 1 | Module introduction, RMarkdown intro, and reproducibility workflow | Understand assessment, datasets, project structure, RMarkdown basics, and reproducible reporting | Dataset search, project setup, and RMarkdown rendering |
+| 2 | Principles of visualisation and `ggplot2` | Build and interpret simple plots | One scatterplot exercise plus optional extension |
 | 3 | Grammar of graphics | Map variables to aesthetics intentionally | One guided plot rebuild |
 | 4 | Major visualisation tools | Choose suitable plots for distributions, relationships, and groups | One analysis notebook with selected tasks |
 | 5 | Customising visualisations | Improve labels, colour, theme, and export | One publication-ready figure task |
 | 6 | Shiny basics and reactivity | Build a simple app with inputs, outputs, and `reactive()` | One individual starter app |
 | 7 | Layout and observers | Structure dashboards and use buttons/observers for controlled updates | One dashboard layout task |
 | 8 | Dynamic UI | Use `update*Input()`, `uiOutput()`, and `renderUI()` when the UI depends on data or previous choices | One dynamic-filter app |
-| 9 | Interactive dashboards with Plotly and deployment | Add interactive Plotly outputs, consider deployment options, and check assessment dashboard reproducibility | One capstone starter app |
+| 9 | Dashboard workshop with optional Plotly | Consolidate Shiny dashboard structure, add optional Plotly outputs, and check assessment dashboard reproducibility | One capstone starter app |
 | 10 | Wrap up and assessment support | Resolve project-specific issues and check reproducibility | Individual assessment support |
 
 
@@ -76,7 +76,7 @@ Required concepts:
 
 This is separate because students need to understand reactivity and observers before generated UI makes sense.
 
-### Session 9: Interactive Dashboards with Plotly and Deployment
+### Session 9: Dashboard Workshop with Optional Plotly
 
 Required concepts:
 
@@ -84,7 +84,7 @@ Required concepts:
 - converting selected `ggplot2` plots with `ggplotly()`
 - when interactive and 3D plots are useful rather than decorative
 - assessment-ready project structure
-- deployment options and reproducibility checks
+- reproducibility checks for marking
 
 ## Exercise File Pattern
 

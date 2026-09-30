@@ -12,10 +12,26 @@ By the end of Week 5, you should be able to:
 - make design choices that improve clarity rather than adding unnecessary decoration,
 - save plots for use in reports or portfolio work.
 
+## Before the practical work: RStudio Project and weekly files
+
+All practical files should be stored inside your module RStudio Project folder. Do not work inside the zip file.
+
+If you have not created an RStudio Project for this module yet:
+
+1. Open RStudio.
+2. Go to **File > New Project...**.
+3. Choose **New Directory**.
+4. Choose **New Project**.
+5. Give the project a clear name, for example `psyc40940-visdata`.
+6. Choose a sensible location on your computer.
+7. Click **Create Project**.
+
+Then download the Week 5 zip folder from this week's section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files or app files together with any `data` folder and supporting files.
+
 ## Week 5 files
 
 `week-05-customising-visualisations`  
-Slides for the week. These will be uploaded separately in the Learning Room.
+Slides for the week.
 
 `psyc40940-week-05-customising-visualisations.zip`  
 Student practical materials for the week.

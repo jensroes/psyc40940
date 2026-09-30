@@ -700,9 +700,9 @@ Complete RMarkdown document **4_data_wrangling.Rmd**
 
 For support with this week's material, use:
 
-- @andrews2021doing, Chapter 4: data visualisation in R.
-- @andrews2021doing, Chapter 3: data wrangling in R.
-- @wickham2016r, data visualisation and transformation chapters as optional extra support.
+- @andrews2021doing, Chapter 4: data visualisation in R. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf)
+- @andrews2021doing, Chapter 3: data wrangling in R. [Online chapter](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_03_wrangling.pdf)
+- @wickham2016r, data visualisation and transformation chapters as optional extra support. [Data visualisation](https://r4ds.had.co.nz/data-visualisation.html); [data transformation](https://r4ds.had.co.nz/transform.html)
 
 
 
