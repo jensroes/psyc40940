@@ -1,0 +1,214 @@
+[
+  {
+    "path": "2025/index.html",
+    "sha256": "7efb6503a397a6beb3ee0365f3e77b6264ea87591e251b81d56c14edd557c88d"
+  },
+  {
+    "path": "2025/slides/w1_intro/slides.html",
+    "sha256": "813cf17bf8321a0becfc496fc6755d25781d7a0ef28bf03eac633f801a832ca0"
+  },
+  {
+    "path": "2025/slides/w1_rmarkdown/slides.html",
+    "sha256": "d743f7e6f79022cb3907f50813687030c294cb4e753b3dfa529e6313ee5df28e"
+  },
+  {
+    "path": "2025/slides/w2_foundations/slides.html",
+    "sha256": "4211e71446ec832fce6c9688bd8d6e2fb7a330ff8f46d9265c811044dbedad4c"
+  },
+  {
+    "path": "2025/slides/w3_gog/slides.html",
+    "sha256": "996322a2ab35591920f7fe1b15a930f5c85fa14bf3502877c3756fe7d67cf8a0"
+  },
+  {
+    "path": "2025/slides/w4_mvt/slides.html",
+    "sha256": "6c5a5dbfef2a7f15f1c3ae6a00b704f6b88e7a847f1b4840296b483d4529559e"
+  },
+  {
+    "path": "2025/slides/w5_cv/slides.html",
+    "sha256": "e9be56eab6f2a35af35a8490b49a7706a883b7713f22db53a4bac1cb1fe489a0"
+  },
+  {
+    "path": "2025/slides/w6_shiny_react/slides.html",
+    "sha256": "c0dfd8322c3360b6b92ceac134f092b792743f910cf5b152ea895c9ab5780b84"
+  },
+  {
+    "path": "2025/slides/w7_shiny_uis/slides.html",
+    "sha256": "c0e5284dfab4c40ba0cd913579ed9ae9e1d7956e25e7680119b2a4a9d23b3383"
+  },
+  {
+    "path": "2025/slides/w9/slides.html",
+    "sha256": "7c0b5d49b7865619d5e92eaf172a3cdd37c440fe5488c0389a38a7ccb31e6ebd"
+  },
+  {
+    "path": "2026/assessment-submission-guides/formative-submission-guide.html",
+    "sha256": "80457130f0a85adb7c4fffce16b029a917063b8dae3657af55c3000f2f7fb423"
+  },
+  {
+    "path": "2026/assessment-submission-guides/summative-submission-guide.html",
+    "sha256": "27ac875d8334a8e7b3c95f7490d410c11a1e5c90c4021554aadb3a95254e0551"
+  },
+  {
+    "path": "2026/index.html",
+    "sha256": "a84dda42d67bb18e209639989fb32dd9932facb7152af2e8b6fe5f536407b952"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-01-introduction.zip",
+    "sha256": "dddda5f62fedb29abc25f710555a2260c6435f2aaf82577a9360ca5831f7e0ce"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-02-foundations.zip",
+    "sha256": "4b75f58f23ec5cf605f1cf5f083d3458baec2da9518a1c6c34dc3b8b0f0bdc26"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-03-grammar-of-graphics.zip",
+    "sha256": "6a30cbcc69f42bc988d59237664d1dc70cfd24fed6fb96b59dc6e2bf758999e2"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-04-major-visualisation-tools.zip",
+    "sha256": "a1e4e7e7b61e57d8cb5f9825a7874f52525c83074cfcf59e6fb5537400a75eea"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-05-customising-visualisations.zip",
+    "sha256": "a096136f2e9bc08fb6502a9acbc3f874f5778e450d1bd6886a4f91374ed46582"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-06-shiny-basics-reactivity.zip",
+    "sha256": "4b1ea0ca5f41c05dd69f787e296b0f26032ae525040739a36099c6d0442b4454"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-07-reactivity-layouts.zip",
+    "sha256": "e7fa3c893c6811c68b3bcbfbca49747e33d16c8f6ba8f7a0b41e5e93e5aaa3e5"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-08-tabs-controls.zip",
+    "sha256": "e2315e0c4bdc3d476b1f3bd98a2ebcf2c71dca5ec1d2b4e56984802108c53aab"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-09-dashboard-workshop.zip",
+    "sha256": "6aa6acc6e609097d622438927ec5bb7d6f026513bce50f758ed57cb843f2c9a2"
+  },
+  {
+    "path": "2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip",
+    "sha256": "f9cb5f8cc01ae93e14ffd956a84aea9502a5ee7d2d5b420f2865cca3db18c3fc"
+  },
+  {
+    "path": "2026/week-01-introduction/part-1-introduction.html",
+    "sha256": "911c0da407e138bee4d89db36815bdc41d4b1c4c0fb417decfef2cf9f476130e"
+  },
+  {
+    "path": "2026/week-01-introduction/part-1-introduction.pptx",
+    "sha256": "9a9d16ded8b2912e2a401be2988181a09b77f3f4e5e9f28c4ef9fa97d7a75298"
+  },
+  {
+    "path": "2026/week-01-introduction/part-2-rmarkdown.html",
+    "sha256": "8fb3992ef3b2131e4e8628a0326aa1d2069265d1cdf1f82a2bdd6ec1e645ef18"
+  },
+  {
+    "path": "2026/week-01-introduction/part-2-rmarkdown.pptx",
+    "sha256": "f086388a3235075ba60079c7c033314243c3ec8c7ee3751ea6aedbaed56fb745"
+  },
+  {
+    "path": "2026/week-02-foundations/week-02-foundations.html",
+    "sha256": "eeccc32c600071ab01b32f13efbe310ac9c634865a0e862cc832ddcb414b5abe"
+  },
+  {
+    "path": "2026/week-02-foundations/week-02-foundations.pptx",
+    "sha256": "aa24d1af567f3b09ab05610dc7516d4312ea17ab4733f47e054d5cdff75288d8"
+  },
+  {
+    "path": "2026/week-03-grammar-of-graphics/week-03-grammar-of-graphics.html",
+    "sha256": "9a778bb9434aca2d49f134908963a7c32cf7d2e896680cbdd5e2c0dfa6d01d02"
+  },
+  {
+    "path": "2026/week-03-grammar-of-graphics/week-03-grammar-of-graphics.pptx",
+    "sha256": "f768d481c014a5a09f15db38418a38bc74e5f7acc7d22cc8e3431d20d66be454"
+  },
+  {
+    "path": "2026/week-04-major-visualisation-tools/week-04-major-visualisation-tools.html",
+    "sha256": "6bce164e8c09dffb2b02518f25e9727756ffd889fef2dc1440393edd6bc98862"
+  },
+  {
+    "path": "2026/week-04-major-visualisation-tools/week-04-major-visualisation-tools.pptx",
+    "sha256": "3cbc1304c1709a1f83f1ea2f8482397831f1f6216f9e0fa28eff91ebde55aaf3"
+  },
+  {
+    "path": "2026/week-05-customising-visualisations/week-05-customising-visualisations.html",
+    "sha256": "d5de1492f1e9e5e79f55bbe0db2a8cca2d222a93b61b1390bfd41c334296a7a2"
+  },
+  {
+    "path": "2026/week-05-customising-visualisations/week-05-customising-visualisations.pptx",
+    "sha256": "d6b117180da1cef07f4622a158a9d3e73d70f7e905b2b3108a482205e2e1b968"
+  },
+  {
+    "path": "2026/week-05-customising-visualisations/week-05-supplementary-customising-visualisations.html",
+    "sha256": "b443a7b17b1c6035f4fd248be6fe2e28a82ba127505ba13200a2261a578e4dcc"
+  },
+  {
+    "path": "2026/week-05-customising-visualisations/week-05-supplementary-customising-visualisations.pptx",
+    "sha256": "d835d0366964d026f74190bc03003cf870d4f323f4eccfd74fd8beb21e0f0f0e"
+  },
+  {
+    "path": "2026/week-06-shiny-basics-reactivity/01_read_and_modify_a_shiny_app.html",
+    "sha256": "f84cfbca2fdc1d7984c81511a0cfe6e8baa31dcd73133068d9b2f88e9cca01e7"
+  },
+  {
+    "path": "2026/week-06-shiny-basics-reactivity/week-06-shiny-basics-reactivity.html",
+    "sha256": "28857f2d0be2ddf040258bb4d60adefcf72f7596b42b31b3e02ec7133b9d4d24"
+  },
+  {
+    "path": "2026/week-06-shiny-basics-reactivity/week-06-shiny-basics-reactivity.pptx",
+    "sha256": "64894746b38506dd80421c355a839eadddc173c5cf6a581e0610652f9d53bbe8"
+  },
+  {
+    "path": "2026/week-07-reactivity-layouts/session-guide.html",
+    "sha256": "dc9238aad44c5b2d0725cd9fa4f9d7d59d0862586d055ca5c6b68332e1b59e2a"
+  },
+  {
+    "path": "2026/week-07-reactivity-layouts/week-07-reactivity-layouts.html",
+    "sha256": "16950b953762460f356db4f801a7142dc36c7f1dc98d1b6db4d5aa93c6124209"
+  },
+  {
+    "path": "2026/week-07-reactivity-layouts/week-07-reactivity-layouts.pptx",
+    "sha256": "3cfd75a87daefc516eb3861b8f6effc2a4f2ae6516706668e245c85e10dfa49a"
+  },
+  {
+    "path": "2026/week-08-tabs-controls/session-guide.html",
+    "sha256": "29673efc593e363637d15feb003ef4cddd8d9ce1cf71fa2e2651bee085988717"
+  },
+  {
+    "path": "2026/week-08-tabs-controls/week-08-tabs-controls.html",
+    "sha256": "e9b6ace26bcfa0ea1c5d7dd7f94568a7541a5cb33f9c09d01f96dbf949a8a865"
+  },
+  {
+    "path": "2026/week-08-tabs-controls/week-08-tabs-controls.pptx",
+    "sha256": "8e2d90c799e84ae18b6b4af157f30de20391ab27f2e90e0a43451ec2d36e3783"
+  },
+  {
+    "path": "2026/week-09-dashboard-workshop/session-guide.html",
+    "sha256": "d8a019e2240a8fbecdfac9500729adaa6eba119353f8763df595bf213af38cde"
+  },
+  {
+    "path": "2026/week-09-dashboard-workshop/week-09-dashboard-workshop.html",
+    "sha256": "4b1064eb026dd6dc07ad892cb2b09cdab5692ebd95d5e4b0db33e334629da68b"
+  },
+  {
+    "path": "2026/week-10-wrap-up-assessment-support/session-guide.html",
+    "sha256": "fd9619af0a8e63c1ed09d4095fcae5ba20e6fb79423b598f0501b0e9f31a3da6"
+  },
+  {
+    "path": "2026/week-10-wrap-up-assessment-support/week-10-wrap-up-assessment-support.html",
+    "sha256": "3f2c122d14a0ded5047abf3cbdd1408f1e70da74ec482ab8c9cbf6e7e0c5c1f4"
+  },
+  {
+    "path": "404.html",
+    "sha256": "8a77d8f280d7a8fd51f8508bb716ef58294b4a28780555898cf3d6b81c252ec0"
+  },
+  {
+    "path": "index.html",
+    "sha256": "75bd6bee6491c08fe15354ff9f717ef24ee61afdf457a9fdb5cba471f8df65fd"
+  },
+  {
+    "path": "site.css",
+    "sha256": "d947f5a9786ca88d392c0033967a1ecf9bc1ca0b81d95164aaa29d385d82c433"
+  }
+]
