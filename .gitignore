@@ -57,4 +57,33 @@ rsconnect/
 # Local/generated upload checks
 *.Rproj.user/
 2025/formative-assessment/submissions/
+2026/formative-assessment/submissions/
+2026/formative-assessment/feedback-preparation/
 module info/PSYC40940-mysay.html
+
+# Private local teaching/assessment records: never add these to the public repo.
+2026/formative-assessment/
+2025/formative-assessment/
+2026/admin/student-feedback/
+2026/admin/feedbacksheets/
+2026/mysay/
+**/student-feedback/
+**/submissions/
+**/feedback-preparation/
+**/answers/
+**/classlist*
+**/*student*suggestions*
+**/*student*messages*
+.codex/
+.agents/
+.aws/
+.env
+.env.*
+
+# Generated Pages artifact and local publication reports.
+_site/
+.publication-audit/
+
+# Python publication helpers
+__pycache__/
+*.pyc

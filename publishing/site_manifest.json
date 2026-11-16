@@ -1,0 +1,263 @@
+{
+  "title": "PSYC40940 \u00b7 Visualisation of Behavioural Data",
+  "site_url": "https://jensroes.github.io/psyc40940/",
+  "current_year": 2026,
+  "sessions": [
+    {
+      "week": 1,
+      "title": "Introduction and R Markdown",
+      "files": [
+        {
+          "label": "Introduction slides",
+          "source": "2026/week-01-introduction/part-1-introduction.html"
+        },
+        {
+          "label": "R Markdown slides",
+          "source": "2026/week-01-introduction/part-2-rmarkdown.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-01-introduction.zip"
+        },
+        {
+          "label": "Introduction PowerPoint",
+          "source": "2026/week-01-introduction/part-1-introduction.pptx"
+        },
+        {
+          "label": "R Markdown PowerPoint",
+          "source": "2026/week-01-introduction/part-2-rmarkdown.pptx"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "title": "Visualisation foundations",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-02-foundations/week-02-foundations.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-02-foundations.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-02-foundations/week-02-foundations.pptx"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "title": "The grammar of graphics",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-03-grammar-of-graphics/week-03-grammar-of-graphics.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-03-grammar-of-graphics.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-03-grammar-of-graphics/week-03-grammar-of-graphics.pptx"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Choosing visualisation tools",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-04-major-visualisation-tools/week-04-major-visualisation-tools.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-04-major-visualisation-tools.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-04-major-visualisation-tools/week-04-major-visualisation-tools.pptx"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Customising visualisations",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-05-customising-visualisations/week-05-customising-visualisations.html"
+        },
+        {
+          "label": "Supplementary slides",
+          "source": "2026/week-05-customising-visualisations/week-05-supplementary-customising-visualisations.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-05-customising-visualisations.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-05-customising-visualisations/week-05-customising-visualisations.pptx"
+        },
+        {
+          "label": "Supplementary PowerPoint",
+          "source": "2026/week-05-customising-visualisations/week-05-supplementary-customising-visualisations.pptx"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Shiny: the basics",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-06-shiny-basics-reactivity/week-06-shiny-basics-reactivity.html"
+        },
+        {
+          "label": "Session guide",
+          "source": "2026/week-06-shiny-basics-reactivity/01_read_and_modify_a_shiny_app.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-06-shiny-basics-reactivity.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-06-shiny-basics-reactivity/week-06-shiny-basics-reactivity.pptx"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Reactivity and layouts",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-07-reactivity-layouts/week-07-reactivity-layouts.html"
+        },
+        {
+          "label": "Session guide",
+          "source": "2026/week-07-reactivity-layouts/session-guide.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-07-reactivity-layouts.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-07-reactivity-layouts/week-07-reactivity-layouts.pptx"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "title": "Tabs and reliable controls",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-08-tabs-controls/week-08-tabs-controls.html"
+        },
+        {
+          "label": "Session guide",
+          "source": "2026/week-08-tabs-controls/session-guide.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-08-tabs-controls.zip"
+        },
+        {
+          "label": "PowerPoint",
+          "source": "2026/week-08-tabs-controls/week-08-tabs-controls.pptx"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "title": "Turn questions into a dashboard",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-09-dashboard-workshop/week-09-dashboard-workshop.html"
+        },
+        {
+          "label": "Session guide",
+          "source": "2026/week-09-dashboard-workshop/session-guide.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-09-dashboard-workshop.zip"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "title": "Reproduce and review your portfolio",
+      "files": [
+        {
+          "label": "Slides",
+          "source": "2026/week-10-wrap-up-assessment-support/week-10-wrap-up-assessment-support.html"
+        },
+        {
+          "label": "Session guide",
+          "source": "2026/week-10-wrap-up-assessment-support/session-guide.html"
+        },
+        {
+          "label": "Exercises (ZIP)",
+          "source": "2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip"
+        }
+      ]
+    }
+  ],
+  "guides": [
+    {
+      "label": "Summative submission guide",
+      "source": "2026/assessment-submission-guides/summative-submission-guide.html"
+    },
+    {
+      "label": "Formative submission guide",
+      "source": "2026/assessment-submission-guides/formative-submission-guide.html"
+    }
+  ],
+  "archive_2025": [
+    {
+      "title": "Introduction",
+      "source": "2025/slides/w1_intro/slides.html"
+    },
+    {
+      "title": "R Markdown",
+      "source": "2025/slides/w1_rmarkdown/slides.html"
+    },
+    {
+      "title": "Visualisation foundations",
+      "source": "2025/slides/w2_foundations/slides.html"
+    },
+    {
+      "title": "The grammar of graphics",
+      "source": "2025/slides/w3_gog/slides.html"
+    },
+    {
+      "title": "Major visualisation tools",
+      "source": "2025/slides/w4_mvt/slides.html"
+    },
+    {
+      "title": "Customising visualisations",
+      "source": "2025/slides/w5_cv/slides.html"
+    },
+    {
+      "title": "Shiny basics",
+      "source": "2025/slides/w6_shiny_react/slides.html"
+    },
+    {
+      "title": "Shiny interfaces",
+      "source": "2025/slides/w7_shiny_uis/slides.html"
+    },
+    {
+      "title": "Workshop",
+      "source": "2025/slides/w9/slides.html"
+    }
+  ]
+}
