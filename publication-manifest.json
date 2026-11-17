@@ -49,7 +49,7 @@
   },
   {
     "path": "2026/index.html",
-    "sha256": "a84dda42d67bb18e209639989fb32dd9932facb7152af2e8b6fe5f536407b952"
+    "sha256": "12499c338e782b54d8c6e5a56d96a09af5e44a9678a40449732f8c965d5391dd"
   },
   {
     "path": "2026/student-zips/psyc40940-week-01-introduction.zip",
@@ -192,6 +192,10 @@
     "sha256": "56336f0e0fbbc91f0e89b4dc0e5f62f11e3f9c9a337d9c1baac943a5d2d43123"
   },
   {
+    "path": "2026/week-09-dashboard-workshop/week-09-dashboard-workshop.pptx",
+    "sha256": "57c96fb2221f5bcc894aea022deaaf2e787684acd0a8e6896ebc484acf95b836"
+  },
+  {
     "path": "2026/week-10-wrap-up-assessment-support/session-guide.html",
     "sha256": "b5c6729ee2bd192510c3082b82662a1bf55894c208005d3a87048ee1859c0eac"
   },
@@ -205,7 +209,7 @@
   },
   {
     "path": "index.html",
-    "sha256": "75bd6bee6491c08fe15354ff9f717ef24ee61afdf457a9fdb5cba471f8df65fd"
+    "sha256": "64effd57f21e88c3bb4875d8492f026ec8d7f3ede08071f2efe18fddf9d34494"
   },
   {
     "path": "site.css",
