@@ -44,7 +44,7 @@ p_demo <- ggplot2::ggplot(
   ggplot2::geom_point(alpha = 0.2) +
   ggplot2::labs(x = "Response duration (ms)",
                 y = "Reaction time (ms)", colour = "Output group")
-plotly::ggplotly(p_demo, height = 320, tooltip = "text")
+plotly::ggplotly(p_demo, width = 980, height = 320, tooltip = "text")
 ```
 
 8,648 trials from 72 participants: transparent points reveal dense regions. Zoom reveals local detail while reset restores the full context; neither action removes trials.
