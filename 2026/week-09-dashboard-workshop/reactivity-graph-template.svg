@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="480" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+<title id="title">Blank app planning template</title><desc id="desc">Three areas named Inputs, Reactivity and Outputs, with two empty input boxes, one shared-preparation box and two empty output boxes. Students add names, dependency arrows and tab labels.</desc>
+<rect width="1100" height="480" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#28323a;text-anchor:middle;font-size:26px}rect.box{stroke-width:2;rx:10}</style>
+<text x="180" y="55">Inputs</text><text x="550" y="55">Reactivity</text><text x="920" y="55">Outputs</text>
+<rect class="box" x="50" y="110" width="260" height="95" fill="#eaf5f4" stroke="#6ca4a1"/>
+<rect class="box" x="50" y="290" width="260" height="95" fill="#eaf5f4" stroke="#6ca4a1"/>
+<rect class="box" x="410" y="200" width="280" height="95" fill="#fff3d6" stroke="#bf9a47"/>
+<rect class="box" x="790" y="110" width="260" height="95" fill="#f5f5f5" stroke="#9da5aa"/>
+<rect class="box" x="790" y="290" width="260" height="95" fill="#f5f5f5" stroke="#9da5aa"/>
+<text x="550" y="450" style="font-size:21px">Add names and arrows. Label the output tabs. Add boxes if your plan needs them.</text>
+</svg>

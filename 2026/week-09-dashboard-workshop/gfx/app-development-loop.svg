@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="370" viewBox="0 0 1200 370" role="img" aria-labelledby="title desc">
+<title id="title">Iterative app development</title><desc id="desc">A loop from purpose and tabs, to provisional plot choices, useful input choices, the reactivity graph, building and testing, and revision. Plot and input choices reflect variable types, levels and ranges.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#53606a"/></marker></defs>
+<rect width="1200" height="370" fill="white"/>
+<g fill="none" stroke="#53606a" stroke-width="3" marker-end="url(#arrow)">
+<path d="M360 85H420"/><path d="M770 85H830"/><path d="M1010 140V215"/>
+<path d="M840 280H780"/><path d="M430 280H370"/><path d="M190 225V150"/>
+</g>
+<rect x="20" y="30" width="340" height="110" rx="10" fill="#eaf5f4" stroke="#86989c" stroke-width="1.5"/>
+<text x="190" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">1. Define the purpose</text>
+<text x="190" y="109" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Give each tab a job</text>
+<rect x="430" y="30" width="340" height="110" rx="10" fill="#eaf5f4" stroke="#86989c" stroke-width="1.5"/>
+<text x="600" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">2. Choose the plots</text>
+<text x="600" y="109" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Variables and comparisons</text>
+<rect x="840" y="30" width="340" height="110" rx="10" fill="#eaf5f4" stroke="#86989c" stroke-width="1.5"/>
+<text x="1010" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">3. Choose useful inputs</text>
+<text x="1010" y="109" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Types, levels and ranges</text>
+<rect x="840" y="225" width="340" height="110" rx="10" fill="#fff3d6" stroke="#86989c" stroke-width="1.5"/>
+<text x="1010" y="267" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">4. Sketch connections</text>
+<text x="1010" y="304" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Inputs, reactivity, outputs</text>
+<rect x="430" y="225" width="340" height="110" rx="10" fill="#fff3d6" stroke="#86989c" stroke-width="1.5"/>
+<text x="600" y="267" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">5. Build and test</text>
+<text x="600" y="304" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Plots, controls, descriptions</text>
+<rect x="20" y="225" width="340" height="110" rx="10" fill="#fff3d6" stroke="#86989c" stroke-width="1.5"/>
+<text x="190" y="267" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="bold" fill="#28323a">6. Revise the choices</text>
+<text x="190" y="304" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#28323a">Update the plan and code</text>
+</svg>

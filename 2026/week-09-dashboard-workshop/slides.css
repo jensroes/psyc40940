@@ -764,14 +764,52 @@ slides > slide:not(.nobackground):before {
   background-size: 100px 30px;
 }
 
-/* Bibliography slides with many citations. */
+/* Neutral tables: let the content determine each column's share of the width. */
+slides > slide article table.rmdtable {
+  width: 100%;
+  max-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 16px 0 20px;
+}
+slides > slide article table.rmdtable col,
+slides > slide article table.rmdtable th,
+slides > slide article table.rmdtable td {
+  width: auto !important;
+}
+slides > slide article table.rmdtable th,
+slides > slide article table.rmdtable td {
+  border: 1px solid #b8b8b8;
+  padding: 9px 10px !important;
+  color: #333333;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: left;
+  vertical-align: top;
+}
+slides > slide article table.rmdtable th {
+  background: #e3e3e3;
+  font-weight: 600;
+  text-shadow: none;
+}
+slides > slide article table.rmdtable tbody tr:nth-child(odd) {
+  background: #f3f3f3;
+}
+slides > slide article table.rmdtable tbody tr:nth-child(even) {
+  background: #ffffff;
+}
+slides > slide article table.rmdtable td:first-child {
+  font-weight: normal;
+}
+
+/* References use normal slide text size. */
 #refs,
 .references,
 section[role="doc-bibliography"] {
-  column-count: 2;
-  column-gap: 34px;
-  font-size: 15px;
-  line-height: 1.22;
+  column-count: 1;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 #refs .csl-entry,
@@ -787,3 +825,21 @@ section[role="doc-bibliography"] p {
   margin-top: 0;
 }
 
+.study-code-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.study-code-columns > div { min-width: 0; }
+.study-code-columns pre {
+  left: 0;
+  width: 100%;
+  margin: 8px 0 14px !important;
+  padding: 12px !important;
+  box-sizing: border-box;
+}
+.study-code-columns pre, .study-code-columns pre code {
+  font-size: 17px;
+  line-height: 1.25;
+}

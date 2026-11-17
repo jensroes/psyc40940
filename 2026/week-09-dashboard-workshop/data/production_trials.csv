@@ -1,0 +1,2233 @@
+participant,study_session,trial_in_session,item,prime_condition,phase,response,vocabulary_score
+P01,1,4,2,Passive sentence,Before,Active,0.55
+P01,1,6,1,Active sentence,Before,Active,0.55
+P01,1,9,3,Baseline,Before,Active,0.55
+P01,1,11,4,Active sentence,Before,Active,0.55
+P01,1,26,9,Passive sentence,Before,Active,0.55
+P01,1,30,11,Active sentence,Before,Active,0.55
+P01,1,33,12,Passive sentence,Before,Active,0.55
+P01,1,35,10,Baseline,Before,Active,0.55
+P01,1,50,18,Active sentence,Before,Active,0.55
+P01,1,54,17,Baseline,Before,Active,0.55
+P01,1,56,20,Baseline,Before,Active,0.55
+P01,1,58,19,Passive sentence,Before,Active,0.55
+P01,1,73,101,Intervention,During,Active,0.55
+P01,1,74,102,Intervention,During,Active,0.55
+P01,1,76,26,Passive sentence,After,Other,0.55
+P01,1,79,28,Active sentence,After,Active,0.55
+P01,1,81,25,Active sentence,After,Other,0.55
+P01,1,83,27,Baseline,After,Active,0.55
+P01,1,99,36,Passive sentence,After,Active,0.55
+P01,1,102,34,Baseline,After,Active,0.55
+P01,1,105,33,Passive sentence,After,Active,0.55
+P01,1,107,35,Active sentence,After,Active,0.55
+P01,1,123,43,Passive sentence,After,Active,0.55
+P01,1,125,44,Baseline,After,Active,0.55
+P01,1,128,41,Baseline,After,Active,0.55
+P01,1,131,42,Active sentence,After,Other,0.55
+P01,2,2,42,Active sentence,Before,Active,0.55
+P01,2,5,41,Baseline,Before,Active,0.55
+P01,2,8,44,Baseline,Before,Active,0.55
+P01,2,10,43,Passive sentence,Before,Active,0.55
+P01,2,14,35,Active sentence,Before,Active,0.55
+P01,2,16,33,Passive sentence,Before,Active,0.55
+P01,2,19,34,Baseline,Before,Active,0.55
+P01,2,22,36,Passive sentence,Before,Active,0.55
+P01,2,26,27,Baseline,Before,Active,0.55
+P01,2,28,25,Active sentence,Before,Active,0.55
+P01,2,30,28,Active sentence,Before,Active,0.55
+P01,2,33,26,Passive sentence,Before,Passive,0.55
+P01,2,35,102,Intervention,During,Active,0.55
+P01,2,36,101,Intervention,During,Active,0.55
+P01,2,37,92,Intervention,During,Active,0.55
+P01,2,38,91,Intervention,During,Other,0.55
+P01,2,39,19,Passive sentence,After,Active,0.55
+P01,2,41,20,Baseline,After,Active,0.55
+P01,2,43,17,Baseline,After,Passive,0.55
+P01,2,47,18,Active sentence,After,Other,0.55
+P01,2,50,10,Baseline,After,Active,0.55
+P01,2,52,12,Passive sentence,After,Active,0.55
+P01,2,55,11,Active sentence,After,Active,0.55
+P01,2,59,9,Passive sentence,After,Active,0.55
+P01,2,62,4,Active sentence,After,Active,0.55
+P01,2,64,3,Baseline,After,Active,0.55
+P01,2,67,1,Active sentence,After,Active,0.55
+P01,2,69,2,Passive sentence,After,Active,0.55
+P01,3,4,2,Baseline,Before,Active,0.55
+P01,3,6,1,Passive sentence,Before,Active,0.55
+P01,3,9,3,Active sentence,Before,Passive,0.55
+P01,3,11,4,Passive sentence,Before,Active,0.55
+P01,3,14,9,Baseline,Before,Active,0.55
+P01,3,18,11,Passive sentence,Before,Passive,0.55
+P01,3,21,12,Baseline,Before,Active,0.55
+P01,3,23,10,Active sentence,Before,Active,0.55
+P01,3,26,18,Passive sentence,Before,Other,0.55
+P01,3,30,17,Active sentence,Before,Active,0.55
+P01,3,32,20,Active sentence,Before,Active,0.55
+P01,3,34,19,Baseline,Before,Active,0.55
+P01,3,35,91,Intervention,During,Active,0.55
+P01,3,36,92,Intervention,During,Active,0.55
+P01,3,37,101,Intervention,During,Active,0.55
+P01,3,38,102,Intervention,During,Active,0.55
+P01,3,40,26,Baseline,After,Active,0.55
+P01,3,43,28,Passive sentence,After,Active,0.55
+P01,3,45,25,Passive sentence,After,Active,0.55
+P01,3,47,27,Active sentence,After,Active,0.55
+P01,3,51,36,Baseline,After,Active,0.55
+P01,3,54,34,Active sentence,After,Active,0.55
+P01,3,57,33,Baseline,After,Active,0.55
+P01,3,59,35,Passive sentence,After,Active,0.55
+P01,3,63,43,Baseline,After,Active,0.55
+P01,3,65,44,Active sentence,After,Active,0.55
+P01,3,67,41,Active sentence,After,Active,0.55
+P01,3,69,42,Passive sentence,After,Active,0.55
+P01,4,4,42,Active sentence,Before,Active,0.55
+P01,4,6,41,Baseline,Before,Active,0.55
+P01,4,8,44,Baseline,Before,Active,0.55
+P01,4,10,43,Passive sentence,Before,Passive,0.55
+P01,4,14,35,Active sentence,Before,Passive,0.55
+P01,4,16,33,Passive sentence,Before,Active,0.55
+P01,4,19,34,Baseline,Before,Active,0.55
+P01,4,22,36,Passive sentence,Before,Active,0.55
+P01,4,26,27,Baseline,Before,Active,0.55
+P01,4,28,25,Active sentence,Before,Active,0.55
+P01,4,30,28,Active sentence,Before,Active,0.55
+P01,4,33,26,Passive sentence,Before,Active,0.55
+P01,4,35,102,Intervention,During,Passive,0.55
+P01,4,36,101,Intervention,During,Passive,0.55
+P01,4,37,92,Intervention,During,Active,0.55
+P01,4,38,91,Intervention,During,Active,0.55
+P01,4,39,19,Passive sentence,After,Active,0.55
+P01,4,41,20,Baseline,After,Active,0.55
+P01,4,43,17,Baseline,After,Active,0.55
+P01,4,47,18,Active sentence,After,Active,0.55
+P01,4,50,10,Baseline,After,Active,0.55
+P01,4,52,12,Passive sentence,After,Active,0.55
+P01,4,55,11,Active sentence,After,Active,0.55
+P01,4,59,9,Passive sentence,After,Active,0.55
+P01,4,62,4,Active sentence,After,Active,0.55
+P01,4,64,3,Baseline,After,Active,0.55
+P01,4,67,1,Active sentence,After,Active,0.55
+P01,4,69,2,Passive sentence,After,Active,0.55
+P01,5,4,2,Active sentence,Before,Active,0.55
+P01,5,6,1,Baseline,Before,Active,0.55
+P01,5,9,3,Passive sentence,Before,Active,0.55
+P01,5,11,4,Baseline,Before,Active,0.55
+P01,5,26,9,Active sentence,Before,Active,0.55
+P01,5,30,11,Baseline,Before,Active,0.55
+P01,5,33,12,Active sentence,Before,Active,0.55
+P01,5,35,10,Passive sentence,Before,Active,0.55
+P01,5,50,18,Baseline,Before,Active,0.55
+P01,5,54,17,Passive sentence,Before,Active,0.55
+P01,5,56,20,Passive sentence,Before,Active,0.55
+P01,5,58,19,Active sentence,Before,Active,0.55
+P01,5,73,101,Intervention,During,Active,0.55
+P01,5,74,102,Intervention,During,Active,0.55
+P01,5,76,26,Active sentence,After,Active,0.55
+P01,5,79,28,Baseline,After,Active,0.55
+P01,5,81,25,Baseline,After,Active,0.55
+P01,5,83,27,Passive sentence,After,Active,0.55
+P01,5,99,36,Active sentence,After,Active,0.55
+P01,5,102,34,Passive sentence,After,Passive,0.55
+P01,5,105,33,Active sentence,After,Active,0.55
+P01,5,107,35,Baseline,After,Active,0.55
+P01,5,123,43,Active sentence,After,Passive,0.55
+P01,5,125,44,Passive sentence,After,Active,0.55
+P01,5,128,41,Passive sentence,After,Active,0.55
+P01,5,131,42,Baseline,After,Active,0.55
+P02,1,14,42,Active sentence,Before,Other,0.5375
+P02,1,17,41,Baseline,Before,Active,0.5375
+P02,1,20,44,Baseline,Before,Other,0.5375
+P02,1,22,43,Passive sentence,Before,Other,0.5375
+P02,1,38,35,Active sentence,Before,Other,0.5375
+P02,1,40,33,Passive sentence,Before,Active,0.5375
+P02,1,43,34,Baseline,Before,Active,0.5375
+P02,1,46,36,Passive sentence,Before,Other,0.5375
+P02,1,62,27,Baseline,Before,Active,0.5375
+P02,1,64,25,Active sentence,Before,Other,0.5375
+P02,1,66,28,Active sentence,Before,Other,0.5375
+P02,1,69,26,Passive sentence,Before,Other,0.5375
+P02,1,71,102,Intervention,During,Other,0.5375
+P02,1,72,101,Intervention,During,Other,0.5375
+P02,1,87,19,Passive sentence,After,Other,0.5375
+P02,1,89,20,Baseline,After,Active,0.5375
+P02,1,91,17,Baseline,After,Other,0.5375
+P02,1,95,18,Active sentence,After,Active,0.5375
+P02,1,110,10,Baseline,After,Active,0.5375
+P02,1,112,12,Passive sentence,After,Other,0.5375
+P02,1,115,11,Active sentence,After,Active,0.5375
+P02,1,119,9,Passive sentence,After,Other,0.5375
+P02,1,134,4,Active sentence,After,Active,0.5375
+P02,1,136,3,Baseline,After,Active,0.5375
+P02,1,139,1,Active sentence,After,Other,0.5375
+P02,1,141,2,Passive sentence,After,Active,0.5375
+P02,2,4,2,Passive sentence,Before,Other,0.5375
+P02,2,6,1,Active sentence,Before,Other,0.5375
+P02,2,9,3,Baseline,Before,Other,0.5375
+P02,2,11,4,Active sentence,Before,Other,0.5375
+P02,2,14,9,Passive sentence,Before,Other,0.5375
+P02,2,18,11,Active sentence,Before,Other,0.5375
+P02,2,21,12,Passive sentence,Before,Other,0.5375
+P02,2,23,10,Baseline,Before,Passive,0.5375
+P02,2,26,18,Active sentence,Before,Other,0.5375
+P02,2,30,17,Baseline,Before,Active,0.5375
+P02,2,32,20,Baseline,Before,Active,0.5375
+P02,2,34,19,Passive sentence,Before,Other,0.5375
+P02,2,35,91,Intervention,During,Passive,0.5375
+P02,2,36,92,Intervention,During,Passive,0.5375
+P02,2,37,101,Intervention,During,Passive,0.5375
+P02,2,38,102,Intervention,During,Passive,0.5375
+P02,2,40,26,Passive sentence,After,Active,0.5375
+P02,2,43,28,Active sentence,After,Passive,0.5375
+P02,2,45,25,Active sentence,After,Other,0.5375
+P02,2,47,27,Baseline,After,Other,0.5375
+P02,2,51,36,Passive sentence,After,Other,0.5375
+P02,2,54,34,Baseline,After,Passive,0.5375
+P02,2,57,33,Passive sentence,After,Passive,0.5375
+P02,2,59,35,Active sentence,After,Other,0.5375
+P02,2,63,43,Passive sentence,After,Other,0.5375
+P02,2,65,44,Baseline,After,Active,0.5375
+P02,2,68,41,Baseline,After,Passive,0.5375
+P02,2,71,42,Active sentence,After,Passive,0.5375
+P02,3,4,42,Passive sentence,Before,Passive,0.5375
+P02,3,6,41,Active sentence,Before,Active,0.5375
+P02,3,8,44,Active sentence,Before,Other,0.5375
+P02,3,10,43,Baseline,Before,Other,0.5375
+P02,3,14,35,Passive sentence,Before,Other,0.5375
+P02,3,16,33,Baseline,Before,Passive,0.5375
+P02,3,19,34,Active sentence,Before,Passive,0.5375
+P02,3,22,36,Baseline,Before,Other,0.5375
+P02,3,26,27,Active sentence,Before,Active,0.5375
+P02,3,28,25,Passive sentence,Before,Passive,0.5375
+P02,3,30,28,Passive sentence,Before,Passive,0.5375
+P02,3,33,26,Baseline,Before,Passive,0.5375
+P02,3,35,102,Intervention,During,Passive,0.5375
+P02,3,36,101,Intervention,During,Passive,0.5375
+P02,3,37,92,Intervention,During,Passive,0.5375
+P02,3,38,91,Intervention,During,Passive,0.5375
+P02,3,39,19,Baseline,After,Passive,0.5375
+P02,3,41,20,Active sentence,After,Active,0.5375
+P02,3,43,17,Active sentence,After,Passive,0.5375
+P02,3,47,18,Passive sentence,After,Passive,0.5375
+P02,3,50,10,Active sentence,After,Active,0.5375
+P02,3,52,12,Baseline,After,Passive,0.5375
+P02,3,55,11,Passive sentence,After,Passive,0.5375
+P02,3,59,9,Baseline,After,Active,0.5375
+P02,3,62,4,Passive sentence,After,Passive,0.5375
+P02,3,64,3,Active sentence,After,Other,0.5375
+P02,3,67,1,Passive sentence,After,Passive,0.5375
+P02,3,69,2,Baseline,After,Active,0.5375
+P02,4,4,2,Baseline,Before,Active,0.5375
+P02,4,6,1,Passive sentence,Before,Passive,0.5375
+P02,4,9,3,Active sentence,Before,Passive,0.5375
+P02,4,11,4,Passive sentence,Before,Active,0.5375
+P02,4,14,9,Baseline,Before,Active,0.5375
+P02,4,18,11,Passive sentence,Before,Passive,0.5375
+P02,4,21,12,Baseline,Before,Passive,0.5375
+P02,4,23,10,Active sentence,Before,Passive,0.5375
+P02,4,26,18,Passive sentence,Before,Passive,0.5375
+P02,4,30,17,Active sentence,Before,Passive,0.5375
+P02,4,32,20,Active sentence,Before,Passive,0.5375
+P02,4,34,19,Baseline,Before,Active,0.5375
+P02,4,35,91,Intervention,During,Active,0.5375
+P02,4,36,92,Intervention,During,Passive,0.5375
+P02,4,37,101,Intervention,During,Passive,0.5375
+P02,4,38,102,Intervention,During,Passive,0.5375
+P02,4,40,26,Baseline,After,Active,0.5375
+P02,4,43,28,Passive sentence,After,Passive,0.5375
+P02,4,45,25,Passive sentence,After,Passive,0.5375
+P02,4,47,27,Active sentence,After,Passive,0.5375
+P02,4,51,36,Baseline,After,Active,0.5375
+P02,4,54,34,Active sentence,After,Passive,0.5375
+P02,4,57,33,Baseline,After,Passive,0.5375
+P02,4,59,35,Passive sentence,After,Passive,0.5375
+P02,4,63,43,Baseline,After,Passive,0.5375
+P02,4,65,44,Active sentence,After,Passive,0.5375
+P02,4,67,41,Active sentence,After,Passive,0.5375
+P02,4,69,42,Passive sentence,After,Passive,0.5375
+P02,5,14,42,Baseline,Before,Active,0.5375
+P02,5,17,41,Passive sentence,Before,Active,0.5375
+P02,5,20,44,Passive sentence,Before,Active,0.5375
+P02,5,22,43,Active sentence,Before,Active,0.5375
+P02,5,38,35,Baseline,Before,Active,0.5375
+P02,5,40,33,Active sentence,Before,Active,0.5375
+P02,5,43,34,Passive sentence,Before,Active,0.5375
+P02,5,46,36,Active sentence,Before,Passive,0.5375
+P02,5,62,27,Passive sentence,Before,Active,0.5375
+P02,5,64,25,Baseline,Before,Active,0.5375
+P02,5,66,28,Baseline,Before,Active,0.5375
+P02,5,69,26,Active sentence,Before,Passive,0.5375
+P02,5,71,102,Intervention,During,Passive,0.5375
+P02,5,72,101,Intervention,During,Passive,0.5375
+P02,5,87,19,Active sentence,After,Passive,0.5375
+P02,5,89,20,Passive sentence,After,Passive,0.5375
+P02,5,91,17,Passive sentence,After,Active,0.5375
+P02,5,95,18,Baseline,After,Passive,0.5375
+P02,5,110,10,Passive sentence,After,Passive,0.5375
+P02,5,112,12,Active sentence,After,Passive,0.5375
+P02,5,115,11,Baseline,After,Active,0.5375
+P02,5,119,9,Active sentence,After,Active,0.5375
+P02,5,134,4,Baseline,After,Passive,0.5375
+P02,5,136,3,Passive sentence,After,Passive,0.5375
+P02,5,139,1,Baseline,After,Active,0.5375
+P02,5,141,2,Active sentence,After,Active,0.5375
+P03,1,14,42,Active sentence,Before,Active,0.625
+P03,1,17,41,Baseline,Before,Active,0.625
+P03,1,20,44,Baseline,Before,Active,0.625
+P03,1,22,43,Passive sentence,Before,Active,0.625
+P03,1,38,35,Active sentence,Before,Other,0.625
+P03,1,40,33,Passive sentence,Before,Active,0.625
+P03,1,43,34,Baseline,Before,Active,0.625
+P03,1,46,36,Passive sentence,Before,Other,0.625
+P03,1,62,27,Baseline,Before,Active,0.625
+P03,1,64,25,Active sentence,Before,Active,0.625
+P03,1,66,28,Active sentence,Before,Active,0.625
+P03,1,69,26,Passive sentence,Before,Active,0.625
+P03,1,71,102,Intervention,During,Other,0.625
+P03,1,72,101,Intervention,During,Other,0.625
+P03,1,87,19,Passive sentence,After,Active,0.625
+P03,1,89,20,Baseline,After,Active,0.625
+P03,1,91,17,Baseline,After,Active,0.625
+P03,1,95,18,Active sentence,After,Active,0.625
+P03,1,110,10,Baseline,After,Other,0.625
+P03,1,112,12,Passive sentence,After,Active,0.625
+P03,1,115,11,Active sentence,After,Active,0.625
+P03,1,119,9,Passive sentence,After,Active,0.625
+P03,1,134,4,Active sentence,After,Other,0.625
+P03,1,136,3,Baseline,After,Other,0.625
+P03,1,139,1,Active sentence,After,Other,0.625
+P03,1,141,2,Passive sentence,After,Other,0.625
+P03,2,4,2,Baseline,Before,Other,0.625
+P03,2,6,1,Passive sentence,Before,Active,0.625
+P03,2,9,3,Active sentence,Before,Active,0.625
+P03,2,11,4,Passive sentence,Before,Active,0.625
+P03,2,14,9,Baseline,Before,Active,0.625
+P03,2,18,11,Passive sentence,Before,Active,0.625
+P03,2,21,12,Baseline,Before,Active,0.625
+P03,2,23,10,Active sentence,Before,Other,0.625
+P03,2,26,18,Passive sentence,Before,Other,0.625
+P03,2,30,17,Active sentence,Before,Other,0.625
+P03,2,32,20,Active sentence,Before,Active,0.625
+P03,2,34,19,Baseline,Before,Active,0.625
+P03,2,35,91,Intervention,During,Passive,0.625
+P03,2,36,92,Intervention,During,Passive,0.625
+P03,2,37,101,Intervention,During,Active,0.625
+P03,2,38,102,Intervention,During,Passive,0.625
+P03,2,40,26,Baseline,After,Other,0.625
+P03,2,43,28,Passive sentence,After,Active,0.625
+P03,2,45,25,Passive sentence,After,Active,0.625
+P03,2,47,27,Active sentence,After,Active,0.625
+P03,2,51,36,Baseline,After,Active,0.625
+P03,2,54,34,Active sentence,After,Active,0.625
+P03,2,57,33,Baseline,After,Active,0.625
+P03,2,59,35,Passive sentence,After,Active,0.625
+P03,2,63,43,Baseline,After,Other,0.625
+P03,2,65,44,Active sentence,After,Active,0.625
+P03,2,68,41,Active sentence,After,Active,0.625
+P03,2,71,42,Passive sentence,After,Active,0.625
+P03,3,4,42,Baseline,Before,Active,0.625
+P03,3,6,41,Passive sentence,Before,Other,0.625
+P03,3,8,44,Passive sentence,Before,Active,0.625
+P03,3,10,43,Active sentence,Before,Active,0.625
+P03,3,14,35,Baseline,Before,Passive,0.625
+P03,3,16,33,Active sentence,Before,Passive,0.625
+P03,3,19,34,Passive sentence,Before,Active,0.625
+P03,3,22,36,Active sentence,Before,Active,0.625
+P03,3,26,27,Passive sentence,Before,Active,0.625
+P03,3,28,25,Baseline,Before,Other,0.625
+P03,3,30,28,Baseline,Before,Active,0.625
+P03,3,33,26,Active sentence,Before,Active,0.625
+P03,3,35,102,Intervention,During,Passive,0.625
+P03,3,36,101,Intervention,During,Passive,0.625
+P03,3,37,92,Intervention,During,Passive,0.625
+P03,3,38,91,Intervention,During,Passive,0.625
+P03,3,39,19,Active sentence,After,Active,0.625
+P03,3,41,20,Passive sentence,After,Passive,0.625
+P03,3,43,17,Passive sentence,After,Active,0.625
+P03,3,47,18,Baseline,After,Passive,0.625
+P03,3,50,10,Passive sentence,After,Passive,0.625
+P03,3,52,12,Active sentence,After,Active,0.625
+P03,3,55,11,Baseline,After,Passive,0.625
+P03,3,59,9,Active sentence,After,Passive,0.625
+P03,3,62,4,Baseline,After,Active,0.625
+P03,3,64,3,Passive sentence,After,Passive,0.625
+P03,3,67,1,Baseline,After,Active,0.625
+P03,3,69,2,Active sentence,After,Passive,0.625
+P03,4,4,2,Active sentence,Before,Active,0.625
+P03,4,6,1,Baseline,Before,Active,0.625
+P03,4,9,3,Passive sentence,Before,Active,0.625
+P03,4,11,4,Baseline,Before,Active,0.625
+P03,4,14,9,Active sentence,Before,Active,0.625
+P03,4,18,11,Baseline,Before,Active,0.625
+P03,4,21,12,Active sentence,Before,Active,0.625
+P03,4,23,10,Passive sentence,Before,Active,0.625
+P03,4,26,18,Baseline,Before,Active,0.625
+P03,4,30,17,Passive sentence,Before,Passive,0.625
+P03,4,32,20,Passive sentence,Before,Active,0.625
+P03,4,34,19,Active sentence,Before,Passive,0.625
+P03,4,35,91,Intervention,During,Active,0.625
+P03,4,36,92,Intervention,During,Passive,0.625
+P03,4,37,101,Intervention,During,Passive,0.625
+P03,4,38,102,Intervention,During,Passive,0.625
+P03,4,40,26,Active sentence,After,Passive,0.625
+P03,4,43,28,Baseline,After,Active,0.625
+P03,4,45,25,Baseline,After,Active,0.625
+P03,4,47,27,Passive sentence,After,Active,0.625
+P03,4,51,36,Active sentence,After,Active,0.625
+P03,4,54,34,Passive sentence,After,Active,0.625
+P03,4,57,33,Active sentence,After,Active,0.625
+P03,4,59,35,Baseline,After,Active,0.625
+P03,4,63,43,Active sentence,After,Passive,0.625
+P03,4,65,44,Passive sentence,After,Passive,0.625
+P03,4,67,41,Passive sentence,After,Active,0.625
+P03,4,69,42,Baseline,After,Active,0.625
+P03,5,14,42,Passive sentence,Before,Active,0.625
+P03,5,17,41,Active sentence,Before,Active,0.625
+P03,5,20,44,Active sentence,Before,Active,0.625
+P03,5,22,43,Baseline,Before,Passive,0.625
+P03,5,38,35,Passive sentence,Before,Active,0.625
+P03,5,40,33,Baseline,Before,Active,0.625
+P03,5,43,34,Active sentence,Before,Passive,0.625
+P03,5,46,36,Baseline,Before,Active,0.625
+P03,5,62,27,Active sentence,Before,Active,0.625
+P03,5,64,25,Passive sentence,Before,Active,0.625
+P03,5,66,28,Passive sentence,Before,Passive,0.625
+P03,5,69,26,Baseline,Before,Active,0.625
+P03,5,71,102,Intervention,During,Active,0.625
+P03,5,72,101,Intervention,During,Passive,0.625
+P03,5,87,19,Baseline,After,Active,0.625
+P03,5,89,20,Active sentence,After,Active,0.625
+P03,5,91,17,Active sentence,After,Passive,0.625
+P03,5,95,18,Passive sentence,After,Active,0.625
+P03,5,110,10,Active sentence,After,Active,0.625
+P03,5,112,12,Baseline,After,Passive,0.625
+P03,5,115,11,Passive sentence,After,Active,0.625
+P03,5,119,9,Baseline,After,Active,0.625
+P03,5,134,4,Passive sentence,After,Active,0.625
+P03,5,136,3,Active sentence,After,Active,0.625
+P03,5,139,1,Passive sentence,After,Active,0.625
+P03,5,141,2,Baseline,After,Passive,0.625
+P04,2,2,42,Baseline,Before,Other,0.7875
+P04,2,5,41,Passive sentence,Before,Active,0.7875
+P04,2,8,44,Passive sentence,Before,Active,0.7875
+P04,2,10,43,Active sentence,Before,Other,0.7875
+P04,2,14,35,Baseline,Before,Active,0.7875
+P04,2,16,33,Active sentence,Before,Active,0.7875
+P04,2,19,34,Passive sentence,Before,Active,0.7875
+P04,2,22,36,Active sentence,Before,Active,0.7875
+P04,2,26,27,Passive sentence,Before,Active,0.7875
+P04,2,28,25,Baseline,Before,Active,0.7875
+P04,2,30,28,Baseline,Before,Active,0.7875
+P04,2,33,26,Active sentence,Before,Active,0.7875
+P04,2,35,102,Intervention,During,Passive,0.7875
+P04,2,36,101,Intervention,During,Active,0.7875
+P04,2,37,92,Intervention,During,Other,0.7875
+P04,2,38,91,Intervention,During,Active,0.7875
+P04,2,39,19,Active sentence,After,Active,0.7875
+P04,2,41,20,Passive sentence,After,Active,0.7875
+P04,2,43,17,Passive sentence,After,Active,0.7875
+P04,2,47,18,Baseline,After,Active,0.7875
+P04,2,50,10,Passive sentence,After,Passive,0.7875
+P04,2,52,12,Active sentence,After,Passive,0.7875
+P04,2,55,11,Baseline,After,Active,0.7875
+P04,2,59,9,Active sentence,After,Passive,0.7875
+P04,2,62,4,Baseline,After,Active,0.7875
+P04,2,64,3,Passive sentence,After,Active,0.7875
+P04,2,67,1,Baseline,After,Active,0.7875
+P04,2,69,2,Active sentence,After,Active,0.7875
+P04,4,4,2,Passive sentence,Before,Active,0.7875
+P04,4,6,1,Active sentence,Before,Active,0.7875
+P04,4,9,3,Baseline,Before,Active,0.7875
+P04,4,11,4,Active sentence,Before,Active,0.7875
+P04,4,14,9,Passive sentence,Before,Active,0.7875
+P04,4,18,11,Active sentence,Before,Active,0.7875
+P04,4,21,12,Passive sentence,Before,Active,0.7875
+P04,4,23,10,Baseline,Before,Active,0.7875
+P04,4,26,18,Active sentence,Before,Active,0.7875
+P04,4,30,17,Baseline,Before,Active,0.7875
+P04,4,32,20,Baseline,Before,Active,0.7875
+P04,4,34,19,Passive sentence,Before,Active,0.7875
+P04,4,35,91,Intervention,During,Active,0.7875
+P04,4,36,92,Intervention,During,Passive,0.7875
+P04,4,37,101,Intervention,During,Passive,0.7875
+P04,4,38,102,Intervention,During,Passive,0.7875
+P04,4,40,26,Passive sentence,After,Active,0.7875
+P04,4,43,28,Active sentence,After,Active,0.7875
+P04,4,45,25,Active sentence,After,Active,0.7875
+P04,4,47,27,Baseline,After,Active,0.7875
+P04,4,51,36,Passive sentence,After,Active,0.7875
+P04,4,54,34,Baseline,After,Active,0.7875
+P04,4,57,33,Passive sentence,After,Active,0.7875
+P04,4,59,35,Active sentence,After,Active,0.7875
+P04,4,63,43,Passive sentence,After,Active,0.7875
+P04,4,65,44,Baseline,After,Active,0.7875
+P04,4,67,41,Baseline,After,Active,0.7875
+P04,4,69,42,Active sentence,After,Active,0.7875
+P04,5,4,2,Baseline,Before,Active,0.7875
+P04,5,6,1,Passive sentence,Before,Active,0.7875
+P04,5,9,3,Active sentence,Before,Active,0.7875
+P04,5,11,4,Passive sentence,Before,Active,0.7875
+P04,5,26,9,Baseline,Before,Active,0.7875
+P04,5,30,11,Passive sentence,Before,Active,0.7875
+P04,5,33,12,Baseline,Before,Active,0.7875
+P04,5,35,10,Active sentence,Before,Active,0.7875
+P04,5,50,18,Passive sentence,Before,Active,0.7875
+P04,5,54,17,Active sentence,Before,Active,0.7875
+P04,5,56,20,Active sentence,Before,Active,0.7875
+P04,5,58,19,Baseline,Before,Active,0.7875
+P04,5,73,101,Intervention,During,Passive,0.7875
+P04,5,74,102,Intervention,During,Passive,0.7875
+P04,5,76,26,Baseline,After,Passive,0.7875
+P04,5,79,28,Passive sentence,After,Active,0.7875
+P04,5,81,25,Passive sentence,After,Active,0.7875
+P04,5,83,27,Active sentence,After,Active,0.7875
+P04,5,99,36,Baseline,After,Active,0.7875
+P04,5,102,34,Active sentence,After,Active,0.7875
+P04,5,105,33,Baseline,After,Active,0.7875
+P04,5,107,35,Passive sentence,After,Active,0.7875
+P04,5,123,43,Baseline,After,Active,0.7875
+P04,5,125,44,Active sentence,After,Active,0.7875
+P04,5,128,41,Active sentence,After,Active,0.7875
+P04,5,131,42,Passive sentence,After,Active,0.7875
+P05,1,4,2,Passive sentence,Before,No response,0.5125
+P05,1,6,1,Active sentence,Before,No response,0.5125
+P05,1,9,3,Baseline,Before,No response,0.5125
+P05,1,11,4,Active sentence,Before,No response,0.5125
+P05,1,26,9,Passive sentence,Before,No response,0.5125
+P05,1,30,11,Active sentence,Before,No response,0.5125
+P05,1,33,12,Passive sentence,Before,No response,0.5125
+P05,1,35,10,Baseline,Before,No response,0.5125
+P05,1,50,18,Active sentence,Before,No response,0.5125
+P05,1,54,17,Baseline,Before,No response,0.5125
+P05,1,56,20,Baseline,Before,No response,0.5125
+P05,1,58,19,Passive sentence,Before,No response,0.5125
+P05,1,73,101,Intervention,During,No response,0.5125
+P05,1,74,102,Intervention,During,No response,0.5125
+P05,1,76,26,Passive sentence,After,No response,0.5125
+P05,1,79,28,Active sentence,After,Active,0.5125
+P05,1,81,25,Active sentence,After,Other,0.5125
+P05,1,83,27,Baseline,After,Other,0.5125
+P05,1,99,36,Passive sentence,After,Other,0.5125
+P05,1,102,34,Baseline,After,Active,0.5125
+P05,1,105,33,Passive sentence,After,Active,0.5125
+P05,1,107,35,Active sentence,After,Active,0.5125
+P05,1,123,43,Passive sentence,After,Active,0.5125
+P05,1,125,44,Baseline,After,Other,0.5125
+P05,1,128,41,Baseline,After,Active,0.5125
+P05,1,131,42,Active sentence,After,Other,0.5125
+P05,2,2,42,Passive sentence,Before,Active,0.5125
+P05,2,5,41,Active sentence,Before,Active,0.5125
+P05,2,8,44,Active sentence,Before,Other,0.5125
+P05,2,10,43,Baseline,Before,Active,0.5125
+P05,2,14,35,Passive sentence,Before,Other,0.5125
+P05,2,16,33,Baseline,Before,Other,0.5125
+P05,2,19,34,Active sentence,Before,Active,0.5125
+P05,2,22,36,Baseline,Before,Other,0.5125
+P05,2,26,27,Active sentence,Before,Active,0.5125
+P05,2,28,25,Passive sentence,Before,Active,0.5125
+P05,2,30,28,Passive sentence,Before,Active,0.5125
+P05,2,33,26,Baseline,Before,Active,0.5125
+P05,2,35,102,Intervention,During,Active,0.5125
+P05,2,36,101,Intervention,During,Passive,0.5125
+P05,2,37,92,Intervention,During,Other,0.5125
+P05,2,38,91,Intervention,During,Passive,0.5125
+P05,2,39,19,Baseline,After,Other,0.5125
+P05,2,41,20,Active sentence,After,Active,0.5125
+P05,2,43,17,Active sentence,After,Active,0.5125
+P05,2,47,18,Passive sentence,After,Active,0.5125
+P05,2,50,10,Active sentence,After,Active,0.5125
+P05,2,52,12,Baseline,After,Active,0.5125
+P05,2,55,11,Passive sentence,After,Other,0.5125
+P05,2,59,9,Baseline,After,Other,0.5125
+P05,2,62,4,Passive sentence,After,Other,0.5125
+P05,2,64,3,Active sentence,After,Active,0.5125
+P05,2,67,1,Passive sentence,After,Other,0.5125
+P05,2,69,2,Baseline,After,Other,0.5125
+P05,3,4,2,Active sentence,Before,Active,0.5125
+P05,3,6,1,Baseline,Before,Active,0.5125
+P05,3,9,3,Passive sentence,Before,Active,0.5125
+P05,3,11,4,Baseline,Before,Active,0.5125
+P05,3,14,9,Active sentence,Before,Other,0.5125
+P05,3,18,11,Baseline,Before,Active,0.5125
+P05,3,21,12,Active sentence,Before,Active,0.5125
+P05,3,23,10,Passive sentence,Before,Active,0.5125
+P05,3,26,18,Baseline,Before,Other,0.5125
+P05,3,30,17,Passive sentence,Before,Passive,0.5125
+P05,3,32,20,Passive sentence,Before,Active,0.5125
+P05,3,34,19,Active sentence,Before,Active,0.5125
+P05,3,35,91,Intervention,During,Other,0.5125
+P05,3,36,92,Intervention,During,Passive,0.5125
+P05,3,37,101,Intervention,During,Passive,0.5125
+P05,3,38,102,Intervention,During,Active,0.5125
+P05,3,40,26,Active sentence,After,Passive,0.5125
+P05,3,43,28,Baseline,After,Other,0.5125
+P05,3,45,25,Baseline,After,Active,0.5125
+P05,3,47,27,Passive sentence,After,Active,0.5125
+P05,3,51,36,Active sentence,After,Other,0.5125
+P05,3,54,34,Passive sentence,After,Passive,0.5125
+P05,3,57,33,Active sentence,After,Passive,0.5125
+P05,3,59,35,Baseline,After,Passive,0.5125
+P05,3,63,43,Active sentence,After,Active,0.5125
+P05,3,65,44,Passive sentence,After,Active,0.5125
+P05,3,67,41,Passive sentence,After,Passive,0.5125
+P05,3,69,42,Baseline,After,Passive,0.5125
+P05,4,4,42,Baseline,Before,Other,0.5125
+P05,4,6,41,Passive sentence,Before,Active,0.5125
+P05,4,8,44,Passive sentence,Before,Other,0.5125
+P05,4,10,43,Active sentence,Before,Active,0.5125
+P05,4,14,35,Baseline,Before,Active,0.5125
+P05,4,16,33,Active sentence,Before,Active,0.5125
+P05,4,19,34,Passive sentence,Before,Active,0.5125
+P05,4,22,36,Active sentence,Before,Active,0.5125
+P05,4,26,27,Passive sentence,Before,Other,0.5125
+P05,4,28,25,Baseline,Before,Active,0.5125
+P05,4,30,28,Baseline,Before,Active,0.5125
+P05,4,33,26,Active sentence,Before,Active,0.5125
+P05,4,35,102,Intervention,During,Other,0.5125
+P05,4,36,101,Intervention,During,Passive,0.5125
+P05,4,37,92,Intervention,During,Passive,0.5125
+P05,4,38,91,Intervention,During,Passive,0.5125
+P05,4,39,19,Active sentence,After,Active,0.5125
+P05,4,41,20,Passive sentence,After,Active,0.5125
+P05,4,43,17,Passive sentence,After,Passive,0.5125
+P05,4,47,18,Baseline,After,Active,0.5125
+P05,4,50,10,Passive sentence,After,Passive,0.5125
+P05,4,52,12,Active sentence,After,Active,0.5125
+P05,4,55,11,Baseline,After,Active,0.5125
+P05,4,59,9,Active sentence,After,Other,0.5125
+P05,4,62,4,Baseline,After,Active,0.5125
+P05,4,64,3,Passive sentence,After,Other,0.5125
+P05,4,67,1,Baseline,After,Active,0.5125
+P05,4,69,2,Active sentence,After,Passive,0.5125
+P05,5,4,2,Baseline,Before,Active,0.5125
+P05,5,6,1,Passive sentence,Before,Active,0.5125
+P05,5,9,3,Active sentence,Before,Active,0.5125
+P05,5,11,4,Passive sentence,Before,Active,0.5125
+P05,5,26,9,Baseline,Before,Passive,0.5125
+P05,5,30,11,Passive sentence,Before,Active,0.5125
+P05,5,33,12,Baseline,Before,Active,0.5125
+P05,5,35,10,Active sentence,Before,Passive,0.5125
+P05,5,50,18,Passive sentence,Before,Active,0.5125
+P05,5,54,17,Active sentence,Before,Passive,0.5125
+P05,5,56,20,Active sentence,Before,Active,0.5125
+P05,5,58,19,Baseline,Before,Active,0.5125
+P05,5,73,101,Intervention,During,Passive,0.5125
+P05,5,74,102,Intervention,During,Passive,0.5125
+P05,5,76,26,Baseline,After,Passive,0.5125
+P05,5,79,28,Passive sentence,After,Active,0.5125
+P05,5,81,25,Passive sentence,After,Passive,0.5125
+P05,5,83,27,Active sentence,After,Passive,0.5125
+P05,5,99,36,Baseline,After,Active,0.5125
+P05,5,102,34,Active sentence,After,Passive,0.5125
+P05,5,105,33,Baseline,After,Passive,0.5125
+P05,5,107,35,Passive sentence,After,Active,0.5125
+P05,5,123,43,Baseline,After,Active,0.5125
+P05,5,125,44,Active sentence,After,Active,0.5125
+P05,5,128,41,Active sentence,After,Passive,0.5125
+P05,5,131,42,Passive sentence,After,Passive,0.5125
+P06,1,14,42,Baseline,Before,Active,0.5625
+P06,1,17,41,Passive sentence,Before,Active,0.5625
+P06,1,20,44,Passive sentence,Before,Other,0.5625
+P06,1,22,43,Active sentence,Before,Other,0.5625
+P06,1,38,35,Baseline,Before,Other,0.5625
+P06,1,40,33,Active sentence,Before,Other,0.5625
+P06,1,43,34,Passive sentence,Before,Active,0.5625
+P06,1,46,36,Active sentence,Before,Other,0.5625
+P06,1,62,27,Passive sentence,Before,Active,0.5625
+P06,1,64,25,Baseline,Before,Other,0.5625
+P06,1,66,28,Baseline,Before,Active,0.5625
+P06,1,69,26,Active sentence,Before,Other,0.5625
+P06,1,71,102,Intervention,During,Active,0.5625
+P06,1,72,101,Intervention,During,Passive,0.5625
+P06,1,87,19,Active sentence,After,Active,0.5625
+P06,1,89,20,Passive sentence,After,Active,0.5625
+P06,1,91,17,Passive sentence,After,Active,0.5625
+P06,1,95,18,Baseline,After,Other,0.5625
+P06,1,110,10,Passive sentence,After,Other,0.5625
+P06,1,112,12,Active sentence,After,Active,0.5625
+P06,1,115,11,Baseline,After,Other,0.5625
+P06,1,119,9,Active sentence,After,Active,0.5625
+P06,1,134,4,Baseline,After,Other,0.5625
+P06,1,136,3,Passive sentence,After,Active,0.5625
+P06,1,139,1,Baseline,After,Active,0.5625
+P06,1,141,2,Active sentence,After,Active,0.5625
+P06,2,4,2,Passive sentence,Before,Passive,0.5625
+P06,2,6,1,Active sentence,Before,Active,0.5625
+P06,2,9,3,Baseline,Before,Other,0.5625
+P06,2,11,4,Active sentence,Before,Other,0.5625
+P06,2,14,9,Passive sentence,Before,Active,0.5625
+P06,2,18,11,Active sentence,Before,Other,0.5625
+P06,2,21,12,Passive sentence,Before,Other,0.5625
+P06,2,23,10,Baseline,Before,Active,0.5625
+P06,2,26,18,Active sentence,Before,Active,0.5625
+P06,2,30,17,Baseline,Before,Active,0.5625
+P06,2,32,20,Baseline,Before,Active,0.5625
+P06,2,34,19,Passive sentence,Before,Active,0.5625
+P06,2,35,91,Intervention,During,Active,0.5625
+P06,2,36,92,Intervention,During,Other,0.5625
+P06,2,37,101,Intervention,During,Other,0.5625
+P06,2,38,102,Intervention,During,Other,0.5625
+P06,2,40,26,Passive sentence,After,Active,0.5625
+P06,2,43,28,Active sentence,After,Other,0.5625
+P06,2,45,25,Active sentence,After,Active,0.5625
+P06,2,47,27,Baseline,After,Other,0.5625
+P06,2,51,36,Passive sentence,After,Active,0.5625
+P06,2,54,34,Baseline,After,Other,0.5625
+P06,2,57,33,Passive sentence,After,Other,0.5625
+P06,2,59,35,Active sentence,After,Other,0.5625
+P06,2,63,43,Passive sentence,After,Other,0.5625
+P06,2,65,44,Baseline,After,Other,0.5625
+P06,2,68,41,Baseline,After,Active,0.5625
+P06,2,71,42,Active sentence,After,Active,0.5625
+P06,3,4,42,Active sentence,Before,Active,0.5625
+P06,3,6,41,Baseline,Before,Active,0.5625
+P06,3,8,44,Baseline,Before,Active,0.5625
+P06,3,10,43,Passive sentence,Before,Other,0.5625
+P06,3,14,35,Active sentence,Before,Active,0.5625
+P06,3,16,33,Passive sentence,Before,Other,0.5625
+P06,3,19,34,Baseline,Before,Other,0.5625
+P06,3,22,36,Passive sentence,Before,Other,0.5625
+P06,3,26,27,Baseline,Before,Other,0.5625
+P06,3,28,25,Active sentence,Before,Active,0.5625
+P06,3,30,28,Active sentence,Before,Other,0.5625
+P06,3,33,26,Passive sentence,Before,Active,0.5625
+P06,3,35,102,Intervention,During,Passive,0.5625
+P06,3,36,101,Intervention,During,Passive,0.5625
+P06,3,37,92,Intervention,During,Other,0.5625
+P06,3,38,91,Intervention,During,Active,0.5625
+P06,3,39,19,Passive sentence,After,Other,0.5625
+P06,3,41,20,Baseline,After,Active,0.5625
+P06,3,43,17,Baseline,After,Passive,0.5625
+P06,3,47,18,Active sentence,After,Active,0.5625
+P06,3,50,10,Baseline,After,Passive,0.5625
+P06,3,52,12,Passive sentence,After,Other,0.5625
+P06,3,55,11,Active sentence,After,Passive,0.5625
+P06,3,59,9,Passive sentence,After,Active,0.5625
+P06,3,62,4,Active sentence,After,Other,0.5625
+P06,3,64,3,Baseline,After,Passive,0.5625
+P06,3,67,1,Active sentence,After,Passive,0.5625
+P06,3,69,2,Passive sentence,After,Active,0.5625
+P06,4,4,2,Baseline,Before,Active,0.5625
+P06,4,6,1,Passive sentence,Before,Active,0.5625
+P06,4,9,3,Active sentence,Before,Passive,0.5625
+P06,4,11,4,Passive sentence,Before,Other,0.5625
+P06,4,14,9,Baseline,Before,Other,0.5625
+P06,4,18,11,Passive sentence,Before,Passive,0.5625
+P06,4,21,12,Baseline,Before,Other,0.5625
+P06,4,23,10,Active sentence,Before,Passive,0.5625
+P06,4,26,18,Passive sentence,Before,Active,0.5625
+P06,4,30,17,Active sentence,Before,Passive,0.5625
+P06,4,32,20,Active sentence,Before,Active,0.5625
+P06,4,34,19,Baseline,Before,Active,0.5625
+P06,4,35,91,Intervention,During,Passive,0.5625
+P06,4,36,92,Intervention,During,Passive,0.5625
+P06,4,37,101,Intervention,During,Passive,0.5625
+P06,4,38,102,Intervention,During,Passive,0.5625
+P06,4,40,26,Baseline,After,Active,0.5625
+P06,4,43,28,Passive sentence,After,Passive,0.5625
+P06,4,45,25,Passive sentence,After,Passive,0.5625
+P06,4,47,27,Active sentence,After,Passive,0.5625
+P06,4,51,36,Baseline,After,Other,0.5625
+P06,4,54,34,Active sentence,After,Passive,0.5625
+P06,4,57,33,Baseline,After,Passive,0.5625
+P06,4,59,35,Passive sentence,After,Other,0.5625
+P06,4,63,43,Baseline,After,Other,0.5625
+P06,4,65,44,Active sentence,After,Active,0.5625
+P06,4,67,41,Active sentence,After,Passive,0.5625
+P06,4,69,42,Passive sentence,After,Passive,0.5625
+P06,5,14,42,Baseline,Before,Other,0.5625
+P06,5,17,41,Passive sentence,Before,Passive,0.5625
+P06,5,20,44,Passive sentence,Before,Passive,0.5625
+P06,5,22,43,Active sentence,Before,Other,0.5625
+P06,5,38,35,Baseline,Before,Passive,0.5625
+P06,5,40,33,Active sentence,Before,Active,0.5625
+P06,5,43,34,Passive sentence,Before,Passive,0.5625
+P06,5,46,36,Active sentence,Before,Active,0.5625
+P06,5,62,27,Passive sentence,Before,Passive,0.5625
+P06,5,64,25,Baseline,Before,Passive,0.5625
+P06,5,66,28,Baseline,Before,Passive,0.5625
+P06,5,69,26,Active sentence,Before,Passive,0.5625
+P06,5,71,102,Intervention,During,Passive,0.5625
+P06,5,72,101,Intervention,During,Passive,0.5625
+P06,5,87,19,Active sentence,After,Passive,0.5625
+P06,5,89,20,Passive sentence,After,Active,0.5625
+P06,5,91,17,Passive sentence,After,Passive,0.5625
+P06,5,95,18,Baseline,After,Passive,0.5625
+P06,5,110,10,Passive sentence,After,Passive,0.5625
+P06,5,112,12,Active sentence,After,Passive,0.5625
+P06,5,115,11,Baseline,After,Passive,0.5625
+P06,5,119,9,Active sentence,After,Passive,0.5625
+P06,5,134,4,Baseline,After,Passive,0.5625
+P06,5,136,3,Passive sentence,After,Passive,0.5625
+P06,5,139,1,Baseline,After,Passive,0.5625
+P06,5,141,2,Active sentence,After,Active,0.5625
+P07,1,4,2,Active sentence,Before,Other,0.525
+P07,1,6,1,Baseline,Before,Other,0.525
+P07,1,9,3,Passive sentence,Before,Other,0.525
+P07,1,11,4,Baseline,Before,Other,0.525
+P07,1,26,9,Active sentence,Before,Active,0.525
+P07,1,30,11,Baseline,Before,Active,0.525
+P07,1,33,12,Active sentence,Before,Active,0.525
+P07,1,35,10,Passive sentence,Before,Active,0.525
+P07,1,50,18,Baseline,Before,Passive,0.525
+P07,1,54,17,Passive sentence,Before,Active,0.525
+P07,1,56,20,Passive sentence,Before,Active,0.525
+P07,1,58,19,Active sentence,Before,Passive,0.525
+P07,1,73,101,Intervention,During,Active,0.525
+P07,1,74,102,Intervention,During,Passive,0.525
+P07,1,76,26,Active sentence,After,Active,0.525
+P07,1,79,28,Baseline,After,Short passive,0.525
+P07,1,81,25,Baseline,After,Other,0.525
+P07,1,83,27,Passive sentence,After,Active,0.525
+P07,1,99,36,Active sentence,After,Other,0.525
+P07,1,102,34,Passive sentence,After,Active,0.525
+P07,1,105,33,Active sentence,After,Active,0.525
+P07,1,107,35,Baseline,After,Active,0.525
+P07,1,123,43,Active sentence,After,Active,0.525
+P07,1,125,44,Passive sentence,After,Active,0.525
+P07,1,128,41,Passive sentence,After,Active,0.525
+P07,1,131,42,Baseline,After,Active,0.525
+P07,2,2,42,Active sentence,Before,Other,0.525
+P07,2,5,129,Baseline,Before,Active,0.525
+P07,2,8,44,Baseline,Before,Other,0.525
+P07,2,10,43,Passive sentence,Before,Active,0.525
+P07,2,14,35,Active sentence,Before,Active,0.525
+P07,2,16,33,Passive sentence,Before,Active,0.525
+P07,2,19,34,Baseline,Before,Active,0.525
+P07,2,22,36,Passive sentence,Before,Active,0.525
+P07,2,26,27,Baseline,Before,Active,0.525
+P07,2,28,25,Active sentence,Before,Active,0.525
+P07,2,30,28,Active sentence,Before,Active,0.525
+P07,2,33,26,Passive sentence,Before,Active,0.525
+P07,2,35,102,Intervention,During,Passive,0.525
+P07,2,36,101,Intervention,During,Passive,0.525
+P07,2,37,92,Intervention,During,Active,0.525
+P07,2,38,91,Intervention,During,Other,0.525
+P07,2,39,19,Passive sentence,After,Active,0.525
+P07,2,41,20,Baseline,After,Active,0.525
+P07,2,43,17,Baseline,After,Active,0.525
+P07,2,47,18,Active sentence,After,Passive,0.525
+P07,2,50,10,Baseline,After,Passive,0.525
+P07,2,52,12,Passive sentence,After,Active,0.525
+P07,2,55,11,Active sentence,After,Passive,0.525
+P07,2,59,9,Passive sentence,After,Active,0.525
+P07,2,62,4,Active sentence,After,Active,0.525
+P07,2,64,3,Baseline,After,Passive,0.525
+P07,2,67,1,Active sentence,After,Active,0.525
+P07,2,69,2,Passive sentence,After,Active,0.525
+P07,3,4,2,Active sentence,Before,Active,0.525
+P07,3,6,1,Baseline,Before,Active,0.525
+P07,3,9,3,Passive sentence,Before,Passive,0.525
+P07,3,11,4,Baseline,Before,Passive,0.525
+P07,3,14,9,Active sentence,Before,Active,0.525
+P07,3,18,11,Baseline,Before,Passive,0.525
+P07,3,21,12,Active sentence,Before,Active,0.525
+P07,3,23,10,Passive sentence,Before,Passive,0.525
+P07,3,26,18,Baseline,Before,Passive,0.525
+P07,3,30,17,Passive sentence,Before,Passive,0.525
+P07,3,32,20,Passive sentence,Before,Active,0.525
+P07,3,34,19,Active sentence,Before,Active,0.525
+P07,3,35,91,Intervention,During,Passive,0.525
+P07,3,36,92,Intervention,During,Passive,0.525
+P07,3,37,101,Intervention,During,Passive,0.525
+P07,3,38,102,Intervention,During,Passive,0.525
+P07,3,40,26,Active sentence,After,Passive,0.525
+P07,3,43,28,Baseline,After,Passive,0.525
+P07,3,45,25,Baseline,After,Passive,0.525
+P07,3,47,27,Passive sentence,After,Passive,0.525
+P07,3,51,36,Active sentence,After,Passive,0.525
+P07,3,54,34,Passive sentence,After,Passive,0.525
+P07,3,57,33,Active sentence,After,Passive,0.525
+P07,3,59,35,Baseline,After,Active,0.525
+P07,3,63,43,Active sentence,After,Active,0.525
+P07,3,65,44,Passive sentence,After,Active,0.525
+P07,3,67,41,Passive sentence,After,Passive,0.525
+P07,3,69,42,Baseline,After,Passive,0.525
+P07,4,4,42,Active sentence,Before,Short passive,0.525
+P07,4,6,41,Baseline,Before,Active,0.525
+P07,4,8,44,Baseline,Before,Other,0.525
+P07,4,10,43,Passive sentence,Before,Active,0.525
+P07,4,14,35,Active sentence,Before,Passive,0.525
+P07,4,16,33,Passive sentence,Before,Active,0.525
+P07,4,19,34,Baseline,Before,Passive,0.525
+P07,4,22,36,Passive sentence,Before,Active,0.525
+P07,4,26,27,Baseline,Before,Passive,0.525
+P07,4,28,25,Active sentence,Before,Passive,0.525
+P07,4,30,28,Active sentence,Before,Passive,0.525
+P07,4,33,26,Passive sentence,Before,Passive,0.525
+P07,4,35,102,Intervention,During,Passive,0.525
+P07,4,36,101,Intervention,During,Passive,0.525
+P07,4,37,92,Intervention,During,Passive,0.525
+P07,4,38,91,Intervention,During,Passive,0.525
+P07,4,39,19,Passive sentence,After,Passive,0.525
+P07,4,41,20,Baseline,After,Active,0.525
+P07,4,43,17,Baseline,After,Passive,0.525
+P07,4,47,18,Active sentence,After,Passive,0.525
+P07,4,50,10,Baseline,After,Passive,0.525
+P07,4,52,12,Passive sentence,After,Passive,0.525
+P07,4,55,11,Active sentence,After,Other,0.525
+P07,4,59,9,Passive sentence,After,Passive,0.525
+P07,4,62,4,Active sentence,After,Passive,0.525
+P07,4,64,3,Baseline,After,Passive,0.525
+P07,4,67,1,Active sentence,After,Passive,0.525
+P07,4,69,2,Passive sentence,After,Passive,0.525
+P07,5,4,2,Passive sentence,Before,Passive,0.525
+P07,5,6,1,Active sentence,Before,Passive,0.525
+P07,5,9,3,Baseline,Before,Passive,0.525
+P07,5,11,4,Active sentence,Before,Passive,0.525
+P07,5,26,9,Passive sentence,Before,Active,0.525
+P07,5,30,11,Active sentence,Before,Passive,0.525
+P07,5,33,12,Passive sentence,Before,Active,0.525
+P07,5,35,10,Baseline,Before,Passive,0.525
+P07,5,50,18,Active sentence,Before,Passive,0.525
+P07,5,54,17,Baseline,Before,Passive,0.525
+P07,5,56,20,Baseline,Before,Active,0.525
+P07,5,58,19,Passive sentence,Before,Passive,0.525
+P07,5,73,101,Intervention,During,Passive,0.525
+P07,5,74,102,Intervention,During,Passive,0.525
+P07,5,76,26,Passive sentence,After,Passive,0.525
+P07,5,79,28,Active sentence,After,Passive,0.525
+P07,5,81,25,Active sentence,After,Passive,0.525
+P07,5,83,27,Baseline,After,Passive,0.525
+P07,5,99,36,Passive sentence,After,Passive,0.525
+P07,5,102,34,Baseline,After,Passive,0.525
+P07,5,105,33,Passive sentence,After,Passive,0.525
+P07,5,107,35,Active sentence,After,Active,0.525
+P07,5,123,43,Passive sentence,After,Passive,0.525
+P07,5,125,44,Baseline,After,Active,0.525
+P07,5,128,41,Baseline,After,Passive,0.525
+P07,5,131,42,Active sentence,After,Passive,0.525
+P08,1,14,42,Active sentence,Before,Other,0.6
+P08,1,17,41,Baseline,Before,Other,0.6
+P08,1,20,44,Baseline,Before,Other,0.6
+P08,1,22,43,Passive sentence,Before,Other,0.6
+P08,1,38,35,Active sentence,Before,Active,0.6
+P08,1,40,33,Passive sentence,Before,Active,0.6
+P08,1,43,34,Baseline,Before,Active,0.6
+P08,1,46,36,Passive sentence,Before,Other,0.6
+P08,1,62,27,Baseline,Before,No response,0.6
+P08,1,64,25,Active sentence,Before,No response,0.6
+P08,1,66,28,Active sentence,Before,No response,0.6
+P08,1,69,26,Passive sentence,Before,No response,0.6
+P08,1,71,102,Intervention,During,No response,0.6
+P08,1,72,101,Intervention,During,No response,0.6
+P08,1,87,19,Passive sentence,After,No response,0.6
+P08,1,89,20,Baseline,After,No response,0.6
+P08,1,91,17,Baseline,After,No response,0.6
+P08,1,95,18,Active sentence,After,No response,0.6
+P08,1,110,10,Baseline,After,No response,0.6
+P08,1,112,12,Passive sentence,After,No response,0.6
+P08,1,115,11,Active sentence,After,No response,0.6
+P08,1,119,9,Passive sentence,After,No response,0.6
+P08,1,134,4,Active sentence,After,No response,0.6
+P08,1,136,3,Baseline,After,No response,0.6
+P08,1,139,1,Active sentence,After,No response,0.6
+P08,1,141,2,Passive sentence,After,No response,0.6
+P08,2,4,2,Active sentence,Before,Other,0.6
+P08,2,6,1,Baseline,Before,Other,0.6
+P08,2,9,3,Passive sentence,Before,Active,0.6
+P08,2,11,4,Baseline,Before,Active,0.6
+P08,2,14,9,Active sentence,Before,Other,0.6
+P08,2,18,11,Baseline,Before,Other,0.6
+P08,2,21,12,Active sentence,Before,Other,0.6
+P08,2,23,10,Passive sentence,Before,Active,0.6
+P08,2,26,18,Baseline,Before,Other,0.6
+P08,2,30,17,Passive sentence,Before,Active,0.6
+P08,2,32,20,Passive sentence,Before,Active,0.6
+P08,2,34,19,Active sentence,Before,Active,0.6
+P08,2,35,91,Intervention,During,Other,0.6
+P08,2,36,92,Intervention,During,Passive,0.6
+P08,2,37,101,Intervention,During,Passive,0.6
+P08,2,38,102,Intervention,During,Passive,0.6
+P08,2,40,26,Active sentence,After,Other,0.6
+P08,2,43,28,Baseline,After,Passive,0.6
+P08,2,45,25,Baseline,After,Other,0.6
+P08,2,47,27,Passive sentence,After,Active,0.6
+P08,2,51,36,Active sentence,After,Other,0.6
+P08,2,54,34,Passive sentence,After,Passive,0.6
+P08,2,57,33,Active sentence,After,Other,0.6
+P08,2,59,35,Baseline,After,Other,0.6
+P08,2,63,43,Active sentence,After,Other,0.6
+P08,2,65,44,Passive sentence,After,Active,0.6
+P08,2,68,41,Passive sentence,After,Active,0.6
+P08,2,71,42,Baseline,After,Other,0.6
+P08,3,4,42,Baseline,Before,Other,0.6
+P08,3,6,41,Passive sentence,Before,Other,0.6
+P08,3,8,44,Passive sentence,Before,Passive,0.6
+P08,3,10,43,Active sentence,Before,Active,0.6
+P08,3,14,35,Baseline,Before,Passive,0.6
+P08,3,16,33,Active sentence,Before,Other,0.6
+P08,3,19,34,Passive sentence,Before,Other,0.6
+P08,3,22,36,Active sentence,Before,Other,0.6
+P08,3,26,27,Passive sentence,Before,Passive,0.6
+P08,3,28,25,Baseline,Before,Other,0.6
+P08,3,30,28,Baseline,Before,Passive,0.6
+P08,3,33,26,Active sentence,Before,Other,0.6
+P08,3,35,102,Intervention,During,Passive,0.6
+P08,3,36,101,Intervention,During,Other,0.6
+P08,3,37,92,Intervention,During,Other,0.6
+P08,3,38,91,Intervention,During,Passive,0.6
+P08,3,39,19,Active sentence,After,Passive,0.6
+P08,3,41,20,Passive sentence,After,Passive,0.6
+P08,3,43,17,Passive sentence,After,Active,0.6
+P08,3,47,18,Baseline,After,Passive,0.6
+P08,3,50,10,Passive sentence,After,Passive,0.6
+P08,3,52,12,Active sentence,After,Passive,0.6
+P08,3,55,11,Baseline,After,Passive,0.6
+P08,3,59,9,Active sentence,After,Active,0.6
+P08,3,62,4,Baseline,After,Passive,0.6
+P08,3,64,3,Passive sentence,After,Passive,0.6
+P08,3,67,1,Baseline,After,Other,0.6
+P08,3,69,2,Active sentence,After,Passive,0.6
+P08,4,4,2,Passive sentence,Before,Active,0.6
+P08,4,6,1,Active sentence,Before,Other,0.6
+P08,4,9,3,Baseline,Before,Passive,0.6
+P08,4,11,4,Active sentence,Before,Active,0.6
+P08,4,14,9,Passive sentence,Before,Other,0.6
+P08,4,18,11,Active sentence,Before,Passive,0.6
+P08,4,21,12,Passive sentence,Before,Passive,0.6
+P08,4,23,10,Baseline,Before,Active,0.6
+P08,4,26,18,Active sentence,Before,Other,0.6
+P08,4,30,17,Baseline,Before,Active,0.6
+P08,4,32,20,Baseline,Before,Active,0.6
+P08,4,34,19,Passive sentence,Before,Passive,0.6
+P08,4,35,91,Intervention,During,Other,0.6
+P08,4,36,92,Intervention,During,Passive,0.6
+P08,4,37,101,Intervention,During,Other,0.6
+P08,4,38,102,Intervention,During,Passive,0.6
+P08,4,40,26,Passive sentence,After,Other,0.6
+P08,4,43,28,Active sentence,After,Passive,0.6
+P08,4,45,25,Active sentence,After,Other,0.6
+P08,4,47,27,Baseline,After,Passive,0.6
+P08,4,51,36,Passive sentence,After,Active,0.6
+P08,4,54,34,Baseline,After,Passive,0.6
+P08,4,57,33,Passive sentence,After,Other,0.6
+P08,4,59,35,Active sentence,After,Passive,0.6
+P08,4,63,43,Passive sentence,After,Other,0.6
+P08,4,65,44,Baseline,After,Other,0.6
+P08,4,67,41,Baseline,After,Other,0.6
+P08,4,69,42,Active sentence,After,Other,0.6
+P09,1,14,42,Active sentence,Before,Other,0.5375
+P09,1,17,41,Baseline,Before,Active,0.5375
+P09,1,20,44,Baseline,Before,Other,0.5375
+P09,1,22,43,Passive sentence,Before,Active,0.5375
+P09,1,38,35,Active sentence,Before,Other,0.5375
+P09,1,40,33,Passive sentence,Before,Active,0.5375
+P09,1,43,34,Baseline,Before,Active,0.5375
+P09,1,46,36,Passive sentence,Before,Active,0.5375
+P09,1,62,27,Baseline,Before,Active,0.5375
+P09,1,64,25,Active sentence,Before,Other,0.5375
+P09,1,66,28,Active sentence,Before,Other,0.5375
+P09,1,69,26,Passive sentence,Before,Other,0.5375
+P09,1,71,102,Intervention,During,Active,0.5375
+P09,1,72,101,Intervention,During,Passive,0.5375
+P09,1,87,19,Passive sentence,After,Other,0.5375
+P09,1,89,20,Baseline,After,Active,0.5375
+P09,1,91,17,Baseline,After,Other,0.5375
+P09,1,95,18,Active sentence,After,Active,0.5375
+P09,1,110,10,Baseline,After,Active,0.5375
+P09,1,112,12,Passive sentence,After,Active,0.5375
+P09,1,115,11,Active sentence,After,Active,0.5375
+P09,1,119,9,Passive sentence,After,Active,0.5375
+P09,1,134,4,Active sentence,After,Active,0.5375
+P09,1,136,3,Baseline,After,Active,0.5375
+P09,1,139,1,Active sentence,After,Other,0.5375
+P09,1,141,2,Passive sentence,After,Other,0.5375
+P09,2,4,2,Passive sentence,Before,Active,0.5375
+P09,2,6,1,Active sentence,Before,Other,0.5375
+P09,2,9,3,Baseline,Before,Active,0.5375
+P09,2,11,4,Active sentence,Before,Active,0.5375
+P09,2,14,9,Passive sentence,Before,Active,0.5375
+P09,2,18,11,Active sentence,Before,Active,0.5375
+P09,2,21,12,Passive sentence,Before,Active,0.5375
+P09,2,23,10,Baseline,Before,Active,0.5375
+P09,2,26,18,Active sentence,Before,Active,0.5375
+P09,2,30,17,Baseline,Before,Active,0.5375
+P09,2,32,20,Baseline,Before,Active,0.5375
+P09,2,34,19,Passive sentence,Before,Active,0.5375
+P09,2,35,91,Intervention,During,Active,0.5375
+P09,2,36,92,Intervention,During,Active,0.5375
+P09,2,37,101,Intervention,During,Active,0.5375
+P09,2,38,102,Intervention,During,Active,0.5375
+P09,2,40,26,Passive sentence,After,Active,0.5375
+P09,2,43,28,Active sentence,After,Active,0.5375
+P09,2,45,25,Active sentence,After,Other,0.5375
+P09,2,47,27,Baseline,After,Active,0.5375
+P09,2,51,36,Passive sentence,After,Active,0.5375
+P09,2,54,34,Baseline,After,Active,0.5375
+P09,2,57,33,Passive sentence,After,Active,0.5375
+P09,2,59,35,Active sentence,After,Other,0.5375
+P09,2,63,43,Passive sentence,After,Active,0.5375
+P09,2,65,44,Baseline,After,Active,0.5375
+P09,2,68,41,Baseline,After,Active,0.5375
+P09,2,71,42,Active sentence,After,Other,0.5375
+P09,3,4,42,Passive sentence,Before,Other,0.5375
+P09,3,6,41,Active sentence,Before,Active,0.5375
+P09,3,8,44,Active sentence,Before,Active,0.5375
+P09,3,10,43,Baseline,Before,Active,0.5375
+P09,3,14,35,Passive sentence,Before,Other,0.5375
+P09,3,16,33,Baseline,Before,Passive,0.5375
+P09,3,19,34,Active sentence,Before,Passive,0.5375
+P09,3,22,36,Baseline,Before,Other,0.5375
+P09,3,26,27,Active sentence,Before,Active,0.5375
+P09,3,28,25,Passive sentence,Before,Other,0.5375
+P09,3,30,28,Passive sentence,Before,Other,0.5375
+P09,3,33,26,Baseline,Before,Other,0.5375
+P09,3,35,102,Intervention,During,Passive,0.5375
+P09,3,36,101,Intervention,During,Passive,0.5375
+P09,3,37,92,Intervention,During,Passive,0.5375
+P09,3,38,91,Intervention,During,Short passive,0.5375
+P09,3,39,19,Baseline,After,Active,0.5375
+P09,3,41,20,Active sentence,After,Active,0.5375
+P09,3,43,17,Active sentence,After,Other,0.5375
+P09,3,47,18,Passive sentence,After,Passive,0.5375
+P09,3,50,10,Active sentence,After,Active,0.5375
+P09,3,52,12,Baseline,After,Passive,0.5375
+P09,3,55,11,Passive sentence,After,Active,0.5375
+P09,3,59,9,Baseline,After,Active,0.5375
+P09,3,62,4,Passive sentence,After,Active,0.5375
+P09,3,64,3,Active sentence,After,Active,0.5375
+P09,3,67,1,Passive sentence,After,Other,0.5375
+P09,3,69,2,Baseline,After,Passive,0.5375
+P09,4,4,2,Active sentence,Before,Active,0.5375
+P09,4,6,1,Baseline,Before,Other,0.5375
+P09,4,9,3,Passive sentence,Before,Active,0.5375
+P09,4,11,4,Baseline,Before,Active,0.5375
+P09,4,14,9,Active sentence,Before,Active,0.5375
+P09,4,18,11,Baseline,Before,Active,0.5375
+P09,4,21,12,Active sentence,Before,Passive,0.5375
+P09,4,23,10,Passive sentence,Before,Active,0.5375
+P09,4,26,18,Baseline,Before,Other,0.5375
+P09,4,30,17,Passive sentence,Before,Passive,0.5375
+P09,4,32,20,Passive sentence,Before,Other,0.5375
+P09,4,34,19,Active sentence,Before,Active,0.5375
+P09,4,35,91,Intervention,During,Active,0.5375
+P09,4,36,92,Intervention,During,Passive,0.5375
+P09,4,37,101,Intervention,During,Passive,0.5375
+P09,4,38,102,Intervention,During,Passive,0.5375
+P09,4,40,26,Active sentence,After,Passive,0.5375
+P09,4,43,28,Baseline,After,Active,0.5375
+P09,4,45,25,Baseline,After,Other,0.5375
+P09,4,47,27,Passive sentence,After,Passive,0.5375
+P09,4,51,36,Active sentence,After,Active,0.5375
+P09,4,54,34,Passive sentence,After,Passive,0.5375
+P09,4,57,33,Active sentence,After,Active,0.5375
+P09,4,59,35,Baseline,After,Passive,0.5375
+P09,4,63,43,Active sentence,After,Other,0.5375
+P09,4,65,44,Passive sentence,After,Active,0.5375
+P09,4,67,41,Passive sentence,After,Active,0.5375
+P09,4,69,42,Baseline,After,Other,0.5375
+P09,5,14,42,Baseline,Before,Active,0.5375
+P09,5,17,41,Passive sentence,Before,Active,0.5375
+P09,5,20,44,Passive sentence,Before,Active,0.5375
+P09,5,22,43,Active sentence,Before,Active,0.5375
+P09,5,38,35,Baseline,Before,Passive,0.5375
+P09,5,40,33,Active sentence,Before,Passive,0.5375
+P09,5,43,34,Passive sentence,Before,Passive,0.5375
+P09,5,46,36,Active sentence,Before,Active,0.5375
+P09,5,62,27,Passive sentence,Before,Active,0.5375
+P09,5,64,25,Baseline,Before,Passive,0.5375
+P09,5,66,28,Baseline,Before,Passive,0.5375
+P09,5,69,26,Active sentence,Before,Passive,0.5375
+P09,5,71,102,Intervention,During,Active,0.5375
+P09,5,72,101,Intervention,During,Passive,0.5375
+P09,5,87,19,Active sentence,After,Active,0.5375
+P09,5,89,20,Passive sentence,After,Active,0.5375
+P09,5,91,17,Passive sentence,After,Passive,0.5375
+P09,5,95,18,Baseline,After,Active,0.5375
+P09,5,110,10,Passive sentence,After,Active,0.5375
+P09,5,112,12,Active sentence,After,Passive,0.5375
+P09,5,115,11,Baseline,After,Active,0.5375
+P09,5,119,9,Active sentence,After,Active,0.5375
+P09,5,134,4,Baseline,After,Active,0.5375
+P09,5,136,3,Passive sentence,After,Active,0.5375
+P09,5,139,1,Baseline,After,Active,0.5375
+P09,5,141,2,Active sentence,After,Active,0.5375
+P10,1,14,42,Baseline,Before,Other,0.575
+P10,1,17,41,Passive sentence,Before,Active,0.575
+P10,1,20,44,Passive sentence,Before,Active,0.575
+P10,1,22,43,Active sentence,Before,Active,0.575
+P10,1,38,35,Baseline,Before,Active,0.575
+P10,1,40,33,Active sentence,Before,Active,0.575
+P10,1,43,34,Passive sentence,Before,Active,0.575
+P10,1,46,36,Active sentence,Before,Other,0.575
+P10,1,62,27,Passive sentence,Before,Active,0.575
+P10,1,64,25,Baseline,Before,Other,0.575
+P10,1,66,28,Baseline,Before,Other,0.575
+P10,1,69,26,Active sentence,Before,Active,0.575
+P10,1,71,102,Intervention,During,Other,0.575
+P10,1,72,101,Intervention,During,Other,0.575
+P10,1,87,19,Active sentence,After,Active,0.575
+P10,1,89,20,Passive sentence,After,Active,0.575
+P10,1,91,17,Passive sentence,After,Active,0.575
+P10,1,95,18,Baseline,After,Other,0.575
+P10,1,110,10,Passive sentence,After,Active,0.575
+P10,1,112,12,Active sentence,After,Other,0.575
+P10,1,115,11,Baseline,After,Active,0.575
+P10,1,119,9,Active sentence,After,Active,0.575
+P10,1,134,4,Baseline,After,Active,0.575
+P10,1,136,3,Passive sentence,After,Passive,0.575
+P10,1,139,1,Baseline,After,Other,0.575
+P10,1,141,2,Active sentence,After,Active,0.575
+P10,2,4,2,Baseline,Before,Active,0.575
+P10,2,6,1,Passive sentence,Before,Other,0.575
+P10,2,9,3,Active sentence,Before,Passive,0.575
+P10,2,11,4,Passive sentence,Before,Active,0.575
+P10,2,14,9,Baseline,Before,Active,0.575
+P10,2,18,11,Passive sentence,Before,Passive,0.575
+P10,2,21,12,Baseline,Before,Passive,0.575
+P10,2,23,10,Active sentence,Before,Active,0.575
+P10,2,26,18,Passive sentence,Before,Other,0.575
+P10,2,30,17,Active sentence,Before,Active,0.575
+P10,2,32,20,Active sentence,Before,Active,0.575
+P10,2,34,19,Baseline,Before,Active,0.575
+P10,2,35,91,Intervention,During,Other,0.575
+P10,2,36,92,Intervention,During,Active,0.575
+P10,2,37,101,Intervention,During,Active,0.575
+P10,2,38,102,Intervention,During,Active,0.575
+P10,2,40,26,Baseline,After,Active,0.575
+P10,2,43,28,Passive sentence,After,Passive,0.575
+P10,2,45,25,Passive sentence,After,Other,0.575
+P10,2,47,27,Active sentence,After,Active,0.575
+P10,2,51,36,Baseline,After,Active,0.575
+P10,2,54,34,Active sentence,After,Active,0.575
+P10,2,57,33,Baseline,After,Active,0.575
+P10,2,59,35,Passive sentence,After,Active,0.575
+P10,2,63,43,Baseline,After,Active,0.575
+P10,2,65,44,Active sentence,After,Active,0.575
+P10,2,68,41,Active sentence,After,Active,0.575
+P10,2,71,42,Passive sentence,After,Passive,0.575
+P10,3,4,42,Baseline,Before,Other,0.575
+P10,3,6,41,Passive sentence,Before,Active,0.575
+P10,3,8,44,Passive sentence,Before,Active,0.575
+P10,3,10,43,Active sentence,Before,Active,0.575
+P10,3,14,35,Baseline,Before,Passive,0.575
+P10,3,16,33,Active sentence,Before,Active,0.575
+P10,3,19,34,Passive sentence,Before,Active,0.575
+P10,3,22,36,Active sentence,Before,Passive,0.575
+P10,3,26,27,Passive sentence,Before,Active,0.575
+P10,3,28,25,Baseline,Before,Other,0.575
+P10,3,30,28,Baseline,Before,Active,0.575
+P10,3,33,26,Active sentence,Before,Active,0.575
+P10,3,35,102,Intervention,During,Active,0.575
+P10,3,36,101,Intervention,During,Passive,0.575
+P10,3,37,92,Intervention,During,Passive,0.575
+P10,3,38,91,Intervention,During,Other,0.575
+P10,3,39,19,Active sentence,After,Active,0.575
+P10,3,41,20,Passive sentence,After,Active,0.575
+P10,3,43,17,Passive sentence,After,Active,0.575
+P10,3,47,18,Baseline,After,Other,0.575
+P10,3,50,10,Passive sentence,After,Active,0.575
+P10,3,52,12,Active sentence,After,Passive,0.575
+P10,3,55,11,Baseline,After,Passive,0.575
+P10,3,59,9,Active sentence,After,Active,0.575
+P10,3,62,4,Baseline,After,Active,0.575
+P10,3,64,3,Passive sentence,After,Passive,0.575
+P10,3,67,1,Baseline,After,Active,0.575
+P10,3,69,2,Active sentence,After,Active,0.575
+P10,4,4,2,Active sentence,Before,Active,0.575
+P10,4,6,1,Baseline,Before,Active,0.575
+P10,4,9,3,Passive sentence,Before,Passive,0.575
+P10,4,11,4,Baseline,Before,Active,0.575
+P10,4,14,9,Active sentence,Before,Active,0.575
+P10,4,18,11,Baseline,Before,Passive,0.575
+P10,4,21,12,Active sentence,Before,Passive,0.575
+P10,4,23,10,Passive sentence,Before,Active,0.575
+P10,4,26,18,Baseline,Before,Active,0.575
+P10,4,30,17,Passive sentence,Before,Passive,0.575
+P10,4,32,20,Passive sentence,Before,Active,0.575
+P10,4,34,19,Active sentence,Before,Active,0.575
+P10,4,35,91,Intervention,During,Active,0.575
+P10,4,36,92,Intervention,During,Passive,0.575
+P10,4,37,101,Intervention,During,Passive,0.575
+P10,4,38,102,Intervention,During,Active,0.575
+P10,4,40,26,Active sentence,After,Active,0.575
+P10,4,43,28,Baseline,After,Passive,0.575
+P10,4,45,25,Baseline,After,Active,0.575
+P10,4,47,27,Passive sentence,After,Active,0.575
+P10,4,51,36,Active sentence,After,Active,0.575
+P10,4,54,34,Passive sentence,After,Passive,0.575
+P10,4,57,33,Active sentence,After,Active,0.575
+P10,4,59,35,Baseline,After,Passive,0.575
+P10,4,63,43,Active sentence,After,Active,0.575
+P10,4,65,44,Passive sentence,After,Active,0.575
+P10,4,67,41,Passive sentence,After,Active,0.575
+P10,4,69,42,Baseline,After,Active,0.575
+P10,5,14,42,Active sentence,Before,Other,0.575
+P10,5,17,41,Baseline,Before,Active,0.575
+P10,5,20,44,Baseline,Before,Active,0.575
+P10,5,22,43,Passive sentence,Before,Active,0.575
+P10,5,38,35,Active sentence,Before,Passive,0.575
+P10,5,40,33,Passive sentence,Before,Passive,0.575
+P10,5,43,34,Baseline,Before,Passive,0.575
+P10,5,46,36,Passive sentence,Before,Active,0.575
+P10,5,62,27,Baseline,Before,Passive,0.575
+P10,5,64,25,Active sentence,Before,Active,0.575
+P10,5,66,28,Active sentence,Before,Passive,0.575
+P10,5,69,26,Passive sentence,Before,Active,0.575
+P10,5,71,102,Intervention,During,Passive,0.575
+P10,5,72,101,Intervention,During,Passive,0.575
+P10,5,87,19,Passive sentence,After,Active,0.575
+P10,5,89,20,Baseline,After,Active,0.575
+P10,5,91,17,Baseline,After,Active,0.575
+P10,5,95,18,Active sentence,After,Active,0.575
+P10,5,110,10,Baseline,After,Active,0.575
+P10,5,112,12,Passive sentence,After,Passive,0.575
+P10,5,115,11,Active sentence,After,Passive,0.575
+P10,5,119,9,Passive sentence,After,Active,0.575
+P10,5,134,4,Active sentence,After,Active,0.575
+P10,5,136,3,Baseline,After,Passive,0.575
+P10,5,139,1,Active sentence,After,Active,0.575
+P10,5,141,2,Passive sentence,After,Active,0.575
+P11,1,4,2,Baseline,Before,Other,0.6375
+P11,1,6,1,Passive sentence,Before,Other,0.6375
+P11,1,9,3,Active sentence,Before,Active,0.6375
+P11,1,11,4,Passive sentence,Before,Active,0.6375
+P11,1,26,9,Baseline,Before,Active,0.6375
+P11,1,30,11,Passive sentence,Before,Active,0.6375
+P11,1,33,12,Baseline,Before,Active,0.6375
+P11,1,35,10,Active sentence,Before,Active,0.6375
+P11,1,50,18,Passive sentence,Before,Active,0.6375
+P11,1,54,17,Active sentence,Before,Active,0.6375
+P11,1,56,20,Active sentence,Before,Active,0.6375
+P11,1,58,19,Baseline,Before,Active,0.6375
+P11,1,73,101,Intervention,During,Active,0.6375
+P11,1,74,102,Intervention,During,Active,0.6375
+P11,1,76,26,Baseline,After,Active,0.6375
+P11,1,79,28,Passive sentence,After,Active,0.6375
+P11,1,81,25,Passive sentence,After,Active,0.6375
+P11,1,83,27,Active sentence,After,Active,0.6375
+P11,1,99,36,Baseline,After,Other,0.6375
+P11,1,102,34,Active sentence,After,Active,0.6375
+P11,1,105,33,Baseline,After,Active,0.6375
+P11,1,107,35,Passive sentence,After,Active,0.6375
+P11,1,123,43,Baseline,After,Active,0.6375
+P11,1,125,44,Active sentence,After,Active,0.6375
+P11,1,128,41,Active sentence,After,Active,0.6375
+P11,1,131,42,Passive sentence,After,Active,0.6375
+P11,2,2,42,Baseline,Before,Other,0.6375
+P11,2,5,41,Passive sentence,Before,Active,0.6375
+P11,2,8,44,Passive sentence,Before,Active,0.6375
+P11,2,10,43,Active sentence,Before,Active,0.6375
+P11,2,14,35,Baseline,Before,Active,0.6375
+P11,2,16,33,Active sentence,Before,Active,0.6375
+P11,2,19,34,Passive sentence,Before,Active,0.6375
+P11,2,22,36,Active sentence,Before,Other,0.6375
+P11,2,26,27,Passive sentence,Before,Active,0.6375
+P11,2,28,25,Baseline,Before,Other,0.6375
+P11,2,30,28,Baseline,Before,Active,0.6375
+P11,2,33,26,Active sentence,Before,Active,0.6375
+P11,2,35,102,Intervention,During,Active,0.6375
+P11,2,36,101,Intervention,During,Active,0.6375
+P11,2,37,92,Intervention,During,Active,0.6375
+P11,2,38,91,Intervention,During,Active,0.6375
+P11,2,39,19,Active sentence,After,Active,0.6375
+P11,2,41,20,Passive sentence,After,Active,0.6375
+P11,2,43,17,Passive sentence,After,Active,0.6375
+P11,2,47,18,Baseline,After,Other,0.6375
+P11,2,50,10,Passive sentence,After,Active,0.6375
+P11,2,52,12,Active sentence,After,Active,0.6375
+P11,2,55,11,Baseline,After,Active,0.6375
+P11,2,59,9,Active sentence,After,Active,0.6375
+P11,2,62,4,Baseline,After,Active,0.6375
+P11,2,64,3,Passive sentence,After,Active,0.6375
+P11,2,67,1,Baseline,After,Active,0.6375
+P11,2,69,2,Active sentence,After,Active,0.6375
+P11,3,4,2,Passive sentence,Before,Other,0.6375
+P11,3,6,1,Active sentence,Before,Active,0.6375
+P11,3,9,3,Baseline,Before,Active,0.6375
+P11,3,11,4,Active sentence,Before,Active,0.6375
+P11,3,14,9,Passive sentence,Before,Active,0.6375
+P11,3,18,11,Active sentence,Before,Active,0.6375
+P11,3,21,12,Passive sentence,Before,Active,0.6375
+P11,3,23,10,Baseline,Before,Active,0.6375
+P11,3,26,18,Active sentence,Before,Active,0.6375
+P11,3,30,17,Baseline,Before,Active,0.6375
+P11,3,32,20,Baseline,Before,Active,0.6375
+P11,3,34,19,Passive sentence,Before,Active,0.6375
+P11,3,35,91,Intervention,During,Passive,0.6375
+P11,3,36,92,Intervention,During,Passive,0.6375
+P11,3,37,101,Intervention,During,Passive,0.6375
+P11,3,38,102,Intervention,During,Passive,0.6375
+P11,3,40,26,Passive sentence,After,Active,0.6375
+P11,3,43,28,Active sentence,After,Active,0.6375
+P11,3,45,25,Active sentence,After,Active,0.6375
+P11,3,47,27,Baseline,After,Passive,0.6375
+P11,3,51,36,Passive sentence,After,Active,0.6375
+P11,3,54,34,Baseline,After,Passive,0.6375
+P11,3,57,33,Passive sentence,After,Passive,0.6375
+P11,3,59,35,Active sentence,After,Active,0.6375
+P11,3,63,43,Passive sentence,After,Passive,0.6375
+P11,3,65,44,Baseline,After,Active,0.6375
+P11,3,67,41,Baseline,After,Active,0.6375
+P11,3,69,42,Active sentence,After,Active,0.6375
+P11,4,4,42,Passive sentence,Before,Other,0.6375
+P11,4,6,41,Active sentence,Before,Active,0.6375
+P11,4,8,44,Active sentence,Before,Active,0.6375
+P11,4,10,43,Baseline,Before,Active,0.6375
+P11,4,14,35,Passive sentence,Before,Active,0.6375
+P11,4,16,33,Baseline,Before,Active,0.6375
+P11,4,19,34,Active sentence,Before,Active,0.6375
+P11,4,22,36,Baseline,Before,Active,0.6375
+P11,4,26,27,Active sentence,Before,Active,0.6375
+P11,4,28,25,Passive sentence,Before,Active,0.6375
+P11,4,30,28,Passive sentence,Before,Passive,0.6375
+P11,4,33,26,Baseline,Before,Passive,0.6375
+P11,4,35,102,Intervention,During,Passive,0.6375
+P11,4,36,101,Intervention,During,Passive,0.6375
+P11,4,37,92,Intervention,During,Passive,0.6375
+P11,4,38,91,Intervention,During,Passive,0.6375
+P11,4,39,19,Baseline,After,Active,0.6375
+P11,4,41,20,Active sentence,After,Active,0.6375
+P11,4,43,17,Active sentence,After,Active,0.6375
+P11,4,47,18,Passive sentence,After,Passive,0.6375
+P11,4,50,10,Active sentence,After,Active,0.6375
+P11,4,52,12,Baseline,After,Passive,0.6375
+P11,4,55,11,Passive sentence,After,Passive,0.6375
+P11,4,59,9,Baseline,After,Active,0.6375
+P11,4,62,4,Passive sentence,After,Passive,0.6375
+P11,4,64,3,Active sentence,After,Active,0.6375
+P11,4,67,1,Passive sentence,After,Active,0.6375
+P11,4,69,2,Baseline,After,Passive,0.6375
+P11,5,4,2,Passive sentence,Before,Active,0.6375
+P11,5,6,1,Active sentence,Before,Other,0.6375
+P11,5,9,3,Baseline,Before,Passive,0.6375
+P11,5,11,4,Active sentence,Before,Active,0.6375
+P11,5,26,9,Passive sentence,Before,Other,0.6375
+P11,5,30,11,Active sentence,Before,Passive,0.6375
+P11,5,33,12,Passive sentence,Before,Active,0.6375
+P11,5,35,10,Baseline,Before,Passive,0.6375
+P11,5,50,18,Active sentence,Before,Active,0.6375
+P11,5,54,17,Baseline,Before,Active,0.6375
+P11,5,56,20,Baseline,Before,Active,0.6375
+P11,5,58,19,Passive sentence,Before,Active,0.6375
+P11,5,73,101,Intervention,During,Active,0.6375
+P11,5,74,102,Intervention,During,Passive,0.6375
+P11,5,76,26,Passive sentence,After,Active,0.6375
+P11,5,79,28,Active sentence,After,Active,0.6375
+P11,5,81,25,Active sentence,After,Passive,0.6375
+P11,5,83,27,Baseline,After,Active,0.6375
+P11,5,99,36,Passive sentence,After,Active,0.6375
+P11,5,102,34,Baseline,After,Active,0.6375
+P11,5,105,33,Passive sentence,After,Active,0.6375
+P11,5,107,35,Active sentence,After,Passive,0.6375
+P11,5,123,43,Passive sentence,After,Passive,0.6375
+P11,5,125,44,Baseline,After,Active,0.6375
+P11,5,128,41,Baseline,After,Passive,0.6375
+P11,5,131,42,Active sentence,After,Active,0.6375
+P12,1,4,2,Passive sentence,Before,Active,0.6
+P12,1,6,1,Active sentence,Before,Other,0.6
+P12,1,9,3,Baseline,Before,Active,0.6
+P12,1,11,4,Active sentence,Before,Active,0.6
+P12,1,26,9,Passive sentence,Before,Active,0.6
+P12,1,30,11,Active sentence,Before,Active,0.6
+P12,1,33,12,Passive sentence,Before,Active,0.6
+P12,1,35,10,Baseline,Before,Active,0.6
+P12,1,50,18,Active sentence,Before,Other,0.6
+P12,1,54,17,Baseline,Before,Active,0.6
+P12,1,56,20,Baseline,Before,Active,0.6
+P12,1,58,19,Passive sentence,Before,Active,0.6
+P12,1,73,101,Intervention,During,Passive,0.6
+P12,1,74,102,Intervention,During,Passive,0.6
+P12,1,76,26,Passive sentence,After,Passive,0.6
+P12,1,79,28,Active sentence,After,Active,0.6
+P12,1,81,25,Active sentence,After,Active,0.6
+P12,1,83,27,Baseline,After,Active,0.6
+P12,1,99,36,Passive sentence,After,Active,0.6
+P12,1,102,34,Baseline,After,Passive,0.6
+P12,1,105,33,Passive sentence,After,Active,0.6
+P12,1,107,35,Active sentence,After,Other,0.6
+P12,1,123,43,Passive sentence,After,Active,0.6
+P12,1,125,44,Baseline,After,Active,0.6
+P12,1,128,41,Baseline,After,Active,0.6
+P12,1,131,42,Active sentence,After,Active,0.6
+P12,2,2,42,Passive sentence,Before,Active,0.6
+P12,2,5,41,Active sentence,Before,Active,0.6
+P12,2,8,44,Active sentence,Before,Active,0.6
+P12,2,10,43,Baseline,Before,Other,0.6
+P12,2,14,35,Passive sentence,Before,Active,0.6
+P12,2,16,33,Baseline,Before,Active,0.6
+P12,2,19,34,Active sentence,Before,Active,0.6
+P12,2,22,36,Baseline,Before,Active,0.6
+P12,2,26,27,Active sentence,Before,Active,0.6
+P12,2,28,25,Passive sentence,Before,Active,0.6
+P12,2,30,28,Passive sentence,Before,Other,0.6
+P12,2,33,26,Baseline,Before,Other,0.6
+P12,2,35,102,Intervention,During,Passive,0.6
+P12,2,36,101,Intervention,During,Passive,0.6
+P12,2,37,92,Intervention,During,Passive,0.6
+P12,2,38,91,Intervention,During,Passive,0.6
+P12,2,39,19,Baseline,After,Active,0.6
+P12,2,41,20,Active sentence,After,Active,0.6
+P12,2,43,17,Active sentence,After,Other,0.6
+P12,2,47,18,Passive sentence,After,Other,0.6
+P12,2,50,10,Active sentence,After,Active,0.6
+P12,2,52,12,Baseline,After,Active,0.6
+P12,2,55,11,Passive sentence,After,Active,0.6
+P12,2,59,9,Baseline,After,Active,0.6
+P12,2,62,4,Passive sentence,After,Other,0.6
+P12,2,64,3,Active sentence,After,Active,0.6
+P12,2,67,1,Passive sentence,After,Other,0.6
+P12,2,69,2,Baseline,After,Passive,0.6
+P12,3,4,2,Baseline,Before,Active,0.6
+P12,3,6,1,Passive sentence,Before,Other,0.6
+P12,3,9,3,Active sentence,Before,Active,0.6
+P12,3,11,4,Passive sentence,Before,Active,0.6
+P12,3,14,9,Baseline,Before,Active,0.6
+P12,3,18,11,Passive sentence,Before,Active,0.6
+P12,3,21,12,Baseline,Before,Active,0.6
+P12,3,23,10,Active sentence,Before,Active,0.6
+P12,3,26,18,Passive sentence,Before,Other,0.6
+P12,3,30,17,Active sentence,Before,Active,0.6
+P12,3,32,20,Active sentence,Before,Active,0.6
+P12,3,34,19,Baseline,Before,Active,0.6
+P12,3,35,91,Intervention,During,Passive,0.6
+P12,3,36,92,Intervention,During,Other,0.6
+P12,3,37,101,Intervention,During,Passive,0.6
+P12,3,38,102,Intervention,During,Passive,0.6
+P12,3,40,26,Baseline,After,Passive,0.6
+P12,3,43,28,Passive sentence,After,Other,0.6
+P12,3,45,25,Passive sentence,After,Other,0.6
+P12,3,47,27,Active sentence,After,Passive,0.6
+P12,3,51,36,Baseline,After,Active,0.6
+P12,3,54,34,Active sentence,After,Passive,0.6
+P12,3,57,33,Baseline,After,Passive,0.6
+P12,3,59,35,Passive sentence,After,Active,0.6
+P12,3,63,43,Baseline,After,Active,0.6
+P12,3,65,44,Active sentence,After,Active,0.6
+P12,3,67,41,Active sentence,After,Active,0.6
+P12,3,69,42,Passive sentence,After,Other,0.6
+P12,4,4,42,Active sentence,Before,Other,0.6
+P12,4,6,41,Baseline,Before,Active,0.6
+P12,4,8,44,Baseline,Before,Active,0.6
+P12,4,10,43,Passive sentence,Before,Active,0.6
+P12,4,14,35,Active sentence,Before,Active,0.6
+P12,4,16,33,Passive sentence,Before,Active,0.6
+P12,4,19,34,Baseline,Before,Active,0.6
+P12,4,22,36,Passive sentence,Before,Active,0.6
+P12,4,26,27,Baseline,Before,Active,0.6
+P12,4,28,25,Active sentence,Before,Active,0.6
+P12,4,30,28,Active sentence,Before,Passive,0.6
+P12,4,33,26,Passive sentence,Before,Passive,0.6
+P12,4,35,102,Intervention,During,Passive,0.6
+P12,4,36,101,Intervention,During,Passive,0.6
+P12,4,37,92,Intervention,During,Passive,0.6
+P12,4,38,91,Intervention,During,Passive,0.6
+P12,4,39,19,Passive sentence,After,Active,0.6
+P12,4,41,20,Baseline,After,Active,0.6
+P12,4,43,17,Baseline,After,Passive,0.6
+P12,4,47,18,Active sentence,After,Other,0.6
+P12,4,50,10,Baseline,After,Active,0.6
+P12,4,52,12,Passive sentence,After,Active,0.6
+P12,4,55,11,Active sentence,After,Active,0.6
+P12,4,59,9,Passive sentence,After,Active,0.6
+P12,4,62,4,Active sentence,After,Active,0.6
+P12,4,64,3,Baseline,After,Active,0.6
+P12,4,67,1,Active sentence,After,Active,0.6
+P12,4,69,2,Passive sentence,After,Passive,0.6
+P12,5,4,2,Active sentence,Before,Active,0.6
+P12,5,6,1,Baseline,Before,Other,0.6
+P12,5,9,3,Passive sentence,Before,Active,0.6
+P12,5,11,4,Baseline,Before,Active,0.6
+P12,5,26,9,Active sentence,Before,Active,0.6
+P12,5,30,11,Baseline,Before,Active,0.6
+P12,5,33,12,Active sentence,Before,Active,0.6
+P12,5,35,10,Passive sentence,Before,Active,0.6
+P12,5,50,18,Baseline,Before,Other,0.6
+P12,5,54,17,Passive sentence,Before,Passive,0.6
+P12,5,56,20,Passive sentence,Before,Active,0.6
+P12,5,58,19,Active sentence,Before,Passive,0.6
+P12,5,73,101,Intervention,During,Passive,0.6
+P12,5,74,102,Intervention,During,Passive,0.6
+P12,5,76,26,Active sentence,After,Active,0.6
+P12,5,79,28,Baseline,After,Passive,0.6
+P12,5,81,25,Baseline,After,Active,0.6
+P12,5,83,27,Passive sentence,After,Passive,0.6
+P12,5,99,36,Active sentence,After,Passive,0.6
+P12,5,102,34,Passive sentence,After,Passive,0.6
+P12,5,105,33,Active sentence,After,Passive,0.6
+P12,5,107,35,Baseline,After,Active,0.6
+P12,5,123,43,Active sentence,After,Active,0.6
+P12,5,125,44,Passive sentence,After,Passive,0.6
+P12,5,128,41,Passive sentence,After,Passive,0.6
+P12,5,131,42,Baseline,After,Active,0.6
+P13,1,4,2,Baseline,Before,Other,0.4875
+P13,1,6,1,Passive sentence,Before,Other,0.4875
+P13,1,9,3,Active sentence,Before,Other,0.4875
+P13,1,11,4,Passive sentence,Before,Other,0.4875
+P13,1,26,9,Baseline,Before,No response,0.4875
+P13,1,30,11,Passive sentence,Before,No response,0.4875
+P13,1,33,12,Baseline,Before,No response,0.4875
+P13,1,35,10,Active sentence,Before,No response,0.4875
+P13,1,50,18,Passive sentence,Before,No response,0.4875
+P13,1,54,17,Active sentence,Before,No response,0.4875
+P13,1,56,20,Active sentence,Before,No response,0.4875
+P13,1,58,19,Baseline,Before,No response,0.4875
+P13,1,73,101,Intervention,During,No response,0.4875
+P13,1,74,102,Intervention,During,No response,0.4875
+P13,1,76,26,Baseline,After,No response,0.4875
+P13,1,79,28,Passive sentence,After,No response,0.4875
+P13,1,81,25,Passive sentence,After,No response,0.4875
+P13,1,83,27,Active sentence,After,No response,0.4875
+P13,1,99,36,Baseline,After,No response,0.4875
+P13,1,102,34,Active sentence,After,No response,0.4875
+P13,1,105,33,Baseline,After,No response,0.4875
+P13,1,107,35,Passive sentence,After,No response,0.4875
+P13,1,123,43,Baseline,After,No response,0.4875
+P13,1,125,44,Active sentence,After,No response,0.4875
+P13,1,128,41,Active sentence,After,No response,0.4875
+P13,1,131,42,Passive sentence,After,No response,0.4875
+P13,2,2,42,Baseline,Before,Other,0.4875
+P13,2,5,41,Passive sentence,Before,Active,0.4875
+P13,2,8,44,Passive sentence,Before,Active,0.4875
+P13,2,10,43,Active sentence,Before,Other,0.4875
+P13,2,14,35,Baseline,Before,Other,0.4875
+P13,2,16,33,Active sentence,Before,Active,0.4875
+P13,2,19,34,Passive sentence,Before,Active,0.4875
+P13,2,22,36,Active sentence,Before,Other,0.4875
+P13,2,26,27,Passive sentence,Before,Other,0.4875
+P13,2,28,25,Baseline,Before,Other,0.4875
+P13,2,30,28,Baseline,Before,Other,0.4875
+P13,2,33,26,Active sentence,Before,Other,0.4875
+P13,2,35,102,Intervention,During,Active,0.4875
+P13,2,36,101,Intervention,During,Passive,0.4875
+P13,2,37,92,Intervention,During,Passive,0.4875
+P13,2,38,91,Intervention,During,Other,0.4875
+P13,2,39,19,Active sentence,After,Active,0.4875
+P13,2,41,20,Passive sentence,After,Active,0.4875
+P13,2,43,17,Passive sentence,After,Active,0.4875
+P13,2,47,18,Baseline,After,Other,0.4875
+P13,2,50,10,Passive sentence,After,Active,0.4875
+P13,2,52,12,Active sentence,After,Active,0.4875
+P13,2,55,11,Baseline,After,Active,0.4875
+P13,2,59,9,Active sentence,After,Active,0.4875
+P13,2,62,4,Baseline,After,Active,0.4875
+P13,2,64,3,Passive sentence,After,Active,0.4875
+P13,2,67,1,Baseline,After,Other,0.4875
+P13,2,69,2,Active sentence,After,Other,0.4875
+P13,3,4,2,Baseline,Before,Other,0.4875
+P13,3,6,1,Passive sentence,Before,Other,0.4875
+P13,3,9,3,Active sentence,Before,Active,0.4875
+P13,3,11,4,Passive sentence,Before,Active,0.4875
+P13,3,14,9,Baseline,Before,Active,0.4875
+P13,3,18,11,Passive sentence,Before,Other,0.4875
+P13,3,21,12,Baseline,Before,Other,0.4875
+P13,3,23,10,Active sentence,Before,Active,0.4875
+P13,3,26,18,Passive sentence,Before,Other,0.4875
+P13,3,30,17,Active sentence,Before,Passive,0.4875
+P13,3,32,20,Active sentence,Before,Other,0.4875
+P13,3,34,19,Baseline,Before,Active,0.4875
+P13,3,35,91,Intervention,During,Passive,0.4875
+P13,3,36,92,Intervention,During,Passive,0.4875
+P13,3,37,101,Intervention,During,Passive,0.4875
+P13,3,38,102,Intervention,During,Passive,0.4875
+P13,3,40,26,Baseline,After,Passive,0.4875
+P13,3,43,28,Passive sentence,After,Passive,0.4875
+P13,3,45,25,Passive sentence,After,Other,0.4875
+P13,3,47,27,Active sentence,After,Passive,0.4875
+P13,3,51,36,Baseline,After,Active,0.4875
+P13,3,54,34,Active sentence,After,Passive,0.4875
+P13,3,57,33,Baseline,After,Passive,0.4875
+P13,3,59,35,Passive sentence,After,Active,0.4875
+P13,3,63,43,Baseline,After,Other,0.4875
+P13,3,65,44,Active sentence,After,Other,0.4875
+P13,3,67,41,Active sentence,After,Active,0.4875
+P13,3,69,42,Passive sentence,After,Other,0.4875
+P13,4,4,42,Passive sentence,Before,Other,0.4875
+P13,4,6,41,Active sentence,Before,Active,0.4875
+P13,4,8,44,Active sentence,Before,Other,0.4875
+P13,4,10,43,Baseline,Before,Other,0.4875
+P13,4,14,35,Passive sentence,Before,Other,0.4875
+P13,4,16,33,Baseline,Before,Passive,0.4875
+P13,4,19,34,Active sentence,Before,Passive,0.4875
+P13,4,22,36,Baseline,Before,Other,0.4875
+P13,4,26,27,Active sentence,Before,Active,0.4875
+P13,4,28,25,Passive sentence,Before,Other,0.4875
+P13,4,30,28,Passive sentence,Before,Passive,0.4875
+P13,4,33,26,Baseline,Before,Passive,0.4875
+P13,4,35,102,Intervention,During,Active,0.4875
+P13,4,36,101,Intervention,During,Passive,0.4875
+P13,4,37,92,Intervention,During,Passive,0.4875
+P13,4,38,91,Intervention,During,Passive,0.4875
+P13,4,39,19,Baseline,After,Other,0.4875
+P13,4,41,20,Active sentence,After,Active,0.4875
+P13,4,43,17,Active sentence,After,Passive,0.4875
+P13,4,47,18,Passive sentence,After,Passive,0.4875
+P13,4,50,10,Active sentence,After,Active,0.4875
+P13,4,52,12,Baseline,After,Other,0.4875
+P13,4,55,11,Passive sentence,After,Passive,0.4875
+P13,4,59,9,Baseline,After,Passive,0.4875
+P13,4,62,4,Passive sentence,After,Active,0.4875
+P13,4,64,3,Active sentence,After,Passive,0.4875
+P13,4,67,1,Passive sentence,After,Other,0.4875
+P13,4,69,2,Baseline,After,Active,0.4875
+P13,5,4,2,Passive sentence,Before,Active,0.4875
+P13,5,6,1,Active sentence,Before,Other,0.4875
+P13,5,9,3,Baseline,Before,Active,0.4875
+P13,5,11,4,Active sentence,Before,Active,0.4875
+P13,5,26,9,Passive sentence,Before,Passive,0.4875
+P13,5,30,11,Active sentence,Before,Active,0.4875
+P13,5,33,12,Passive sentence,Before,Active,0.4875
+P13,5,35,10,Baseline,Before,Active,0.4875
+P13,5,50,18,Active sentence,Before,Passive,0.4875
+P13,5,54,17,Baseline,Before,Passive,0.4875
+P13,5,56,20,Baseline,Before,Active,0.4875
+P13,5,58,19,Passive sentence,Before,Passive,0.4875
+P13,5,73,101,Intervention,During,Passive,0.4875
+P13,5,74,102,Intervention,During,Passive,0.4875
+P13,5,76,26,Passive sentence,After,Passive,0.4875
+P13,5,79,28,Active sentence,After,Passive,0.4875
+P13,5,81,25,Active sentence,After,Other,0.4875
+P13,5,83,27,Baseline,After,Active,0.4875
+P13,5,99,36,Passive sentence,After,Active,0.4875
+P13,5,102,34,Baseline,After,Passive,0.4875
+P13,5,105,33,Passive sentence,After,Active,0.4875
+P13,5,107,35,Active sentence,After,Active,0.4875
+P13,5,123,43,Passive sentence,After,Active,0.4875
+P13,5,125,44,Baseline,After,Active,0.4875
+P13,5,128,41,Baseline,After,Active,0.4875
+P13,5,131,42,Active sentence,After,Other,0.4875
+P14,1,4,2,Active sentence,Before,Other,0.6
+P14,1,6,1,Baseline,Before,Other,0.6
+P14,1,9,3,Passive sentence,Before,Other,0.6
+P14,1,11,4,Baseline,Before,Other,0.6
+P14,1,26,9,Active sentence,Before,No response,0.6
+P14,1,30,11,Baseline,Before,No response,0.6
+P14,1,33,12,Active sentence,Before,No response,0.6
+P14,1,35,10,Passive sentence,Before,No response,0.6
+P14,1,50,18,Baseline,Before,Other,0.6
+P14,1,54,17,Passive sentence,Before,Other,0.6
+P14,1,56,20,Passive sentence,Before,Other,0.6
+P14,1,58,19,Active sentence,Before,Other,0.6
+P14,1,73,101,Intervention,During,Passive,0.6
+P14,1,74,102,Intervention,During,Other,0.6
+P14,1,76,26,Active sentence,After,Active,0.6
+P14,1,79,28,Baseline,After,Active,0.6
+P14,1,81,25,Baseline,After,Active,0.6
+P14,1,83,27,Passive sentence,After,Active,0.6
+P14,1,99,36,Active sentence,After,Other,0.6
+P14,1,102,34,Passive sentence,After,Passive,0.6
+P14,1,105,33,Active sentence,After,Active,0.6
+P14,1,107,35,Baseline,After,Active,0.6
+P14,1,123,43,Active sentence,After,Active,0.6
+P14,1,125,44,Passive sentence,After,Other,0.6
+P14,1,128,41,Passive sentence,After,Passive,0.6
+P14,1,131,42,Baseline,After,Active,0.6
+P14,2,2,42,Passive sentence,Before,Active,0.6
+P14,2,5,41,Active sentence,Before,Active,0.6
+P14,2,8,44,Active sentence,Before,Active,0.6
+P14,2,10,43,Baseline,Before,Other,0.6
+P14,2,14,35,Passive sentence,Before,Passive,0.6
+P14,2,16,33,Baseline,Before,Active,0.6
+P14,2,19,34,Active sentence,Before,Active,0.6
+P14,2,22,36,Baseline,Before,Other,0.6
+P14,2,26,27,Active sentence,Before,Active,0.6
+P14,2,28,25,Passive sentence,Before,Active,0.6
+P14,2,30,28,Passive sentence,Before,Passive,0.6
+P14,2,33,26,Baseline,Before,Passive,0.6
+P14,2,35,102,Intervention,During,Passive,0.6
+P14,2,36,101,Intervention,During,Active,0.6
+P14,2,37,92,Intervention,During,Passive,0.6
+P14,2,38,91,Intervention,During,Passive,0.6
+P14,2,39,19,Baseline,After,Passive,0.6
+P14,2,41,20,Active sentence,After,Passive,0.6
+P14,2,43,17,Active sentence,After,Active,0.6
+P14,2,47,18,Passive sentence,After,Passive,0.6
+P14,2,50,10,Active sentence,After,Passive,0.6
+P14,2,52,12,Baseline,After,Passive,0.6
+P14,2,55,11,Passive sentence,After,Passive,0.6
+P14,2,59,9,Baseline,After,Active,0.6
+P14,2,62,4,Passive sentence,After,Passive,0.6
+P14,2,64,3,Active sentence,After,Active,0.6
+P14,2,67,1,Passive sentence,After,Active,0.6
+P14,2,69,2,Baseline,After,Passive,0.6
+P14,3,4,42,Passive sentence,Before,Active,0.6
+P14,3,6,41,Active sentence,Before,Active,0.6
+P14,3,8,44,Active sentence,Before,Active,0.6
+P14,3,10,43,Baseline,Before,Passive,0.6
+P14,3,14,35,Passive sentence,Before,Passive,0.6
+P14,3,16,33,Baseline,Before,Passive,0.6
+P14,3,19,34,Active sentence,Before,Passive,0.6
+P14,3,22,36,Baseline,Before,Other,0.6
+P14,3,26,27,Active sentence,Before,Passive,0.6
+P14,3,28,25,Passive sentence,Before,Active,0.6
+P14,3,30,28,Passive sentence,Before,Passive,0.6
+P14,3,33,26,Baseline,Before,Passive,0.6
+P14,3,35,102,Intervention,During,Passive,0.6
+P14,3,36,101,Intervention,During,Passive,0.6
+P14,3,37,92,Intervention,During,Passive,0.6
+P14,3,38,91,Intervention,During,Passive,0.6
+P14,3,39,19,Baseline,After,Passive,0.6
+P14,3,41,20,Active sentence,After,Passive,0.6
+P14,3,43,17,Active sentence,After,Passive,0.6
+P14,3,47,18,Passive sentence,After,Passive,0.6
+P14,3,50,10,Active sentence,After,Active,0.6
+P14,3,52,12,Baseline,After,Passive,0.6
+P14,3,55,11,Passive sentence,After,Passive,0.6
+P14,3,59,9,Baseline,After,Active,0.6
+P14,3,62,4,Passive sentence,After,Active,0.6
+P14,3,64,3,Active sentence,After,Active,0.6
+P14,3,67,1,Passive sentence,After,Active,0.6
+P14,3,69,2,Baseline,After,Passive,0.6
+P14,4,4,42,Baseline,Before,Active,0.6
+P14,4,6,41,Passive sentence,Before,Active,0.6
+P14,4,8,44,Passive sentence,Before,Passive,0.6
+P14,4,10,43,Active sentence,Before,Passive,0.6
+P14,4,14,35,Baseline,Before,Passive,0.6
+P14,4,16,33,Active sentence,Before,Active,0.6
+P14,4,19,34,Passive sentence,Before,Active,0.6
+P14,4,22,36,Active sentence,Before,Active,0.6
+P14,4,26,27,Passive sentence,Before,Active,0.6
+P14,4,28,25,Baseline,Before,Active,0.6
+P14,4,30,28,Baseline,Before,Active,0.6
+P14,4,33,26,Active sentence,Before,Passive,0.6
+P14,4,35,102,Intervention,During,Passive,0.6
+P14,4,36,101,Intervention,During,Passive,0.6
+P14,4,37,92,Intervention,During,Passive,0.6
+P14,4,38,91,Intervention,During,Passive,0.6
+P14,4,39,19,Active sentence,After,Passive,0.6
+P14,4,41,20,Passive sentence,After,Passive,0.6
+P14,4,43,17,Passive sentence,After,Passive,0.6
+P14,4,47,18,Baseline,After,Passive,0.6
+P14,4,50,10,Passive sentence,After,Active,0.6
+P14,4,52,12,Active sentence,After,Passive,0.6
+P14,4,55,11,Baseline,After,Active,0.6
+P14,4,59,9,Active sentence,After,Active,0.6
+P14,4,62,4,Baseline,After,Active,0.6
+P14,4,64,3,Passive sentence,After,Active,0.6
+P14,4,67,1,Baseline,After,Other,0.6
+P14,4,69,2,Active sentence,After,Passive,0.6
+P14,5,4,2,Passive sentence,Before,Active,0.6
+P14,5,6,1,Active sentence,Before,Active,0.6
+P14,5,9,3,Baseline,Before,Active,0.6
+P14,5,11,4,Active sentence,Before,Active,0.6
+P14,5,26,9,Passive sentence,Before,Active,0.6
+P14,5,30,11,Active sentence,Before,Passive,0.6
+P14,5,33,12,Passive sentence,Before,Passive,0.6
+P14,5,35,10,Baseline,Before,Active,0.6
+P14,5,50,18,Active sentence,Before,Passive,0.6
+P14,5,54,17,Baseline,Before,Active,0.6
+P14,5,56,20,Baseline,Before,Active,0.6
+P14,5,58,19,Passive sentence,Before,Active,0.6
+P14,5,73,101,Intervention,During,Passive,0.6
+P14,5,74,102,Intervention,During,Passive,0.6
+P14,5,76,26,Passive sentence,After,Passive,0.6
+P14,5,79,28,Active sentence,After,Passive,0.6
+P14,5,81,25,Active sentence,After,Active,0.6
+P14,5,83,27,Baseline,After,Active,0.6
+P14,5,99,36,Passive sentence,After,Passive,0.6
+P14,5,102,34,Baseline,After,Passive,0.6
+P14,5,105,33,Passive sentence,After,Active,0.6
+P14,5,107,35,Active sentence,After,Passive,0.6
+P14,5,123,43,Passive sentence,After,Passive,0.6
+P14,5,125,44,Baseline,After,Passive,0.6
+P14,5,128,41,Baseline,After,Active,0.6
+P14,5,131,42,Active sentence,After,Active,0.6
+P15,1,14,42,Baseline,Before,Other,0.5625
+P15,1,17,41,Passive sentence,Before,Active,0.5625
+P15,1,20,44,Passive sentence,Before,Other,0.5625
+P15,1,22,43,Active sentence,Before,Active,0.5625
+P15,1,38,35,Baseline,Before,No response,0.5625
+P15,1,40,33,Active sentence,Before,No response,0.5625
+P15,1,43,34,Passive sentence,Before,No response,0.5625
+P15,1,46,36,Active sentence,Before,No response,0.5625
+P15,1,62,27,Passive sentence,Before,No response,0.5625
+P15,1,64,25,Baseline,Before,No response,0.5625
+P15,1,66,28,Baseline,Before,No response,0.5625
+P15,1,69,26,Active sentence,Before,No response,0.5625
+P15,1,71,102,Intervention,During,No response,0.5625
+P15,1,72,101,Intervention,During,No response,0.5625
+P15,1,87,19,Active sentence,After,No response,0.5625
+P15,1,89,20,Passive sentence,After,No response,0.5625
+P15,1,91,17,Passive sentence,After,No response,0.5625
+P15,1,95,18,Baseline,After,No response,0.5625
+P15,1,110,10,Passive sentence,After,No response,0.5625
+P15,1,112,12,Active sentence,After,No response,0.5625
+P15,1,115,11,Baseline,After,No response,0.5625
+P15,1,119,9,Active sentence,After,No response,0.5625
+P15,1,134,4,Baseline,After,No response,0.5625
+P15,1,136,3,Passive sentence,After,No response,0.5625
+P15,1,139,1,Baseline,After,No response,0.5625
+P15,1,141,2,Active sentence,After,No response,0.5625
+P15,2,4,2,Active sentence,Before,Other,0.5625
+P15,2,6,1,Baseline,Before,Active,0.5625
+P15,2,9,3,Passive sentence,Before,Active,0.5625
+P15,2,11,4,Baseline,Before,Active,0.5625
+P15,2,14,9,Active sentence,Before,Active,0.5625
+P15,2,18,11,Baseline,Before,Active,0.5625
+P15,2,21,12,Active sentence,Before,Active,0.5625
+P15,2,23,10,Passive sentence,Before,Active,0.5625
+P15,2,26,18,Baseline,Before,Other,0.5625
+P15,2,30,17,Passive sentence,Before,Active,0.5625
+P15,2,32,20,Passive sentence,Before,Active,0.5625
+P15,2,34,19,Active sentence,Before,Other,0.5625
+P15,2,35,91,Intervention,During,Other,0.5625
+P15,2,36,92,Intervention,During,Other,0.5625
+P15,2,37,101,Intervention,During,Other,0.5625
+P15,2,38,102,Intervention,During,Other,0.5625
+P15,2,40,26,Active sentence,After,Active,0.5625
+P15,2,43,28,Baseline,After,Active,0.5625
+P15,2,45,25,Baseline,After,Active,0.5625
+P15,2,47,27,Passive sentence,After,Active,0.5625
+P15,2,51,36,Active sentence,After,Active,0.5625
+P15,2,54,34,Passive sentence,After,Active,0.5625
+P15,2,57,33,Active sentence,After,Active,0.5625
+P15,2,59,35,Baseline,After,Active,0.5625
+P15,2,63,43,Active sentence,After,Active,0.5625
+P15,2,65,44,Passive sentence,After,Active,0.5625
+P15,2,68,41,Passive sentence,After,Active,0.5625
+P15,2,71,42,Baseline,After,Active,0.5625
+P15,3,4,42,Active sentence,Before,Other,0.5625
+P15,3,6,41,Baseline,Before,Active,0.5625
+P15,3,8,44,Baseline,Before,Other,0.5625
+P15,3,10,43,Passive sentence,Before,Active,0.5625
+P15,3,14,35,Active sentence,Before,Other,0.5625
+P15,3,16,33,Passive sentence,Before,Active,0.5625
+P15,3,19,34,Baseline,Before,Active,0.5625
+P15,3,22,36,Passive sentence,Before,Active,0.5625
+P15,3,26,27,Baseline,Before,Active,0.5625
+P15,3,28,25,Active sentence,Before,Active,0.5625
+P15,3,30,28,Active sentence,Before,Active,0.5625
+P15,3,33,26,Passive sentence,Before,Active,0.5625
+P15,3,35,102,Intervention,During,Active,0.5625
+P15,3,36,101,Intervention,During,Other,0.5625
+P15,3,37,92,Intervention,During,Other,0.5625
+P15,3,38,91,Intervention,During,Other,0.5625
+P15,3,39,19,Passive sentence,After,Other,0.5625
+P15,3,41,20,Baseline,After,Active,0.5625
+P15,3,43,17,Baseline,After,Other,0.5625
+P15,3,47,18,Active sentence,After,Other,0.5625
+P15,3,50,10,Baseline,After,Active,0.5625
+P15,3,52,12,Passive sentence,After,Active,0.5625
+P15,3,55,11,Active sentence,After,Active,0.5625
+P15,3,59,9,Passive sentence,After,Other,0.5625
+P15,3,62,4,Active sentence,After,Active,0.5625
+P15,3,64,3,Baseline,After,Active,0.5625
+P15,3,67,1,Active sentence,After,Other,0.5625
+P15,3,69,2,Passive sentence,After,Active,0.5625
+P15,4,4,2,Passive sentence,Before,Other,0.5625
+P15,4,6,1,Active sentence,Before,Other,0.5625
+P15,4,9,3,Baseline,Before,Active,0.5625
+P15,4,11,4,Active sentence,Before,Active,0.5625
+P15,4,14,9,Passive sentence,Before,Active,0.5625
+P15,4,18,11,Active sentence,Before,Active,0.5625
+P15,4,21,12,Passive sentence,Before,Active,0.5625
+P15,4,23,10,Baseline,Before,Active,0.5625
+P15,4,26,18,Active sentence,Before,Active,0.5625
+P15,4,30,17,Baseline,Before,Active,0.5625
+P15,4,32,20,Baseline,Before,Active,0.5625
+P15,4,34,19,Passive sentence,Before,Active,0.5625
+P15,4,35,91,Intervention,During,Active,0.5625
+P15,4,36,92,Intervention,During,Other,0.5625
+P15,4,37,101,Intervention,During,Active,0.5625
+P15,4,38,102,Intervention,During,Active,0.5625
+P15,4,40,26,Passive sentence,After,Active,0.5625
+P15,4,43,28,Active sentence,After,Active,0.5625
+P15,4,45,25,Active sentence,After,Active,0.5625
+P15,4,47,27,Baseline,After,Active,0.5625
+P15,4,51,36,Passive sentence,After,Active,0.5625
+P15,4,54,34,Baseline,After,Active,0.5625
+P15,4,57,33,Passive sentence,After,Active,0.5625
+P15,4,59,35,Active sentence,After,Active,0.5625
+P15,4,63,43,Passive sentence,After,Active,0.5625
+P15,4,65,44,Baseline,After,Active,0.5625
+P15,4,67,41,Baseline,After,Active,0.5625
+P15,4,69,42,Active sentence,After,Active,0.5625
+P15,5,14,42,Passive sentence,Before,Active,0.5625
+P15,5,17,41,Active sentence,Before,Other,0.5625
+P15,5,20,44,Active sentence,Before,Active,0.5625
+P15,5,22,43,Baseline,Before,Active,0.5625
+P15,5,38,35,Passive sentence,Before,Active,0.5625
+P15,5,40,33,Baseline,Before,Passive,0.5625
+P15,5,43,34,Active sentence,Before,Passive,0.5625
+P15,5,46,36,Baseline,Before,Other,0.5625
+P15,5,62,27,Active sentence,Before,Passive,0.5625
+P15,5,64,25,Passive sentence,Before,Active,0.5625
+P15,5,66,28,Passive sentence,Before,Other,0.5625
+P15,5,69,26,Baseline,Before,Passive,0.5625
+P15,5,71,102,Intervention,During,Passive,0.5625
+P15,5,72,101,Intervention,During,Passive,0.5625
+P15,5,87,19,Baseline,After,Passive,0.5625
+P15,5,89,20,Active sentence,After,Active,0.5625
+P15,5,91,17,Active sentence,After,Active,0.5625
+P15,5,95,18,Passive sentence,After,Active,0.5625
+P15,5,110,10,Active sentence,After,Active,0.5625
+P15,5,112,12,Baseline,After,Active,0.5625
+P15,5,115,11,Passive sentence,After,Other,0.5625
+P15,5,119,9,Baseline,After,Active,0.5625
+P15,5,134,4,Passive sentence,After,Active,0.5625
+P15,5,136,3,Active sentence,After,Active,0.5625
+P15,5,139,1,Passive sentence,After,Active,0.5625
+P15,5,141,2,Baseline,After,Active,0.5625
+P16,1,14,42,Passive sentence,Before,Active,0.5
+P16,1,17,41,Active sentence,Before,Active,0.5
+P16,1,20,44,Active sentence,Before,Other,0.5
+P16,1,22,43,Baseline,Before,Active,0.5
+P16,1,38,35,Passive sentence,Before,Active,0.5
+P16,1,40,33,Baseline,Before,Other,0.5
+P16,1,43,34,Active sentence,Before,Other,0.5
+P16,1,46,36,Baseline,Before,Active,0.5
+P16,1,62,27,Active sentence,Before,Active,0.5
+P16,1,64,25,Passive sentence,Before,Active,0.5
+P16,1,66,28,Passive sentence,Before,Passive,0.5
+P16,1,69,26,Baseline,Before,Other,0.5
+P16,1,71,102,Intervention,During,Passive,0.5
+P16,1,72,101,Intervention,During,Passive,0.5
+P16,1,87,19,Baseline,After,Passive,0.5
+P16,1,89,20,Active sentence,After,Active,0.5
+P16,1,91,17,Active sentence,After,Active,0.5
+P16,1,95,18,Passive sentence,After,Other,0.5
+P16,1,110,10,Active sentence,After,Active,0.5
+P16,1,112,12,Baseline,After,Passive,0.5
+P16,1,115,11,Passive sentence,After,Passive,0.5
+P16,1,119,9,Baseline,After,Passive,0.5
+P16,1,134,4,Passive sentence,After,Active,0.5
+P16,1,136,3,Active sentence,After,Passive,0.5
+P16,1,139,1,Passive sentence,After,Active,0.5
+P16,1,141,2,Baseline,After,Passive,0.5
+P16,2,4,2,Passive sentence,Before,Other,0.5
+P16,2,6,1,Active sentence,Before,Active,0.5
+P16,2,9,3,Baseline,Before,Active,0.5
+P16,2,11,4,Active sentence,Before,Active,0.5
+P16,2,14,9,Passive sentence,Before,Other,0.5
+P16,2,18,11,Active sentence,Before,Passive,0.5
+P16,2,21,12,Passive sentence,Before,Active,0.5
+P16,2,23,10,Baseline,Before,Active,0.5
+P16,2,26,18,Active sentence,Before,Other,0.5
+P16,2,30,17,Baseline,Before,Active,0.5
+P16,2,32,20,Baseline,Before,Active,0.5
+P16,2,34,19,Passive sentence,Before,Active,0.5
+P16,2,35,91,Intervention,During,Other,0.5
+P16,2,36,92,Intervention,During,Passive,0.5
+P16,2,37,101,Intervention,During,Passive,0.5
+P16,2,38,102,Intervention,During,Passive,0.5
+P16,2,40,26,Passive sentence,After,Passive,0.5
+P16,2,43,28,Active sentence,After,Passive,0.5
+P16,2,45,25,Active sentence,After,Active,0.5
+P16,2,47,27,Baseline,After,Active,0.5
+P16,2,51,36,Passive sentence,After,Active,0.5
+P16,2,54,34,Baseline,After,Passive,0.5
+P16,2,57,33,Passive sentence,After,Passive,0.5
+P16,2,59,35,Active sentence,After,Passive,0.5
+P16,2,63,43,Passive sentence,After,Passive,0.5
+P16,2,65,44,Baseline,After,Active,0.5
+P16,2,68,41,Baseline,After,Active,0.5
+P16,2,71,42,Active sentence,After,Passive,0.5
+P16,3,4,42,Passive sentence,Before,Active,0.5
+P16,3,6,41,Active sentence,Before,Active,0.5
+P16,3,8,44,Active sentence,Before,Other,0.5
+P16,3,10,43,Baseline,Before,Active,0.5
+P16,3,14,35,Passive sentence,Before,Passive,0.5
+P16,3,16,33,Baseline,Before,Passive,0.5
+P16,3,19,34,Active sentence,Before,Passive,0.5
+P16,3,22,36,Baseline,Before,Active,0.5
+P16,3,26,27,Active sentence,Before,Active,0.5
+P16,3,28,25,Passive sentence,Before,Active,0.5
+P16,3,30,28,Passive sentence,Before,Passive,0.5
+P16,3,33,26,Baseline,Before,Passive,0.5
+P16,3,35,102,Intervention,During,Passive,0.5
+P16,3,36,101,Intervention,During,Passive,0.5
+P16,3,37,92,Intervention,During,Active,0.5
+P16,3,38,91,Intervention,During,Passive,0.5
+P16,3,39,19,Baseline,After,Active,0.5
+P16,3,41,20,Active sentence,After,Active,0.5
+P16,3,43,17,Active sentence,After,Passive,0.5
+P16,3,47,18,Passive sentence,After,Passive,0.5
+P16,3,50,10,Active sentence,After,Passive,0.5
+P16,3,52,12,Baseline,After,Passive,0.5
+P16,3,55,11,Passive sentence,After,Passive,0.5
+P16,3,59,9,Baseline,After,Passive,0.5
+P16,3,62,4,Passive sentence,After,Passive,0.5
+P16,3,64,3,Active sentence,After,Passive,0.5
+P16,3,67,1,Passive sentence,After,Active,0.5
+P16,3,69,2,Baseline,After,Passive,0.5
+P16,4,4,2,Baseline,Before,Passive,0.5
+P16,4,6,1,Passive sentence,Before,Active,0.5
+P16,4,9,3,Active sentence,Before,Passive,0.5
+P16,4,11,4,Passive sentence,Before,Active,0.5
+P16,4,14,9,Baseline,Before,Active,0.5
+P16,4,18,11,Passive sentence,Before,Passive,0.5
+P16,4,21,12,Baseline,Before,Passive,0.5
+P16,4,23,10,Active sentence,Before,Passive,0.5
+P16,4,26,18,Passive sentence,Before,Active,0.5
+P16,4,30,17,Active sentence,Before,Passive,0.5
+P16,4,32,20,Active sentence,Before,Passive,0.5
+P16,4,34,19,Baseline,Before,Active,0.5
+P16,4,35,91,Intervention,During,Passive,0.5
+P16,4,36,92,Intervention,During,Passive,0.5
+P16,4,37,101,Intervention,During,Passive,0.5
+P16,4,38,102,Intervention,During,Passive,0.5
+P16,4,40,26,Baseline,After,Passive,0.5
+P16,4,43,28,Passive sentence,After,Passive,0.5
+P16,4,45,25,Passive sentence,After,Passive,0.5
+P16,4,47,27,Active sentence,After,Passive,0.5
+P16,4,51,36,Baseline,After,Active,0.5
+P16,4,54,34,Active sentence,After,Passive,0.5
+P16,4,57,33,Baseline,After,Passive,0.5
+P16,4,59,35,Passive sentence,After,Passive,0.5
+P16,4,63,43,Baseline,After,Passive,0.5
+P16,4,65,44,Active sentence,After,Passive,0.5
+P16,4,67,41,Active sentence,After,Passive,0.5
+P16,4,69,42,Passive sentence,After,Active,0.5
+P16,5,14,42,Baseline,Before,Passive,0.5
+P16,5,17,41,Passive sentence,Before,Passive,0.5
+P16,5,20,44,Passive sentence,Before,Passive,0.5
+P16,5,22,43,Active sentence,Before,Passive,0.5
+P16,5,38,35,Baseline,Before,Passive,0.5
+P16,5,40,33,Active sentence,Before,Passive,0.5
+P16,5,43,34,Passive sentence,Before,Passive,0.5
+P16,5,46,36,Active sentence,Before,Passive,0.5
+P16,5,62,27,Passive sentence,Before,Passive,0.5
+P16,5,64,25,Baseline,Before,Passive,0.5
+P16,5,66,28,Baseline,Before,Passive,0.5
+P16,5,69,26,Active sentence,Before,Passive,0.5
+P16,5,71,102,Intervention,During,Passive,0.5
+P16,5,72,101,Intervention,During,Passive,0.5
+P16,5,87,19,Active sentence,After,Active,0.5
+P16,5,89,20,Passive sentence,After,Passive,0.5
+P16,5,91,17,Passive sentence,After,Passive,0.5
+P16,5,95,18,Baseline,After,Passive,0.5
+P16,5,110,10,Passive sentence,After,Passive,0.5
+P16,5,112,12,Active sentence,After,Passive,0.5
+P16,5,115,11,Baseline,After,Passive,0.5
+P16,5,119,9,Active sentence,After,Passive,0.5
+P16,5,134,4,Baseline,After,Active,0.5
+P16,5,136,3,Passive sentence,After,Active,0.5
+P16,5,139,1,Baseline,After,Active,0.5
+P16,5,141,2,Active sentence,After,Passive,0.5
+P17,1,14,42,Passive sentence,Before,No response,0.625
+P17,1,17,41,Active sentence,Before,No response,0.625
+P17,1,20,44,Active sentence,Before,No response,0.625
+P17,1,22,43,Baseline,Before,No response,0.625
+P17,1,38,35,Passive sentence,Before,No response,0.625
+P17,1,40,33,Baseline,Before,No response,0.625
+P17,1,43,34,Active sentence,Before,No response,0.625
+P17,1,46,36,Baseline,Before,No response,0.625
+P17,1,62,27,Active sentence,Before,Active,0.625
+P17,1,64,25,Passive sentence,Before,Active,0.625
+P17,1,66,28,Passive sentence,Before,Passive,0.625
+P17,1,69,26,Baseline,Before,Active,0.625
+P17,1,71,102,Intervention,During,Passive,0.625
+P17,1,72,101,Intervention,During,Passive,0.625
+P17,1,87,19,Baseline,After,Other,0.625
+P17,1,89,20,Active sentence,After,Active,0.625
+P17,1,91,17,Active sentence,After,Passive,0.625
+P17,1,95,18,Passive sentence,After,Active,0.625
+P17,1,110,10,Active sentence,After,Active,0.625
+P17,1,112,12,Baseline,After,Other,0.625
+P17,1,115,11,Passive sentence,After,Passive,0.625
+P17,1,119,9,Baseline,After,Passive,0.625
+P17,1,134,4,Passive sentence,After,Passive,0.625
+P17,1,136,3,Active sentence,After,Active,0.625
+P17,1,139,1,Passive sentence,After,Passive,0.625
+P17,1,141,2,Baseline,After,Passive,0.625
+P17,2,4,2,Active sentence,Before,Other,0.625
+P17,2,6,1,Baseline,Before,Other,0.625
+P17,2,9,3,Passive sentence,Before,Passive,0.625
+P17,2,11,4,Baseline,Before,Passive,0.625
+P17,2,14,9,Active sentence,Before,Active,0.625
+P17,2,18,11,Baseline,Before,Active,0.625
+P17,2,21,12,Active sentence,Before,Active,0.625
+P17,2,23,10,Passive sentence,Before,Active,0.625
+P17,2,26,18,Baseline,Before,Other,0.625
+P17,2,30,17,Passive sentence,Before,Passive,0.625
+P17,2,32,20,Passive sentence,Before,Active,0.625
+P17,2,34,19,Active sentence,Before,Passive,0.625
+P17,2,35,91,Intervention,During,Passive,0.625
+P17,2,36,92,Intervention,During,Passive,0.625
+P17,2,37,101,Intervention,During,Passive,0.625
+P17,2,38,102,Intervention,During,Passive,0.625
+P17,2,40,26,Active sentence,After,No response,0.625
+P17,2,43,28,Baseline,After,No response,0.625
+P17,2,45,25,Baseline,After,No response,0.625
+P17,2,47,27,Passive sentence,After,No response,0.625
+P17,2,51,36,Active sentence,After,No response,0.625
+P17,2,54,34,Passive sentence,After,No response,0.625
+P17,2,57,33,Active sentence,After,No response,0.625
+P17,2,59,35,Baseline,After,No response,0.625
+P17,2,63,43,Active sentence,After,No response,0.625
+P17,2,65,44,Passive sentence,After,No response,0.625
+P17,2,68,41,Passive sentence,After,No response,0.625
+P17,2,71,42,Baseline,After,No response,0.625
+P17,3,4,42,Active sentence,Before,Other,0.625
+P17,3,6,41,Baseline,Before,Active,0.625
+P17,3,8,44,Baseline,Before,Active,0.625
+P17,3,10,43,Passive sentence,Before,Active,0.625
+P17,3,14,35,Active sentence,Before,Active,0.625
+P17,3,16,33,Passive sentence,Before,Passive,0.625
+P17,3,19,34,Baseline,Before,Passive,0.625
+P17,3,22,36,Passive sentence,Before,Other,0.625
+P17,3,26,27,Baseline,Before,Passive,0.625
+P17,3,28,25,Active sentence,Before,Other,0.625
+P17,3,30,28,Active sentence,Before,Passive,0.625
+P17,3,33,26,Passive sentence,Before,Active,0.625
+P17,3,35,102,Intervention,During,Passive,0.625
+P17,3,36,101,Intervention,During,Passive,0.625
+P17,3,37,92,Intervention,During,Passive,0.625
+P17,3,38,91,Intervention,During,Passive,0.625
+P17,3,39,19,Passive sentence,After,Active,0.625
+P17,3,41,20,Baseline,After,Active,0.625
+P17,3,43,17,Baseline,After,Passive,0.625
+P17,3,47,18,Active sentence,After,Passive,0.625
+P17,3,50,10,Baseline,After,Passive,0.625
+P17,3,52,12,Passive sentence,After,Passive,0.625
+P17,3,55,11,Active sentence,After,Passive,0.625
+P17,3,59,9,Passive sentence,After,Active,0.625
+P17,3,62,4,Active sentence,After,Passive,0.625
+P17,3,64,3,Baseline,After,Passive,0.625
+P17,3,67,1,Active sentence,After,Passive,0.625
+P17,3,69,2,Passive sentence,After,Passive,0.625
+P17,4,4,2,Baseline,Before,Passive,0.625
+P17,4,6,1,Passive sentence,Before,Passive,0.625
+P17,4,9,3,Active sentence,Before,Passive,0.625
+P17,4,11,4,Passive sentence,Before,Passive,0.625
+P17,4,14,9,Baseline,Before,Passive,0.625
+P17,4,18,11,Passive sentence,Before,Passive,0.625
+P17,4,21,12,Baseline,Before,Passive,0.625
+P17,4,23,10,Active sentence,Before,Passive,0.625
+P17,4,26,18,Passive sentence,Before,Passive,0.625
+P17,4,30,17,Active sentence,Before,Passive,0.625
+P17,4,32,20,Active sentence,Before,Active,0.625
+P17,4,34,19,Baseline,Before,Active,0.625
+P17,4,35,91,Intervention,During,Passive,0.625
+P17,4,36,92,Intervention,During,Passive,0.625
+P17,4,37,101,Intervention,During,Passive,0.625
+P17,4,38,102,Intervention,During,Passive,0.625
+P17,4,40,26,Baseline,After,Passive,0.625
+P17,4,43,28,Passive sentence,After,Passive,0.625
+P17,4,45,25,Passive sentence,After,Passive,0.625
+P17,4,47,27,Active sentence,After,Passive,0.625
+P17,4,51,36,Baseline,After,Passive,0.625
+P17,4,54,34,Active sentence,After,Passive,0.625
+P17,4,57,33,Baseline,After,Passive,0.625
+P17,4,59,35,Passive sentence,After,Passive,0.625
+P17,4,63,43,Baseline,After,Passive,0.625
+P17,4,65,44,Active sentence,After,Active,0.625
+P17,4,67,41,Active sentence,After,Active,0.625
+P17,4,69,42,Passive sentence,After,Passive,0.625
+P17,5,14,42,Active sentence,Before,Passive,0.625
+P17,5,17,41,Baseline,Before,Passive,0.625
+P17,5,20,44,Baseline,Before,Active,0.625
+P17,5,22,43,Passive sentence,Before,Passive,0.625
+P17,5,38,35,Active sentence,Before,Passive,0.625
+P17,5,40,33,Passive sentence,Before,Passive,0.625
+P17,5,43,34,Baseline,Before,Passive,0.625
+P17,5,46,36,Passive sentence,Before,Passive,0.625
+P17,5,62,27,Baseline,Before,Passive,0.625
+P17,5,64,25,Active sentence,Before,Passive,0.625
+P17,5,66,28,Active sentence,Before,Passive,0.625
+P17,5,69,26,Passive sentence,Before,Passive,0.625
+P17,5,71,102,Intervention,During,Passive,0.625
+P17,5,72,101,Intervention,During,Passive,0.625
+P17,5,87,19,Passive sentence,After,Passive,0.625
+P17,5,89,20,Baseline,After,Active,0.625
+P17,5,91,17,Baseline,After,Passive,0.625
+P17,5,95,18,Active sentence,After,Passive,0.625
+P17,5,110,10,Baseline,After,Passive,0.625
+P17,5,112,12,Passive sentence,After,Passive,0.625
+P17,5,115,11,Active sentence,After,Passive,0.625
+P17,5,119,9,Passive sentence,After,Passive,0.625
+P17,5,134,4,Active sentence,After,Passive,0.625
+P17,5,136,3,Baseline,After,Passive,0.625
+P17,5,139,1,Active sentence,After,Passive,0.625
+P17,5,141,2,Passive sentence,After,Passive,0.625

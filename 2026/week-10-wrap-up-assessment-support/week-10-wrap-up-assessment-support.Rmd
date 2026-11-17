@@ -1,0 +1,260 @@
+---
+title: "PSYC40940: Reproduce And Review Your Portfolio"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+---
+
+## Today: Make The Portfolio Work For Another Reader
+
+- Check the purpose of four static figures and two interactive app views.
+- Prepare the summative report Rmd and identify every file to submit.
+- Run the report and separate app from submitted files.
+- Test an extracted copy of the ZIP.
+- Check coverage against the brief and improve explanations.
+- Use individual support to resolve specific remaining problems.
+
+No new Shiny feature is required. Most of the session is project work and support.
+
+## Start With Four Figures And Two App Views {.smaller}
+
+Take **about five minutes**. Revisit your Week 9 purpose, tab sketch and graph alongside your draft report. Identify what works and one next step; unfinished code is fine.
+
+- List **four different static plot types** for the report. For each, write its behavioural question and what it helps the reader see.
+- List **at least two interactive plot views** for the app. Explain what the controls let the reader explore and what this adds to the static report.
+- Use your formative feedback to identify one priority for improving the static figures or their commentary.
+
+Keep the list beside you during today's checks. If using the practice project, identify the purpose of each supplied view, then note what your own portfolio still needs.
+
+## Bring The Formative Lessons Into The Static Report {.smaller}
+
+For each of the four figures:
+
+- Does the plot type answer the stated question with the right variables and quantities?
+- What does the pattern tell us about the behaviour, and what can we not conclude?
+- Why do the encodings, scales, summaries and layout help the comparison? What might they conceal?
+- Are labels, captions and references clear in the rendered report?
+
+The app adds exploration; the static figures still need interpretation and justified design choices. Use your individual formative feedback and the principles from Weeks 2, 4 and 5.
+
+## Download The Guide And Practice Project {.smaller}
+
+Unzip the whole Week 10 folder into your existing module project.
+
+Open **`session-guide.html`** in a browser.
+
+If your own project is ready, use it for the checks. Otherwise use submission-example/ and its supplied `portfolio.Rproj`.
+
+The teaching ZIP is not a ready-made assessment submission.
+
+## Open The Submission Guide On NOW {.smaller}
+
+Open **Summative submission guide** in the NOW Assessments section, alongside the assessment brief.
+
+We will follow the complete sequence:
+
+1. Create or check an assessment RStudio project.
+2. Put the report, separate app, data and supporting files inside it.
+3. Render the report, test the app and complete the NOW AI declaration.
+4. ZIP the files, extract a fresh copy and test it before uploading.
+
+**Together:** find the guide and the AI declaration form. The brief sets the requirements; the guide explains how to prepare the files.
+
+## Start With An Assessment RStudio Project {.smaller}
+
+For a new assessment folder:
+
+1. In RStudio, choose **File > New Project > New Directory > New Project**.
+2. Use a neutral name such as `behavioural-portfolio` and click **Create Project**.
+3. Find `behavioural-portfolio.Rproj` in the Files pane. Open it when returning to this work.
+
+If your assessment files already have a dedicated folder, use **File > New Project > Existing Directory**. Reuse an existing assessment project if it is already organised.
+
+The `.Rproj` file does not contain your report or data. Those are separate files inside the project folder. Keep a clean submission copy rather than sending all weekly teaching materials.
+
+## Put The Data And Report Inside The Project {.smaller}
+
+1. Create `data/` in the project folder and copy the actual data files into it.
+2. Create or adapt one report Rmd. Save it beside `.Rproj`, with a meaningful title and no author name.
+3. Save required bibliography, citation-style, image and helper files inside the project too.
+4. Load packages and import/prepare data in code; Knit to create `report.html`.
+5. Keep the dashboard in a separate `app.R` or `app/app.R`, and test it with **Run App**.
+
+Use the guide's instructions for an agreed data-access alternative if data cannot be supplied. Merely listing a filename does not include the file.
+
+## Prepare Your Summative Rmd {.smaller}
+
+Use **Activity: prepare your summative report Rmd** in the guide (**about 15 minutes**).
+
+1. Open your draft, or choose **File > New File > R Markdown > HTML**. Save one report Rmd beside `.Rproj`, with your own title and no author name.
+2. Add Markdown headings for the question/data, visualisations, reflection and references. Give figure sections meaningful titles.
+3. Add package setup and data import using relative paths. Replace old data, instructions and example text if adapting your formative file.
+4. Put at least one working static figure into a named chunk with a caption, and write an initial interpretation and design reason.
+
+A useful draft is enough; the four figures and commentary can develop during independent work.
+
+## Render A Readable Report, Keep The Code Reproducible {.smaller}
+
+- Use `echo = FALSE` for routine code; the Rmd still contains the code needed for reproduction.
+- Reuse Week 1's citation and figure-reference format. Keep references inside the report and include any bibliography/style files it uses.
+- Knit the report and inspect its headings, figure size, caption and references.
+- Keep the reflection in this report, the Shiny app in its separate file, and include `sessionInfo()` at the end of the report.
+
+**Checkpoint:** one saved Rmd, a rendered HTML draft with at least one figure, and a plan for all four static plot types. Use the submission guide to check the files.
+
+## Keep The Report And App Separate {.smaller}
+
+```text
+portfolio/
+  portfolio.Rproj
+  report.Rmd
+  report.html
+  references.bib
+  ai-declaration.pdf
+  data/
+    participant_rates.csv
+    production_trials.csv
+  app/
+    app.R
+```
+
+The report renders to HTML. Open `app/app.R` and use Run App for the dashboard.
+
+The practice project continues Week 9's sentence-production example. The report uses summaries and trial records; the app uses summaries.
+
+**Together:** locate the data and setup packages each output needs.
+
+## Relative Paths Follow The Working Directory {.smaller}
+
+In `report.Rmd`, at the project root:
+
+```{r report-path, eval=FALSE}
+d <- readr::read_csv("data/participant_rates.csv")
+```
+
+In `app/app.R`, inside the app folder:
+
+```{r app-path, eval=FALSE}
+d <- readr::read_csv("../data/participant_rates.csv")
+```
+
+Keep the structure intact. The app is run as a whole file from its folder. A path to a personal Desktop or Downloads folder will not work for the marker.
+
+## Submit What Is Needed To Reproduce The Work {.smaller}
+
+| Include | Purpose |
+|---|---|
+| One Rmd and rendered HTML | source and readable report |
+| Rproj | assessment project settings |
+| `app.R` or `app/app.R` | separate runnable dashboard |
+| Data and helper/bibliography files | dependencies used by the code |
+| Package setup and `sessionInfo()` | dependencies and versions |
+| Access instructions/code where needed | data that cannot be included |
+| Completed NOW AI declaration | record of AI use, including no use |
+
+The AI declaration must be the completed form supplied on NOW. Do not include guides, slides, unused drafts or saved workspaces.
+
+## Complete And Include The NOW AI Declaration {.smaller}
+
+1. In NOW **Assessments**, download the supplied GenAI / AI declaration form.
+2. Complete it, describing how you used any AI tools. If you did not use them, state that.
+3. Save the completed form inside your assessment folder in the requested format.
+4. Include it in the final ZIP. It must not remain in Downloads or be replaced by a sentence in the submission box.
+
+Follow the official form's instructions for its required fields. Keep your report and app anonymous as required by the brief.
+
+Code assistance does not replace your own interpretation, design rationale or reflection.
+
+## Test The Extracted ZIP {.smaller}
+
+Use the guide's **Exercise: test an extracted copy** (**15 minutes**).
+
+1. Render the report and save the app.
+2. ZIP only the intended submission files.
+3. Restart R without a restored workspace.
+4. Extract to a different temporary folder and open that project.
+5. Knit its Rmd and run its app.
+6. Test controls, tabs, empty selections and recovery.
+
+The code must load its own packages and data without relying on objects left in memory. A successful run in your original folder does not prove the ZIP is complete.
+
+## Check The Required Outputs {.smaller}
+
+- One suitably rich behavioural dataset, with source and observation unit.
+- Four different static visualisation types, with design commentary.
+- Separate Shiny app with meaningful inputs and at least two interactive plots.
+- No more than three tabs.
+- Specific reflection on decisions, challenges and practical constraints.
+
+Shiny-reactive ggplots satisfy the interactivity requirement. Plotly, tables, generated UI and observers are tools to choose when useful.
+
+## Explanations Must Work Without You Present
+
+Can the reader identify the question, data, units, current selection and limitations?
+
+Do controls explain what they change? Does each tab have a clear purpose?
+
+Does the report explain why the figures and dashboard views suit the behavioural questions?
+
+These are assessed communication and design decisions.
+
+## Review One Decision In Your Own Words
+
+Choose a concrete example:
+
+- a tab structure that helped navigation but hid a comparison;
+- a filter that revealed a pattern and excluded some observations;
+- a simpler view that communicated more clearly;
+- a data limitation that constrained the conclusion.
+
+Explain the consequence, tradeoff and possible improvement. Avoid a list of function names.
+
+## Use The Remaining Time For Your Project
+
+Bring a specific question: the file, smallest failing step, expected behaviour and error message.
+
+If the code works, improve the question, views, controls and explanations.
+
+The second block is primarily individual support. Aim to have a working report and dashboard before the winter break.
+
+## Before Submission
+
+Use the current assessment brief and the **Summative submission guide** in NOW Assessments. Check the deadline, final file set and upload instructions.
+
+Maximum 2,000 words includes report text, figure commentary/captions, dashboard explanatory text and reflection.
+
+Code, references, raw R output and data-file contents are excluded. Check anonymity and the AI declaration. Retain the tested ZIP and submission confirmation.
+
+## Choose A Shiny Reference For Your Problem {.smaller}
+
+In Wickham's *Mastering Shiny*:
+
+- [Chapter 3: basic reactivity](https://mastering-shiny.org/basic-reactivity.html) and [Chapter 14: the reactive graph](https://mastering-shiny.org/reactive-graph.html): trace inputs, shared calculations and outputs.
+- [Chapter 5: workflow](https://mastering-shiny.org/action-workflow.html): develop, debug and ask useful questions.
+- [Chapter 6: layouts](https://mastering-shiny.org/action-layout.html#tabsets) and [Chapter 8: user feedback](https://mastering-shiny.org/action-feedback.html#validate-output): organise tabs and explain empty results.
+- Andrews, [Chapter 16: Interactive Web Apps with Shiny](https://github.com/mark-andrews/ddsr/releases/download/v22.7.31/chapter_16_shiny.pdf): an alternative worked introduction.
+
+Use these as references when needed; they are not extra portfolio features to implement.
+
+## Revisit The Resources For Clear Figures {.smaller}
+
+- Wickham, Navarro and Pedersen's *ggplot2* book: [colour and legends](https://ggplot2-book.org/scales-colour.html), [faceting](https://ggplot2-book.org/facet.html), and [themes](https://ggplot2-book.org/themes.html).
+- Andrews, [Chapter 4: Data Visualization](https://www.mjandrews.org/book/ddsr/assets/chapter_04_visualization.pdf): revisit the plotting approach used earlier in the module.
+- [ggplot2 function reference](https://ggplot2.tidyverse.org/reference/) and [Posit cheatsheets](https://posit.co/resources/cheatsheets/): look up layers, mappings and arguments.
+
+Use Weeks 2, 4 and 5 to justify choices: what does a view make easy to compare, and what might it conceal?
+
+## Find Help With Code And Reports {.smaller}
+
+- [Posit Shiny Assistant](https://gallery.shinyapps.io/assistant/): choose R and ask for a small code explanation or debugging change. Check the result in your own project.
+- [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/): report problems, including [captions and figure cross-references](https://bookdown.org/yihui/rmarkdown-cookbook/cross-ref.html).
+- Andrews, [Chapter 7: reproducible analysis](https://www.mjandrews.org/book/ddsr/assets/chapter_07_reproducible.pdf), and *R for Data Science*, [Chapter 6: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html): files, projects and reproducible work.
+
+Example request: “Explain why this filter returns no rows. Keep my UI and plotting code unchanged.” Supply the relevant code and error.
+
+Follow the assessment's AI guidance: understand assisted code; write your own commentary and reflection; complete the NOW declaration.
+

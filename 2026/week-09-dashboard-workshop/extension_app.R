@@ -1,41 +1,76 @@
-# Optional extension: add plotly interactivity to the exploration tab
-
 library(shiny)
 library(tidyverse)
 library(plotly)
 
-# Load and reduce the data.
-d_spellname <- read_csv("data/spellname.csv", show_col_types = FALSE)
-d_spellname <- summarise(
-  d_spellname,
-  rt = mean(rt, na.rm = TRUE),
-  dur = mean(dur, na.rm = TRUE),
-  .by = c(ppt_id, name_familiarised, ppt_vocab, modality)
-)
+d_workshop <- read_csv("data/participant_rates.csv", show_col_types = FALSE)
 
-ui <- navbarPage(
-  "Behavioural data dashboard",
-  tabPanel(
-    "Interactive explore",
-    sidebarLayout(
-      sidebarPanel(selectInput("familiarised", "Name familiarised", choices = sort(unique(d_spellname$name_familiarised)))),
-      mainPanel(plotlyOutput("explore_plot"))
+ui <- fluidPage(
+  titlePanel("Explore average and individual patterns"),
+  p("One row summarises four trials for one learner, testing occasion, sentence condition and phase. Passive use is not a correctness score."),
+  sidebarLayout(
+    sidebarPanel(
+      checkboxGroupInput("prime_condition", "Sentence conditions",
+                   choices = c("Baseline", "Active sentence", "Passive sentence"),
+                   selected = c("Baseline", "Active sentence", "Passive sentence")),
+      selectInput("phase", "Phase to display",
+            choices = c("Before", "After"), selected = "Before"),
+      helpText("Choose sentence conditions and one phase. Both plots use the same selected observations.")
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Average pattern",
+          p("Points show the mean number of full passive responses out of four trials at each testing occasion for the selected phase. Lines compare the sentence conditions."),
+          plotlyOutput("overview_plot")
+        ),
+        tabPanel("Individual patterns",
+          p("Each line follows one learner in one sentence condition. Compare individual variation with the mean pattern in the other tab."),
+          plotlyOutput("participant_plot")
+        )
+      ),
+      helpText("Repeated observations come from the same learners. Descriptive plots do not isolate an intervention effect. Source: van Lieburg et al. (2023), DOI: 10.1007/s41809-023-00131-5; see data/README.md.")
     )
   )
 )
 
-server <- function(input, output, session) {
-  familiarised_data <- reactive({
-    filter(d_spellname, name_familiarised == input$familiarised)
+server <- function(input, output) {
+  selected_data <- reactive({
+    selected <- filter(
+      d_workshop,
+      prime_condition %in% input$prime_condition,
+      phase == input$phase
+    )
+    validate(need(nrow(selected) > 0,
+                  "No observations match. Select a sentence condition."))
+    selected
   })
 
-  output$explore_plot <- renderPlotly({
-    plot <- ggplot(familiarised_data(), aes(x = ppt_vocab, y = rt, colour = modality)) +
-      geom_point(alpha = 0.7) +
-      labs(x = "Participant vocabulary", y = "Mean reaction time", colour = "Modality") +
-      theme_minimal()
+  output$overview_plot <- renderPlotly({
+    p <- ggplot(selected_data(),
+           aes(x = study_session, y = n_passive,
+               colour = prime_condition, group = prime_condition)) +
+      stat_summary(fun = mean, geom = "line") +
+      stat_summary(fun = mean, geom = "point") +
+      scale_x_continuous(breaks = 1:5) +
+      scale_y_continuous(breaks = 0:4) +
+      coord_cartesian(ylim = c(0, 4)) +
+      labs(x = "Testing occasion", y = "Mean full passive responses (out of 4)",
+           colour = "Sentence condition")
+    ggplotly(p)
+  })
 
-    ggplotly(plot)
+  output$participant_plot <- renderPlotly({
+    p <- ggplot(selected_data(),
+           aes(x = study_session, y = n_passive,
+               colour = prime_condition,
+               group = interaction(participant, prime_condition))) +
+      geom_line(alpha = 0.35) +
+      geom_point(alpha = 0.35) +
+      scale_x_continuous(breaks = 1:5) +
+      scale_y_continuous(breaks = 0:4) +
+      coord_cartesian(ylim = c(0, 4)) +
+      labs(x = "Testing occasion", y = "Full passive responses (out of 4)",
+           colour = "Sentence condition")
+    ggplotly(p)
   })
 }
 

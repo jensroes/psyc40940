@@ -1,0 +1,121 @@
+---
+title: "Practice portfolio: change in Dutch sentence production"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = NA,
+                      warning = FALSE, message = FALSE,
+                      fig.width = 7, fig.height = 4)
+library(tidyverse)
+```
+
+# Purpose and data
+
+This is a reproducibility practice example, not a model assessment answer. The code is complete so the report can be rendered from an extracted project. You supply the interpretation and reflection; the example is not a portfolio to submit.
+
+The teaching extract comes from the longitudinal sentence-production experiment reported by @vanLieburg2023. Active and passive sentences are alternatives, not incorrect and correct answers. Each summary row represents one learner, one study session, one prompt condition and one phase, combining four recorded target trials. The same people appear repeatedly. The trial-level file is supplied so the summaries can be traced and response categories examined.
+
+```{r load-data}
+rates <- read_csv("data/participant_rates.csv", show_col_types = FALSE)
+trials <- read_csv("data/production_trials.csv", show_col_types = FALSE)
+rates$phase <- factor(rates$phase, levels = c("Before", "After"))
+baseline <- filter(rates, prime_condition == "Baseline")
+```
+
+The baseline subset includes `r n_distinct(baseline$participant)` learners in `r nrow(baseline)` summary rows. The first three figures use the number of full passive responses out of four recorded target trials in each cell (0–4). Other responses and no response remain among those four trials. The average across learners can be fractional. This differs from the article's main binary analyses, which exclude those categories. It is not a reproduction of the published percentages or statistical models. See data/README.md for coding, source and preparation.
+
+Write your own question and explain why the selected views address it: `---`
+
+# Average change over study sessions
+
+Figure \@ref(fig:average-change) shows the mean number of full passive responses out of four trials for each session and phase. Missing learner sessions are not filled with zero; the people contributing can differ slightly across sessions.
+
+```{r average-change, fig.cap="Mean participant counts of full passive responses out of four trials after baseline prompts, before and after the within-session intervention. Each learner contributes a count from 0 to 4. Lines connect observed means, not fitted learning curves."}
+ggplot(baseline,
+       aes(x = study_session, y = n_passive,
+           colour = phase, group = phase)) +
+  stat_summary(fun = mean, geom = "line") +
+  stat_summary(fun = mean, geom = "point") +
+  scale_colour_manual(values = c("Before" = "#0072B2",
+                                  "After" = "#D55E00")) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 0:4, limits = c(0, 4)) +
+  labs(x = "Study session", y = "Mean full passive responses (out of 4)",
+       colour = "Phase")
+```
+
+Your interpretation, design rationale and a limit on what the average reveals: `---`
+
+# Variation at the final study session
+
+```{r final-session, fig.cap="Participant counts of full passive responses out of four trials at Session 5 after baseline prompts. Boxes summarise medians and quartiles; points retain the observed counts. Before and After are repeated observations of the same learners, although the boxplots do not display their pairing."}
+ggplot(filter(baseline, study_session == 5),
+       aes(x = phase, y = n_passive)) +
+  geom_boxplot(width = 0.3, outlier.shape = NA) +
+  geom_point(position = position_jitter(width = 0.08, height = 0, seed = 7)) +
+  scale_y_continuous(breaks = 0:4, limits = c(0, 4)) +
+  labs(x = "Phase", y = "Full passive responses (out of 4)")
+```
+
+What does the distribution add to the average? What does separating the phases conceal about pairing? `---`
+
+# Individual patterns across sessions
+
+```{r individual-heatmap, fig.cap="One tile per observed learner, session and phase after baseline prompts. Colour shows the number of full passive responses out of four target trials. Missing tiles are unobserved sessions, not zero counts."}
+ggplot(baseline,
+       aes(x = study_session, y = participant, fill = n_passive)) +
+  geom_tile(colour = "white") +
+  facet_wrap(~phase) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_fill_viridis_c(limits = c(0, 4), breaks = 0:4) +
+  labs(x = "Study session", y = "Learner", fill = "Full passives\n(out of 4)")
+```
+
+Which individual patterns are concealed by the mean? Explain a benefit and limitation of encoding the counts using colour: `---`
+
+# What happens to the other responses?
+
+```{r response-mix, fig.cap="Response-category proportions after baseline prompts in each session and phase. All recorded target trials contribute, including other responses, short passives and no response. These are repeated trials, not independent learners."}
+response_counts <- count(
+  filter(trials, prime_condition == "Baseline",
+         phase %in% c("Before", "After")),
+  study_session, phase, response
+)
+response_counts$phase <- factor(response_counts$phase,
+                                levels = c("Before", "After"))
+ggplot(response_counts,
+       aes(x = factor(study_session), y = n, fill = response)) +
+  geom_col(position = "fill") +
+  facet_wrap(~phase) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  labs(x = "Study session", y = "Recorded target trials (%)",
+       fill = "Response")
+```
+
+How does retaining other responses change the question compared with showing only Active and Passive? Which categories are easy or hard to compare in stacked bars? `---`
+
+# Dashboard
+
+The separate app in app/app.R lets users choose a prompt condition, phases and study sessions, and compares the average with individual patterns. It uses the shared-preparation and tab patterns described by @Wickham2021MasteringShiny. Run it with Run App; stop it before rendering the report again.
+
+Explain what the app adds to these static figures, why the controls help and a limitation: `---`
+
+# Reflection
+
+Record a specific design choice, challenge, trade-off or possible improvement in your own words. Consider average versus individual views, lines versus tiles, the denominator or the visibility of paired observations. Link your reasoning to the taught principles: `---`
+
+# Reproducibility information
+
+The report and app load their packages independently and use relative paths. The report reads data/ from the project root; the separate app reads ../data/ from its app folder. The dictionary identifies the source files and supplied preparation. This example does not require the authors' model-fitting packages.
+
+```{r package-versions}
+sessionInfo()
+```
+
+# References

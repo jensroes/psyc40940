@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Week 10: Reproduce and review your portfolio</title>
+  <style type="text/css">
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Week 10: Reproduce and review your portfolio</h1>
+</div>
+<h1 id="week-10-reproduce-and-review-your-portfolio">Week 10: Reproduce
+and review your portfolio</h1>
+<p>Preliminary session information: the materials may be refined before
+the session.</p>
+<p>This session brings together the report, separate Shiny app and
+supporting files for your summative portfolio. We will check that the
+work runs from the files you intend to submit, then use the remaining
+time for individual project work, questions and feedback. No new
+compulsory Shiny feature is introduced.</p>
+<p>A working app is a starting point. We will also review whether your
+plots answer clear questions, whether the controls support useful
+exploration, and whether the report and app explain their choices and
+limitations. Use your individual formative feedback to identify
+improvements that matter for your summative work.</p>
+<p>By the end, you should be able to:</p>
+<ul>
+<li>organise the report, app, data and supporting files into a
+reproducible project,</li>
+<li>render the report and run the app from a fresh extracted copy of
+your ZIP,</li>
+<li>identify missing files, package dependencies and paths that rely on
+your own computer,</li>
+<li>review the visualisations, explanations and reflection against the
+assessment brief,</li>
+<li>identify specific remaining improvements and a practical plan for
+completing them.</li>
+</ul>
+<h2 id="before-the-session">Before the session</h2>
+<ol style="list-style-type: decimal">
+<li>Bring your current summative project, including the data, Rmd
+report, latest rendered draft, app and supporting files, plus your Week
+9 purpose sentence, tab sketch and reactivity graph. An unfinished
+project is fine; bring the code and errors you need help with.</li>
+<li>Revisit your formative feedback, the current assessment brief and
+the summative submission guide on NOW. Note any requirements or feedback
+you are unsure how to address.</li>
+<li>Download
+<code>psyc40940-week-10-wrap-up-assessment-support.zip</code> and unzip
+the whole folder. Open <code>session-guide.html</code> in a browser; you
+do not need to knit it.</li>
+<li>If you do not yet have a runnable project, the supplied
+<code>submission-example/</code> project is available for practising the
+checks. It already contains <code>portfolio.Rproj</code>; open that
+project rather than creating another one.</li>
+</ol>
+<h2 id="practical-work">Practical work</h2>
+<p>Start with about five minutes to list four different static plot
+types for your report and at least two interactive plot views for your
+app. For each, state the question and what readers should learn.
+Identify one priority from your formative feedback for improving the
+static figures or their commentary. Keep this plan available during the
+checks and project work; your Session 9 reactivity graph can also help
+with app debugging.</p>
+<p>Then open the Summative submission guide and find the AI declaration
+form in NOW Assessments. We will explicitly go through creating or
+checking an RStudio project, adding data and supporting files, saving
+and rendering the report, testing the separate app, and including the
+completed declaration. You can reuse an organised assessment project; a
+new project is needed only if you do not already have one.</p>
+<p>Then inspect the supplied project and identify how its report and app
+find their data and load their packages. Knit <code>report.Rmd</code>,
+then open <code>app/app.R</code> and use Run App. The example continues
+Week 9’s Dutch sentence-production study, with four static visualisation
+types and a separate app for exploring average and individual
+patterns.</p>
+<p>Preparing the summative Rmd is a specific activity, about 15 minutes.
+Open or create your report inside the project, add appropriate Markdown
+headings and package/data setup, and include at least one working static
+figure with a caption, interpretation and design rationale. Reuse the
+citation and figure-reference format introduced in Week 1, and draw on
+your formative feedback. Knit a readable HTML draft and plan all four
+different static plot types; the report need not be complete in class.
+Keep reflection in the report and the Shiny app separate.</p>
+<p>The extracted-ZIP practice takes about 15 minutes after the
+report-preparation activity. Use your own project if ready, or practise
+with the supplied example:</p>
+<ul>
+<li>Render the report and save the app.</li>
+<li>Create a ZIP containing the intended project files.</li>
+<li>Extract it to a different folder and open its RStudio project
+without restoring saved objects.</li>
+<li>Knit the extracted report and run the extracted app.</li>
+<li>Test the controls, tabs, empty selections and recovery. Fix missing
+files, packages or connections, then rebuild and retest the ZIP.</li>
+</ul>
+<p>Use the summative submission guide to check the file set: the report
+Rmd and rendered report, RStudio project file, separate app, permitted
+data and required supporting files, package/version information, and the
+AI declaration available on NOW. Follow any agreed data-access
+arrangements. Check anonymity and the full requirements against the
+current assessment brief.</p>
+<p>The teaching ZIP includes guides and examples; it is not your
+assessment submission. Include only the files needed for your own
+work.</p>
+<h2 id="project-support-and-review">Project support and review</h2>
+<p>Most of the remaining time is for your project. Bring a specific
+question, the relevant file and any error message. If you are still
+choosing data, bring a source link and a description of the variables
+and observations.</p>
+<p>If your report and app run, focus on communication: what each figure
+contributes, why the design suits the question, what an interaction
+reveals, and what the data cannot establish. Make sure an app reader can
+understand the question, controls, units and selected observations
+without your spoken explanation.</p>
+<p>Record concrete reflection notes about decisions, challenges and
+compromises. Explain the consequences for the reader rather than listing
+functions you used. The report and dashboard should make complementary
+contributions using the same dataset.</p>
+<h2 id="resources-for-your-portfolio">Resources for your portfolio</h2>
+<p>The slides and session guide collect targeted chapters from Wickham’s
+Mastering Shiny on reactivity, debugging, layouts, user feedback and
+reactive graphs, alongside Andrews’s Shiny chapter. They also revisit
+the ggplot2 book, Andrews’s visualisation chapter and function
+references from earlier weeks. Use the R Markdown Cookbook for report
+problems and the R for Data Science project chapter for file
+organisation.</p>
+<p>Posit’s Shiny Assistant is an optional source of coding support. Ask
+about a specific error or small change, then understand and test the
+result. Follow the assessment’s AI guidance and complete the official
+NOW declaration; the written commentary, interpretation and reflection
+must be your own work. These resources are for use when needed, not
+additional required reading.</p>
+<h2 id="after-the-session">After the session</h2>
+<p>Aim to have a working report and app before the winter break, with a
+short list of remaining improvements. Use the assessment brief for the
+deadline, word guidance, anonymity and submission requirements, and the
+summative submission guide for preparing and checking the files.</p>
+<p>Keep a backup of the exact ZIP you test and retain the submission
+confirmation after uploading your work.</p>
+</body>
+</html>

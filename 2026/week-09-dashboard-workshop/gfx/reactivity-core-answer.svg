@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="480" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+<title id="title">Supplied core app graph answer</title><desc id="desc">Sentence-condition and phase inputs feed selected_data, which feeds the average plot and individual plot. Four arrows show these dependencies.</desc>
+<rect width="1100" height="480" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#28323a;text-anchor:middle;font-size:26px}rect.box{stroke-width:2;rx:10}</style>
+<text x="180" y="55">Inputs</text><text x="550" y="55">Reactivity</text><text x="920" y="55">Outputs</text>
+<rect class="box" x="50" y="110" width="260" height="95" fill="#eaf5f4" stroke="#6ca4a1"/>
+<rect class="box" x="50" y="290" width="260" height="95" fill="#eaf5f4" stroke="#6ca4a1"/>
+<rect class="box" x="410" y="200" width="280" height="95" fill="#fff3d6" stroke="#bf9a47"/>
+<rect class="box" x="790" y="110" width="260" height="95" fill="#f5f5f5" stroke="#9da5aa"/>
+<rect class="box" x="790" y="290" width="260" height="95" fill="#f5f5f5" stroke="#9da5aa"/>
+<text x="550" y="450" style="font-size:21px">Inputs select rows once; both plots use that shared result.</text>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#53606a"/></marker></defs><g fill="none" stroke="#53606a" stroke-width="3" marker-end="url(#arrow)"><path d="M310 157L410 225"/><path d="M310 337L410 270"/><path d="M690 225L790 157"/><path d="M690 270L790 337"/></g>
+<g style="font-family:monospace;font-size:18px"><text x="180" y="165">input$prime_condition</text><text x="180" y="345">input$phase</text><text x="550" y="255">selected_data()</text><text x="920" y="158">output$overview_plot</text><text x="920" y="338">output$participant_plot</text></g></svg>

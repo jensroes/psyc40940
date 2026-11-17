@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Week 9: Turn questions into a dashboard</title>
+  <style type="text/css">
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="week-9-turn-questions-into-a-dashboard">Week 9: Turn questions
+into a dashboard</h1>
+<p>This week we build on Weeks 6–8 to plan and implement a small
+dashboard around a behavioural question. We first add Plotly hover and
+zoom to a familiar scatterplot, then spend most of the session deciding
+what an app should help readers explore and building it in stages. Use
+your proposed summative dataset if ready, or the supplied
+language-learning data for practice.</p>
+<p>Plan the app’s purpose and views before choosing controls. The aim is
+to make useful comparisons possible and explain them clearly to the
+reader. A small working prototype is a useful starting point; it does
+not need to be a polished assessment submission.</p>
+<p>Open the <a
+href="https://jensroes.github.io/psyc40940/2026/week-09-dashboard-workshop/week-09-dashboard-workshop.html">slides</a>
+and <a
+href="https://jensroes.github.io/psyc40940/2026/week-09-dashboard-workshop/session-guide.html">session
+guide</a> in your browser. Download the exercise ZIP for the R scripts
+and data.</p>
+<p>By the end, you should be able to:</p>
+<ul>
+<li>add Plotly hover and zoom to a ggplot displayed in Shiny,</li>
+<li>define an app purpose and choose two views that contribute different
+information,</li>
+<li>choose useful controls and sketch their connections to shared
+preparation and outputs,</li>
+<li>implement and test those connections using supplied outlines and
+earlier examples,</li>
+<li>use feedback from another student to improve the app’s explanations
+and behaviour.</li>
+</ul>
+<h2 id="before-the-session">Before the session</h2>
+<ol style="list-style-type: decimal">
+<li>Bring your proposed summative dataset if ready, together with its
+source, code to load it and one question you would like to explore. Be
+able to explain what one row represents. If you are still choosing data,
+use the supplied dataset for practice.</li>
+<li>Download <code>psyc40940-week-09-dashboard-workshop.zip</code> and
+unzip the whole folder into your existing module RStudio project. Keep
+the app scripts beside <code>data/</code> inside
+<code>week-09-dashboard-workshop/</code>.</li>
+<li>Keep the session guide open in a browser beside RStudio. You can use
+the online version or open <code>session-guide.html</code> from the
+downloaded folder. Read the guide, edit the named R scripts and use Run
+App; you do not need to knit the guide.</li>
+<li>If Plotly is not installed, run
+<code>install.packages("plotly")</code> in the RStudio Console. This
+only needs to be done once. The apps also use <code>shiny</code> and
+<code>tidyverse</code>.</li>
+</ol>
+<h2 id="practical-work">Practical work</h2>
+<p>Exercise 1: add hover and zoom, about 10 minutes after the
+introduction. Complete three connections in <code>plotly_app.R</code>.
+The scatterplot shows response duration and reaction time for 8,648
+naming trials from 72 participants, coloured by speech/writing group.
+Zoom into the dense cluster, hover to inspect a stimulus and timings,
+then reset. Compare changing the visible region with filtering the
+observations, and test recovery from an empty selection.</p>
+<p>Exercises 2 and 3: plan before coding. Allow about 20 minutes for
+planning and brief class feedback. Use pen and paper, Word, PowerPoint
+or similar; do not edit app code yet. Write an overall purpose, sketch
+two tabs and their plot types, and choose two useful controls. Then draw
+a preliminary reactivity graph showing inputs, shared reactive
+preparation and outputs. Label the tabs and arrows so you can predict
+which outputs each input should change.</p>
+<p>Choose the data route before planning:</p>
+<ul>
+<li>Route A, your own data: use your dataset description, variables and
+question. You choose the plots and controls.</li>
+<li>Route B, supplied data: first read the guide’s supplied-dataset
+section, including the variable table, suggested purposes and app
+requirements. These data accompany van Lieburg et al. (2023); the paper
+is linked in the guide. Each row summarises four trials for one learner,
+testing occasion, sentence condition and phase. The app compares average
+and individual counts of full passive responses out of four trials. You
+do not need to reproduce the paper’s findings.</li>
+</ul>
+<p>Exercise 4: implement your plan. Most of the remaining workshop time
+is for building and debugging, roughly 45 minutes across the two
+teaching blocks. Follow one coding route:</p>
+<ul>
+<li>Route A: use <code>own_data_app.R</code> or a copy of your current
+app. Load your data, make the ggplots work outside Shiny, then connect
+the controls, shared preparation and outputs.</li>
+<li>Route B: use <code>supplied_data_app.R</code>. The guide provides
+code to complete in stages: preview the plots, add the condition and
+phase controls, complete shared filtering, then connect one plot at a
+time.</li>
+</ul>
+<p>Start with two tabs, two plots and two controls. Test each stage and
+update your graph when the design changes. Two working views are the
+target; if unfinished, retain a runnable version and identify the next
+step. The collapsed hints offer earlier examples when needed, rather
+than additional reading to complete now. No typing along with live
+coding is required.</p>
+<p>Exercise 5: show your app to another student, about 10 minutes. Let
+someone nearby explore it before you explain it. Ask whether its
+purpose, tab roles, units and controls make sense. Use their feedback to
+refine it, then retest the affected controls, both tabs, empty
+selections and recovery where relevant. Record one change and why it
+helps the reader, or one choice that worked well.</p>
+<h2 id="optional-independent-practice">Optional independent
+practice</h2>
+<p>Once the core works, choose one useful addition: a numeric range
+filter, a faceting checkbox, or Plotly on a view. The guide supplies
+instructions and references to earlier examples. Keep two plots and no
+more than three controls for this exercise. These additions can be
+completed after class.</p>
+<p>Plotly is optional for the assessment: plots that respond to Shiny
+controls already count as interactive. Completed reference apps are
+introduced at the end of the guide, after your own attempt.</p>
+<h2 id="after-the-session">After the session</h2>
+<p>Read Wickham’s <em>Mastering Shiny</em>, <a
+href="https://mastering-shiny.org/action-graphics.html#interactivity-limitations">section
+7.1.6: interactivity limitations</a>. No written response is
+required.</p>
+<p>Before Week 10:</p>
+<ul>
+<li>Confirm your proposed summative dataset and source, and explain what
+one row represents. If you used the supplied route, transfer the
+planning task to a candidate dataset of your own.</li>
+<li>Keep your purpose sentence, tab sketch and updated graph. Continue
+towards two working app plots and controls. Get at least one own-data
+ggplot working; bring any remaining error with a note of what you
+expected and the next step.</li>
+<li>Start or update your report Rmd. Plan four different static figure
+types and render a draft with at least one figure, using your formative
+feedback to identify an improvement.</li>
+<li>Bring the whole project, latest rendered report and specific
+questions.</li>
+</ul>
+<p>Week 10 provides time for app refinement, static figures and report
+commentary, reproducibility checks, and the full submission
+requirements, including the AI declaration and summative submission
+guide. An unfinished but working starting point is fine; the supplied
+practice app is not your assessment submission.</p>
+</body>
+</html>

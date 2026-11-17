@@ -1,70 +1,73 @@
-# Dashboard workshop: worked example
-
 library(shiny)
 library(tidyverse)
 
-# Load and reduce the data.
-d_spellname <- read_csv("data/spellname.csv", show_col_types = FALSE)
-d_spellname <- summarise(
-  d_spellname,
-  rt = mean(rt, na.rm = TRUE),
-  dur = mean(dur, na.rm = TRUE),
-  .by = c(ppt_id, name_familiarised, ppt_vocab, modality)
-)
+d_workshop <- read_csv("data/participant_rates.csv", show_col_types = FALSE)
 
-ui <- navbarPage(
-  "Behavioural data dashboard",
-  tabPanel(
-    "Overview",
-    sidebarLayout(
-      sidebarPanel(selectInput("modality", "Modality", choices = sort(unique(d_spellname$modality)))),
-      mainPanel(plotOutput("overview_plot"))
-    )
-  ),
-  tabPanel(
-    "Explore",
-    sidebarLayout(
-      sidebarPanel(
-        selectInput("familiarised", "Name familiarised", choices = sort(unique(d_spellname$name_familiarised)))
+ui <- fluidPage(
+  titlePanel("Explore average and individual patterns"),
+  p("One row summarises four trials for one learner, testing occasion, sentence condition and phase. Passive use is not a correctness score."),
+  sidebarLayout(
+    sidebarPanel(
+      checkboxGroupInput("prime_condition", "Sentence conditions",
+                   choices = c("Baseline", "Active sentence", "Passive sentence"),
+                   selected = c("Baseline", "Active sentence", "Passive sentence")),
+      selectInput("phase", "Phase to display",
+            choices = c("Before", "After"), selected = "Before"),
+      helpText("Choose sentence conditions and one phase. Both plots use the same selected observations.")
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Average pattern",
+          p("Points show the mean number of full passive responses out of four trials at each testing occasion for the selected phase. Lines compare the sentence conditions."),
+          plotOutput("overview_plot")
+        ),
+        tabPanel("Individual patterns",
+          p("Each line follows one learner in one sentence condition. Compare individual variation with the mean pattern in the other tab."),
+          plotOutput("participant_plot")
+        )
       ),
-      mainPanel(plotOutput("explore_plot"))
+      helpText("Repeated observations come from the same learners. Descriptive plots do not isolate an intervention effect. Source: van Lieburg et al. (2023), DOI: 10.1007/s41809-023-00131-5; see data/README.md.")
     )
-  ),
-  tabPanel("Summary", tableOutput("summary"))
+  )
 )
 
-server <- function(input, output, session) {
-  modality_data <- reactive({
-    filter(d_spellname, modality == input$modality)
-  })
-
-  familiarised_data <- reactive({
-    filter(d_spellname, name_familiarised == input$familiarised)
+server <- function(input, output) {
+  selected_data <- reactive({
+    selected <- filter(
+      d_workshop,
+      prime_condition %in% input$prime_condition,
+      phase == input$phase
+    )
+    validate(need(nrow(selected) > 0,
+                  "No observations match. Select a sentence condition."))
+    selected
   })
 
   output$overview_plot <- renderPlot({
-    ggplot(modality_data(), aes(x = name_familiarised, y = rt)) +
-      geom_boxplot() +
-      labs(x = "Name familiarised", y = "Mean reaction time") +
-      theme_minimal()
+    ggplot(selected_data(),
+           aes(x = study_session, y = n_passive,
+               colour = prime_condition, group = prime_condition)) +
+      stat_summary(fun = mean, geom = "line") +
+      stat_summary(fun = mean, geom = "point") +
+      scale_x_continuous(breaks = 1:5) +
+      scale_y_continuous(breaks = 0:4) +
+      coord_cartesian(ylim = c(0, 4)) +
+      labs(x = "Testing occasion", y = "Mean full passive responses (out of 4)",
+           colour = "Sentence condition")
   })
 
-  output$explore_plot <- renderPlot({
-    ggplot(familiarised_data(), aes(x = ppt_vocab, y = rt, colour = modality)) +
-      geom_point(alpha = 0.7) +
-      geom_smooth(method = "lm", se = FALSE) +
-      labs(x = "Participant vocabulary", y = "Mean reaction time", colour = "Modality") +
-      theme_minimal()
-  })
-
-  output$summary <- renderTable({
-    summarise(
-      d_spellname,
-      mean_rt = round(mean(rt, na.rm = TRUE), 1),
-      mean_duration = round(mean(dur, na.rm = TRUE), 1),
-      rows = n(),
-      .by = c(modality, name_familiarised)
-    )
+  output$participant_plot <- renderPlot({
+    ggplot(selected_data(),
+           aes(x = study_session, y = n_passive,
+               colour = prime_condition,
+               group = interaction(participant, prime_condition))) +
+      geom_line(alpha = 0.35) +
+      geom_point(alpha = 0.35) +
+      scale_x_continuous(breaks = 1:5) +
+      scale_y_continuous(breaks = 0:4) +
+      coord_cartesian(ylim = c(0, 4)) +
+      labs(x = "Testing occasion", y = "Full passive responses (out of 4)",
+           colour = "Sentence condition")
   })
 }
 
