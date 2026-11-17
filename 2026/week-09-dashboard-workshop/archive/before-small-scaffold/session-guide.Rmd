@@ -1,0 +1,254 @@
+---
+title: "Week 9: Turn data questions into a dashboard"
+author: "Jens Roeser"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    self_contained: true
+---
+
+## Where to work
+
+Unzip the whole Week 9 folder into your existing project. Keep data/ beside the app scripts. Open session-guide.html in your browser and read it beside the named R script. Use Run App for complete app scripts; finish the current script's `---` blanks before running.
+
+We first add Plotly to a dense scatterplot using trial-level data from the familiar naming study (about 15 minutes including explanation and testing). The rest of the session is a workshop: use your own data if ready, or investigate the supplied language-learning study. You do not need to join or clean the study's raw files.
+
+## Install Plotly once
+
+If Plotly is not installed, open `install-packages.R` in RStudio and run the installation line shown below once. You do not need to repeat installation each session. The app scripts load their own packages.
+
+```{r install-plotly, eval=FALSE}
+install.packages("plotly")
+```
+
+## Exercise 1: add hover and zoom
+
+Your turn, about 10 minutes: open `plotly_app.R`. This task uses `data/trial_reaction_times.csv`: 8,648 naming trials from 72 participants. The scatterplot shows response duration (`dur`) on x and reaction time (`rt`) on y, both in milliseconds, with output group as colour. Many trials come from the same participant. The group and vocabulary filters remain familiar; the count reports both participants and trials. Complete its three connections using the slides: the Plotly UI output function, its matching render function, and the function converting the ggplot stored in `p`.
+
+<details>
+<summary>Hint: the Plotly function names</summary>
+
+Use `plotlyOutput("rt_plot")`, `renderPlotly` and `ggplotly(p)`. Keep the same output name in UI and server.
+
+</details>
+
+Save and use Run App. The slowest responses stretch the full plot axes. Drag to zoom into the main cluster and compare the regions occupied by speech and writing trials. Hover to identify a stimulus, participant, trial and timing values; then double-click to reset and see the unusually slow responses in context. Click a legend entry to hide/show a group. Transparent points reveal dense regions; zoom helps distinguish nearby observations without removing the long responses from the dataset. Zoom and legend visibility do not change the shared participant or trial count; group and range filters do. Test those filters, no groups and recovery. The tooltip text is supplied in `aes(text = ...)`; the Plotly conversion uses `tooltip = "text"`. You only complete the three Plotly function names. The second tab shows trial reaction-time boxplots as a conventional Shiny-reactive plot; it already counts as interactive for the assessment. Plotly is a tool to use when the interaction helps, not a requirement for every plot.
+
+## Choose your workshop route
+
+After the short Plotly exercise, choose one route for the main workshop:
+
+- [Route A: develop your own-data app](#route-a): use your proposed summative dataset and your current app, or a copy of your completed Week 8 app. The plot types and controls are your choices.
+- [Route B: build from the supplied app specification](#route-b): use ready data and the specification below, then complete `starter_app.R`. The task is to plan and connect an app; you do not need to reproduce the study's findings or master its methods.
+
+Everyone completes the graph-planning task, builds a first working app, tests its connections and records a design choice. Use about 10 minutes for question/specification and graph planning, including about five minutes drawing. Then begin building. No typing along with live coding is required.
+
+## Exercise 2: plan your app's reactivity graph
+
+Before implementing the app, use PowerPoint, Word, or pen and paper to draw its planned connections. This is a planning aid, not an additional assessment submission. Read your chosen route's question or specification first; draw the graph before opening a completed example.
+
+For this exercise, plan two or three tabs, at least two useful interactive plot outputs, and meaningful user inputs. Two tabs is the exercise minimum; the assessment brief specifies the maximum of three. The report's four static plot types are planned separately.
+
+Arrange named boxes in three areas:
+
+1. Inputs: what can the user change?
+2. Reactivity: which reactive expressions select or prepare shared data?
+3. Outputs: which plots, text or tables use the results?
+
+Draw an arrow from a value to the calculation that reads it. If an input changes only a plot's appearance, connect it directly to that output. Label which tab each plot belongs in; tabs and static data files are not extra reactive nodes.
+
+Predict which outputs should change when each input changes. Keep the graph beside your code and revise it as you implement. Use it again for debugging in Session 10.
+
+## Route A: develop your own-data app {#route-a}
+
+Use your own dataset and your existing app, or save a working copy of your completed Week 8 app in your assessment project. Give the copy a name such as `own_app.R` and keep it separate from your report. Avoid overwriting a version that already works.
+
+### A1. Specify your question and draw the graph
+
+State what one row represents, the relevant variable types and a behavioural question your data can address. Choose at least two plots that add different information, rather than repeating the same comparison. Decide what readers should be able to change, then draw the inputs, reactivity and outputs before coding.
+
+Possible starting points—not required choices—include a distribution alongside an association plot, an overall summary alongside individual observations, or two complementary group comparisons. A categorical control might select groups; a numeric range might select observations; a display control might change colour grouping or faceting. Choose plot types and controls that suit your variables and question. You do not need to copy the study app's controls or plot types.
+
+### A2. Implement your plan
+
+1. Import your data with a relative path and check the column names, types, missing values and repeated observations.
+2. Make the two ggplots work outside Shiny first, then place them in the planned tabs and connect each UI output to its server render function.
+3. Adapt or replace the controls. Check that their selected values match your data. Use a shared reactive expression for preparation reused by several outputs.
+4. Connect each plot to the selected or prepared data. Keep display-only choices in the render block that uses them.
+5. Replace all inherited study descriptions, labels and control explanations with text about your own question. Add recovery feedback for selections that cannot produce a useful result.
+
+Change one part at a time and use Run App to test a whole script. The Week 8 core app provides familiar checkbox/range controls, shared filtering and plot connections; keep only what serves your plan. Selecting a column by name needs a different pattern from filtering rows—ask for support rather than placing `input$variable` directly into `aes()` and expecting it to name a column.
+
+### A3. Check the result
+
+For each input, predict which outputs should change from your graph, then test it. Test one group and several where relevant, narrow or empty ranges, recovery, every tab and a fresh R session. Check counts using the correct observational unit. Explain what each view adds and one consequence of your design choice. The shared checkpoint below applies to this route too.
+
+## Route B: build from the supplied app specification {#route-b}
+
+Use `data/participant_rates.csv`. No joining or raw-data preparation is needed. You are practising how to turn an app specification into a reactivity graph and working code. A brief understanding of the rows and controls is enough; the paper's results and statistical models are not part of this task.
+
+### B1. Read this short data description
+
+The data summarise sentence-production responses from 17 learners of Dutch at five testing occasions. At each visit, tasks occurred before and after a short practice block. The sentence condition records the kind of prompt heard before a response. One row is one learner × occasion × sentence condition × phase, summarising four target trials. Passive use is an alternative sentence structure, not a correctness score.
+
+| Column | What you need for this exercise |
+|---|---|
+| `participant` | learner code; the same learner appears in multiple rows |
+| `study_session` | testing occasion, 1–5; use on the x axis |
+| `prime_condition` | Baseline, Active sentence or Passive sentence |
+| `phase` | Before or After the within-visit practice block |
+| `passive_percent` | percentage of four target trials producing a full passive sentence |
+| `vocabulary_score` | LexTALE score measured once at occasion 4; use to select learners |
+
+The vocabulary range selects learners; their available observations across all five occasions remain eligible. Missing occasions are not zeros. The supplied CSV and `data/README.md` explain the remaining variables.
+
+### B2. Draw the graph from these requirements
+
+Before opening `starter_app.R`, plan an app with two tabs: Average pattern and Individual patterns. Use the following inputs and outputs to draw your three graph areas and dependency arrows.
+
+Inputs:
+
+| Input name | Required behaviour |
+|---|---|
+| `input$prime_condition` | select one, several or all sentence conditions for every output |
+| `input$phases` | select Before, After or both for every output |
+| `input$lextale_range` | retain learners within a vocabulary-score range for every output |
+| `input$average_layout` | change only the average plot: sentence colours within phase panels, or phase colours within sentence panels |
+
+Reactivity: one shared expression, `selected_data()`, selects rows using the condition, phase and vocabulary choices. It must provide a useful recovery message when no rows remain. The layout choice changes the display of the same rows.
+
+Outputs:
+
+| Output name | Required behaviour |
+|---|---|
+| `output$selection_note` | show distinct learners and the number of repeated summary rows |
+| `output$overview_plot` | Average pattern tab: mean passive percentage across occasions, with the chosen colour/panel layout |
+| `output$participant_plot` | Individual patterns tab: learner paths across occasions, coloured by sentence condition, in phase panels |
+
+Use this specification, rather than assumptions about the study, to draw the graph. Predict what a condition change should update, then what a layout change should update. Keep the plan available while completing the code. The supplied answer is hidden in the optional reference below until you are ready to compare.
+
+### B3. Complete the supplied app
+
+Open `starter_app.R` only after drawing the plan. Its controls, shared filtering, validation and plot structure are supplied. Complete nine `---` blanks:
+
+1. Complete the CSV filename inside `"data/---"` using the file named above.
+2. Supply `study_session` for the average plot's x mapping, `passive_percent` for y, and the sentence-condition column for colour in its default branch. Use unquoted column names.
+3. Write two meaningful axis labels: testing occasion, and passive responses as a percentage of recorded target trials.
+4. In the first `p("---")`, briefly introduce the comparison and explain what one row represents.
+5. In `helpText("---")`, explain which controls select observations and which change only the average display.
+6. In the Individual patterns tab's `p("---")`, explain what a line represents and why this view adds information to the average.
+
+Save and use Run App. Test one valid selection before changing any extra code. You are connecting a supplied app, not fitting a new statistical model.
+
+<details>
+<summary>Hints for the code gaps</summary>
+
+Use `participant_rates.csv`. The default average plot maps `study_session`, `passive_percent` and `prime_condition`. The supplied `group = prime_condition` keeps condition lines separate. Write the labels and explanations in your own words, using the short specification above.
+
+</details>
+
+### B4. Test the planned connections
+
+Start with all conditions, both phases and LexTALE range 0–1: there should be 17 learners and 492 summary rows. Select Baseline alone: 17 learners and 164 rows. Change only the average layout: the average display should change, while the selected rows, count and individual view stay the same.
+
+Clear conditions or phases, then restore them. Try LexTALE range 0–0.40, then restore 0–1. Check recovery in both tabs. Range 0.7875–0.80 leaves one learner: points remain visible, but SE bars cannot be estimated. The code for mean ±1 SE and sparse selections is supplied and explained below; you do not need to write it.
+
+After the core app runs, you may compare its commented individual-line and heatmap alternatives. Choose one display and update its explanation. This is optional practice in a design choice, not a requirement to infer the study's findings.
+
+<details>
+<summary>Route B optional reference: study background, plot code and graph answer</summary>
+
+### More about the supplied study
+
+The data are from van Lieburg and colleagues (2023), who studied learners of Dutch at five testing occasions over eight months, approximately six weeks apart, while attending a Dutch language course. In a picture-description task, learners produced sentences after hearing different kinds of prompts.
+
+- Active: “The girl pushes the boy.”
+- Passive: “The boy is pushed by the girl.”
+
+These are alternative sentence structures. Producing more passives is not automatically greater correctness or better overall language ability. Baseline prompts contained noun phrases rather than active/passive sentences. At each testing occasion, learners completed a short practice block using passive sentences with repeated verbs, intended to encourage subsequent passive production. Before and After refer to responses before and after that block, not different learner groups. The data column `study_session` records the testing occasion (1–5); it does not refer to our teaching sessions.
+
+The supplied `data/participant_rates.csv` contains 492 summaries from 17 learners. One row is one learner, study session, prompt condition and phase, summarising four recorded target trials. `passive_percent` is the percentage of those four trials producing a full passive sentence. Other responses and no response stay in the denominator. The same person appears in many rows. Available learners differ slightly between sessions; missing sessions are not zeros.
+
+The paper's main binary analyses exclude other response types. Our all-trial percentage asks a different descriptive question, so do not describe the teaching plots as reproducing the paper's exact percentages or models. The dictionary in `data/README.md` explains both denominators and every column. A trial-level CSV is also supplied for tracing the summaries and alternative views; you do not need it for the core app.
+
+
+### Understand the supplied plot code
+
+In the average plot, `stat_summary(fun = mean, ...)` calculates each mean from learner percentages within one testing occasion, sentence condition and phase. `stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.12)` adds mean ± one standard error: the sample standard deviation divided by the square root of the number of learners in that cell. These are ordinary between-learner SEs for each mean, not confidence intervals or SEs of a paired phase difference. The same learners appear repeatedly, so overlap between bars is not a significance test. Individual lines show variation that the SE bars do not describe.
+
+The supplied `if`/`else` block chooses the average plot's colour mapping and facets from `input$average_layout`. You do not need to write this branching code. Both branches then receive the same mean, error-bar and point layers. Fixed colour assignments preserve meanings when conditions or phases are deselected.
+
+In the individual line view, `group = interaction(participant, prime_condition)` identifies each learner–condition combination. This stops a line from joining a learner's responses from different sentence conditions. Colour identifies condition; `facet_wrap(~phase)` separates Before and After. Individual lines can overlap, so use the condition checkboxes to focus the comparison. Four trials per summary give percentages in 25-point steps; jagged paths are not finely measured learning curves.
+
+The shared filter keeps selected sentence conditions and phases using `%in%`, and learner vocabulary scores within the LexTALE bounds using `>=` and `<=`. `req(input$lextale_range)` waits for the range input. Clearing either set triggers `validate(need(...))` and a recovery message. The comparison input goes directly to the average render block and is checked with `req()`; it does not change `selected_data()` or the individual plot. `n_distinct(selected_data()$participant)` counts learners, while `nrow(selected_data())` counts repeated summary rows.
+
+In `prime_condition %in% input$prime_condition`, the left side is the data column and the right side contains the reader's selected values. Their matching names do not make them the same object. Likewise, `phase` is the data column and `input$phases` contains the selected phases.
+
+<details>
+<summary>After drawing your plan: compare the supplied study graph</summary>
+
+![Conditions, phases and the LexTALE range select shared summaries; the comparison control changes only the average plot.](gfx/reactivity-study.svg)
+
+The shared reactive expression supplies the learner count and both plots. The average-layout input affects only the average plot. Compare the dependencies with your plan, then adapt them to your own question if using different data.
+
+</details>
+
+### Choose between individual lines and a heatmap
+
+Compare the two supplied options inside `output$participant_plot`. Option A uses individual lines and points. Option B uses one tile per learner, testing occasion, sentence condition and phase. Its columns separate conditions and its rows separate phases; fill represents passive percentage. Comment out Option A's complete ggplot expression before uncommenting Option B; keep the `renderPlot({` wrapper and its closing `})`.
+
+Lines make individual changes easy to follow but can overlap. A heatmap gives each learner a separate row, revealing runs of similar values; colour is less precise than position for reading differences. A missing tile is an unobserved session, not a zero. Keep one option and explain why it serves your question. Both use the same filtered summaries.
+
+
+### Route B test cases
+
+| Action in the supplied app | Expected result |
+|---|---|
+| All three conditions; both phases; occasions 1–5 | 17 learners; 492 summary rows; three coloured conditions within two phase panels |
+| Baseline only; both phases; occasions 1–5 | 17 learners; 164 rows; one coloured condition within the phase panels |
+| Active and Passive only; both phases; occasions 1–5 | 17 learners; 328 rows; two coloured conditions within the phase panels |
+| Baseline only; Before only | 17 learners; 82 rows; both views reflect that phase |
+| Change the average comparison | colours and facets swap roles; selected rows and individual view stay the same |
+| Clear all sentence conditions | recovery message in count and both plot locations |
+| Clear both phases | recovery message in count and both plot locations |
+| Restore all conditions and both phases | 17 learners and 492 rows return |
+| LexTALE range 0–0.40 | recovery message: no learners in this range |
+| LexTALE range 0.7875–0.80 | one learner; points remain, SE bars are absent |
+| Restore LexTALE range 0–1, all conditions and both phases | 17 learners and 492 summary rows return |
+| Switch tabs | the shared selection persists |
+| Restart R and run | packages and CSV load without saved objects |
+
+Use equivalent checks for your own data. All five testing occasions remain on the x axis. The heatmap uses limits 0.5–5.5 so tiles centred on occasions 1 and 5 remain complete.
+
+
+</details>
+
+## Shared checkpoint: show one working selection
+
+Run your app and explain the question or task specification, what one row represents, what each view adds and which inputs affect each output. Check against your graph. If blocked, get one output working first and then restore the second.
+
+Continue building and testing after the checkpoint. Try every input, all tabs, invalid selections and recovery; restart R to check that code loads packages and data without relying on saved objects. For your own data, choose tests matching the actual variables and controls rather than copying the study's numerical expectations.
+
+## Compare a design decision
+
+Show a neighbour your app and graph. Explain what a control helps readers explore and what the second plot adds. For your own data, discuss the question, plot and control choices. For the supplied exercise, explain the connections from the specification and one useful display choice. Record a decision and its consequence in your own words; no detailed interpretation of the study's research findings is required.
+
+## After class
+
+Continue towards an own-data app with two useful views, purposeful controls and clear explanations. Bring a working prototype or a candidate source and specific questions to Session 10. That session will bring together the general portfolio resources, full submission requirements and the summative submission guide on NOW. The supplied example is a backup; no additional Shiny function is compulsory.
+
+For reference, read Wickham's [section 7.1.6](https://mastering-shiny.org/action-graphics.html#interactivity-limitations) on interaction limitations. No written response is required.
+
+## After your attempt: compare the examples
+
+`plotly_worked_app.R` completes the short familiar-data exercise. `worked_example_app.R` completes the study app with the line view active and the heatmap alternative commented. Use it after your own attempt to compare behaviour and reasoning.
+
+Optional: `extension_app.R` converts both study views to Plotly. Try whether hover helps identify learners or inspect overlapping observations; retain conventional reactive plots when clearer. Plotly does not resolve sparse data or replace good explanations.
+
+## References
+
+van Lieburg, R., Sijyeniyo, E., Hartsuiker, R. J., & Bernolet, S. (2023). The development of abstract syntactic representations in beginning L2 learners of Dutch. *Journal of Cultural Cognitive Science, 7*, 289–309. [Paper](https://doi.org/10.1007/s41809-023-00131-5). [Public data and analysis scripts](https://osf.io/x8ejm/).
+
+Wickham, H. (2021). *Mastering Shiny*. O'Reilly Media. [Online edition](https://mastering-shiny.org/).

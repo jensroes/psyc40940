@@ -1,0 +1,178 @@
+---
+title: "PSYC40940: Turn Questions Into A Dashboard"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: references.bib
+csl: apa.csl
+---
+
+## Today: Adapt A Working Pattern
+
+- Try Plotly hover and zoom on a familiar plot.
+- Choose two views that answer connected behavioural questions.
+- Adapt data import, filtering, plots and explanations.
+- Test that the app supports exploration and survives a fresh session.
+
+Most of the session is building and testing. An own-data prototype is the goal; provided-data practice is available if needed.
+
+## Download And Knit The Workshop Guide {.smaller}
+
+Unzip the whole Week 9 folder into your existing project. Keep scripts beside data/.
+
+Knit **`01_plotly_and_dashboard_workshop.Rmd`**. Read the HTML guide; edit the named R script.
+
+| Task | Script |
+|---|---|
+| Connect Plotly hover and zoom | `plotly_app.R` |
+| Adapt an app to data and a question | `starter_app.R` |
+
+Install plotly once using the guide's installation chunk if needed.
+
+## Does Hover Or Zoom Help The Question? {.smaller}
+
+Hover over a bar or drag to zoom in this plot. Double-click to restore the view.
+
+```{r plotly-demonstration, echo=FALSE, message=FALSE, warning=FALSE}
+d_demo <- readr::read_csv("data/participant_reaction_times.csv",
+                         show_col_types = FALSE)
+p_demo <- ggplot2::ggplot(d_demo, ggplot2::aes(x = mean_rt)) +
+  ggplot2::geom_histogram(binwidth = 100) +
+  ggplot2::labs(x = "Participant mean reaction time (ms)",
+                y = "Participants")
+plotly::ggplotly(p_demo, height = 320)
+```
+
+What can you inspect more easily? When would these actions help a behavioural question?
+
+Shiny controls already change the data shown. Plotly adds interaction directly with the plot; useful questions and clear labels still matter.
+
+## Change The Output And Render Pair Together {.smaller}
+
+```{r plotly-ui, eval=FALSE}
+# In the UI.
+plotlyOutput("rt_plot")
+```
+
+```{r plotly-server, eval=FALSE}
+# Inside the server.
+output$rt_plot <- renderPlotly({
+  p <- ggplot(selected_data(), aes(x = mean_rt)) +
+    geom_histogram(binwidth = input$binwidth)
+  ggplotly(p)
+})
+```
+
+p stores the ggplot. ggplotly(p) converts it. Keep the same output name in UI and server.
+
+**Together:** trace the three changed functions, then open `plotly_app.R` and choose **Run App** after completing its blanks.
+
+## Exercise 1: Connect And Test Plotly {.smaller}
+
+Use the guide's **Exercise 1: add hover and zoom** (**10 minutes**).
+
+Complete `plotlyOutput()`, `renderPlotly()` and `ggplotly()` in `plotly_app.R`. Test hover, zoom, group/range filters and recovery from no selection.
+
+The second plot stays a conventional Shiny-reactive plot. Both count as interactive plots for the assessment.
+
+## Start With The Question, Then Choose Views
+
+Before editing, identify:
+
+- What does one row represent?
+- Which behavioural question can these variables address?
+- What does each of two views contribute?
+- What should a user be able to change?
+- What remains uncertain or outside the data's scope?
+
+A second plot should add information to the first.
+
+## Choose A Route For The Workshop {.smaller}
+
+**Own data ready:** make two working ggplots outside Shiny, then adapt the supplied app structure.
+
+**Still choosing data:** use `starter_app.R` with the richer provided participant extract. It adds mean response duration and vocabulary score to the familiar reaction times.
+
+The guide gives three question options and a data dictionary. The provided extract is a practice option. Choose and justify a suitable behavioural dataset for your portfolio.
+
+## Two Views Can Answer Connected Questions {.smaller}
+
+For the provided extract, choose:
+
+| Question | Relationship x | Outcome |
+|---|---|---|
+| Duration and initiation time | mean_duration | mean_rt |
+| Vocabulary score and initiation time | vocabulary_score | mean_rt |
+| Vocabulary score and duration | vocabulary_score | mean_duration |
+
+A scatterplot explores the relationship. A boxplot with points explores the outcome by output group.
+
+Check each group's pattern. Association and group differences do not establish causation.
+
+## Exercise 2: Adapt The Pattern {.smaller}
+
+Use **Exercise 2: adapt the app to a question** in the guide.
+
+Provided-data route: complete nine blanks for the data filename, three variable mappings, three axis labels and two explanations. Choose meaningful title and tab names.
+
+Own-data route: adapt the import, columns, control choices, plots and explanations.
+
+Keep shared preparation, two useful plots, and recovery from an empty selection. Work from the supplied structure; no typing along is required.
+
+## Before The Break: Show One Working Selection
+
+Run your app and explain:
+
+- the question and observation unit;
+- what each view adds;
+- where the group selection enters the shared filter.
+
+If the app does not run, get one output working first. Then restore the second view.
+
+## Use The Second Block To Build And Test
+
+Continue your app. Change one thing at a time.
+
+Test every control, both tabs, empty selections and restoration. Restart R and check that packages and data load without objects left in memory.
+
+If the core works, decide whether Plotly would help either plot. It is an available tool, not a required addition to both views.
+
+## Compare A Design Decision
+
+With a neighbour, compare questions, views and controls.
+
+What pattern becomes easier to inspect because of an interaction? Which explanation or placement could improve the experience?
+
+Record one change and its reason in your own words. This can inform your later reflection.
+
+## The Assessment Combines Report And App {.smaller}
+
+- One behavioural dataset, with its source and observation unit explained.
+- Four different static visualisation types in the RMarkdown report, with design commentary.
+- A separate Shiny app: meaningful inputs, at least two interactive plots, at most three tabs.
+- Reflection on decisions, constraints and limitations.
+- A reproducible project and submission ZIP.
+
+Session 10 will practise the separate report/app structure and the extracted-ZIP check.
+
+## After Class: Bring A Working Prototype
+
+Continue toward an own-data app with two meaningful views, clear controls and useful explanations.
+
+If your data are not ready, bring a candidate source and specific questions to Session 10.
+
+Reference: @Wickham2021MasteringShiny, [section 7.1.6](https://mastering-shiny.org/action-graphics.html#interactivity-limitations).
+
+## After Your Attempt: Compare The Examples {.smaller}
+
+`plotly_worked_app.R` completes the Plotly exercise.
+
+`worked_example_app.R` completes one of the provided-data questions. Compare its behaviour and connections with your own choices.
+
+Optional: `extension_app.R` converts both workshop plots to Plotly. Judge whether the extra interaction helps each view. Keep your own version.
+
+## References

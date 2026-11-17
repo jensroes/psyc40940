@@ -2,7 +2,7 @@
 
 This week introduces the grammar of graphics and how it underpins `ggplot2`. We will focus on how plots are built from data, aesthetic mappings, geometries, statistical transformations, coordinates, facets, and themes.
 
-The practical work asks you to build plots step by step and to distinguish between aesthetics that are mapped to variables and attributes that are set directly.
+The practical work asks you to build plots step by step, distinguish between aesthetics that are mapped to variables and attributes that are set directly, and avoid adding visual features that do not help the comparison.
 
 By the end of Week 3, you should be able to:
 
@@ -26,21 +26,21 @@ If you have not created an RStudio Project for this module yet:
 6. Choose a sensible location on your computer.
 7. Click **Create Project**.
 
-Then download the Week 3 zip folder from this week's section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files or app files together with any `data` folder and supporting files.
+Then download the Week 3 zip folder from this week's section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files together with the `data` folder and `references.bib` file.
 
 ## Week 3 files
 
-`week-03-grammar-of-graphics`  
-Slides for the week.
+`week-03-grammar-of-graphics.html` and `week-03-grammar-of-graphics.pptx`  
+Slides for the week. The HTML version is the main version used in class; the PowerPoint file is provided as an additional reference.
 
 `psyc40940-week-03-grammar-of-graphics.zip`  
 Student practical materials for the week.
 
-`1a_gog.Rmd`, `1b_gog.Rmd`, `2a_attributes.Rmd`, `2b_aesthetics.Rmd`, `3_aaa.Rmd`  
-Practical RMarkdown files covering grammar of graphics, aesthetics, attributes, and applied plotting exercises.
+`01_building_ggplot_layers.Rmd`, `02_aesthetics_vs_attributes.Rmd`  
+Required practical RMarkdown files for the week. The first exercise covers the basic grammar of graphics; the second focuses on aesthetics, attributes, and avoiding overloaded plots.
 
 `data/`  
 Data files needed by the weekly practicals.
 
-`references.bib` and `apa.csl`  
-Bibliography and citation style files used by the weekly materials where needed.
+`references.bib`  
+Bibliography file used by the weekly exercise materials.

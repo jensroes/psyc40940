@@ -1,0 +1,120 @@
+---
+title: "Week 8: Tabs and reliable controls"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Where to work
+
+Unzip the whole Week 8 folder into your existing module project. Keep the R scripts beside data/. Open this Rmd and **Knit** it first; read the HTML guide beside the named app script. Make app changes in the full R scripts and choose **Run App**. Complete all of a script's `---` blanks before running it.
+
+The slides introduce each pattern before you use it. Together, let's inspect an example, then complete and test a small change. No typing along is required.
+
+| File | Core task |
+|---|---|
+| `intro_app.R` | inspect the familiar sidebar app |
+| `starter_app.R` | Exercise 1: three tab functions and two explanations |
+| `controls_app.R` | Exercise 2: multi-group and range filters with empty-selection feedback |
+
+If needed, install Shiny once using this chunk; eval = FALSE skips it when knitting.
+
+```{r install-shiny, eval=FALSE}
+install.packages("shiny")
+```
+
+## Recall the shared preparation
+
+Run `intro_app.R`. The count and both plots use `selected_data()`. Changing group affects all outputs. Bin width affects only the histogram. The same 72 participant means are used: 33 speech and 39 writing. Values are means across familiarisation conditions, not individual trials.
+
+## Decide what should remain visible
+
+Look at the one-page app and the tab example on the slides. A sidebar can remain visible while plots are placed in tabs. Tabs give each view more space but hide other views, which can make direct comparison harder.
+
+Keep shared controls and the participant count outside the tabs. A control placed inside one tab can still affect other outputs if the server reads it; location alone does not limit its effect. Explain its scope to users.
+
+## Exercise 1: build two tabs
+
+**Your turn, about 20 minutes:** open `starter_app.R`. Its server already works. Complete the **five blanks** using the slide example:
+
+1. Replace the outer `---` wrapper with tabsetPanel.
+2. Replace each of the two inner `---` wrappers with tabPanel.
+3. Replace each `p("---")` message with a short explanation of what the reader can learn from that tab. There are two text blanks. Keep quotation marks.
+
+The visible tab names are supplied. Rename them if a different wording better describes the task. Keep the existing plot output names, commas and brackets.
+
+Save and use Run App. Open both tabs, select the other group, and try a different bin width. Switching tabs should preserve the controls. Both plots should use the selected group; bin width should affect only the histogram.
+
+**Together: check:** which edits changed the UI? Why did the server stay the same? When would two side-by-side plots be easier to compare than tabs?
+
+## Choose a control for the question
+
+A selectInput permits one group in our earlier app. checkboxGroupInput allows several groups, including no groups. A slider with value = c(700, 2400) has two handles and returns a vector containing its lower and upper values.
+
+The two new filters change the observations included. The separate bin-width slider changes how their reaction times are summarised. Try not to confuse a range filter with a histogram width.
+
+In the filter, %in% checks whether each row's group is among the selected groups. `input$rt_range[1]` is the lower bound; `input$rt_range[2]` is the upper bound. The brackets select an element of the two-value vector.
+
+## Missing inputs and empty selections need different responses
+
+req(`input$rt_range`) waits silently until the range input is available. It does not tell the user how to fix an empty selection.
+
+After filtering, validate(need(nrow(selected) > 0, "message")) checks that at least one row remains. If not, Shiny shows the message instead of trying to draw a plot. The message should explain how to recover, for example by selecting a group or widening the range.
+
+The validation belongs in the shared reactive expression, after the filter and before returning selected. Every output using that expression receives the feedback. Keep selected as its last line so valid data are returned.
+
+Do not use req(`input$groups`) here: unchecking all groups is a foreseeable user action, and we want a visible explanation rather than a silent blank.
+
+## Exercise 2: make the controls reliable
+
+**Your turn, about 25 minutes:** open `controls_app.R`. The completed tab structure is supplied so you can start even if Exercise 1 took longer. Complete the **six blanks**:
+
+1. Name the function that creates the group checkboxes: checkboxGroupInput.
+2. In modality %in% input$`---`, supply the input name of those checkboxes.
+3. Complete the lower-bound index in `input$rt_range`[`---`].
+4. Complete the upper-bound index in the other `input$rt_range`[`---`].
+5. In nrow(`---`), name the filtered data frame created just above the check.
+6. Replace the "`---`" message with your own short instruction explaining how to recover when no rows match.
+
+The input names are in the UI. Keep the supplied `req()` and validate(`need()`) structure. Use the slide examples to trace it, rather than adding another filter inside the outputs.
+
+Save, stop any running app and choose Run App.
+
+### Test each route
+
+| Test | Expected result |
+|---|---|
+| Both groups; range 700–2400 | count 72; both groups appear |
+| Speech only; full range | count 33 |
+| Writing only; full range | count 39 |
+| Uncheck both groups | a useful recovery message in the outputs |
+| Select both groups; range 2350–2400 | no rows; the recovery message appears |
+| Restore range 700–2400 | count 72 and plots return |
+| Change bin width only | histogram changes; count and boxplot stay fixed |
+| Switch tabs | filters retain their values |
+
+A narrow range removes observations. Explain this selection: it is not evidence that the excluded values were errors. Differences between these participant groups do not establish a causal effect.
+
+**Together: check:** explain where filtering, validation and plotting each happen. Does the message tell the reader what to do next?
+
+## Make a navigation choice
+
+Choose which tab appears first by moving its whole `tabPanel()` block. Move its explanation and plot together. Test the app again. Explain why this order helps the reader's question.
+
+For your assessment, the limit is **three tabs**, not a requirement to create three. Two well-organised tabs may be enough. At least two useful interactive plots are required; plots responding to Shiny controls qualify.
+
+## Optional: add a third summary tab
+
+After the core tasks, `extension_app.R` shows a third tab using `tableOutput()` and `renderTable()`. Compare its count and median by group with the plots. The shared `selected_data()` already handles empty selections. A table is not an extra required assessment component, and a third tab must have a purpose.
+
+## After class
+
+Read Mastering Shiny [section 6.3.1, tabsets](https://mastering-shiny.org/action-layout.html#tabsets) and [section 8.1.4, `validate()`](https://mastering-shiny.org/action-feedback.html#validate-output). Focus on `tabPanel()` placement and an actionable empty-selection message. The guide's supplied examples use base Shiny; no extra feedback package is needed.
+
+Next session introduces Plotly and gives you time to adapt a dashboard to another behavioural dataset.
+
+## After completing your app: compare with the reference
+
+Now run `worked_example_app.R`. Compare behaviour on both tabs, including the empty-selection tests. Trace each input into the shared filter or histogram. Explain any changes needed in your own version before editing. Keep your own work.

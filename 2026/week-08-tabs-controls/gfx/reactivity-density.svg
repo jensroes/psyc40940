@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="280" viewBox="0 0 1000 280" role="img" aria-labelledby="title desc">
+<title id="title">Additional dependencies for the density view</title>
+<desc id="desc">Group and vocabulary range feed the shared selected_data expression, which supplies the density view. The new density_view radio control affects only the density output. Existing outputs retain their previous connections and are omitted here.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#53606a"/></marker>
+<style>text{font-family:Arial,sans-serif;font-size:21px;text-anchor:middle;fill:#28323a}.code{font-family:monospace;font-size:20px}.small{font-size:18px}rect{rx:9;stroke-width:1.5}.input{fill:#eaf5f4;stroke:#6ca4a1}.reactive{fill:#fff3d6;stroke:#bf9a47}.output{fill:#f5f5f5;stroke:#9da5aa}.edge{fill:none;stroke:#53606a;stroke-width:2.5;marker-end:url(#arrow)}</style></defs>
+<rect width="1000" height="280" fill="white" stroke="none"/>
+<path class="edge" d="M215 62 C270 62 275 110 330 110"/>
+<path class="edge" d="M215 172 C270 172 275 140 330 140"/>
+<path class="edge" d="M560 120 C655 120 665 82 760 82"/>
+<path class="edge" d="M560 220 C665 220 655 108 760 108"/>
+<rect class="input" x="15" y="30" width="200" height="64"/>
+<text class="code" x="115" y="69">input$groups</text>
+<rect class="input" x="15" y="140" width="200" height="64"/>
+<text class="code" x="115" y="179" style="font-size:18px">input$vocab_range</text>
+<rect class="reactive" x="330" y="85" width="230" height="75"/>
+<text class="code" x="445" y="116">selected_data()</text>
+<text class="small" x="445" y="145">shared filtering and checks</text>
+<rect class="input" x="330" y="190" width="230" height="60"/>
+<text class="code" x="445" y="226" style="font-size:18px">input$density_view</text>
+<rect class="output" x="760" y="55" width="225" height="85"/>
+<text class="code" x="872" y="89">density_plot</text>
+<text class="small" x="872" y="118">density check and plot</text>
+</svg>

@@ -1,0 +1,37 @@
+---
+title: "PSYC40940: Visualisation of Behavioural Data and Data Dashboards"
+output:
+  html_document: default
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+feedback_link <- "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=xcLLiu3Ix0KBabpDig2-Lxzy_pMVgntOnvX4WhM-NcFUMVhPNjhGUjRUVUEzUENWVERCQUdEMEZSRS4u"
+```
+
+# Your Feedback @ NTU Psychology
+
+- Our current courses are informed by previous student feedback.
+- We rely on your feedback to help us optimise our modules and courses
+  - in real-time
+  - and for future students.
+- When we ask you for feedback, we will always let you know what we found and how we have used it on your course.
+- All responses are anonymous.
+
+# Your Feedback in PSYC40940: Visualisation of Behavioural Data and Data Dashboards
+
+- I'll be asking you for your brief comments:
+  - **Now:** As we set out on the module, but only if you have questions/suggestions.
+  - **Mid-module:** When you have more experience of the module to feedback on, but still early enough so that we can implement change.
+  - **End of the Year:** A single course survey about all of your modules to inform future decisions.
+- What cannot be changed this year:
+  - Module assessment
+  - Module structure
+  
+# Early Module Feedback Opportunity
+
+For questions, comments, or suggestions, please use the link below:
+
+[Open the PSYC40940 early feedback form](`r feedback_link`)

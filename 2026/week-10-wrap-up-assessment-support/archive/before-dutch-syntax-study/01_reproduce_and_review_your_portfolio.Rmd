@@ -1,0 +1,104 @@
+---
+title: "Week 10: Reproduce and review your portfolio"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Start with the submission, not another Shiny feature
+
+This session consolidates the report and app. There is time for project-specific questions and support. No additional Shiny function is required.
+
+Unzip the whole teaching folder into your existing module project. Knit this guide and read the HTML. The submission-example/ folder is a separate practice project already supplied with a project file; you do not need to create a new RStudio project.
+
+This teaching ZIP is not your assessment submission: it contains guide and example materials that must not all be submitted together.
+
+## First: run the supplied example
+
+Open `submission-example/portfolio.Rproj`. The project disables workspace saving/restoration.
+
+1. Knit `report.Rmd`. It renders four static example plot types, captions and a figure cross-reference, a citation, reflection prompts, and `sessionInfo()`. The code is complete.
+2. Open `app/app.R` and use Run App. Test both groups, no group selection, restoration and both tabs.
+3. Stop the app and identify the two data-import paths.
+
+The report reads `data/participant_behaviour.csv`. The app reads `../data/participant_behaviour.csv` because its code runs from the app folder. These relative paths depend on keeping the complete folder structure together.
+
+The plots demonstrate the mechanism; they are not a ready-made portfolio answer or a recommendation to use participant counts as a substantive figure.
+
+## Build the file set the marker needs
+
+Your assessment ZIP needs:
+
+- Exactly one RMarkdown report and its rendered HTML. PDF is acceptable with a good reason, but retain the Rmd source.
+- Your existing RStudio project file.
+- A separate `app.R`, or an app folder containing `app.R` and its supporting files.
+- Relevant data, bibliography and any helper scripts/functions needed to reproduce the work.
+- A clear package setup in the report and app; `sessionInfo()` or an equivalent package/version summary at the end of the report.
+- Stable source/access instructions and import/preparation code where data cannot be included.
+- The required AI declaration according to the NOW submission instructions.
+
+Keep data paths relative to their source file's working directory. Do not rely on an object left in the Environment pane or on a CSV outside the submitted folder.
+
+Remove unused guides, slides, drafts, cached workspaces and irrelevant files. Check that no name or N number appears in the report, app, project name, filenames, paths or documentation.
+
+## Exercise: test an extracted copy
+
+**Together:** inspect the example structure and identify the packages and data each output needs.
+
+**Your turn, about 20 minutes:** work with your own project if ready; otherwise practise with submission-example/.
+
+1. Render the report and save the working app.
+2. Create a ZIP containing the intended project files.
+3. Close the current project or restart R without restoring a workspace.
+4. Extract the ZIP to a different temporary folder and open its Rproj file.
+5. Knit the extracted Rmd. Run the extracted app from its `app/app.R`.
+6. Test group/filter changes, every tab, empty selections and recovery.
+7. Record and fix any missing package, file, source citation, figure or input connection. Rebuild and retest the extracted ZIP after repairs.
+
+If the example works but your project does not, compare file locations and package setup first. Read the Console and repair one error at a time. Do not fix a path by inserting a personal absolute path.
+
+## Check coverage against the brief
+
+| Component | Check |
+|---|---|
+| Data | one suitably rich behavioural dataset, source and observation unit explained |
+| Static report | four different useful visualisation types with publication-quality presentation and commentary |
+| Shiny | at least two interactive plots and meaningful user inputs; no more than three tabs |
+| Communication | question, units, selection, limitations and controls clear to a reader |
+| Reflection | specific decisions, challenges, compromises, constraints and possible improvements in your own words |
+| Reproducibility | report and app run from the extracted project with submitted files |
+| Submission | anonymity, word limit and AI declaration checked against the brief |
+
+Shiny-reactive ggplots qualify as interactive plots. Plotly is an available tool, not a requirement. A summary table, generated UI, observers and update buttons are not compulsory assessment features.
+
+## Keep the report and app connected
+
+Use the same dataset and explain what each component contributes. The dashboard should support exploration, rather than merely duplicating the report's static figures.
+
+The maximum is **2,000 words** across written report text, figure commentary, captions, dashboard explanatory text and reflection. Code, references/bibliography, raw R output and data-file contents do not count. Use the current assessment brief for authoritative submission details.
+
+## Bring a specific question to support
+
+During independent work, identify the smallest step that is failing and what you expected to happen. Bring the relevant file, error message and a short example. If you are blocked on data, bring a source link, a description of one row and the variables needed for two views.
+
+The second block is primarily for individual project work, debugging and feedback. If the app runs, focus on the quality of the question, views and explanations.
+
+## Write useful reflection notes
+
+Record one concrete choice and its consequence. Examples:
+
+- why tabs helped navigation but made simultaneous comparison harder;
+- why a filter revealed a pattern, and which observations it excluded;
+- why a simpler geom or conventional reactive plot was clearer;
+- how missing values or a small selected sample constrained interpretation;
+- which changes made the project reproducible.
+
+Write the commentary, interpretation, explanations and reflection yourself. Code assistance does not remove the need to explain and justify your work.
+
+## Before the winter break
+
+Aim for a working report and dashboard, with specific remaining improvements listed. Staff availability during the closure period is limited. Use scheduled support now and confirm the deadline in the assessment brief.
+
+Save the exact tested ZIP, keep a backup, and retain the submission confirmation when you upload.

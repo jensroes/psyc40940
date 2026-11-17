@@ -1,0 +1,148 @@
+---
+title: "Exercise 2: Group comparisons and raw data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6,
+                      fig.height = 4)
+```
+
+In this exercise you will compare groups while keeping the raw data visible.
+
+The aim is to avoid plots that show only summaries when the distribution and individual observations matter.
+
+Main job: **compare different plotting choices and decide which one is most honest for the question**.
+
+## Load packages and data
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+blomkvist <- read_csv("data/blomkvist.csv")
+blomkvist <- drop_na(blomkvist, smoker, rt_hand_d)
+```
+
+## Data structure for group comparisons
+
+For group-comparison geoms, the grouping variable and the outcome variable need to be in the same data frame. Here, each row is one participant.
+
+| Geom or layer | Data structure it needs | Typical mapping |
+|---|---|---|
+| `geom_jitter()` | one categorical grouping variable and one numeric outcome | `aes(x = group, y = outcome)` |
+| `geom_boxplot()` | one categorical grouping variable and one numeric outcome | `aes(x = group, y = outcome)` |
+| `stat_summary()` | one grouping variable and one numeric outcome to summarise | `aes(x = group, y = outcome)` |
+
+<p class="take-home">For these plots, groups should usually be values in one column, not separate columns.</p>
+
+## Start with raw points
+
+Use jittered points to compare dominant-hand reaction time across smoking groups. This geom needs `smoker` as the grouping column and `rt_hand_d` as the numeric outcome column.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = ___, y = ___)) +
+  geom_jitter(width = 0.15, alpha = 0.45) +
+  labs(x = "Smoking status",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+What does this show well? What is still difficult to compare?
+
+Write 1-2 sentences here: ___
+
+## Add a summary without hiding the data
+
+Add a boxplot on top of the jittered points. The boxplot uses the same data structure as the jittered points: group on `x`, numeric outcome on `y`. Hide the boxplot outliers because the raw points already show all observations.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = smoker, y = rt_hand_d)) +
+  geom_jitter(width = 0.15, alpha = 0.35, size = 1.8) +
+  geom_boxplot(width = 0.35, outlier.shape = NA, alpha = ___) +
+  labs(x = "Smoking status",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+How does the boxplot change what is easy to compare?
+
+Write one sentence here: ___
+
+## Why not a bar plot?
+
+The plot below shows group means as bars. Run it, then compare it with the raw-data plot above.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = smoker, y = rt_hand_d)) +
+  stat_summary(fun = mean, geom = "bar", fill = "grey70") +
+  labs(x = "Smoking status",
+       y = "Mean dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+What does the bar plot hide?
+
+Write 2-3 points here:
+
+- ___
+- ___
+- ___
+
+## A better summary overlay
+
+Instead of bars, add means and confidence intervals on top of the raw data. `stat_summary()` uses the same grouping and outcome columns, but calculates summary values before drawing.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = smoker, y = rt_hand_d)) +
+  geom_jitter(width = 0.15, alpha = 0.25, size = 1.8) +
+  stat_summary(fun = mean, geom = "point", size = 3, colour = "#D55E00") +
+  stat_summary(fun.data = mean_cl_normal,
+               geom = "errorbar",
+               colour = "#D55E00",
+               width = 0.2) +
+  labs(x = "Smoking status",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+Does this plot communicate both the summary and the variation? Why?
+
+Write one sentence here: ___
+
+## Compare and rank the plot choices
+
+Compare the four plots you have made. Rank them from most to least helpful for comparing reaction times across smoking groups while showing variation:
+
+- jittered points only
+- jittered points plus boxplot
+- bar plot of means
+- jittered points plus mean and confidence interval
+
+Your ranking (most to least helpful): ___
+
+Which plot best shows individual observations, and what is still difficult to compare?
+
+Write your answer here: ___
+
+Which plot hides most of the distribution?
+
+Write your answer here: ___
+
+## Principle check
+
+Which version is the clearest for this question?
+
+Choose one:
+
+- jittered points only
+- jittered points plus boxplot
+- bar plot of means
+- jittered points plus mean and confidence interval
+
+Explain your choice in 2-3 sentences: ___

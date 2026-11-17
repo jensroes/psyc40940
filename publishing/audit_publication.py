@@ -27,12 +27,14 @@ def check_path(name, allow_publish_metadata=False):
     p = PurePosixPath(name)
     if p.is_absolute() or '..' in p.parts:
         raise ValueError('Unsafe publication/archive path')
+    if p.as_posix().lower() == '2026/admin/moved-files.csv':
+        raise ValueError('Private file-move inventory is not publishable')
     parts = {part.lower() for part in p.parts}
     blocked = PRIVATE_PARTS - ({'rsconnect'} if allow_publish_metadata else set())
     if parts & blocked or ('2025' in parts and 'ml' in parts):
         raise ValueError('Private path is not publishable')
     for part in parts:
-        if part.startswith(('classlist', '.env')) or re.match(r'\d{6}-\d{6}\b', part):
+        if part.startswith(('classlist', '.env', 'rpubs-records-')) or re.match(r'\d{6}-\d{6}\b', part):
             raise ValueError('Private record/credential path is not publishable')
         if 'student' in part and ('suggestion' in part or 'message' in part):
             raise ValueError('Private student communication is not publishable')
@@ -55,7 +57,7 @@ def scan_payload(data, name, depth=0, allow_publish_metadata=False):
                 if (item.external_attr >> 16) & 0o170000 == 0o120000:
                     raise ValueError('Archive contains a symlink')
                 total += item.file_size
-                if item.file_size > 100_000_000 or total > 500_000_000:
+                if item.file_size > 200_000_000 or total > 500_000_000:
                     raise ValueError('Archive exceeds publication audit size limit')
                 if Path(item.filename).suffix.lower() in TEXT | ARCHIVES:
                     count += scan_payload(archive.read(item), item.filename, depth + 1, allow_publish_metadata)

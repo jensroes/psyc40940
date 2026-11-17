@@ -1,0 +1,230 @@
+---
+title: "Week 6: Build a simple Shiny app"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Where to work
+
+**First, open this `.Rmd` file in RStudio and click Knit.** Read the resulting HTML guide beside your code; use its contents menu to find the section named on the slides. The unfinished chunks use `eval = FALSE`, so you can knit the guide before completing any blanks.
+
+The HTML is for reading, not editing. When prompted, edit and run the small `$` example in this Rmd. For the Shiny tasks, edit the named `.R` script instead and use Run App. You can knit the guide again to refresh its displayed code after edits; run completed Rmd chunks interactively to see their results.
+
+Together, let's inspect an example, then make and test a small change independently before checking what happened together. You do not need to type along with a demonstration. Use the examples while working on your changes. The optional section can be explored independently.
+
+All app code is in **R scripts**, not this worksheet. Complete the `---` blanks in the relevant script, save it, and use **Run App** to run the whole app. Do not run UI or server fragments separately.
+
+| File | Use it for |
+|---|---|
+| `minimal_app.R` | a complete working example to inspect together |
+| `starter_app.R` | Part 1: connect a selector to a histogram |
+| `slider_app.R` | Part 2: connect a slider to the histogram |
+| `extension_app.R` | optional: a summary that updates with the controls |
+
+The two practical scripts are stages of the same app. The second includes Part 1's completed selector, so you can work on the slider independently. Use the examples on the slides to complete and test your changes.
+
+## Before you start
+
+Unzip the Week 6 folder into your existing module project. Keep the R scripts and `data/` together.
+
+If Shiny is not installed, run this chunk **once**. `eval = FALSE` skips installation when knitting; you can still run it interactively.
+
+```{r install-shiny, eval=FALSE}
+install.packages("shiny")
+```
+
+Open the relevant R script and click **Run App**. After editing source code: save, stop the running app, and run it again. Changing a control in the running app does not require a restart.
+
+The exercise scripts contain blanks, so complete the blanks for that part before running. Start with the complete `minimal_app.R` if you want to check that Shiny is working.
+
+## First: run the minimal app together
+
+**Together:** open and run `minimal_app.R`. The UI contains the number control and a location for the result. The server defines how the result is calculated. `shinyApp(ui, server)` combines the two to start the app.
+
+The first result is 10. Predict the result if you choose 7, then change the control to test your prediction. Try one more number of your choice. You do not need to edit the script or restart the app for these tests.
+
+This is the core idea of **reactivity**: Shiny tracks which outputs depend on an input and updates those outputs when its value changes. The user supplies input through the interface; the server defines how that input is used to calculate an output.
+
+## The server is a function Shiny calls
+
+In `server <- function(input, output) { ... }`, `<-` stores the function under the name `server`. A function is a set of instructions; the names in parentheses are its arguments, and the body inside `{}` contains the instructions.
+
+You do not call this function yourself or create the `input` and `output` objects. Shiny calls it when a user opens the app and supplies those objects. In this example, the body connects a text output to calculations inside `renderText()`.
+
+A function is not automatically reactive. The server sets up the output instructions; Shiny tracks the inputs used inside `renderText()` and reruns that output calculation when needed. Changing the number does **not** rerun the whole server function.
+
+## Use $ with a data frame
+
+**Together:** make a tiny data frame directly. It has two columns and five rows; no function definition is needed for this example.
+
+```{r data-frame-example}
+example_data <- data.frame(
+  number = 1:5,
+  doubled = (1:5) * 2
+)
+example_data
+```
+
+For a data frame, `$` selects a column by name. Run this example:
+
+```{r dollar-example}
+example_data$doubled
+```
+
+**Your turn:** predict the values in the original `number` column, then complete the single `---` below to select it. Run the completed chunk interactively; you should get the numbers 1 to 5. `eval = FALSE` lets the guide knit before the blank is completed.
+
+```{r select-column, eval=FALSE}
+example_data$---
+```
+
+**Together: check** the difference between the whole `example_data` table and one of its columns. The name before `$` identifies the object; the name after it identifies a part.
+
+Shiny's `input` and `output` also have named parts accessed using `$`, but they are special Shiny objects, not data frames. Shiny supplies them as server arguments; `output` is not a table returned by the server.
+
+## Trace the input and output names
+
+Return to `minimal_app.R` and locate these connections:
+
+- `numericInput("number", ...)` creates the control; the server reads its value as `input$number`.
+- `textOutput("double")` creates the output location; `output$double` supplies its content.
+- `renderText()` recalculates when the input it uses changes.
+
+The control's internal name is `number`; its visible label is Choose a number. The text output has its own name, `double`. The input and output names do not have to be the same: each UI element must match its corresponding server reference.
+
+**Together: check** trace the two matching pairs: `numericInput("number", ...)` creates the control whose value the server reads as `input$number`; `output$double` supplies the result displayed by `textOutput("double")`. Explain what happens when the user changes the number to 7: the server reads 7, multiplies it by two, and the output displays 14.
+
+## Part 1: connect a selector to a histogram
+
+**Together:** use the slide example to trace the selector's name, its selected value in `input`, the filtered data, and the plot. Distinguish the label the user sees from the value used in the filter. The matching output names connect the generated plot to its place in the UI.
+
+Open `starter_app.R`. The supplied data contain 72 participant means across familiarisation conditions, in milliseconds: 33 participants in the spoken group and 39 in the written group. These are not individual trial reaction times.
+
+**What does `filter()` do?** It keeps rows that satisfy a condition, without removing columns. In `filter(d_participants, modality == input$modality)`, `modality` is the data column, `input$modality` supplies the selected group value, and `==` checks equality for each row. If the selected value is `"speech"`, it keeps the 33 spoken-group rows. The assignment to `selected_data` stores the subset for the plot; it does not change the original `d_participants` dataset.
+
+**Your turn:** complete the **three blanks** in the script using the example:
+
+1. In the UI's `plotOutput()`, supply the output name that matches `output$rt_plot` in the server. Keep the quotation marks.
+2. In the filter's `input$---`, supply the selector's input name. It is the first argument of `selectInput()`.
+3. In `ggplot(---, ...)`, use the name of the filtered dataset created immediately above it.
+
+Save and run the app. Switch between spoken and written output. The histogram should change without restarting the app.
+
+**Check:** the user sees “Spoken output” or “Written output”, but the underlying values are `speech` and `writing`. In the filter, `modality` is the data column and `input$modality` is the selected value.
+
+Try renaming the plot's name in the UI alone. Predict what will happen, run it, then repair the mismatch. Both output names must match.
+
+**Together: check** which line makes the selected group affect the plot. Explain the effect of the name mismatch and how you repaired it.
+
+## Part 2: connect a slider to the histogram
+
+**Together:** compare two bin widths for the same participants, then trace the slider's name into `geom_histogram()`. Its numeric value replaces the fixed bin width. Review how `helpText()` explains the control to an app user.
+
+Open `slider_app.R`. It already includes the working group selector from Part 1.
+
+**Your turn:** complete the **five blanks** in this script using the slider example:
+
+1. Give the slider a useful label, including its unit.
+2. Set its starting `value` to a number between 25 and 300, in steps of 25.
+3. Replace `input$---` inside `geom_histogram()` with the slider's input name.
+4. Replace the blank inside `p()` with a temporary message such as "Text A". Keep the quotation marks.
+5. Replace the blank inside `helpText()` with a different temporary message such as "Text B".
+
+Save and run the app. Find both messages: where does each appear relative to the title, controls, and plot? Compare their appearance. The order of elements inside `fluidPage()` determines their order in this app.
+
+Save and run the app. Keep the output group fixed and try several widths. Which features persist? Which apparent peaks depend on bin width?
+
+**Check:** changing the group changes the observations included. Changing bin width only groups the same observations differently. Your explanation should make this distinction clear.
+
+**Together: check** why the participant count stays fixed when bin width changes, and where `p()` and `helpText()` place text in the app.
+
+## Explain the finished app
+
+**Your turn:** replace the two temporary messages in `slider_app.R` with useful information for an app user:
+
+- In `p()`, introduce the data: each value is one participant's mean reaction time, measured in milliseconds. Briefly note that the groups contain different participants, so the plot alone does not establish a causal effect of output modality.
+- In `helpText()`, explain how the controls affect the histogram: the group selector changes which participants are included; bin width groups the selected participants' values differently.
+
+Use your own wording. Save, stop, and rerun the app. Read each message where it appears: is the information useful at that point? A comment beginning with `#` is for the programmer, not the app user.
+
+Compare your help text with a neighbour's. Does it explain what changing bin width does and what stays the same? Revise one sentence if needed.
+
+## Optional: add a dynamic summary
+
+This is an optional extension for spare time or independent practice after class. It is not needed to complete this session's core app.
+
+**Goal:** add a sentence above your histogram showing how many participants are included and the current bin width. Unlike `helpText()`, this text changes when a control changes. Keep your existing histogram working.
+
+### First, try `paste()` in this Rmd
+
+`paste()` joins pieces of text and values into one text string. Separate the pieces with commas; by default, it puts a space between them. Put literal words in quotation marks, but leave variable names unquoted so R uses their values.
+
+Run this complete example in the Rmd:
+
+```{r paste-example}
+participant_count <- 33
+paste("Participants shown:", participant_count)
+```
+
+The result is `"Participants shown: 33"`. The number is inserted into the text; `paste()` does not add or otherwise calculate the numbers.
+
+**Your turn:** replace `---` with the variable holding the bin width, without quotation marks. Run the completed chunk. You should get `"Participants shown: 33 | Bin width: 100 ms"`. The `|` is just a visible separator in the message.
+
+```{r complete-paste, eval=FALSE}
+bin_width <- 100
+paste("Participants shown:", participant_count,
+      "| Bin width:", ---, "ms")
+```
+
+Change `bin_width` to 250 and rerun the chunk. Ordinary R updates this text only when you rerun the code. Inside Shiny's `renderText()`, using `input$binwidth` makes the text update when the slider changes.
+
+### Add the summary to your app
+
+**Inspect the example:** run `extension_app.R`. With spoken output selected and a width of 100 ms, the summary reads “Participants shown: 33 | Bin width: 100 ms”. Predict what will change when you select written output, then try it. Stop the reference app before editing your own script.
+
+**Your turn: add the two connected parts to your completed `slider_app.R`.** Use `extension_app.R` as your model; do not replace your whole app with the reference.
+
+1. In the reference UI, find `textOutput("selection_note")`. Copy this line into your own `fluidPage()`, immediately before `plotOutput("rt_plot")`. Keep the comma after the new line. This creates a location for the summary; it does not calculate the text.
+2. In the reference server, find the complete block starting with `output$selection_note <- renderText({` and ending at its matching `})`. Copy the whole block into your own `server <- function(input, output) {`, immediately before `output$rt_plot <- renderPlot({`. The text and plot blocks sit alongside each other: do not put the text block inside `renderPlot()` or outside the server. Keep the server's final closing brace.
+3. Check that `"selection_note"` in the UI matches `output$selection_note` in the server. These are the two ends of the same connection. There is no comma between the two server blocks; commas separate the UI elements, not these assignments.
+4. Read the three steps inside `renderText()`: `filter()` selects the current group's rows; `nrow(selected_data)` counts those rows; `paste()` joins the count, the current `input$binwidth`, and the explanatory words into one piece of text. Because there is one row per participant, the row count is the participant count.
+5. Save, stop, and rerun your app. Test it using the table below. After the app starts, change its controls without restarting it.
+
+| Test | Participant count | Displayed bin width |
+|---|---|---|
+| Spoken output; set width to 100 ms | 33 | 100 ms |
+| Switch to written output; leave width at 100 ms | 39 | 100 ms |
+| Keep written output; change width to 250 ms | 39 | 250 ms |
+
+Changing the group should update both the histogram and the count. Changing width should update the histogram and the displayed width, but not the count.
+
+**Make one small change yourself:** extend the summary so it also names the selected group. In your summary's `paste()`, add the pair `"| Group:", input$modality` before the closing bracket, separating the arguments with commas. Test both groups: it should display `speech` or `writing`, matching the underlying data values rather than the selector's readable labels.
+
+**If it does not work:** check the two matching output names, the placement of both blocks inside the server, the UI comma, and the Console. If the count stays at 72, check that you count `selected_data`, not the unfiltered `d_participants`.
+
+Both render blocks prepare their own `selected_data`; do not remove the filter from the text block because the plot already has one. Next week, `reactive()` will let us share that preparation. Neither an observer nor `reactive()` is needed for this extension.
+
+## Start exploring possible summative datasets
+
+Between sessions, start looking for a dataset on a topic that interests you for the summative assessment. Browse the available variables and what the observations represent. If something looks promising, keep its source link so you can return to it.
+
+It is fine if you have not found or chosen a dataset yet. There is no dataset choice or dashboard plan to submit at this stage. We will return to dataset suitability and app ideas in later weeks; for now, use the supplied data to practise the Shiny patterns.
+
+## After class: reading for everyone
+
+Read Hadley Wickham's [Mastering Shiny, Chapter 1: Your first Shiny app](https://mastering-shiny.org/basic-app.html), **sections 1.1-1.5**, ending with *Adding behaviour*. Connect its example to today's app: identify the UI and server, the matching input and output names, and why an input change updates an output.
+
+No written submission or book exercises are required. Section 1.6 introduces shared reactive expressions and is optional preparation for next week.
+
+## After completing your app: compare with the reference
+
+You can now open and run `worked_example_app.R`, the completed reference for the group selector, bin-width slider, and explanatory text.
+
+- Compare its behaviour with your own app, testing both groups and several bin widths.
+- Trace each control from its UI name to its use in the server. Explain why the histogram updates.
+- If your app behaves differently, identify the relevant connection and explain the change needed before editing your code.
+- Compare the explanatory text. Does your own wording help someone understand the data, controls, and limits of interpretation?
+
+Keep your own version. Use the reference to check your reasoning and revisit the code after class.

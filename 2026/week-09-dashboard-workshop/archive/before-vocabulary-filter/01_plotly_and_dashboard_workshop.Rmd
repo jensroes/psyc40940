@@ -1,0 +1,125 @@
+---
+title: "Week 9: Turn data questions into a dashboard"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Where to work
+
+Unzip the whole Week 9 folder into your existing project. Keep data/ beside the app scripts. Knit this Rmd first, then read the HTML guide beside the named R script. Use Run App for complete scripts; finish their `---` blanks before running.
+
+First, we inspect the Plotly pattern together. Then you complete three connections and test them. Most of the session is for adapting an app to data and a question, not learning more Shiny functions.
+
+## Install Plotly once
+
+Run this chunk once if Plotly is not installed. eval = FALSE skips installation when knitting. The app scripts already load shiny, tidyverse and, where needed, plotly.
+
+```{r install-plotly, eval=FALSE}
+install.packages("plotly")
+```
+
+## Exercise 1: add hover and zoom
+
+**Your turn, about 10 minutes:** open `plotly_app.R`. The data, tabs, filters and validation are supplied from Session 8. Complete its **three blanks** using the slides:
+
+1. Replace the UI's `---`("rt_plot") with plotlyOutput("rt_plot").
+2. Replace the plot's render-function blank with renderPlotly.
+3. The ggplot is stored in p. Replace `---`(p) with ggplotly(p) to return its interactive version.
+
+Keep the matching output name rt_plot. Save and use Run App. Hover over bars and use Plotly's drag/zoom tools. Check that group/range filters still affect both tabs, and bin width affects only the histogram. Clear both groups, then restore them.
+
+The second plot still uses `plotOutput()`/`renderPlot()`. It responds to Shiny controls, so it is already interactive in the assessment's sense. Plotly is useful where hover or zoom helps a question; using it is not a requirement for every plot.
+
+## Plan two connected questions
+
+**Together:** start from a behavioural question, not from a list of widgets. Identify one row, useful variables and units, two complementary views, a control, and the insight a reader could explore.
+
+Choose one route:
+
+- **Your own data:** use a tidy data frame with a clear observation unit. First make two working ggplots outside Shiny. Use the supplied app structure as a pattern, adapting file paths, column names, group choices, plots and explanations.
+- **Provided-data practice:** use `starter_app.R` and `data/participant_behaviour.csv`. This adds response duration and vocabulary score to the familiar participant means. The data dictionary is in data/README.md. It is fine to use this route if you do not yet have your own data ready.
+
+For the portfolio, explain and justify your chosen dataset, including its original source, suitability and limitations.
+
+## Exercise 2: adapt the app to a question
+
+**Your turn:** spend the rest of the first block and most of the second building and testing your app. Follow one of the routes below. Do not add extra features until the two views work and answer a useful question.
+
+### Provided-data route: choose a question and complete the code
+
+`starter_app.R` contains **nine blanks**. Choose one of these sensible questions:
+
+| Question | Relationship plot x | Relationship plot y and group plot y |
+|---|---|---|
+| Do participants with longer response durations also start responding later? | mean_duration | mean_rt |
+| Is the supplied vocabulary score associated with response initiation time? | vocabulary_score | mean_rt |
+| Is the supplied vocabulary score associated with response duration? | vocabulary_score | mean_duration |
+
+These are exploratory associations. Consider each output group rather than assuming a pooled trend applies within groups.
+
+Complete the blanks:
+
+1. Replace the file-name blank with `participant_behaviour.csv`. Keep data/ and the quotation marks.
+2. In the first `aes()`, supply the x and y column names from your chosen question, without quotation marks.
+3. In the second `aes()`, supply the same y variable used in the relationship plot.
+4. Complete the three quoted axis-label blanks: two for the relationship plot and one for the group plot. Use meaningful words and units; the vocabulary score has no millisecond unit.
+5. In `p("---")`, explain the question and what one row represents.
+6. In `helpText("---")`, explain what selecting the output groups changes and how the two views help the question.
+
+Keep the existing shared filter and empty-selection check. Change the app title and tab names to describe your chosen question. These are useful design choices, not additional code blanks.
+
+The supplied scatterplot and boxplot/points are starting options. If a different geom better answers your question, change it and explain why. Keep two meaningful views rather than changing a geom just to add variety.
+
+### Own-data route: adapt the same structure
+
+Work on a copy of `starter_app.R`. First inspect your data outside Shiny:
+
+- What does each row represent?
+- Which columns are numeric, categorical or dates? Check missing values.
+- Which group values should appear as choices? Match the stored values, not just their readable labels.
+
+Replace the import path, data object/column names, filter choices and plotting code with ones that match your dataset. Keep a single shared reactive filter, two output/render pairs and an actionable empty-selection message. Use one or two well-named tabs; the assessment permits no more than three.
+
+If filtering is not the right interaction, discuss a purposeful alternative. Variable selection is one option, not a requirement. Choosing columns by name needs a different pattern from filtering values; do not assume `input$variable` can be used as an `aes()` column.
+
+Write your own data/question and control explanations. A dataset source, observation unit, units, selection and a limitation should be easy to find. Strong written commentary and reflection must be your own work.
+
+## Checkpoint before the break
+
+Run the app with one valid selection. Explain the question, the two views and the shared preparation. If it does not run, simplify to one plot, fix the relevant connection, then restore the second view.
+
+## Test the exploration
+
+Use a copy of these checks for your dataset:
+
+| Action | Check |
+|---|---|
+| Select each group | both views and the count update coherently |
+| Select no groups | a recovery message replaces the outputs |
+| Restore a valid selection | both views return |
+| Switch tabs | the selection stays the same |
+| Use hover/zoom if added | it helps inspect relevant values and does not replace clear labels |
+| Restart R and run the app | data and packages load without objects left in memory |
+
+For the provided extract, both groups show 72 participants, speech alone 33, writing alone 39.
+
+## Compare design decisions
+
+Show a neighbour the working app. Explain which question it supports, then compare whether the chosen views, tab order, controls and help text support that question.
+
+Can you identify a pattern that is easier to inspect because of an interaction? If not, reconsider the control or views. Record one change and its rationale for later reflection. These notes are your own words.
+
+## After class
+
+Aim to have a working own-data prototype before Session 10: one clear question, two reactive plots, purposeful controls and explanations. If your data are not ready, bring a candidate source and specific questions to support.
+
+For reference, read Mastering Shiny [section 7.1.6](https://mastering-shiny.org/action-graphics.html#interactivity-limitations), on the limits of plot interaction and the Plotly alternative. No additional package or feature is required merely to make the app appear more advanced.
+
+## After completing your app: compare with the examples
+
+`plotly_worked_app.R` completes Exercise 1. `worked_example_app.R` completes one provided-data question; a different sensible question can produce different code. Use them to compare behaviour and reasoning after your own attempt.
+
+Optional: `extension_app.R` converts both provided-data plots to Plotly. Decide whether hover/zoom improves each view, and keep a conventional reactive plot where it is clearer. Generated UI, observers and update buttons remain optional project-specific approaches.

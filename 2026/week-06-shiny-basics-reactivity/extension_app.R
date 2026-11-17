@@ -1,46 +1,36 @@
-# Optional extension: add a second filter
-# Try this only after the starter app works.
-
 library(shiny)
 library(tidyverse)
 
-# Load and reduce the data.
-d_spellname <- read_csv("data/spellname.csv", show_col_types = FALSE)
-d_spellname <- summarise(
-  d_spellname,
-  rt = mean(rt, na.rm = TRUE),
-  dur = mean(dur, na.rm = TRUE),
-  .by = c(ppt_id, name_familiarised, ppt_vocab, modality)
-)
+d_participants <- read_csv("data/participant_reaction_times.csv",
+                           show_col_types = FALSE)
 
 ui <- fluidPage(
-  titlePanel("Reaction times"),
-  selectInput("modality", "Modality", choices = sort(unique(d_spellname$modality))),
-  selectInput("familiarised", "Name familiarised", choices = sort(unique(d_spellname$name_familiarised))),
+  titlePanel("Reaction times by output group"),
+  p("Participant mean reaction times in a name-production task, in milliseconds."),
+  selectInput("modality", "Output group",
+              choices = c("Spoken output" = "speech",
+                          "Written output" = "writing")),
+  sliderInput("binwidth", "Bin width (ms)",
+              min = 25, max = 300, value = 100, step = 25),
+  textOutput("selection_note"),
   plotOutput("rt_plot"),
-  tableOutput("summary")
+  helpText("The selector changes participants; bin width changes how their values are grouped."),
+  helpText("Means are across familiarisation conditions. The groups contain different participants; this is not a causal comparison.")
 )
 
-server <- function(input, output, session) {
-  # Filter by both inputs.
-  filtered_data <- reactive({
-    filter(
-      d_spellname,
-      modality == input$modality,
-      name_familiarised == input$familiarised
-    )
+server <- function(input, output) {
+  output$selection_note <- renderText({
+    selected_data <- filter(d_participants, modality == input$modality)
+    paste("Participants shown:", nrow(selected_data),
+          "| Bin width:", input$binwidth, "ms")
   })
 
   output$rt_plot <- renderPlot({
-    ggplot(filtered_data(), aes(x = ppt_vocab, y = rt)) +
-      geom_point(alpha = 0.7) +
-      geom_smooth(method = "lm", se = FALSE) +
-      labs(x = "Participant vocabulary", y = "Mean reaction time") +
-      theme_minimal()
-  })
-
-  output$summary <- renderTable({
-    summarise(filtered_data(), mean_rt = round(mean(rt, na.rm = TRUE), 1), rows = n())
+    selected_data <- filter(d_participants, modality == input$modality)
+    ggplot(selected_data, aes(x = mean_rt)) +
+      geom_histogram(binwidth = input$binwidth) +
+      labs(x = "Participant mean reaction time (ms)",
+           y = "Number of participants")
   })
 }
 

@@ -1,0 +1,281 @@
+---
+title: "Summative assessment: preparing your submission"
+author: "Jens Roeser"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    self_contained: true
+    mathjax: null
+    css: submission-guide.css
+---
+
+This guide takes you from an assessment project folder to a tested ZIP for
+PSYC40940. Read it alongside the summative assessment brief and grading matrix
+in the current NOW learning room. Use the current brief and Dropbox to check
+the deadline and any year-specific instructions.
+
+## What you are preparing
+
+The final portfolio combines one RMarkdown report and a separate Shiny app,
+using one suitably rich behavioural dataset.
+
+| Component | What it needs to do |
+|---|---|
+| RMarkdown report | Generate four different static visualisation types, with clear presentation and commentary explaining the design choices |
+| Reflection in the same report | Discuss decisions, challenges, trade-offs and practical constraints in your own words |
+| Separate Shiny app | Provide at least two useful interactive plots and meaningful user inputs, with at most three tabs |
+| Reproducible project | Supply source, rendered report, data or an approved access route, and required supporting files |
+| AI declaration | Include the completed form supplied in the NOW Assessments section |
+
+Shiny plots that update when users change filters or selections meet the
+interactivity requirement. Plotly is an option, rather than a compulsory
+package. The report and app should each explain what their views help readers
+learn about the behavioural data.
+
+The current word limit is 2,000 across report text, figure commentary/captions,
+dashboard explanatory text and reflection. Code, references/bibliography, raw R
+output and data-file contents are excluded. Check the current brief before
+submission.
+
+## 1. Create or open your assessment project
+
+Keep the assessment in a self-contained project folder. If your formative
+assessment already has a suitable project, you may develop that project for the
+summative. Keep only the final report and app versions in the submission copy.
+
+To start a dedicated project in RStudio:
+
+1. Choose File > New Project > New Directory > New Project.
+2. Enter a neutral directory name such as `behavioural-portfolio`.
+3. Choose a location you can find again and click Create Project.
+4. Check that `behavioural-portfolio.Rproj` appears in the Files pane.
+5. Open this `.Rproj` file whenever you return to the assessment.
+
+If your assessment files already occupy a dedicated folder without a project
+file, use File > New Project > Existing Directory and select it. A class-work
+project containing all weekly materials needs a clean assessment copy before
+submission.
+
+The `.Rproj` file stores project settings. The Rmd, app, data and supporting
+files remain separate files inside the project folder. In Tools > Project
+Options > General, disable restoring a saved workspace and choose not to save
+the workspace on exit. Code must load and prepare the data it needs.
+
+## 2. Put data and supporting files inside the project
+
+1. Use New Folder in the Files pane to create `data`.
+2. Copy the actual data files used by the report and app into it.
+3. Record the source and document what one row and the relevant variables mean.
+4. Use relative paths that match the supplied folder and filenames exactly.
+
+For a CSV called `behaviour.csv`, a report saved in the main project folder
+could contain:
+
+```{r csv-import-example, eval=FALSE}
+library(tidyverse)
+my_data <- read_csv("data/behaviour.csv")
+```
+
+Use your actual filename. Match the import function to its format: an Excel
+`.xlsx` needs a function such as `readxl::read_excel()`. Changing a filename's
+extension does not convert its contents. Keep preparation steps explicit in
+code, including filtering, recoding and calculations used by the figures.
+
+Paths to your own Downloads or Desktop will not locate files on the marker's
+computer. Match folder-name case, including `data` versus `Data`. Include
+bibliography, citation-style, image and helper files if your report or app uses
+them.
+
+If data are too large to submit or cannot legally be redistributed, the brief
+permits a stable URL or DOI, clear access/download instructions, and import or
+preparation code where possible. Explain this in the report and include a short
+data-access README with the exact files and their expected locations. State any
+registration requirement and check access arrangements with the module leader
+in advance if needed.
+
+## 3. Create the report Rmd
+
+1. Choose File > New File > R Markdown and select HTML output.
+2. Use a meaningful title about the data or question and leave the author field
+   empty for anonymous submission.
+3. Save the file as `report.Rmd` in the main project folder, beside `.Rproj`.
+4. Replace the demonstration content with your own report, keeping one YAML
+   header at the top.
+
+You may develop your formative Rmd instead of starting again. Your submission
+must contain exactly one final report Rmd. Replace remaining template
+instructions, example questions and unrelated dataset descriptions.
+
+Use Markdown text for your narrative and reflection. Use the Insert menu above
+the Rmd editor to add R chunks for package loading, data import, preparation and
+figures. Use unique chunk names. Bring the final static-figure code into this
+report; the rendered figures should be generated when it is knitted.
+
+Include the dataset source and observation unit, the questions the plots
+address, interpretations, reasons for design choices and what those choices
+conceal. Give figures meaningful labels, units and captions and cite relevant
+sources. Put the static visualisations and reflection in this same document.
+
+At the end of the report, include an R chunk containing:
+
+```{r package-version-example, eval=FALSE}
+sessionInfo()
+```
+
+This records R and package versions. Keep its output in the rendered report;
+an equivalent package/version summary is also acceptable under the brief.
+
+## 4. Save the Shiny app separately
+
+Save your final dashboard as `app.R`. A simple arrangement puts it in the main
+project folder, beside `report.Rmd` and the `.Rproj` file. If you are developing
+one of the weekly app scripts, save your final adapted version under this name.
+Finish any `---` completion blanks before testing.
+
+The app needs its package-loading and data-import code as well as its UI,
+server and `shinyApp(ui, server)` call. It must not depend on data objects
+created by running the report first. For the simple folder arrangement shown
+below, both report and app can read `data/behaviour.csv`.
+
+Test the components using their own controls in RStudio:
+
+| Component | How to test it |
+|---|---|
+| `report.Rmd` | Save it and choose Knit to create the report |
+| `app.R` | Open the whole script and choose Run App |
+
+After editing the app, save it, stop the running app and use Run App again.
+Keep it running while testing its controls. The report should knit separately
+without launching the Shiny app.
+
+An existing working app folder is also accepted. Keep its structure, with
+`app/app.R` and its support files, and check the data paths from that folder.
+For example, `app/app.R` uses `../data/behaviour.csv` to reach a sibling `data/`
+folder, whereas a root-level `app.R` uses `data/behaviour.csv`. Choose one final
+app arrangement and test it as supplied.
+
+## 5. Render and inspect the report
+
+1. Save `report.Rmd` and click Knit.
+2. Check that `report.html` appears in the project folder.
+3. Open it and inspect all four static visualisation types, captions, labels,
+   references, reflection and package/version information.
+4. Fix the source where necessary, then knit again after your final edits.
+
+HTML is the expected report format. PDF is acceptable for a good reason under
+the brief; its Rmd source is still required. Submit the final output generated
+by the final Rmd.
+
+The report and app should each list and load their required packages. Install
+packages once before testing; package installation should not run every time
+the report is knitted or the app starts. Keep any required `report_files/` or
+other resource folders generated alongside the HTML.
+
+## 6. Complete the AI declaration from NOW
+
+1. Go to the Assessments section of the PSYC40940 NOW learning room.
+2. Download the supplied GenAI/AI usage declaration form.
+3. Complete it. In its explanation of AI use, describe how you used any tools
+   for permitted support such as code development or debugging. If you did not
+   use GenAI, state that.
+4. Save the completed form in the assessment folder in the format requested
+   on NOW. The example below uses `ai-declaration.pdf`.
+5. Include it in the final ZIP.
+
+Use the official form and follow its specific instructions, including any
+required identification fields. Your submitted commentary, interpretation,
+reflection, design rationale and explanations must be your own work. GenAI is
+not a reference source, and you need to understand and justify assisted code.
+
+## 7. Make a clean submission copy
+
+Keep your working project as a backup. Make a submission copy in a separate
+location, containing the final files only. For a root-level app, it could look
+like this:
+
+```text
+behavioural-portfolio/
+  behavioural-portfolio.Rproj
+  report.Rmd
+  report.html
+  app.R
+  ai-declaration.pdf
+  data/
+    behaviour.csv
+  references.bib       (if used)
+  apa.csl              (if used)
+```
+
+| Required item | Check in the submission copy |
+|---|---|
+| One final report Rmd | Contains static-figure code, commentary and reflection |
+| Its rendered HTML | Shows the final figures and text; PDF is an allowed exception |
+| `.Rproj` file | Opens this assessment project |
+| Separate final Shiny app | Either root-level `app.R` or the complete app folder |
+| Relevant data | Match the import paths; include the documented access alternative if applicable |
+| Required support files | Bibliography, style, images, helpers and HTML resource folders where used |
+| Completed AI declaration | The form downloaded from NOW, completed and saved |
+
+Remove class slides, exercise/session guides, unused app versions, extra Rmds,
+old report outputs and unrelated data from this copy. Exclude `.RData`,
+`.Rhistory` and the temporary `.Rproj.user/` directory. Keep helper scripts
+that your report or app actually calls.
+
+Check anonymity throughout the report, app, filenames, project name and
+submitted documentation. Keep your name and N number out unless specifically
+instructed otherwise; follow the declaration form's own requirements. Use
+relative paths so your code does not print or depend on personal file paths.
+
+## 8. Create the ZIP
+
+Save everything and close the project. In your computer's file manager,
+compress the whole submission copy of the `behavioural-portfolio` folder.
+
+| Computer | How to create the archive |
+|---|---|
+| Windows | Right-click the folder and choose ZIP compression. If needed, use Show more options > Send to > Compressed (zipped) folder. |
+| Mac | Control-click or right-click the folder and choose Compress. |
+
+The result is a file such as `behavioural-portfolio.zip`. Keep the directory
+structure inside it so the code can find its inputs.
+
+## 9. Test the extracted ZIP
+
+1. Extract the ZIP into a new location. On Windows, use Extract All; on Mac,
+   double-click the ZIP and use the extracted folder.
+2. Open the `.Rproj` in the extracted copy, outside the ZIP itself.
+3. Choose Session > Restart R.
+4. Knit the extracted `report.Rmd`, then inspect the new rendered output.
+5. Restart R again. Open the extracted `app.R` and use Run App without first
+   running the report. If using an app folder, open that folder's `app.R`.
+6. Test each input and every tab, the plots and counts, and any empty-selection
+   feedback. Restore a valid selection and check that outputs recover.
+7. Check that the completed AI declaration and all support files are present.
+
+This tests the files the marker will receive. If you find a problem, repair
+your working project, rebuild the submission copy and ZIP, and retest the new
+ZIP. Fixing only the extracted test copy will not repair the ZIP you upload.
+
+## 10. Check the brief and upload
+
+Before submission, confirm that:
+
+- the report includes four different useful static plot types and your design
+  commentary;
+- the same report includes your reflection and a package/version summary;
+- the separate app supports meaningful exploration with at least two
+  interactive plots, user inputs and at most three tabs;
+- both components work from the extracted project and explain the behavioural
+  data clearly;
+- the source, rendered report, project, app, inputs/support files and completed
+  AI declaration are inside one ZIP;
+- the word limit and anonymity instructions have been checked against the
+  current brief.
+
+Upload the tested ZIP to the summative Dropbox in NOW by the current deadline.
+Finish the submission process, check its confirmation and keep the receipt/email
+and exact ZIP. Plan time for this final test and upload rather than leaving
+packaging until the deadline.
+

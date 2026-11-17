@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
+  <title id="title">Dependencies before and after sharing a reactive filter</title>
+  <desc id="desc">Before: modality feeds the boundaries of three render blocks. Bin width feeds the boundary of the histogram render block. Each affected block reruns all its code, including its filter. The inner filter and output boxes are code steps within that block, not separate reactive nodes. After: modality feeds one shared reactive expression, selected_data(), which supplies all three outputs. Bin width affects only the histogram output, reusing the cached selected rows.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#53606a"/></marker>
+    <marker id="bin-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#237b80"/></marker>
+    <style>
+      text { font-family: Arial, sans-serif; fill: #28323a; font-size: 20px; text-anchor: middle; }
+      .heading { font-size: 24px; font-weight: bold; }
+      .code { font-family: monospace; font-size: 18px; }
+      .small { font-size: 18px; }
+      rect { rx: 9; stroke-width: 1.5; }
+      .input { fill: #eaf5f4; stroke: #6ca4a1; }
+      .output { fill: #f5f5f5; stroke: #9da5aa; }
+      .reactive { fill: #fff3d6; stroke: #bf9a47; }
+      .scope { fill: none; stroke: #b5bcc1; stroke-dasharray: 5 4; }
+      .edge { fill: none; stroke: #53606a; stroke-width: 2.5; marker-end: url(#arrow); }
+      .bin { fill: none; stroke: #237b80; stroke-width: 2.5; stroke-dasharray: 7 5; marker-end: url(#bin-arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="390" fill="white" stroke="none"/>
+  <text x="290" y="30" class="heading">Before: three separate filters</text>
+  <text x="900" y="30" class="heading">After: one shared filter</text>
+  <path d="M 600 50 V 370" stroke="#d7dadd" stroke-width="1.5"/>
+  <path class="edge" d="M 185 177 C 210 177 210 110 235 110"/>
+  <path class="edge" d="M 185 177 C 210 177 210 215 235 215"/>
+  <path class="edge" d="M 185 177 C 220 177 200 320 235 320"/>
+  <path class="edge" d="M 350 120 H 390"/>
+  <path class="edge" d="M 350 225 H 390"/>
+  <path class="edge" d="M 350 330 H 390"/>
+  <path class="bin" d="M 185 327 H 205 V 380 H 480 V 365"/>
+  <rect class="input" x="20" y="145" width="165" height="64"/>
+  <text class="code" x="102" y="183">input$modality</text>
+  <rect class="input" x="20" y="295" width="165" height="64"/>
+  <text class="code" x="102" y="333">input$binwidth</text>
+  <rect class="scope" x="235" y="65" width="350" height="90"/>
+  <text class="small" x="410" y="85">inside renderText()</text>
+  <rect class="reactive" x="250" y="95" width="100" height="50"/>
+  <text class="code" x="300" y="126">filter()</text>
+  <rect class="output" x="390" y="95" width="180" height="50"/>
+  <text x="480" y="116">Count</text>
+  <text class="code" x="480" y="138">nrow()</text>
+  <rect class="scope" x="235" y="170" width="350" height="90"/>
+  <text class="small" x="410" y="190">inside renderPlot()</text>
+  <rect class="reactive" x="250" y="200" width="100" height="50"/>
+  <text class="code" x="300" y="231">filter()</text>
+  <rect class="output" x="390" y="200" width="180" height="50"/>
+  <text class="small" x="480" y="222">Boxplot + points</text>
+  <text class="small" x="480" y="244">plot</text>
+  <rect class="scope" x="235" y="275" width="350" height="90"/>
+  <text class="small" x="410" y="295">inside renderPlot()</text>
+  <rect class="reactive" x="250" y="305" width="100" height="50"/>
+  <text class="code" x="300" y="336">filter()</text>
+  <rect class="output" x="390" y="305" width="180" height="50"/>
+  <text x="480" y="327">Histogram</text>
+  <text class="small" x="480" y="349">plot</text>
+  <path class="edge" d="M 785 162 H 810"/>
+  <path class="edge" d="M 990 162 C 1010 162 1010 100 1030 100"/>
+  <path class="edge" d="M 990 162 C 1010 162 1010 210 1030 210"/>
+  <path class="edge" d="M 990 162 C 1015 162 1005 300 1030 300"/>
+  <path class="bin" d="M 785 327 H 1030"/>
+  <rect class="input" x="620" y="130" width="165" height="64"/>
+  <text class="code" x="702" y="168">input$modality</text>
+  <rect class="input" x="620" y="295" width="165" height="64"/>
+  <text class="code" x="702" y="333">input$binwidth</text>
+  <rect class="reactive" x="810" y="120" width="180" height="84"/>
+  <text class="code" x="900" y="148">selected_data()</text>
+  <text class="small" x="900" y="173">reactive filter</text>
+  <text class="small" x="900" y="195">cached result</text>
+  <rect class="output" x="1030" y="65" width="155" height="70"/>
+  <text x="1107" y="95">Count</text>
+  <text class="small" x="1107" y="120">nrow()</text>
+  <rect class="output" x="1030" y="175" width="155" height="70"/>
+  <text class="small" x="1107" y="205">Boxplot + points</text>
+  <text class="small" x="1107" y="230">plot</text>
+  <rect class="output" x="1030" y="285" width="155" height="70"/>
+  <text x="1107" y="315">Histogram</text>
+  <text class="small" x="1107" y="340">plot</text>
+</svg>

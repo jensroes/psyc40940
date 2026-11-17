@@ -87,3 +87,14 @@ _site/
 # Python publication helpers
 __pycache__/
 *.pyc
+
+# Local move records can include student filenames; retain privately.
+2026/admin/moved-files.csv
+
+# Retired publication records and disposable plot-rendering output.
+**/rpubs-records-*/
+**/figure/
+**/Rplots.pdf
+
+# Extracted 132 MiB SAS file: recreate from the retained FDA source ZIP.
+2026/datasets/nyts-2025/raw/2025 NYTS Codebook/nyts2025_puf.sas7bdat

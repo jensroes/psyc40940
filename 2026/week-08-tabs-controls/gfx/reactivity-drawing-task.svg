@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="340" viewBox="0 0 1000 340" role="img" aria-labelledby="title desc">
+  <title id="title">Complete the app's reactivity graph</title>
+  <desc id="desc">Seven empty boxes with no arrows: three input boxes on the left, one shared reactive expression in the centre, and three output boxes on the right. Add names and dependency arrows using controls_app.R, and mark the checks inside the shared expression.</desc>
+  <style>
+    text {font-family:Arial,sans-serif;font-size:21px;text-anchor:middle;fill:#28323a}
+    rect {rx:9;stroke-width:1.5}
+    .input {fill:#eaf5f4;stroke:#6ca4a1}
+    .reactive {fill:#fff3d6;stroke:#bf9a47}
+    .output {fill:#f5f5f5;stroke:#9da5aa}
+  </style>
+  <rect width="1000" height="340" fill="white" stroke="none"/>
+  <text x="115" y="26">Inputs</text>
+  <text x="455" y="26">Shared reactive expression</text>
+  <text x="872" y="26">Outputs</text>
+  <rect class="input" x="15" y="45" width="200" height="64"/>
+  <rect class="input" x="15" y="155" width="200" height="64"/>
+  <rect class="input" x="15" y="260" width="200" height="64"/>
+  <rect class="reactive" x="275" y="45" width="360" height="222"/>
+  <rect class="output" x="760" y="45" width="225" height="60"/>
+  <rect class="output" x="760" y="150" width="225" height="60"/>
+  <rect class="output" x="760" y="255" width="225" height="60"/>
+</svg>

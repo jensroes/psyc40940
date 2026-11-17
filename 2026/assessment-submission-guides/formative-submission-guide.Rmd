@@ -1,0 +1,228 @@
+---
+title: "Formative assessment: preparing your submission"
+author: "Jens Roeser"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    self_contained: true
+    mathjax: null
+    css: submission-guide.css
+---
+
+This guide takes you from an assessment project folder to a tested ZIP for
+PSYC40940. Read it alongside the formative assessment brief in the current NOW
+learning room. Check that brief and the Dropbox for the deadline and any
+year-specific instructions.
+
+## What you are preparing
+
+Prepare one RMarkdown report containing 3–4 visualisations using different
+techniques. Explain what each shows, why you chose it, how its design relates
+to effective visualisation principles, and what it may conceal. The current
+formative limit is 1,000 words. The dashboard belongs to the summative assessment
+only.
+
+The report combines your own written explanation with R chunks that load the
+data and generate the figures. Knitting it produces the HTML or PDF that the
+reader sees. Keep both the editable source and its rendered output.
+
+| Item to include | Example | Purpose |
+|---|---|---|
+| Exactly one RMarkdown report | `report.Rmd` | Contains your commentary and the code that generates your report |
+| The rendered report | `report.html` or `report.pdf` | Lets the marker read the completed report and figures |
+| RStudio project file | `formative-portfolio.Rproj` | Opens the project with its files together |
+| Data used by the report | `data/behaviour.csv` | Allows the code to recreate the figures |
+| Required supporting files | `references.bib`, `apa.csl`, or images used by the report | Supply these if your Rmd uses them |
+| Completed GenAI declaration | `ai-declaration.pdf`, or the format specified on NOW | Records your use of GenAI; use the form supplied on NOW |
+
+The filenames here are examples. Keep your own clear, neutral filenames and
+make sure every path in your code matches them, including capital letters.
+Follow the module's anonymity instructions when naming files and writing the
+report.
+
+## 1. Create or open your assessment project
+
+Use a self-contained project for the assessment. The weekly module project is
+useful for class work, but your submission should contain the files for your
+own assessment rather than all the teaching materials.
+
+To start a dedicated project in RStudio:
+
+1. Choose File > New Project > New Directory > New Project.
+2. Enter a neutral directory name such as `formative-portfolio`.
+3. Choose a location you can find again and click Create Project.
+4. Check the Files pane: it should contain `formative-portfolio.Rproj`.
+5. Reopen this project in future by opening its `.Rproj` file.
+
+If you already have a self-contained assessment project, use it. If your
+assessment files are already together in a folder without a project file, use
+File > New Project > Existing Directory and select that folder.
+
+The `.Rproj` file records project settings; your report, code and data remain
+separate files in the project folder. In Tools > Project Options > General,
+disable restoring a saved workspace and choose not to save the workspace on
+exit. Your report should recreate the objects it needs from its own code.
+
+## 2. Put your data inside the project
+
+1. In the project's Files pane, choose New Folder and create `data`.
+2. Copy the actual data file into that folder using your computer's file manager.
+3. Keep a record of the dataset's source and what one row represents.
+4. Load that file from the Rmd using a relative path.
+
+For a CSV called `behaviour.csv`, the import code in your report could be:
+
+```{r csv-import-example, eval=FALSE}
+library(tidyverse)
+my_data <- read_csv("data/behaviour.csv")
+```
+
+Use your actual filename. If the file is Excel, use an appropriate import
+function such as `readxl::read_excel()` for `.xlsx`. Renaming a file's extension
+does not convert its contents. Keep data preparation in the report so the marker
+can see how the plotted data were obtained.
+
+Use project-relative paths such as `data/behaviour.csv`. A path to your Downloads
+folder or Desktop will not identify the data on another computer. Match `data`
+and `Data` exactly; they can be different folders on another system.
+
+If your dataset cannot be included because of access or redistribution
+restrictions, agree an arrangement with the module leader before submission.
+Include the source URL or DOI, exact filename, access/download steps and where
+to place the file. Explain the arrangement in your report. Keep the import and
+preparation code reproducible once the authorised file is available.
+
+## 3. Create your RMarkdown report
+
+1. Choose File > New File > R Markdown.
+2. Choose an HTML document and give it a title about your data or question.
+3. Leave the author field empty, following the anonymity instructions.
+4. Save it as `report.Rmd` in the main project folder, beside the `.Rproj` file.
+5. Replace the demonstration text and example chunks with your own report.
+
+You may adapt a supplied formative template instead. Keep only your final
+report Rmd in the submission, replacing its prompts, example dataset
+descriptions and unrelated citations with your own work. Keep one YAML header
+at the top of the file.
+
+Write explanation and interpretation in the Markdown text. Use the Insert menu
+above the Rmd editor to add R chunks for package loading, data import,
+preparation and plots. Give chunks different names. Move the final code from
+any exploratory R script into these chunks; running code in the Console alone
+does not put it into the submitted report.
+
+For each figure, tell the reader:
+
+- the behavioural question it addresses;
+- what its axes, groups and summaries represent;
+- what pattern the visual evidence supports;
+- why this view helps, compared with a plausible alternative;
+- what information it hides or makes difficult to judge.
+
+## 4. Knit and check the rendered report
+
+1. Save `report.Rmd`.
+2. Click Knit to generate `report.html` in the same folder.
+3. Open the generated report and inspect every figure and its commentary.
+4. Check labels, units, captions, figure references and the reference list.
+5. Fix any error in the Rmd and knit again after your final edits.
+
+The formative accepts HTML or PDF. If you submit PDF, include its Rmd source
+and check the PDF itself. Your rendered file must correspond to your final
+source, rather than an older successful render.
+
+Load packages explicitly with `library()` in the report. Install any missing
+packages before knitting, rather than making package installation part of each
+render. Include any bibliography, citation-style or image files that your Rmd
+uses. If rendering creates a required `report_files/` folder, keep it with the
+HTML.
+
+## 5. Complete the AI declaration from NOW
+
+1. Open the Assessments section of the PSYC40940 NOW learning room.
+2. Download the GenAI/AI usage declaration form provided there.
+3. Complete it, explaining any permitted use of AI for code or troubleshooting.
+   If you did not use GenAI, state that on the form.
+4. Save the completed form in your assessment folder in the format requested
+   on NOW. The example below calls it `ai-declaration.pdf`.
+5. Include the completed form in your submission ZIP.
+
+Use the supplied form and follow its specific completion instructions,
+including any required identification fields. Your report commentary and
+interpretation must be your own work, and GenAI is not a reference source.
+
+## 6. Prepare the files to ZIP
+
+Make a submission copy of your assessment folder in a separate location,
+keeping your working project as a backup. Check the copy against this example:
+
+```text
+formative-portfolio/
+  formative-portfolio.Rproj
+  report.Rmd
+  report.html
+  ai-declaration.pdf
+  data/
+    behaviour.csv
+  references.bib       (if used)
+  apa.csl              (if used)
+```
+
+Include any other files your report genuinely needs, such as images or the
+agreed data-access instructions. The example shows an HTML report; a PDF can
+take its place. A file marked “if used” is needed only when your report uses it.
+
+In the submission copy, remove unused exercise sheets, session guides, slides,
+old report versions, unrelated data and exploratory scripts whose final code
+has been incorporated into the Rmd. Exclude saved workspace/history files
+such as `.RData` and `.Rhistory` and the temporary `.Rproj.user/` folder.
+Keep exactly one final report Rmd and the `.Rproj` file.
+
+## 7. Create the ZIP
+
+Save your files, then close the assessment project. Use your computer's file
+manager to locate the submission copy of the whole `formative-portfolio` folder.
+
+| Computer | How to create the archive |
+|---|---|
+| Windows | Right-click the folder and choose its ZIP compression option. If needed, use Show more options > Send to > Compressed (zipped) folder. |
+| Mac | Control-click or right-click the folder and choose Compress. |
+
+This creates a file such as `formative-portfolio.zip`. Compressing the whole
+folder keeps the data subfolder and file paths together. The ZIP should contain
+your project folder and all its required files.
+
+## 8. Test the extracted ZIP
+
+Test the actual ZIP you intend to submit:
+
+1. Extract it into a new location. On Windows, use Extract All; on Mac,
+   double-click the ZIP and use the extracted folder.
+2. Open the `.Rproj` inside that extracted copy. Work outside the ZIP itself.
+3. Choose Session > Restart R so you begin without objects from earlier work.
+4. Open the extracted `report.Rmd` and click Knit.
+5. Open the newly generated report and check the figures and references.
+6. Check that the extracted copy also contains the completed AI declaration.
+
+If a file is missing or knitting fails, fix your working project and rebuild
+the submission copy and ZIP. Test the new ZIP again. Repairing only the test
+copy would leave the original ZIP unchanged.
+
+## 9. Upload and keep the confirmation
+
+Check these points before uploading:
+
+- One final Rmd generates the report, including its plots and commentary.
+- The rendered HTML or PDF matches that Rmd.
+- The project, data or agreed access instructions, and required support files
+  are present.
+- The completed AI declaration from NOW is inside the ZIP.
+- The report addresses the formative brief and stays within its word limit.
+- The extracted copy has been tested, and filenames/content follow anonymity
+  instructions.
+
+Upload the tested ZIP to the formative Dropbox in NOW by the deadline in the
+current brief. Complete the submission process, check the confirmation and keep
+the receipt/email and a copy of the exact ZIP you submitted.

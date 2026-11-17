@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="350" viewBox="0 0 1000 350" role="img" aria-labelledby="title desc">
+<title id="title">The familiar shared filter supplies three outputs</title>
+<desc id="desc">input$modality feed selected_data(), which supplies the count, boxplot and histogram. Bin width feeds only the histogram. Dashed outlines locate the plots in tabs; the count remains outside.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#53606a"/></marker>
+<marker id="bin-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#237b80"/></marker>
+<style>text{font-family:Arial,sans-serif;font-size:21px;text-anchor:middle;fill:#28323a}.code{font-family:monospace;font-size:20px}.label{font-size:18px}rect{rx:9;stroke-width:1.5}.input{fill:#eaf5f4;stroke:#6ca4a1}.reactive{fill:#fff3d6;stroke:#bf9a47}.output{fill:#f5f5f5;stroke:#9da5aa}.scope{fill:none;stroke:#b5bcc1;stroke-dasharray:5 4}.edge{fill:none;stroke:#53606a;stroke-width:2.5;marker-end:url(#arrow)}.bin{fill:none;stroke:#237b80;stroke-width:2.5;stroke-dasharray:7 5;marker-end:url(#bin-arrow)}</style></defs>
+<rect width="1000" height="350" fill="white" stroke="none"/>
+<rect class="scope" x="690" y="115" width="295" height="95"/>
+<text class="label" x="837" y="135">Individual values tab</text>
+<rect class="scope" x="690" y="230" width="295" height="95"/>
+<text class="label" x="837" y="250">Distribution tab</text>
+<path class="edge" d="M215 137 C270 137 270 120 325 120"/>
+
+<path class="edge" d="M555 135 C625 135 635 60 715 60"/>
+<path class="edge" d="M555 135 C625 135 635 170 715 170"/>
+<path class="edge" d="M555 135 C630 135 635 265 715 265"/>
+<path class="bin" d="M215 292 H715"/>
+<rect class="input" x="15" y="105" width="200" height="64"/>
+<text class="code" x="115" y="144">input$modality</text>
+<rect class="input" x="15" y="260" width="200" height="64"/>
+<text class="code" x="115" y="299">input$binwidth</text>
+<rect class="reactive" x="325" y="95" width="230" height="85"/>
+<text class="code" x="440" y="128">selected_data()</text>
+<text class="label" x="440" y="155">shared filter</text>
+<rect class="output" x="715" y="30" width="245" height="60"/>
+<text x="837" y="67">Participant count</text>
+<rect class="output" x="715" y="145" width="245" height="50"/>
+<text x="837" y="176">Boxplot + points</text>
+<rect class="output" x="715" y="260" width="245" height="50"/>
+<text x="837" y="291">Histogram</text>
+</svg>

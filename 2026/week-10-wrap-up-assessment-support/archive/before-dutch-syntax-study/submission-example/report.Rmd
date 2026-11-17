@@ -1,0 +1,92 @@
+---
+title: "Practice portfolio: participant response times"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    fig_caption: true
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = NA,
+                      warning = FALSE, message = FALSE,
+                      fig.width = 6, fig.height = 4)
+library(tidyverse)
+```
+
+# Purpose and data
+
+This is a **reproducibility practice example**, not a model assessment answer. The code is complete so the report can be rendered from an extracted project. Replace the questions, data, figures and commentary when developing your own portfolio.
+
+The module-provided name-production extract has one row per participant: participant means are across familiarisation conditions. Time measures are milliseconds. The output groups contain different participants. Consult the data dictionary and original study materials before interpreting the supplied vocabulary score. In your own portfolio, cite the original dataset, describe its access and preparation, and explain its suitability.
+
+Write your own question and data description here: `---`
+
+```{r load-data}
+d <- read_csv("data/participant_behaviour.csv", show_col_types = FALSE)
+```
+
+# Distribution of reaction times
+
+Figure \@ref(fig:rt-distribution) describes the distribution of participant means.
+
+```{r rt-distribution, echo=TRUE, fig.cap="Distribution of participant mean reaction times across both output groups."}
+ggplot(d, aes(x = mean_rt)) +
+  geom_histogram(binwidth = 100) +
+  labs(x = "Participant mean reaction time (ms)", y = "Participants")
+```
+
+Your interpretation, design rationale and limitation: `---`
+
+# Reaction times by output group
+
+```{r rt-groups, echo=TRUE, fig.cap="Participant mean reaction times by output group. The groups contain different participants."}
+ggplot(d, aes(x = modality, y = mean_rt)) +
+  geom_boxplot() +
+  labs(x = "Output group", y = "Participant mean reaction time (ms)")
+```
+
+Your interpretation, design rationale and limitation: `---`
+
+# Response duration and initiation time
+
+```{r timing-relationship, echo=TRUE, fig.cap="Association between participant mean response duration and reaction time, separated by output group."}
+ggplot(d, aes(x = mean_duration, y = mean_rt, colour = modality)) +
+  geom_point() +
+  labs(x = "Participant mean response duration (ms)",
+       y = "Participant mean reaction time (ms)", colour = "Output group")
+```
+
+Your interpretation, design rationale and limitation: `---`
+
+# Participants represented in each group
+
+```{r group-counts, echo=TRUE, fig.cap="Number of participants represented in each output group."}
+ggplot(d, aes(x = modality)) +
+  geom_bar() +
+  labs(x = "Output group", y = "Participants")
+```
+
+This fourth plot demonstrates another plot type; it is not a recommendation to use group counts as one of your four assessment figures. Choose four types that contribute to your own behavioural questions.
+
+Your interpretation, design rationale and limitation: `---`
+
+# Dashboard
+
+The separate app in `app/app.R` uses shared data preparation and two plots organised into tabs, following Shiny patterns described by @Wickham2021MasteringShiny. Open `app/app.R` in RStudio and choose Run App. Stop it before continuing to render the report.
+
+Explain what users can explore, why the controls and tabs are useful, and one practical limitation: `---`
+
+# Reflection
+
+Write in your own words about a specific design decision, a challenge, a constraint or compromise, and a possible improvement. Link the discussion to visualisation principles rather than simply listing functions: `---`
+
+# Reproducibility information
+
+Required report packages are listed in the setup chunk; the app lists its own packages at the top of `app/app.R`. The data import uses a relative path. Package versions are recorded below.
+
+```{r package-versions, echo=TRUE}
+sessionInfo()
+```
+
+# References

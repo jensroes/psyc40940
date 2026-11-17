@@ -15,7 +15,8 @@ class PublicationTests(unittest.TestCase):
         for path in ('2026/formative-assessment/report.html', 'answers/app.R',
                      'student-feedback/report.pdf', 'submissions/report.zip',
                      '../private.txt', '/private.txt', 'folder\\..\\private.txt',
-                     'classlist.csv', '.env.production', 'student suggestions messages.md'):
+                     'classlist.csv', '.env.production', 'student suggestions messages.md',
+                     '2026/admin/moved-files.csv', 'archive/rpubs-records-old/Document.dcf'):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 check_path(path)
 

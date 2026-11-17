@@ -1,52 +1,36 @@
 # Week 6: Shiny basics and reactivity
 
-This week begins the Shiny block of the module. We will introduce what a dashboard is, how a minimal Shiny app is structured, and how the user interface and server work together.
+This week we begin building interactive dashboards in R using Shiny. We will briefly explore real dashboards, then run a minimal app and trace how its user interface connects to its server. We will explain the server as a function Shiny calls and introduce `$` using a small data frame.
 
-The practical work focuses on simple reactive apps: adding inputs, displaying outputs, and using reactivity to update plots or summaries when the user changes a control.
+Together, let's examine working examples before completing and testing small code changes. We will build a reaction-time histogram with a group selector, a bin-width slider, and text explaining the data and controls. You do not need to type along with live coding.
 
-By the end of Week 6, you should be able to:
+By the end of the session, you should be able to:
 
-- describe the basic structure of a Shiny app,
 - identify the roles of the UI and server,
-- create simple inputs and outputs,
-- explain the basic idea of reactivity,
-- use a starter app and modify it in small, testable steps.
+- connect input controls to outputs using matching names,
+- explain why changing a control updates an output,
+- modify a supplied app and explain what it shows.
 
-## Before the practical work: RStudio Project and weekly files
+## Before the session
 
-All practical files should be stored inside your module RStudio Project folder. Do not work inside the zip file.
+1. Download `psyc40940-week-06-shiny-basics-reactivity.zip` and unzip the whole folder into your existing module RStudio project. Keep the scripts and `data` folder together; do not move individual CSV files or work inside the ZIP.
+2. Open `01_read_and_modify_a_shiny_app.Rmd` and click **Knit**. Read the resulting HTML guide beside your code. Its contents menu links to the sections named on the slides. The original guide knits before any blanks are completed.
+3. Make sure Shiny is installed before class. If needed, run the guide's installation chunk once.
 
-If you have not created an RStudio Project for this module yet:
+## Practical files
 
-1. Open RStudio.
-2. Go to **File > New Project...**.
-3. Choose **New Directory**.
-4. Choose **New Project**.
-5. Give the project a clear name, for example `psyc40940-visdata`.
-6. Choose a sensible location on your computer.
-7. Click **Create Project**.
+- `01_read_and_modify_a_shiny_app.Rmd`: instructions, a short `$` exercise, checks, and an optional dynamic-summary task.
+- `minimal_app.R`: complete introductory app to inspect together.
+- `starter_app.R`: Part 1, connecting a group selector to a histogram.
+- `slider_app.R`: Part 2, adding a bin-width control and explanatory text.
+- `extension_app.R`: optional dynamic-summary extension for spare time or independent practice.
 
-Then download the Week 6 zip folder from this week's section in the NOW Learning Room, unzip it, and move the contents into your module RStudio Project folder. Keep the `.Rmd` files or app files together with any `data` folder and supporting files.
+Edit and run the small `$` exercise in the Rmd. Make Shiny changes in the named R scripts, replacing the `---` blanks, and use **Run App**. The HTML guide is for reading, not editing. After code changes, save, stop the app, and run it again; keep it running while testing controls.
 
-## Week 6 files
+## After the session
 
-`week-06-shiny-basics-reactivity`  
-Slides for the week.
+**Reading for everyone:** Hadley Wickham's [Mastering Shiny, Chapter 1](https://mastering-shiny.org/basic-app.html), sections **1.1-1.5**, ending with *Adding behaviour*. Focus on the UI/server connection and automatic updates. No written response or book exercises are required.
 
-`psyc40940-week-06-shiny-basics-reactivity.zip`  
-Student practical materials for the week.
+Keep your working app and start exploring possible datasets for the summative assessment. It is fine not to have found or chosen one yet.
 
-`starter_app.R`  
-The app file to begin the individual practical.
-
-`worked_example_app.R`  
-A completed or worked version for comparison and reference.
-
-`extension_app.R`  
-Optional extension version for additional practice.
-
-`data/`  
-Data files needed by the app files.
-
-`references.bib` and `apa.csl`  
-Bibliography and citation style files used by the weekly materials where needed.
+After completing and testing your own app, use `worked_example_app.R` to compare behaviour and check your understanding. The final section of the guide explains how to use this completed reference.

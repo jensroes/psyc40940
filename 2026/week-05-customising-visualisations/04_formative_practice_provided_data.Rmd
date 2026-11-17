@@ -1,0 +1,175 @@
+---
+title: "Formative assessment practice: provided data"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6,
+                      fig.height = 4)
+```
+
+# Aim
+
+This template helps you practise the structure of the formative assessment using the provided Blomkvist dataset. The dataset comes from a study of reaction time and ageing using the Nintendo Wii Balance Board [@blomkvist2017reference].
+
+Your aim is to create 3-4 visualisations, explain what each one shows, and comment on how clearly each figure communicates the data.
+
+Before you knit the document, change the YAML `title` at the top of this file so it describes your dataset or question. For example, use a title like "Reaction time and ageing in the Blomkvist dataset" rather than "Formative assessment practice". Also rename the visualisation section headings so they describe the comparison, for example "Distribution of dominant-hand reaction time" rather than "Visualisation 1".
+
+This document also reminds you how to use citations, figure captions, and figure cross-references in RMarkdown. The code is hidden by default in the knitted HTML file, but the plotting chunks use `echo = TRUE` because seeing the plotting code is useful while you are learning.
+
+# Load packages and data
+
+```{r packages}
+library(tidyverse)
+```
+
+```{r load-data}
+blomkvist <- read_csv("data/blomkvist.csv")
+blomkvist <- drop_na(blomkvist, smoker, rt_hand_d, rt_hand_nd, age)
+```
+
+```{r inspect-data}
+glimpse(blomkvist)
+```
+
+# Citation and figure-reference example
+
+Use citation keys from `references.bib` inside square brackets, for example `[@blomkvist2017reference]`. When you knit the document, RMarkdown turns the citation into an in-text citation and adds the source to the reference list.
+
+Use the figure chunk label to cross-reference a figure. For example, the chunk labelled `distribution-plot` can be referenced in the text as `Figure \@ref(fig:distribution-plot)`.
+
+# Dataset overview
+
+Briefly describe the dataset in your own words.
+
+- What does one row represent?
+- Which behavioural outcomes are available?
+- Which grouping or explanatory variables might be useful?
+
+Write your notes here: ___
+
+# Visualisation 1: distribution
+
+Figure \@ref(fig:distribution-plot) shows the distribution of one behavioural variable.
+
+```{r distribution-plot, echo=TRUE, fig.cap="Distribution of dominant-hand reaction times in the Blomkvist dataset."}
+ggplot(data = blomkvist,
+       mapping = aes(x = rt_hand_d)) +
+  geom_histogram(binwidth = 100,
+                 fill = "grey70",
+                 colour = "white") +
+  labs(x = "Dominant-hand reaction time (ms)",
+       y = "Number of participants") +
+  theme_minimal()
+```
+
+What does this visualisation show?  
+Write 2-3 sentences here: ___
+
+Which visualisation principle does it follow, and what might it hide?  
+Write 1-2 sentences here: ___
+
+# Visualisation 2: relationship
+
+Figure \@ref(fig:relationship-plot) shows the relationship between age and dominant-hand reaction time.
+
+```{r relationship-plot, echo=TRUE, fig.cap="Relationship between age and dominant-hand reaction time."}
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Age (years)",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+What does this visualisation show?  
+Write 2-3 sentences here: ___
+
+Why is this plot type appropriate?  
+Write 1-2 sentences here: ___
+
+# Visualisation 3: group comparison
+
+Figure \@ref(fig:group-comparison-plot) compares a behavioural outcome across groups while keeping individual observations visible.
+
+```{r group-comparison-plot, echo=TRUE, fig.cap="Dominant-hand reaction time by smoking status, with individual observations and boxplots."}
+ggplot(data = blomkvist,
+       mapping = aes(x = smoker, y = rt_hand_d)) +
+  geom_jitter(width = 0.15,
+              alpha = 0.35,
+              size = 1.8) +
+  geom_boxplot(width = 0.3,
+               outlier.shape = NA,
+               alpha = 0.35) +
+  labs(x = "Smoking status",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+What does this visualisation show?  
+Write 2-3 sentences here: ___
+
+How does this plot show both individual data and summary structure?  
+Write 1-2 sentences here: ___
+
+# Optional visualisation 4
+
+Add one more plot if it helps you tell a clearer story about the data.
+
+Add your fourth plot in the chunk below if useful.
+
+```{r optional-plot, echo=TRUE, fig.cap="Optional fourth visualisation."}
+```
+
+If you add a fourth plot, refer to it in the text using its figure number and caption.
+
+# Short reflection
+
+Across the figures, explain:
+
+- which figure is most informative and why,
+- which design choice most improves clarity,
+- what limitation remains in your visualisations.
+
+Write your reflection here: ___
+
+# Render checklist
+
+Before you finish, check that:
+
+- the document knits to HTML,
+- the citation appears in the text,
+- the reference list appears at the end,
+- figure numbers and captions appear,
+- figure references such as Figure \@ref(fig:distribution-plot) work.
+
+# Submission checklist
+
+Submit one ZIP archive containing:
+
+- your R Markdown file (`.Rmd`),
+- the rendered HTML report (`.html`),
+- the RStudio project file (`.Rproj`),
+- the data files used by your code, keeping the `data/` folder if your code uses it,
+- supporting files used by the report, including `references.bib`, `apa.csl`, and any images or helper scripts,
+- the GenAI Usage Declaration Form.
+
+Keep the submission anonymous: do not add your name to the report or files. If we have agreed a data-licence exception, include the source link and exact download instructions instead of the restricted data file, including the filename and where it belongs in the project.
+
+Before submitting, unzip the archive into a new folder, open the project, restart R, and knit the report. The code should load its own packages and data and use relative paths (e.g., `data/blomkvist.csv`), not paths to your computer. It should not depend on objects left in your R environment. If additional packages are needed, list them in a short README alongside any setup or download instructions.
+
+# References

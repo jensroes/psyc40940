@@ -1,0 +1,177 @@
+---
+title: 'Exercise 1: Labels that explain the comparison'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, comment=NA, message=FALSE,
+                      warning=FALSE, fig.width=7, fig.height=4.5)
+```
+
+Complete Tasks 1-3 in class (about 12 minutes). Keep one labelled figure and explain one choice. The sections marked optional provide further practice; you are welcome to continue through the rest of the document.
+
+If patchwork is not installed, run the installation chunk below once. You do not need to reinstall it for each exercise or R session. `eval = FALSE` means this chunk is skipped when knitting the document; you can still run it interactively.
+
+```{r install-patchwork, eval=FALSE}
+install.packages("patchwork")
+```
+
+Run the library chunk each time you start a new R session, then load the data.
+
+```{r libraries}
+library(tidyverse)
+library(patchwork)
+```
+
+```{r load-data}
+d_blomkvist <- read_csv("data/blomkvist.csv")
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d, rt_hand_nd)
+```
+
+Our question is how reaction times for the two hands compare. Each row is one participant; both reaction-time columns are numeric. Run the chunk to store the plot, then display it in the following section.
+
+```{r base-plot}
+# <- stores the plot in an object (a variable) called plot_rt.
+plot_rt <- ggplot(d_blomkvist,
+                  aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point(alpha = .6)
+```
+
+## First: What needs explaining?
+
+Before changing anything, display the original plot and look at it as someone who has not seen the dataset.
+
+```{r inspect-original}
+plot_rt
+```
+
+What do the axis labels tell you, and what information is missing? Does the legend title explain the colours? Are the group labels clear without knowing the data codes? Identify one axis-text problem and one legend-text problem, and discuss what you would change and why before completing Tasks 1-3.
+
+We can reuse the stored plot: `plot_rt + labs(...)` adds labels without rebuilding it. This does not change `plot_rt` unless we assign the result back to that name. In the next chunk, we store the labelled version separately as `plot_labelled`.
+
+## Task 1: Choose axis labels
+
+Both variables are reaction times in milliseconds (ms). Replace `---` inside the quotes with meaningful labels, including units. Run the chunk to compare the original and labelled plots side by side using patchwork's `|` operator.
+
+```{r axis-labels, fig.width=11}
+plot_labelled <- plot_rt +
+  labs(x = "---",
+       y = "---")
+# patchwork: | places two ggplots next to each other.
+plot_rt | plot_labelled
+```
+
+Can a reader identify the hand and the units from your labels?
+
+Write your choice and reason here: ___
+
+## Task 2: Make the legend understandable
+
+Replace `---` with a title explaining the variable mapped to colour, then run the comparison.
+
+```{r legend-title, fig.width=11}
+plot_legend_title <- plot_labelled + labs(colour = "---")
+plot_labelled | plot_legend_title
+```
+
+`labs(colour = ...)` changes the legend title, not the group names. To change those names without changing the data, use a scale. `breaks` identifies the original values; `labels` supplies their display names in the same order. Here, `former`, `no`, and `yes` mean former, never, and current smokers.
+
+Replace each `---` with a clear group label in the matching position, then compare the legends.
+
+```{r legend-labels, fig.width=11}
+plot_legend_labels <- plot_legend_title +
+  scale_colour_discrete(
+    breaks = c("former", "no", "yes"),
+    labels = c("---", "---", "---"))
+plot_legend_title | plot_legend_labels
+```
+
+What does the legend title explain, and what do the group labels explain?
+
+Write your choice and reason here: ___
+
+## Task 3: Label other and combined aesthetics
+
+A legend title uses the name of the mapped aesthetic, not the geom. Complete the axis and shape-legend titles below, then run the plot.
+
+```{r shape-title}
+plot_shape <- ggplot(d_blomkvist,
+                     aes(x = rt_hand_d, y = rt_hand_nd, shape = smoker)) +
+  geom_point(alpha = .6) +
+  labs(x = "---", y = "---", shape = "---")
+plot_shape
+```
+
+The next chunk adds shape to the colour plot, mapping both aesthetics to the same variable. Complete the shape title and labels to match the colour legend above. Matching guides can merge into one legend showing both colour and shape.
+
+```{r combined-legend, fig.width=11}
+my_labelled_figure <- plot_legend_labels +
+  aes(shape = smoker) +
+  labs(shape = "---") +
+  scale_shape_discrete(
+    breaks = c("former", "no", "yes"),
+    labels = c("---", "---", "---"))
+plot_legend_labels | my_labelled_figure
+```
+
+Try different titles for colour and shape. What happens to the legends? Restore matching titles before keeping your figure.
+
+Explain one label you would keep in a report and why.
+
+Write your answer here: ___
+
+## Optional: Label fill and combined fill/colour legends
+
+Complete the age-axis and fill-legend titles below, then run the plot.
+
+```{r fill-title}
+plot_age <- ggplot(d_blomkvist, aes(x = age, fill = smoker)) +
+  geom_density(alpha = .25) +
+  labs(x = "---", y = "Density", fill = "---")
+plot_age
+```
+
+Fill colours the interiors; colour draws the outlines. Complete matching titles for both aesthetics below to keep one legend.
+
+```{r combined-fill-colour}
+plot_age +
+  aes(colour = smoker) +
+  labs(fill = "---", colour = "---")
+```
+
+To rename the groups too, add both `scale_fill_discrete()` and `scale_colour_discrete()` with matching breaks and labels.
+
+## Optional: Rename groups in the data
+
+Earlier, `scale_colour_discrete(labels = ...)` changed the displayed labels for one plot without changing the data. Here, rename the values in a new copy of the dataset so that future plots made from that copy automatically use your group names.
+
+Complete the chunk below. Keep the original codes (`former`, `no`, `yes`) on the left of `=` and replace each `"---"` on the right with a meaningful group name, keeping the quotation marks. These codes represent former, never, and current smokers, respectively. `mutate()` updates the column; `recode()` replaces its values. The result is stored as `d_labelled`, leaving `d_blomkvist` unchanged.
+
+```{r optional-recode}
+d_labelled <- mutate(d_blomkvist,
+                     smoker = recode(smoker,
+                                     former = "---",
+                                     no = "---",
+                                     yes = "---"))
+```
+
+Run the checks below after completing the recoding. Compare the group names and counts: the names should change, but the number of participants in each group should not.
+
+```{r original-group-counts}
+count(d_blomkvist, smoker)
+```
+
+Now run the count for the renamed groups and compare it with the original output above.
+
+```{r recoded-group-counts}
+count(d_labelled, smoker)
+```
+
+Finally, run this plot using `d_labelled`. Check that the legend uses your new names without adding a scale to rename them. If it does not, check your recoding and rerun the chunks above. Recoding the group values does not rename the column itself, so `labs(colour = ...)` still supplies the legend title.
+
+```{r plot-recoded-groups}
+ggplot(d_labelled, aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point(alpha = .6) +
+  labs(x = "Dominant-hand reaction time (ms)",
+       y = "Non-dominant-hand reaction time (ms)", colour = "Smoking status")
+```

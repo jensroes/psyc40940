@@ -787,3 +787,57 @@ section[role="doc-bibliography"] p {
   margin-top: 0;
 }
 
+
+/* Keep side-by-side code examples inside their columns. */
+div[style*="float"] pre,
+div[style*="float"] .prettyprint {
+  font-size: 15px !important;
+  line-height: 1.16 !important;
+  margin: 4px 0 8px 0 !important;
+  padding: 8px 10px 8px 13px !important;
+  width: auto !important;
+}
+
+div[style*="float"] pre code {
+  font-size: inherit !important;
+}
+
+
+/* Slide-specific layout for the overloaded aesthetics example. */
+.overload-slide {
+  align-items: center;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 58%) minmax(260px, 1fr);
+  margin: 8px auto 0;
+  max-width: 94%;
+}
+
+.overload-plot pre {
+  margin: 0 !important;
+  width: auto !important;
+}
+
+.overload-notes {
+  font-size: 23px;
+  line-height: 1.28;
+}
+
+.overload-notes ul {
+  margin-top: 16px;
+  padding-left: 28px;
+}
+
+.overload-notes li {
+  margin-bottom: 14px;
+}
+
+.key-point {
+  background: #e7f1f8;
+  border-left: 8px solid #0868ac;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.22;
+  margin: 0;
+  padding: 13px 18px;
+}

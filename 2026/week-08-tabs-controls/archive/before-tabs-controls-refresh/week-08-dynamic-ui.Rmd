@@ -1,0 +1,218 @@
+---
+title: "PSYC40940: Tabs And Reliable Controls"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: references.bib
+csl: apa.csl
+---
+
+## Today: Make Exploration Easy To Navigate
+
+- Organise two plots with `tabsetPanel()` and `tabPanel()`.
+- Choose controls for one group, several groups, or a numeric range.
+- Use shared filtering and actionable empty-selection messages.
+- Test that every tab respects the same selection.
+
+**Outcome:** a two-tab app with group and range filters. First block: tabs. Second block: controls and feedback.
+
+## Download, Unzip, And Knit The Guide {.smaller}
+
+Unzip the whole Week 8 folder from NOW into your existing module project. Keep scripts beside data/.
+
+Open **`01_tabs_and_reliable_controls.Rmd`** and **Knit** it first. Read the HTML; edit the named R scripts.
+
+| Stage | File |
+|---|---|
+| Inspect the familiar sidebar app | `intro_app.R` |
+| Build two tabs | `starter_app.R` |
+| Add reliable group and range filters | `controls_app.R` |
+
+## Recall: One Selection Supplies Several Outputs {.smaller}
+
+```{r shared-filter, eval=FALSE}
+selected_data <- reactive({
+  filter(d_participants, modality == input$modality)
+})
+```
+
+The count and both plots use `selected_data()`. Group changes affect all three outputs; bin width affects only the histogram.
+
+**Together:** open `intro_app.R` and choose **Run App**. Locate the shared filter and one output that uses it.
+
+## Discussion: When Would Tabs Help? {.smaller}
+
+<img src="gfx/tabs-example.png" alt="The working participant app with shared controls and two tabs" style="width:100%;height:340px;object-fit:contain;">
+
+What becomes easier when each plot has its own tab? What becomes harder to compare?
+
+Which controls and context should remain visible when the reader changes tabs?
+
+## Keep Shared Controls Outside The Tabs {.smaller}
+
+```{r tabs-structure, eval=FALSE}
+sidebarLayout(
+  sidebarPanel(
+    # Shared controls and their explanation.
+  ),
+  mainPanel(
+    textOutput("selection_note"),
+    tabsetPanel(
+      tabPanel("Distribution", plotOutput("rt_plot")),
+      tabPanel("Individual values", plotOutput("values_plot"))
+    )
+  )
+)
+```
+
+`tabsetPanel()` holds the tabs; each `tabPanel()` contains its visible name and contents.
+
+**Together:** locate the controls, count, tab names and plot locations.
+
+## Moving A Plot Does Not Change Its Connection {.smaller}
+
+| UI location | Server supplies |
+|---|---|
+| plotOutput("rt_plot") inside the first tab | output$rt_plot |
+| plotOutput("values_plot") inside the second tab | output$values_plot |
+
+Keep the output names when moving them. The existing server still works.
+
+The server's input dependencies determine which outputs change. A control's placement in one tab does not automatically restrict it to that tab.
+
+## Exercise 1: Build And Explain Two Tabs {.smaller}
+
+Use **Exercise 1: build two tabs** in the guide and `starter_app.R` (**20 minutes**).
+
+- Complete three tab-function blanks and two explanatory paragraphs.
+- Keep the shared controls and participant count outside the tabs.
+- Open both tabs and test group and bin-width changes.
+- Decide which view should come first and explain why.
+
+**Together: check:** why can we change the navigation without rewriting the server?
+
+## Discussion: What If Nothing Is Selected? {.smaller}
+
+<img src="gfx/empty-selection.png" alt="The app showing a recovery message when no group is selected" style="width:100%;height:300px;object-fit:contain;">
+
+**No participants match. Select a group or widen the reaction-time range.**
+
+Does the message explain what happened and how to recover?
+
+Unchecking both groups or choosing a range containing no observations needs useful feedback in every affected view.
+
+## Choose Controls For The Question {.smaller}
+
+| Task | Control |
+|---|---|
+| Choose one group | `selectInput()` |
+| Compare one or more groups | `checkboxGroupInput()` |
+| Set a bin width | `sliderInput()` with one value |
+| Keep values within an interval | `sliderInput()` with two values |
+
+A reaction-time range filters observations. Bin width changes the summary of the observations still included.
+
+## Checkboxes Return Several Group Values {.smaller}
+
+```{r checkbox-example, eval=FALSE}
+checkboxGroupInput(
+  "groups", "Output groups",
+  choices = c("Spoken output" = "speech",
+              "Written output" = "writing"),
+  selected = c("speech", "writing")
+)
+```
+
+`input$groups` can contain speech, writing, both, or no values.
+
+Use modality %in% `input$groups` in `filter()`: %in% checks membership in the selected values. == was suitable for the earlier single-group input.
+
+## A Range Slider Supplies Two Numbers {.smaller}
+
+```{r range-example, eval=FALSE}
+sliderInput("rt_range", "Keep participant means within (ms)",
+            min = 700, max = 2400,
+            value = c(700, 2400), step = 50)
+```
+
+`input$rt_range[1]` is the lower bound; `input$rt_range[2]` is the upper bound.
+
+```{r range-filter, eval=FALSE}
+filter(d_participants,
+       modality %in% input$groups,
+       mean_rt >= input$rt_range[1],
+       mean_rt <= input$rt_range[2])
+```
+
+Both groups together contain 72 participants across the full range.
+
+## Wait For An Input With `req()` {.smaller}
+
+```{r require-range, eval=FALSE}
+req(input$rt_range)
+```
+
+Put this before using the range in the shared reactive expression. It pauses calculation silently until the input is available.
+
+It does not explain an empty result to a user.
+
+Unchecking all groups needs a visible message. We will check the filtered rows, rather than silently stopping with req(`input$groups`).
+
+## Explain An Empty Selection With `validate()` {.smaller}
+
+Inside the shared reactive expression, after creating selected:
+
+```{r validate-example, eval=FALSE}
+validate(need(
+  nrow(selected) > 0,
+  "No participants match. Select a group or widen the range."
+))
+selected
+```
+
+`need()` tests the condition and supplies the message when it fails. `validate()` stops this calculation and passes the feedback to outputs using it.
+
+When rows exist, selected remains the last expression and supplies the data.
+
+## Exercise 2: Test The Empty Paths Too {.smaller}
+
+Use **Exercise 2: make the controls reliable** and `controls_app.R` (**25 minutes**).
+
+Complete six blanks: checkbox function, input name, two range indexes, selected-data name and recovery message.
+
+Test both groups, each group, no groups, a range containing no observations, and restoration of a valid range. Then switch tabs and change bin width.
+
+**Together: check:** does the message explain how to recover? Does bin width still affect only the histogram?
+
+## A Small Dashboard Still Needs A Clear Purpose
+
+The assessment permits **at most three tabs** and requires **at least two interactive plots**.
+
+Tabs should organise useful questions. They do not replace a question, explanation or meaningful control.
+
+Shiny-reactive plots qualify as interactive plots. Plotly hover and zoom are another option we will try next week.
+
+## After Class: Read About Tabs And Feedback {.smaller}
+
+Read @Wickham2021MasteringShiny:
+
+- [Section 6.3.1: tabsets](https://mastering-shiny.org/action-layout.html#tabsets).
+- [Section 8.1.4: `validate()`](https://mastering-shiny.org/action-feedback.html#validate-output).
+
+Connect the examples to your app. No written response is required.
+
+Optional: the guide shows a third summary tab in `extension_app.R`. A table and third tab are not additional assessment requirements.
+
+## After Completing Your App: Compare And Explain {.smaller}
+
+Now use `worked_example_app.R`.
+
+Compare both tabs, the shared controls, and all empty-selection tests. Explain how the shared preparation sends valid data or a message to each output.
+
+Keep your own version. Use the reference to check your reasoning.
+
+## References

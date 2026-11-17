@@ -1,5 +1,5 @@
 ---
-title: "PSYC40940: Shiny Basics and Reactivity"
+title: "PSYC40940: From A Plot To A Shiny App"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
@@ -13,170 +13,541 @@ csl: "apa.csl"
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(knitr)
-knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = FALSE, message = FALSE)
+library(patchwork)
+knitr::opts_chunk$set(echo = TRUE, comment = NA,
+                      warning = FALSE, message = FALSE)
+d_participants <- read_csv("data/participant_reaction_times.csv",
+                           show_col_types = FALSE)
+theme_set(theme_grey(base_size = 12))
 ```
 
-## General outline for the Shiny block
-
-- Week 6: Shiny basics and reactivity
-- Week 7: Layout and observers
-- Week 8: Dynamic UI
-- Week 9: Dashboard workshop
-
-## Objectives
+## Today: Read, Modify, And Test A Simple App 
 
 By the end of this session, you should be able to:
 
-1. explain the role of the user interface and server in a Shiny app,
-2. connect one input to one or more outputs,
-3. use `reactive()` to avoid repeating the same filtering or transformation code,
-4. run and modify a simple Shiny app independently.
+- Explain what a dashboard helps its reader do, and distinguish its UI from its server.
+- Trace how an input value reaches an output using matching names and `$`.
+- Modify and test a working example so a selector and slider update a histogram.
+- Explain the data and controls with brief text inside the app.
 
-Use `2026/starter_app.R` for today's individual task.
+**What we will build:** one histogram app with a group selector, a bin-width slider, and useful explanations.
+
+## Our Plan For Sessions 6-10 {.smaller .shiny-roadmap}
+
+We will develop a dashboard in stages, using working examples before adapting the ideas to your own data.
+
+| Session | What we will do | What you will build |
+|---|---|---|
+| 6 | Connect the UI and server; use controls and automatic updates | A histogram with a group selector, slider, and explanatory text |
+| 7 | Share selected data across outputs; organise a sidebar layout | Two coordinated plots and a participant count |
+| 8 | Build tabs; choose controls; handle empty selections | Two tabs with reliable filters and helpful feedback |
+| 9 | Try Plotly; adapt the ideas to your question and dataset | A working two-view prototype with purposeful interaction |
+| 10 | Test the report and app from an extracted ZIP; get support | A reproducible portfolio and clear remaining improvements |
+
+We will inspect examples, make small changes, and test what happens. Session 10 focuses on support, not another set of compulsory functions.
+
+## Dashboards Bring Useful Views Of Data Together 
+
+A dashboard brings selected plots, indicators, tables, and explanations together around a question or task.
+
+It can help people:
+
+- **Monitor:** what is changing, and where might attention be needed?
+- **Compare:** how do groups, places, or periods differ?
+- **Explore:** does a pattern hold for a different selection of the data?
+
+Interactive controls let the reader choose a view. A dashboard need not be live or real-time, and more controls do not automatically make it more useful.
+
+## Explore A Dashboard And Tell Us What It Does 
+
+In pairs or small groups, choose one link and explore for **3 minutes**. Then we will hear a couple of very brief examples.
+
+<div class="dashboard-activity">
+<div>
+
+**Choose a dashboard:**
+
+- [OECD: Well-being](https://www.oecd.org/en/data/tools/well-being-data-monitor/current-well-being.html)
+- [ONS: UK national well-being](https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/articles/ukmeasuresofnationalwellbeing/dashboard)
+- [UKHSA: Public health](https://ukhsa-dashboard.data.gov.uk/)
+- [Our World in Data: Population](https://ourworldindata.org/explorers/population-and-demography)
+
+</div>
+<div>
+
+**Together, let's discuss:**
+
+1. What does this dashboard show?
+2. What can you change, and what happens when you do?
+
+</div>
+</div>
 
 
-## What is a dashboard?
+## We Can Build These Interactions In R {.smaller}
 
-A dashboard is an interactive interface for exploring and communicating data.
+<div class="embedded-reaction-demo">
 
-Most Shiny dashboards combine:
+```{r interactive-reaction-demo, echo=FALSE}
+bin_widths <- c(25, 50, 75, 100, 150, 200, 250, 300)
+demo <- plotly::plot_ly(height = 440)
+for (group in c("speech", "writing")) {
+  demo <- plotly::add_trace(
+    demo, x = d_participants$mean_rt[d_participants$modality == group],
+    type = "histogram", name = group, visible = group == "speech",
+    xbins = list(start = 500, end = 2600, size = 100),
+    marker = list(color = "#32758A", line = list(color = "white", width = 1)),
+    hovertemplate = "Reaction-time bin: %{x} ms<br>Participants: %{y}<extra></extra>"
+  )
+}
+demo <- plotly::layout(
+  demo, autosize = TRUE, showlegend = FALSE,
+  font = list(size = 16, family = "Arial"),
+  margin = list(l = 75, r = 20, t = 65, b = 110),
+  xaxis = list(title = "Participant mean reaction time (ms)",
+               range = c(500, 2600), fixedrange = TRUE),
+  yaxis = list(title = "Number of participants", rangemode = "tozero",
+               dtick = 5, fixedrange = TRUE),
+  updatemenus = list(list(
+    type = "dropdown", x = 0, y = 1.18, xanchor = "left", yanchor = "top",
+    buttons = list(
+      list(label = "Spoken output (33 participants)", method = "restyle",
+           args = list("visible", list(TRUE, FALSE))),
+      list(label = "Written output (39 participants)", method = "restyle",
+           args = list("visible", list(FALSE, TRUE)))
+    )
+  )),
+  sliders = list(list(
+    active = 3, x = 0, y = -0.2, len = 1,
+    currentvalue = list(prefix = "Bin width: ", suffix = " ms"),
+    pad = list(t = 15),
+    steps = lapply(bin_widths, function(width) {
+      list(label = as.character(width), method = "restyle",
+           args = list("xbins.size", width))
+    })
+  ))
+)
+demo <- plotly::config(demo, displayModeBar = FALSE, scrollZoom = FALSE)
+htmlwidgets::onRender(demo, "function(el, x) {
+  var slide = el.closest('slide');
+  if (!slide) return;
+  var resize = function() {
+    if (slide.classList.contains('current')) {
+      requestAnimationFrame(function() { Plotly.Plots.resize(el); });
+    }
+  };
+  new MutationObserver(resize).observe(slide, {attributes: true, attributeFilter: ['class']});
+  resize();
+}")
+```
 
-- inputs: controls selected by the user,
-- outputs: plots, tables, text, or interactive widgets,
-- layout: where things appear on the page,
-- reactivity: how outputs update when inputs change.
+</div>
 
-## Minimal Shiny app
+Change the group and bin width; hover over the bars.
 
-```{r, eval=FALSE}
+<!-- OECD's R/Shiny implementation is documented at https://github.com/wise-oecd/data_monitor. -->
+
+## A Shiny Dashboard Has An Interface And A Server {.smaller}
+
+**User interface (front end):** the controls, plots, tables, layout, and explanations the user sees in the browser.
+
+**Server (back end):** R code that selects data, calculates summaries, and generates the content for those outputs.
+
+**Reactivity connects them:** Shiny tracks which outputs depend on which inputs and updates them when needed.
+
+<div class="shiny-flow" aria-label="The user selects a group in the interface; server code filters data and builds the plot; the updated histogram appears in the interface.">
+  <div><strong>UI</strong><br>Choose an output group</div>
+  <span aria-hidden="true">&rarr;</span>
+  <div><strong>Server</strong><br>Filter data / build the plot</div>
+  <span aria-hidden="true">&rarr;</span>
+  <div><strong>UI</strong><br>Display the histogram</div>
+</div>
+
+The plot's location belongs to the UI; the code that creates its content belongs to the server.
+
+## Running Commands Vs Defining Dependencies 
+
+**R is still the same language.** Shiny adds a reactive programming framework.
+
+| Ordinary R script | Reactive Shiny app |
+|---|---|
+| You run commands in sequence | Define dependencies between inputs and outputs |
+| Changing a variable does not automatically update earlier results | Changing input causes affected outputs to recalculate |
+| You decide when to rerun the plotting code | Shiny manages when the dependent plotting code runs |
+
+An input change does not restart the app or rerun its entire script.
+
+**Today:** automatic updates inside `renderPlot()`. **Week 7:** use `reactive()` to share preparation across several outputs.
+
+## Download The Week 6 App And Worksheet {.smaller}
+
+Download the Week 6 ZIP from NOW. **Unzip the whole folder into your existing module project.**
+
+```text
+Your existing module project/
+  week-06-shiny-basics-reactivity/
+    minimal_app.R
+    starter_app.R
+    slider_app.R
+    01_read_and_modify_a_shiny_app.Rmd
+    data/
+      participant_reaction_times.csv
+```
+
+**Keep the files inside the Week 6 folder. Do not move individual scripts or CSVs elsewhere, or work inside the ZIP.**
+
+## Knit The Guide Before Starting {.smaller}
+
+Open `01_read_and_modify_a_shiny_app.Rmd` and click **Knit**. Keep the HTML guide beside the source files; its contents menu helps you find each section.
+
+| Guide section | Where to make changes or test |
+|---|---|
+| First: run the minimal app together | run `minimal_app.R` |
+| The server is a function Shiny calls | inspect `minimal_app.R` |
+| Use $ with a data frame | edit and run the Rmd chunks |
+| Part 1: connect a selector to a histogram | edit `starter_app.R` |
+| Part 2: connect a slider to the histogram | edit `slider_app.R` |
+
+The unfinished chunks are skipped when knitting. Read the HTML; edit the Rmd or named R script, not the HTML.
+
+## Build One App In Two Stages {.smaller}
+
+| First block | Second block |
+|---|---|
+| Run and inspect a minimal app | See how bin width changes a histogram |
+| Identify UI, server, and output names | Add a slider using an example |
+| Add a selector and connect it to a plot | Explain both controls and test the app |
+
+**Core outcome:** one working histogram app with two purposeful controls and enough text for another person to understand it.
+
+Each stage: **Together: inspect an example**, **Your turn: modify and test**, then **Together: check what happened**. No typing along with live coding.
+
+## A Complete App In A Few Lines {.smaller}
+
+```{r minimal-app-format, eval=FALSE}
 library(shiny)
 
 ui <- fluidPage(
-  titlePanel("A minimal Shiny app"),
-  sliderInput("n", "Sample size", min = 10, max = 500, value = 100),
-  plotOutput("hist")
+  numericInput("number", "Choose a number", value = 5),
+  textOutput("double")
 )
 
-server <- function(input, output, session) {
-  output$hist <- renderPlot({
-    hist(rnorm(input$n))
+server <- function(input, output) {
+  output$double <- renderText({
+    input$number * 2
   })
 }
 
 shinyApp(ui, server)
 ```
 
-## The user interface
+**Together:** guide section **First: run the minimal app together**. Open `minimal_app.R`. Use **Run App**, not Knit, for the app scripts. Locate the UI and server; we will now trace how the app works.
 
-The UI defines what the user sees.
+`shinyApp(ui, server)` combines the interface and server to start the app.
 
-```{r, eval=FALSE}
-ui <- fluidPage(
-  titlePanel("Reaction times"),
-  selectInput("modality", "Modality", choices = c("spoken", "written")),
-  plotOutput("rt_plot")
-)
-```
+## The Server Is A Function Shiny Calls {.smaller}
 
-Inputs need an `inputId`. Outputs need an `outputId`. These IDs connect the UI to the server.
-
-## The server
-
-The server defines what the app does.
-
-```{r, eval=FALSE}
-server <- function(input, output, session) {
-  output$rt_plot <- renderPlot({
-    # Keep the filtering step separate so it is easy to inspect.
-    filtered <- filter(d_spellname, modality == input$modality)
-
-    ggplot(filtered, aes(name_familiarised, rt)) +
-      geom_boxplot()
+```{r server-function, eval=FALSE}
+server <- function(input, output) {
+  output$double <- renderText({
+    input$number * 2
   })
 }
 ```
 
-The output name, here `rt_plot`, must match the ID used in `plotOutput("rt_plot")`.
+- `<-` stores these instructions under the name `server`.
+- `function(input, output)` defines the function and its arguments.
+- The body inside `{}` defines how to produce the app's output.
 
-## Reactivity
+**Shiny calls the server function** when a user opens the app, supplying `input` and `output`.
 
-Shiny automatically reruns code that depends on changed inputs.
+Functions define instructions. Reactivity manages when dependent output calculations update; a function is not automatically reactive.
 
-```{r, eval=FALSE}
-filtered_data <- reactive({
-  # This code reruns when input$modality changes.
-  filtered <- filter(d_spellname, modality == input$modality)
-  filtered
-})
+## Use `$` To Select A Named Part {.smaller}
+
+Shiny also uses `$` to access named parts of `input` and `output`. These are special Shiny objects, not data frames, but data frames allow us to illustrate what `$` does.
+
+```{r data-frame-access, collapse=TRUE, comment="#>"}
+example_data <- data.frame(
+  number = 1:5, doubled = (1:5) * 2
+)
+example_data
+example_data$doubled
 ```
 
-Use the reactive value with parentheses:
+For a data frame, `$doubled` selects the column named `doubled`.
 
-```{r, eval=FALSE}
+**Your turn:** guide section **Use $ with a data frame**. Complete the Rmd blank to select the original `number` column, then test it.
+
+
+
+## The UI Names An Input And An Output {.smaller}
+
+```{r ui-example, eval=FALSE}
+ui <- fluidPage(
+  numericInput(
+    inputId = "number",          # Internal input name
+    label = "Choose a number",  # Visible label
+    value = 5
+  ),
+  textOutput("double")          # Internal output name
+)
+```
+
+| Part | Name in the UI | Use in the server |
+|---|---|---|
+| Input control | `"number"` | `input$number` |
+| Output location | `"double"` | `output$double` |
+
+UI elements are separated by commas. The final element has no trailing comma.
+
+## The Server Connects The Input To The Output {.smaller}
+
+```{r server-example, eval=FALSE}
+server <- function(input, output) {
+  output$double <- renderText({  # Output name: double
+    input$number * 2            # Input name: number
+  })
+}
+```
+
+`output$double` matches `textOutput("double")` in the UI.
+
+`renderText()` reads `input$number`: change the input and Shiny recalculates the result.
+
+Control changes update the dependent output, not the whole server function.
+
+**Your turn:** predict the result for 7, then test it. **Together: check** trace `number` from `numericInput()` to `input$number`, and `double` from `output$double` to `textOutput()`.
+
+## Start With A Plot You Already Know {.smaller}
+
+The supplied data contain **72 participant means**, not trial-level reaction times. Each mean combines familiarisation conditions.
+
+<div class="shiny-code-plot">
+
+```{r familiar-histogram, fig.width=5.4, fig.height=3.6, out.width="100%"}
+ggplot(d_participants,
+       aes(x = mean_rt)) +
+  geom_histogram(binwidth = 100) +
+  labs(x = "Reaction time (ms)",
+       y = "Participants")
+```
+
+</div>
+
+The Shiny task is to let a reader change which observations appear and how they are grouped.
+
+## The Same Connection Pattern Works For Plots {.smaller}
+
+| Output location in the UI | Content generated in the server |
+|---|---|
+| `textOutput("double")` | `output$double <- renderText(...)` |
+| `plotOutput("rt_plot")` | `output$rt_plot <- renderPlot(...)` |
+
+The output type changes, but the names still have to match. The familiar ggplot code goes inside `renderPlot()`.
+
+## Controls Need An Internal Name And A Label {.smaller}
+
+```{r select-example, eval=FALSE}
+selectInput(
+  inputId = "modality",    # Internal input name
+  label = "Output group", # Visible label
+  choices = c("Spoken output" = "speech",
+              "Written output" = "writing")
+)
+```
+
+- `inputId = "modality"` gives the control its internal name: read its value as `input$modality`.
+- The user sees the label and readable choice names.
+- Data values are `speech` and `writing`, not the displayed choice names.
+
+Adding the selector alone does not change a plot that never uses its value.
+
+## A Filter Connects The Selector To The Plot {.smaller}
+
+**Together:** `filter()` keeps rows that satisfy a condition, keeping all columns.
+
+```{r input-to-filter, eval=FALSE}
 output$rt_plot <- renderPlot({
-  ggplot(filtered_data(), aes(name_familiarised, rt)) +
-    geom_boxplot()
+  selected_data <- filter(
+    d_participants, modality == input$modality
+  )
+  ggplot(selected_data, aes(x = mean_rt)) +
+    geom_histogram(binwidth = 100)
 })
 ```
 
-## Why use `reactive()`?
+`modality` is a data column; `input$modality` is the selected value. `==` tests whether they are equal for each row.
 
-Use `reactive()` when the same data preparation is needed in several outputs.
+Selecting `"speech"` keeps the 33 spoken-group rows. `<-` stores this subset as `selected_data`; the original data are unchanged.
 
-```{r, eval=FALSE}
-output$rt_plot <- renderPlot({
-  ggplot(filtered_data(), aes(name_familiarised, rt)) +
-    geom_boxplot()
-})
+Changing the selection makes `renderPlot()` recalculate. No `reactive()` function is needed yet.
 
-output$summary <- renderTable({
-  # Call the reactive expression before summarising it.
-  filtered <- filtered_data()
-  summarise(filtered, mean_rt = mean(rt), n = n())
-})
+## Exercise 1: Add A Group Selector {.smaller}
+
+Open `starter_app.R`; use **Part 1** of the Rmd instructions (about 15 minutes).
+
+- Complete the UI output name, the filter's input name, and the plotting dataset.
+- After editing code: save, stop the app, and run again.
+- Change the group: does the histogram update?
+
+**When testing controls:** keep the app running.
+
+The structure and selector are supplied. Use the connection examples on the slides to complete the blanks.
+
+**Your turn:** make and test the three connections using the example.
+
+**Together: check** which line makes the group selection affect the plot, and why the output names must match.
+
+## Mismatched Names Can Disconnect An Output {.smaller}
+
+| UI | Server | Result |
+|---|---|---|
+| `plotOutput("rt_plot")` | `output$rt_plot` | matching plot connection |
+| `plotOutput("reaction_plot")` | `output$rt_plot` | no matching plot location |
+
+**Together:** predict what happens when only the UI name changes. Check how matching the two names repairs the connection.
+
+Also check the Console for errors, commas between UI elements, and closing brackets. Test one change at a time.
+
+## Bin Width Changes The Summary {.smaller}
+
+**Bins** are intervals on the x-axis; each bar counts the participants whose values fall within that interval. **Bin width** is the interval's size, here in milliseconds.
+
+```{r binwidth-comparison, echo=FALSE, fig.width=11, fig.height=3, out.width="100%"}
+d_spoken <- filter(d_participants, modality == "speech")
+p_rt <- ggplot(d_spoken, aes(x = mean_rt)) +
+  labs(x = "Participant mean reaction time (ms)",
+       y = "Participants")
+(p_rt + geom_histogram(binwidth = 50) +
+   labs(title = "Bin width: 50 ms")) |
+  (p_rt + geom_histogram(binwidth = 250) +
+     labs(title = "Bin width: 250 ms"))
 ```
 
-This keeps the app shorter and reduces inconsistent filtering.
+- **What persists:** most values cluster around 1,200–1,400 ms in both plots.
+- **What changes:** narrow bins show small peaks and gaps; wider bins merge them and can hide detail.
+- **Why a slider?** Readers can check whether a pattern holds across widths. The same 33 participants and their values stay fixed.
 
-## Individual exercise
+## A Slider Can Control A Plot Parameter {.smaller}
 
-Open `2026/starter_app.R`.
+Add the control to the UI:
 
-Your task:
+```{r slider-example, eval=FALSE}
+sliderInput("binwidth",         # Internal input name
+            "Bin width (ms)",  # Visible label
+            min = 25, max = 300, value = 100, step = 25)
+```
 
-1. Run the app.
-2. Add one input that filters the data.
-3. Add one plot output.
-4. Add one table output.
-5. Move the shared filtering code into `reactive()`.
+Use its name inside `renderPlot()`:
 
-Use `worked_example_app.R` only after you have tried the starter.
+```{r slider-geom, eval=FALSE}
+geom_histogram(binwidth = input$binwidth)
+```
 
-## Checkpoint
+Here, the selected value is a number. It replaces a fixed number in familiar ggplot code.
 
-Before next session, make sure you can answer:
 
-- Which part of the app creates controls?
-- Which part creates plots or tables?
-- Where do input IDs and output IDs need to match?
-- When is `reactive()` useful?
+## Different Controls Answer Different Questions {.smaller}
 
-## Next session
+| Control | What changes? | What stays fixed? |
+|---|---|---|
+| Output group | which participants are included | meaning of reaction time |
+| Bin width | how reaction times are grouped | selected participants and their values |
 
-We will add dashboard structure and controlled updates:
+`input$modality` and `input$binwidth` are both read inside the plot's render function. A change to either causes the plot to update.
 
-- sidebars,
-- tabs,
-- action buttons,
-- `observeEvent()`,
-- `eventReactive()`.
 
-## Recommended Reading
+## Explanatory Text Belongs In The App {.smaller}
 
-For support with this week's material, use:
+```{r explanatory-text, eval=FALSE}
+# Describe what each observation represents.
+p("Each value represents one participant's mean
+   reaction time across familiarisation conditions.")
 
-- @Wickham2021MasteringShiny, Chapters 1 and 3: Shiny basics and basic reactivity. [Chapter 1](https://mastering-shiny.org/basic-app.html); [Chapter 3](https://mastering-shiny.org/basic-reactivity.html)
-- @andrews2021doing, Chapter 16: Shiny apps for social science data work. [Online chapter](https://www.mjandrews.org/book/ddsr/assets/chapter_16_shiny.pdf)
+helpText("Only participants in the selected output
+          group are included in the histogram.")
+```
+
+A useful explanation identifies the data, units, selection, and limits of interpretation.
+
+A comment beginning with `#` is for the programmer. The app user cannot see it.
+
+## Exercise 2: Add A Slider And Explain Its Effect {.smaller}
+
+Open `slider_app.R`; use **Part 2** of the Rmd instructions (about 25 minutes).
+
+- Complete the slider label, starting value, input connection, and two text blanks.
+- Find where `p()` and `helpText()` appear, then write useful data and control explanations.
+- After editing code: save, stop the app, and run again.
+- Hold the group fixed while trying several widths.
+- Compare your help text with a neighbour's: what changes with bin width, and what stays the same? Revise one sentence if needed.
+
+**When testing controls:** keep the app running.
+
+Keep text accurate and brief. Explain what each control changes, not just what it is called.
+
+**Your turn:** complete and test the app; use the slider example as a model.
+
+**Check** why does changing bin width not change the participant count. Compare your help texts.
+
+## Next Week: Several Views Of The Same Selection 
+
+Today: controls update one plot through `renderPlot()`.
+
+Next week: add another plot and a summary, with shared preparation using `reactive()`.
+
+Later: layout, sensible input handling, Plotly, and adapting an app to your own data. Advanced generated UI is optional, not a requirement for a useful dashboard.
+
+## Start Exploring Possible Summative Datasets
+
+Start looking for data on a topic that interests you for the summative assessment.
+
+- Browse the available variables and what each observation represents.
+- Keep the source link for anything that looks promising.
+- We will discuss dataset suitability and app ideas in later weeks.
+
+**It is fine not to have a dataset yet.** No dataset choice or dashboard plan is required at this stage.
+
+## After Class: Read About Your First Shiny App {.smaller}
+
+**Everyone:** read @Wickham2021MasteringShiny, [Chapter 1: Your first Shiny app](https://mastering-shiny.org/basic-app.html), **sections 1.1-1.5**, ending with *Adding behaviour*.
+
+As you read, connect the example to today's app:
+
+- Which parts belong to the UI and which to the server?
+- Where do the input and output names connect?
+- Why does changing an input update an output?
+
+No written submission or book exercises are required. Section 1.6 introduces shared reactive expressions: optional preparation for next week.
+
+**Optional reference:** [Shiny helpText documentation](https://shiny.posit.co/r/reference/shiny/latest/helptext.html).
+
+## Add Text That Updates {.smaller}
+
+**Independent work, or if there is time in class.** Use the guide section **Optional: add a dynamic summary**.
+
+**Goal:** display the selected participant count and bin width above your histogram. Unlike `helpText()`, this text updates when a control changes.
+
+1. Run `extension_app.R` and test its summary, then stop it.
+2. In your `slider_app.R`, add `textOutput("selection_note")` before `plotOutput()` in the UI.
+3. Copy `output$selection_note <- renderText({ ... })` block into the server, alongside the plot block. The guide shows exactly where both parts belong.
+
+Inside `renderText()`, `filter()` selects the group, `nrow()` counts its participants, and `paste()` joins the values into a sentence.
+
+**Check:** switching from spoken to written output changes the count from **33 to 39**. Changing bin width updates the displayed width, while the count stays fixed.
+
+**Further change:** include the selected group in the summary using `input$modality`.
+
+## After Completing Your App: Compare And Explain 
+
+You can now open `worked_example_app.R`, the completed reference for the two controls and explanatory text.
+
+- Run it and compare its behaviour with your own app.
+- Trace each control from its UI name to its use in the server.
+- If something differs, identify the relevant connection and explain the change needed in your own code.
+- Compare the explanations: does your text help someone understand the data and controls?
+
+Keep your own version. Use the reference to check your reasoning and revisit the code after class.
 
 ## References

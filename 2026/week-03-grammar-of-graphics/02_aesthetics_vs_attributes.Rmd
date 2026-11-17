@@ -1,0 +1,194 @@
+---
+title: "Exercise 2: Aesthetics and attributes"
+output: html_document
+bibliography: "references.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+In this exercise you will practise the difference between **attributes** and **aesthetics**.
+
+By the end, you should be able to:
+
+- set fixed visual properties such as point size or transparency,
+- map variables to visual properties using `aes()`,
+- decide when an extra aesthetic helps or overloads the plot.
+
+## Load packages and data
+
+We will use data from @blomkvist2017reference. Keep this `.Rmd` file and the `data` folder together so the relative path below works when you run chunks or knit the document.
+
+
+```{r}
+# Load tidyverse, including ggplot2 and read_csv().
+library(tidyverse)
+```
+
+```{r}
+# Load the data.
+blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove rows where smoker status or hand reaction time is missing.
+blomkvist <- drop_na(blomkvist, smoker, rt_hand_d)
+```
+
+```{r}
+# Inspect the variables before plotting.
+glimpse(blomkvist)
+```
+
+## Start with a simple plot
+
+Create a scatterplot with age on the x-axis and dominant-hand reaction time on the y-axis.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = ___, y = ___)) +
+  geom_point()
+```
+
+## Attributes: fixed visual properties
+
+Attributes are fixed settings. They do not depend on a variable in the data.
+
+Complete the code so that all points are smaller and partly transparent.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(size = ___, alpha = ___)
+```
+
+Now set all points to the same colour. This is still an attribute because the colour is fixed.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(size = 2, alpha = 0.6, colour = "___")
+```
+
+## Aesthetics: visual properties mapped to variables
+
+Aesthetics are mappings from variables to visual properties. They go inside `aes()`.
+
+Map `smoker` to colour.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = age, y = rt_hand_d, colour = ___)) +
+  geom_point(size = 2, alpha = 0.6) +
+  labs(x = "Age (years)",
+       y = "Dominant-hand reaction time (ms)",
+       colour = "Smoking status")
+```
+
+What does colour make easier to compare?
+
+Write one sentence here: ___
+
+## Redundant coding for accessibility
+
+Sometimes using two aesthetics for the same grouping variable is helpful. For example, colour and shape can make groups easier to distinguish when printed in greyscale.
+
+Map `smoker` to both colour and shape.
+
+```{r}
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d,
+                     colour = ___, shape = ___)) +
+  geom_point(size = 2, alpha = 0.6) +
+  labs(x = "Age (years)",
+       y = "Dominant-hand reaction time (ms)",
+       colour = "Smoking status",
+       shape = "Smoking status")
+```
+
+Does the plot still feel readable? Why or why not?
+
+Write one sentence here: ___
+
+## A warning example: size for categories
+
+It is technically possible to map an unordered category to size, but it is usually a poor choice because size suggests quantity or importance.
+
+Run the code and compare it with the colour/shape plot above.
+
+```{r}
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d, size = smoker)) +
+  geom_point(alpha = 0.6) +
+  labs(x = "Age (years)",
+       y = "Dominant-hand reaction time (ms)",
+       size = "Smoking status")
+```
+
+Why is size a weaker choice for smoker status?
+
+Write one sentence here: ___
+
+## Common mistake: fixed values inside `aes()`
+
+A fixed colour should usually be set outside `aes()`. Run these two plots and compare them.
+
+```{r}
+# Fixed colour outside aes(): all points are blue and no colour legend is needed.
+ggplot(data = blomkvist, mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(colour = "blue", alpha = 0.6)
+```
+
+```{r}
+# Fixed text inside aes(): ggplot treats "blue" like a data category.
+ggplot(data = blomkvist, mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(aes(colour = "blue"), alpha = 0.6)
+```
+
+Why does the second plot create a legend?
+
+Write one sentence here: ___
+
+## Add a trend line carefully
+
+Use colour for smoker status and add one linear trend line per group. Keep the points transparent so they do not dominate the plot.
+
+```{r}
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d, colour = ___)) +
+  geom_point(size = 2, alpha = 0.45) +
+  stat_smooth(method = "___", se = FALSE) +
+  labs(x = "Age (years)",
+       y = "Dominant-hand reaction time (ms)",
+       colour = "Smoking status")
+```
+
+What should the viewer compare in this plot?
+
+Write one sentence here: ___
+
+## Global and layer-specific mappings
+
+Where you put `aes()` matters. In the first plot below, `colour = smoker` is a global mapping, so it applies to all layers.
+
+```{r}
+# Colour applies to both points and trend lines.
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d, colour = smoker)) +
+  geom_point(alpha = 0.45) +
+  stat_smooth(method = "lm", se = FALSE)
+```
+
+In the second plot, `colour = smoker` is only inside `stat_smooth()`, so it applies only to that layer.
+
+```{r}
+# Colour applies only to the trend lines.
+ggplot(data = blomkvist,
+       mapping = aes(x = age, y = rt_hand_d)) +
+  geom_point(alpha = 0.45) +
+  stat_smooth(mapping = aes(colour = ___), method = "lm", se = FALSE)
+```
+
+What changes between the two plots?
+
+Write one sentence here: ___
+
+Once you have completed the tasks, knit this document to HTML.

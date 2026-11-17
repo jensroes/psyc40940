@@ -1,0 +1,173 @@
+---
+title: "Exercise 1: Building ggplot layers"
+output: html_document
+bibliography: "references.bib"
+---
+
+```{r setup, include=FALSE}
+# These settings make the knitted HTML document easier to read.
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+In this exercise you will practise building a `ggplot2` plot one layer at a time.
+
+By the end, you should be able to:
+
+- identify the data, aesthetic mappings, and geometry in a plot,
+- add one layer at a time using `+`,
+- compare different geometries for showing the same variables,
+- knit the completed document to HTML.
+
+## Load packages and data
+
+Load the `tidyverse` package. This includes `ggplot2` for plotting and `read_csv()` for loading data.
+
+```{r}
+# Load tidyverse.
+library(tidyverse)
+```
+
+We will use data from @blomkvist2017reference.
+
+The data file is in the `data` folder inside this weekly folder. Keep the `data` folder and this `.Rmd` file together, and the path below should work when you run chunks or knit the document.
+
+If the following code returns `Error: 'data/blomkvist.csv' does not exist in current working directory`, check that you are working from the extracted weekly folder and that the `data` folder has not been moved.
+
+```{r}
+# Load the data.
+d_blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove rows where smoker status is missing.
+d_blomkvist <- drop_na(d_blomkvist, smoker)
+```
+
+Start by inspecting the variables in the data frame.
+
+```{r}
+# Inspect the data frame.
+glimpse(___)
+```
+
+## Data and aesthetics
+
+A `ggplot()` call needs data. Most plots also need aesthetic mappings inside `aes()`.
+
+In the code below:
+
+- add `d_blomkvist` to `data =`,
+- map dominant-foot reaction time to `x`,
+- map non-dominant-foot reaction time to `y`.
+
+```{r}
+# Complete the data and aesthetic mappings.
+ggplot(data = ___, mapping = aes(x = ___, y = ___))
+```
+
+When you run the completed code, you should see a blank plot. This is expected: you have told R what data and mappings to use, but not what to draw yet.
+
+## Add a geometry
+
+A geometry tells `ggplot2` what visual marks to draw. Geometry functions usually start with `geom_`.
+
+Add `geom_point()` to show each observation as a point.
+
+```{r}
+# Add points to the plot.
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  ___
+```
+
+## Add a statistical summary
+
+The same data and mappings can also be summarised. `stat_smooth()` adds a trend line that summarises the relationship between two variables.
+
+Add `stat_smooth(method = "lm", se = FALSE)` to show a straight-line trend.
+
+```{r}
+# Add a linear trend line.
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  ___
+```
+
+## Combine layers
+
+You can add more than one layer to the same plot.
+
+Add both `geom_point()` and `stat_smooth(method = "lm", se = FALSE)`.
+
+```{r}
+# Combine points and a trend line.
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  ___ +
+  ___
+```
+
+Now add `geom_rug()` as a third layer. Rug marks show the marginal distribution on each axis.
+
+```{r}
+# Add rug marks as another layer.
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  ___ +
+  ___ +
+  ___
+```
+
+What does adding the trend line make easier to see than the points alone?
+
+Write one sentence here: ___
+
+## Use a geometry for one variable
+
+So far we have plotted two variables. Some geometries are used for one variable.
+
+Create a histogram of `age` using `geom_histogram()`.
+
+```{r}
+# Plot the distribution of age.
+ggplot(data = ___, mapping = aes(x = ___)) +
+  ___
+```
+
+You may see a message like this: `stat_bin() using bins = 30`. This means that `ggplot2` chose 30 bins for the histogram.
+
+Try setting the number of bins yourself. First try `bins = 5`, then try `bins = 50`.
+
+```{r}
+# Try different numbers of bins.
+ggplot(data = ___, mapping = aes(x = ___)) +
+  geom_histogram(bins = ___)
+```
+
+Instead of the number of bins, you can set the width of each bin. For example, `binwidth = 5` means each bar spans 5 years of age.
+
+```{r}
+# Try a fixed bin width.
+ggplot(data = ___, mapping = aes(x = ___)) +
+  geom_histogram(binwidth = ___)
+```
+
+## Another geometry for one variable
+
+A density plot is another way to show the distribution of one continuous variable.
+
+Change the previous plot to use `geom_density()`.
+
+```{r}
+# Show the distribution of age as a density plot.
+ggplot(data = ___, mapping = aes(x = ___)) +
+  ___
+```
+
+## Check your understanding
+
+Look back at one of your completed plots and answer these questions.
+
+1. Which data frame does the plot use?
+2. Which variables are mapped inside `aes()`?
+3. Which geometry or geometries draw the data?
+4. Which layer changed the plot most clearly when you added it?
+
+Once you have completed the tasks, knit this document to HTML.

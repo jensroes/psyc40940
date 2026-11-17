@@ -1,0 +1,40 @@
+table,context,source_variable,item,original_question
+reasons,First use,Q10a,Friends,Why did you first use an e-cigarette? (A friend used them)
+reasons,First use,Q10b,Family,Why did you first use an e-cigarette? (A family member used them)
+reasons,First use,Q10c,Quit other tobacco,"Why did you first use an e-cigarette? (To try to quit using other tobacco products, such as cigarettes)"
+reasons,First use,Q10d,Lower cost,"Why did you first use an e-cigarette? (They cost less than other tobacco products, such as cigarettes)"
+reasons,First use,Q10e,Easy access,"Why did you first use an e-cigarette? (They were easier to get than other tobacco products, such as cigarettes)"
+reasons,First use,Q10f,Media exposure,"Why did you first use an e-cigarette? (I've seen people on TV, online, or in movies use them)"
+reasons,First use,Q10g,Perceived lower harm,"Why did you first use an e-cigarette? (They are less harmful than other forms of tobacco, such as cigarettes)"
+reasons,First use,Q10h,Flavours,"Why did you first use an e-cigarette? (They were available in flavors, such as menthol, mint, candy, fruit, or chocolate)"
+reasons,First use,Q10i,Use unnoticed,Why did you first use an e-cigarette? (I could use them unnoticed at home or at school)
+reasons,First use,Q10j,Vape tricks,Why did you first use an e-cigarette? (I could use them to do tricks)
+reasons,First use,Q10k,Curiosity,Why did you first use an e-cigarette? (I was curious about them)
+reasons,First use,Q10l,"Anxiety, stress or low mood","Why did you first use an e-cigarette? (I was feeling anxious, stressed, or depressed)"
+reasons,First use,Q10m,Nicotine buzz,Why did you first use an e-cigarette? (To get a high or buzz from nicotine)
+reasons,First use,Q10n,Other,Why did you first use an e-cigarette? (I used them for some other reason)
+reasons,Current use,Q11a,Friends,Why do you currently use e-cigarettes? (A friend uses them)
+reasons,Current use,Q11b,Family,Why do you currently use e-cigarettes? (A family member uses them)
+reasons,Current use,Q11c,Quit other tobacco,"Why do you currently use e-cigarettes? (To try to quit using other tobacco products, such as cigarettes)"
+reasons,Current use,Q11d,Lower cost,"Why do you currently use e-cigarettes? (They cost less than other tobacco products, such as cigarettes)"
+reasons,Current use,Q11e,Easy access,"Why do you currently use e-cigarettes? (They are easier to get than other tobacco products, such as cigarettes)"
+reasons,Current use,Q11f,Media exposure,"Why do you currently use e-cigarettes? (I've seen people on TV, online, or in movies use them)"
+reasons,Current use,Q11g,Perceived lower harm,"Why do you currently use e-cigarettes? (They are less harmful than other forms of tobacco, such as cigarettes)"
+reasons,Current use,Q11h,Flavours,"Why do you currently use e-cigarettes? (They are available in flavors, such as menthol, mint, candy, fruit, or chocolate)"
+reasons,Current use,Q11i,Use unnoticed,Why do you currently use e-cigarettes? (I can use them unnoticed at home or at school)
+reasons,Current use,Q11j,Vape tricks,Why do you currently use e-cigarettes? (I can use them to do tricks)
+reasons,Current use,Q11k,Curiosity,Why do you currently use e-cigarettes? (I am curious about them)
+reasons,Current use,Q11l,"Anxiety, stress or low mood","Why do you currently use e-cigarettes? (Because I feel anxious, stressed, or depressed)"
+reasons,Current use,Q11m,Nicotine buzz,Why do you currently use e-cigarettes? (To get a high or buzz from nicotine)
+reasons,Current use,Q11n,Other,Why do you currently use e-cigarettes? (I use them for some other reason)
+flavours,Past 30 days,Q17a_a,Tobacco,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Tobacco-flavor)"
+flavours,Past 30 days,Q17a_b,Menthol,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Menthol)"
+flavours,Past 30 days,Q17a_c,Mint,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Mint)"
+flavours,Past 30 days,Q17a_d,Spice,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Spice (such as cinnamon, vanilla, or clove))"
+flavours,Past 30 days,Q17a_e,Fruit,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Fruit)"
+flavours,Past 30 days,Q17a_f,Chocolate,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Chocolate)"
+flavours,Past 30 days,Q17a_g,Alcoholic drink,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Alcoholic drinks (such as wine, margarita, or other cocktails))"
+flavours,Past 30 days,Q17a_h,Non-alcoholic drink,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Non-alcoholic drink (such as coffee, soda, lemonade, or other beverage))"
+flavours,Past 30 days,Q17a_i,Candy or desserts,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Candy, desserts, or other sweets)"
+flavours,Past 30 days,Q17a_j,Unflavoured,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Unflavored)"
+flavours,Past 30 days,Q17a_k,Other,"In the past 30 days when you used e-cigarettes, what flavors did you use? (Some other flavor not listed here)"

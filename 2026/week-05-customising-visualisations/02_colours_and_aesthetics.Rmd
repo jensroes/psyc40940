@@ -1,0 +1,182 @@
+---
+title: 'Exercise 2: Colour that supports comparison'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, comment=NA, message=FALSE,
+                      warning=FALSE, fig.width=7, fig.height=4.5)
+```
+
+Complete Tasks 1-2 in class (about 12 minutes). Run the examples, replace each `---` in the code, and run your completed chunks. Keep one palette choice and one distribution plot. The sections marked optional provide further practice; you are welcome to continue through the rest of the document.
+
+If patchwork is not installed, run the installation chunk below once. Skip it if you installed patchwork in Exercise 1. `eval = FALSE` means it is skipped when knitting, but you can run it interactively.
+
+```{r install-patchwork, eval=FALSE}
+install.packages("patchwork")
+```
+
+Run the library chunk each time you start a new R session, then the data chunk. The data chunk removes rows missing variables we need and gives the smoking-status groups readable names. Each row is one participant.
+
+```{r libraries}
+library(tidyverse)
+library(patchwork)
+```
+
+```{r load-data}
+d_blomkvist <- read_csv("data/blomkvist.csv")
+d_blomkvist <- drop_na(d_blomkvist, smoker, age, rt_hand_d, rt_hand_nd)
+# Change group names in the data, so later plots use readable labels.
+d_blomkvist <- mutate(d_blomkvist,
+                     smoker = factor(smoker, levels = c("former", "no", "yes"),
+                                     labels = c("Former smoker", "Never smoked",
+                                                "Current smoker")))
+```
+
+Now run the plot chunk. It maps smoking status to point colour; the reaction times are in milliseconds. Assignment stores the plot without displaying it; run `plot_rt` to display it.
+
+```{r base-plot}
+# <- stores the plot in an object (a variable) called plot_rt.
+plot_rt <- ggplot(d_blomkvist,
+                  aes(x = rt_hand_d, y = rt_hand_nd, colour = smoker)) +
+  geom_point()
+```
+
+## Task 1: Choose a palette for comparing groups
+
+`plot_rt` now contains the plot. We can display it by running `plot_rt`, or reuse it with `plot_rt + ...`. Below, `<-` stores each new version under a different name (`plot_palette_a` and `plot_palette_b`), leaving the original `plot_rt` unchanged.
+
+**Question:** Which palette makes the smoking-status groups easier to distinguish?
+
+Run this chunk unchanged. A colour scale changes the colours used for the existing mapping; it does not change the data or point positions. `scale_colour_discrete()` uses the default categorical palette. `scale_colour_viridis_d()` supplies another categorical palette (`d` means discrete). Smoking status is categorical, so a continuous colour scale would not be appropriate here. The patchwork operator `|` puts the plots next to each other.
+
+```{r palette-choice, fig.width=11}
+plot_palette_a <- plot_rt +
+  scale_colour_discrete()
+plot_palette_b <- plot_rt +
+  scale_colour_viridis_d()
+# patchwork places the plots side by side for comparison.
+plot_palette_a | plot_palette_b
+```
+
+Which palette would you choose: A (left, default) or B (right, viridis)? Consider how easily readers can distinguish the groups and where the figure will be viewed.
+
+Write your choice and reason here: ___
+
+Replace `---` below with `scale_colour_discrete` or `scale_colour_viridis_d` to apply your chosen palette. Keep the parentheses: you are adding a scale function to a ggplot. Run your completed chunk.
+
+```{r chosen-palette}
+my_palette_plot <- plot_rt + ---()
+my_palette_plot
+```
+
+## Task 2: Keep overlapping distributions visible
+
+**Question:** How do age distributions differ between smoking-status groups?
+
+First complete the mappings below. `fill` colours the inside of each density curve; `colour` colours its outline. Replace both `---` blanks with the column identifying smoking-status groups, so the interiors and outlines describe the same groups. Age is numeric, and smoking status is categorical.
+
+Each scale controls one aesthetic: `scale_fill_viridis_d()` does not change the outlines, and `scale_colour_viridis_d()` does not change the interiors. Using matching palettes keeps the two aesthetics consistent.
+
+```{r distribution-mapping}
+plot_age <- ggplot(d_blomkvist,
+                   aes(x = age, fill = ---, colour = ---)) +
+  scale_fill_viridis_d() + scale_colour_viridis_d()
+```
+
+Now run the comparison below. `alpha` controls opacity: 0 is fully transparent and 1 is fully opaque. `position = "identity"` overlays the curves rather than stacking them. Keep the data and palette fixed so that you can judge only the effect of transparency.
+
+```{r distribution-choice, fig.width=11}
+plot_opaque <- plot_age +
+  geom_density(alpha = 1, position = "identity")
+plot_transparent <- plot_age +
+  geom_density(alpha = .25, position = "identity")
+plot_opaque | plot_transparent
+```
+
+Which version would you choose: A (left, opaque) or B (right, transparent)? Explain which features of the distributions are easier to compare.
+
+Write your choice and reason here: ___
+
+Replace `---` in the next chunk with a number between 0 and 1, then try a second value. Choose the version that makes the group distributions easiest to compare; you do not have to use either example value.
+
+```{r chosen-opacity}
+my_opacity <- ---
+my_distribution <- plot_age +
+  geom_density(alpha = my_opacity, position = "identity")
+my_distribution
+```
+
+Finally, run the count below. Each density curve has total area 1, regardless of the group size: a taller peak is not evidence that a group has more participants. Use the counts to identify information the density plot does not communicate.
+
+```{r group-sizes}
+count(d_blomkvist, smoker)
+```
+
+After checking the group sizes, what does your chosen figure still hide?
+
+Write your answer here: ___
+
+## Optional: Compare a continuous scale and its reversal
+
+Here the question changes: how does age vary across the reaction-time plot? Age is numeric, so map it to a continuous colour scale rather than the discrete scale used for smoking status. Run the first chunk unchanged. Notice that the legend is now a colour bar: by default, younger ages are dark and older ages are bright.
+
+```{r continuous-age-colour}
+plot_age_colour <- ggplot(d_blomkvist,
+                         aes(x = rt_hand_d, y = rt_hand_nd,
+                             colour = age)) +
+  geom_point()
+plot_age_default <- plot_age_colour + scale_colour_viridis_c()
+plot_age_default
+```
+
+Now reverse the palette so that darker means older. Replace `---` below with `-1`, run the chunk, and compare the colour bars. The default direction is `1`; reversing it changes the colours, not the data or point positions. Which direction better matches how you expect readers to interpret age?
+
+```{r reverse-age-colour, fig.width=11}
+plot_age_reversed <- plot_age_colour +
+  scale_colour_viridis_c(direction = ---)
+plot_age_default | plot_age_reversed
+```
+
+Check which end of each colour bar represents older participants.
+
+## Optional: Set colours manually
+
+The names in `my_colours` match the group names in the data. The hex codes specify their colours. Edit one code and run this chunk to store your palette.
+
+```{r define-manual-palette}
+# Named values keep colours stable if the order of groups changes.
+my_colours <- c("Former smoker" = "#0072B2",
+                "Never smoked" = "#D55E00",
+                "Current smoker" = "#009E73")
+```
+
+Run the next chunk to preview your colours as swatches. Check that the three groups are easy to distinguish before applying the palette to the plot.
+
+```{r preview-manual-palette}
+scales::show_col(my_colours)
+```
+
+Now replace `---` with the name of the object containing your colours and run the plot chunk. If you edit the palette again, rerun the definition, preview, and plot chunks in order.
+
+```{r manual-palette}
+plot_rt + scale_colour_manual(values = ---)
+```
+
+Try one colour change. Does it improve the comparison? Explain why.
+
+Write your answer here: ___
+
+## Optional: Compare outline-only densities
+
+This version uses `colour` without `fill`, leaving the interiors empty. Run it and compare it with your transparent version. Consider whether removing fill helps readers follow the curves or makes the groups harder to identify.
+
+```{r outline-density}
+ggplot(d_blomkvist, aes(x = age, colour = smoker)) +
+  geom_density(linewidth = .8) +
+  scale_colour_viridis_d()
+```
+
+Compare this with `my_distribution`. Which would you use, and why?
+
+Write your answer here: ___

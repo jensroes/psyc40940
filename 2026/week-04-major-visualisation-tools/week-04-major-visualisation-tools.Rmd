@@ -47,98 +47,199 @@ d_spellname <- summarise(d_spellname,
 ```
 
 
-## General outline for weeks 2 -- 5
+## Get The Week 4 Exercise Files
+
+From the **Week 4 section on NOW**, download:
+
+`psyc40940-week-04-major-visualisation-tools.zip`
+
+1. Unzip the download and move the extracted `week-04-major-visualisation-tools` folder into your **existing module RStudio Project folder**.
+2. Keep the `.Rmd` files, `data` folder, and supporting files together. Do not work inside the zip file.
+3. Have `01_choosing_plot_types.Rmd` ready in RStudio for the first practical.
+
+
+## From Grammar To Plot Choice
 
 - ~~Week 2: Principles of data visualisation~~
 - ~~Week 3: Grammar of graphics; aesthetics and attributes~~
 - Week 4: Major visualisation tools
 - Week 5: Customising visualisations (scales, themes, and labels)
 
-## Checking up on the formative assessment
+## What You Should Take Away
 
-- Identify a data set for formative assessment.
-- Work on visualisation for your data set.
+By the end of the session, you should be able to:
 
+- choose a geometry based on the question and variable types
+- compare options for distributions, relationships, and group comparisons
+- recognise when a summary plot hides important variation
+- use simple data wrangling when it makes a clearer plot possible
 
-## Objectives for today
+## Before thinking about code, look at the plot first.
 
-- Appreciate the wide range of different visualisation tools 
-- Understand and explain what "geometries" are.
-- Differentiate three major visualisation tools, when to use them, and how to create them in `ggplot2`.
-- Explain why barplots are problematic for certain data types.
-- Use data wrangling to adjust data to your visualisation goals.
-
-Download exercises from Week 4 folder on NOW and move them into your R-project directory.
+<div style="float: left; width: 38%;">
 
 
+- What is this plot trying to compare?
+- Which group seems faster or slower?
+- What makes the comparison easy?
+- What makes the comparison difficult?
+- What would you try instead?
+
+</div>
+
+<div style="float: right; width: 58%;">
+
+```{r echo = FALSE, out.width="100%", fig.height=5}
+ggplot(d_spellname, aes(x = rt, fill = modality)) +
+  geom_histogram(alpha = 0.55,
+                 position = "identity",
+                 bins = 30,
+                 colour = "white") +
+  labs(x = "Reaction time (in msecs)",
+       y = "Number of participants",
+       fill = "Response modality") +
+  theme(legend.position = "top")
+```
+
+</div>
+
+
+## Start With Question And Variable Type
+
+Start with the question and the variables involved.
+
+| Question | Typical variable types | Useful starting point |
+|---|---|---|
+| What values occur? | one continuous variable | histogram, density plot |
+| Are two measures related? | two continuous variables | scatterplot |
+| Do groups differ? | categorical group + continuous outcome | jitter/boxplot/violin |
+| How many observations are in each group? | one categorical variable | bar plot |
+
+<p class="take-home">Plot type follows the question and variable types, not the other way round.</p>
+
+
+## Variable Type Is A Plot Choice Shortcut
+
+Identify whether each variable is continuous or categorical.
+
+| Variable combination | What it supports | Examples |
+|---|---|---|
+| one continuous variable | distribution of values | histogram, density plot |
+| one categorical variable | counts or proportions | bar chart |
+| continuous + continuous | relationship | scatterplot, density contours |
+| categorical + continuous | group comparison | jitter, boxplot, violin, raincloud |
+| categorical + categorical | counts across groups | grouped bar chart, heatmap |
+
+<p class="take-home">The geom should match the structure of the variables you want to compare.</p>
+
+
+## The Main Question For Every Plot
+
+For each visualisation today, ask three things:
+
+- What question does this plot answer?
+- What does this plot reveal clearly?
+- What does this plot hide or make difficult to compare?
+
+<p class="take-home">A plot type is a design decision: it makes some comparisons easier and others harder.</p>
+
+
+## Week 2 Principles, Week 4 Decisions
+
+We used principles as a checklist for judging plots [@hartwig1979exploratory; @tufte1983visual; @cleveland1984graphical]. This week we use the same checklist to choose plot types.
+
+| Week 2 principle | Week 4 plot-choice question |
+|---|---|
+| Show the data and variation | Do we need raw points, distributions, or uncertainty? |
+| Make comparisons easy | Which plot makes the target comparison quickest to see? |
+| Avoid misleading summaries | What does this plot hide, average away, or imply? |
+| Label enough for interpretation | Are variables, groups, and units clear? |
+
+<p class="take-home">Choosing a plot type is how we put the Week 2 principles into practice.</p>
 
 
 <!-- include plotly in slides -->
 <!-- explain geometries in more details -->
 
 
-## Warm-up
+## What Plot Types Do You Know?
 
-From the top of your head, what types of data visualisations have you seen in journal articles / news / social media etc.?
+What types of data visualisations have you seen in journal articles, news, reports, dashboards, or social media?
+
+You do not need to know the correct name. Describe or sketch the idea: what does it look like, and what does it seem to show?
 
 
-## The list goes on forever {.smaller}
+## A Snapshot Of The Visualisation Landscape {.smaller}
 
-**Basic Charts**
+There are many named chart types. We will not read or memorise this list. Use it as a quick reminder that visualisation tools vary with the question, the variables, and the data structure.
 
-- Bar Chart: compares quantities across categories.  
-- Column Chart: vertical version of a bar chart.  
-- Line Chart: shows trends over time.  
-- Pie Chart: shows proportions of a whole.  
-- Donut Chart: like a pie chart but with a blank center.  
-- Area Chart: like a line chart but filled below the line.  
+<div style="float: left; width: 32%;">
 
-**Statistical Visualisations**
+**Amounts and proportions**
 
-- Histogram: shows distribution of numerical data.  
-- Box Plot (Box-and-Whisker Plot): displays data spread and outliers.  
-- Violin Plot: combines box plot and density plot.  
-- Scatter Plot: shows relationships between two variables.  
-- Bubble Chart: scatter plot with a third variable represented by bubble size.  
+- bar chart
+- column chart
+- stacked bar chart
+- pie chart
+- donut chart
+- waffle chart
 
-**Multivariate Visualisations**
+**Distributions**
 
-- Heatmap: uses color to represent values in a matrix.  
-- Pair Plot: shows scatter plots for all variable combinations.  
-- Parallel Coordinates Plot: compares many variables across observations.  
-- Radar Chart (Spider Chart): compares multiple variables on axes from a central point.  
+- histogram
+- density plot
+- frequency polygon
+- box plot
+- violin plot
+- raincloud plot
 
-**Geospatial Visualisations**
+</div>
 
-- Choropleth Map: uses color to show data across geographic regions.  
-- Dot Map: uses dots to show data density.  
-- Heat Map (Geospatial): shows intensity of data over a map.  
-- Flow Map: shows movement between locations.  
+<div style="float: left; width: 32%; margin-left: 2%;">
 
-**Hierarchical & Network Visualisations**
+**Relationships**
 
-- Tree Map: nested rectangles showing hierarchical data.  
-- Sunburst Chart: radial version of a tree map.  
-- Dendrogram: tree diagram showing hierarchical clustering.  
-- Network Graph: shows relationships between entities (nodes and edges).  
-- Sankey Diagram: shows flow and proportions between stages.  
+- scatterplot
+- bubble chart
+- line chart
+- contour plot
+- heatmap
+- pair plot
 
-**Temporal Visualisations**
+**Change over time**
 
-- Gantt Chart: shows project timelines.  
-- Timeline: displays events in chronological order.  
-- Calendar Heatmap: shows data across days/weeks/months.  
+- time-series line chart
+- area chart
+- streamgraph
+- timeline
+- calendar heatmap
+- Gantt chart
 
-**Specialised Visualisations**
+</div>
 
-- Word Cloud: visualises text data by word frequency.  
-- Contour Plot: shows 3D surface on 2D plane.  
-- Streamgraph: variation of stacked area chart for time series.  
-- Ternary Plot: shows proportions of three variables that sum to a constant.
+<div style="float: right; width: 32%;">
 
-## Here with some more system
+**Places, networks, and structures**
 
-Decision tree from [data-to-viz.com/](https://www.data-to-viz.com/)
+- choropleth map
+- dot map
+- flow map
+- treemap
+- sunburst chart
+- dendrogram
+- network graph
+- Sankey diagram
+- parallel coordinates
+- radar chart
+- word cloud
+- ternary plot
+
+</div>
+
+<p style="clear: both;" class="take-home">The name matters less than the comparison: What are we trying to see?</p>
+
+
+## A Decision Tree For Plot Choice [data-to-viz.com/](https://www.data-to-viz.com/)
 
 ```{r echo = F}
 include_graphics("gfx/dataviz.png")
@@ -148,11 +249,11 @@ include_graphics("gfx/dataviz.png")
 
 
 
-# Major visualisation tools
+# Choosing Visualisation Tools
 
 
 
-## Geometries
+## Geoms Are Drawing Tools
 
 - choice depends on visualisation goals, number and type of variables (and your subject domain)
 - what kind of visual element you want to draw?
@@ -167,7 +268,7 @@ Think of it like this:
 
 
 
-## Geometries
+## `ggplot2` Has Many Geoms
 
 - Geometries (`geom_`) control visual encoding of aesthetics layer
 - ~50 geometries: `geom_` are part of `ggplot2` (below)
@@ -185,7 +286,9 @@ print(geoms, quote = F)
 ```
 
 
-## Common geometries and their uses
+## Common Geoms And What They Show
+
+Use geometries as tools for comparison, not as a menu of effects.
 
 | Geometry         | Function       | What it shows                                      |
 |------------------|----------------|----------------------------------------------------|
@@ -196,7 +299,7 @@ print(geoms, quote = F)
 | `geom_boxplot()` | Boxplot        | Summary of distribution (median, quartiles, outliers) |
 | `geom_text()`    | Text labels    | Add labels to points or bars                       |
 
-## Same data, different geometries
+## Same Data, Different Views
 
 ```{r echo = F, fig.width=10, fig.height=4.5}
 plot <- ggplot(d_spellname, aes(x = dur)) +
@@ -217,265 +320,294 @@ plot_a + plot_b + plot_c + plot_d + plot_e + plot_spacer() +
 
 
 
-## Major visualisation types
+## Three Plotting Problems We Will Practise
 
-- univariate distributions
-- bivariate distributions 
-- group comparisons
+- Univariate distributions
+- Bivariate distributions 
+- Group comparisons
 
 
 
-## Univariate distribution
+## Show One Variable: Histograms {.smaller}
 
-<div style="float: left; width: 40%;">
+A histogram answers: what values occur, and how often? It reveals distribution shape, but the answer depends on binning.
 
-- function: distribution of values
-- variable type: continuous or discrete
-- examples: histograms, density plots, bar plots, rug
+<div style="float: left; width: 43%;">
 
-</div>
-
-<div style="float: right; width: 50%;">
-
-```{r echo=F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_histogram() 
-```
-
-```{r eval=F, out.width="100%"}
-ggplot(d_spellname, aes(x = rt)) +
-  geom_histogram() 
+```{r ex_hist_code, eval=FALSE}
+ggplot(data = d_spellname,
+       mapping = aes(x = rt)) +
+  geom_histogram(bins = 30)
 ```
 
 </div>
 
-## Univariate distribution
+<div style="float: right; width: 52%;">
 
-Complete RMarkdown document **1_univariate_viz.Rmd**
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
+```{r ex_hist_plot, ref.label="ex_hist_code", echo=FALSE, out.width="100%", fig.height=3.8}
+```
 
 </div>
 
-<div style="float: right; width: 65%;">
 
+## Exercise 1: Choosing Plot Types
 
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+Open **01_choosing_plot_types.Rmd**.
+
+Complete now:
+
+- Load packages and data
+- Question 1: distribution of age
+- Choose between histogram and scatterplot for the age question
+- Question 2: distribution of reaction times
+
+Stop before Question 3.
+
+## Scatterplots: Points And Trends {.smaller}
+
+A scatterplot answers: do two continuous variables vary together? It reveals individual observations, but dense regions can overplot.
+
+Both variables are shown by position on shared axes, supporting accurate comparisons of values [@cleveland1984graphical].
+
+A trend line summarises the overall direction, but can hide local variation. Keep the individual points visible.
+
+<div style="float: left; width: 43%;">
+
+```{r ex_scatter_code, eval=FALSE}
+ggplot(data = d_spellname,
+       mapping = aes(x = dur,
+                     y = rt)) +
   geom_point() +
-  stat_smooth(method = "lm") 
+  stat_smooth(method = "lm")
 ```
-</div>
-
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 65%;">
+<div style="float: right; width: 52%;">
 
-
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-
-years <- 1949:1960
-
-AirPassengers %>% 
-  as.data.frame() %>% 
-  mutate(year = rep(years, each = 12),
-         month = rep(month(1:12, label = T), length(years)),
-         time = str_c(month, year, sep = " ")) %>% 
-#time = as.Date(time, format = "%m %Y" ))# %>% 
-  ggplot(aes(x = year, y = x, colour = month)) +
-    geom_point() +
-    stat_smooth() +
-    labs(y = "number of airline passengers",
-         caption = "Box, G. E. P., Jenkins, G. M. and Reinsel, G. C. (1976) Time Series Analysis, \nForecasting and Control. Third Edition. Holden-Day. Series G.") +
-  theme(plot.caption = element_text(size = 8))
-    
-
-
+```{r ex_scatter_plot, ref.label="ex_scatter_code", echo=FALSE, out.width="100%", fig.height=3.8}
 ```
-</div>
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 65%;">
 
+## Add Marginal Distributions {.smaller}
 
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+Marginal distributions answer two questions at once: how are the variables related, and how is each variable distributed?
+
+<div style="float: left; width: 43%;">
+
+```{r ex_marginal_code, eval=FALSE}
+p <- ggplot(data = d_spellname,
+       mapping = aes(x = dur,
+                     y = rt)) +
   geom_point() +
-  stat_smooth(method = "lm") 
-```
-</div>
+  stat_smooth(method = "lm")
 
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
-
-</div>
-
-<div style="float: right; width: 65%;">
-
-
-```{r echo=F, results=F}
-p <- ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
-  geom_point() +
-  stat_smooth(method = "lm") 
-```
-
-
-```{r  out.width="100%", echo = FALSE, results=FALSE}
 ggExtra::ggMarginal(p)
 ```
-</div>
-
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 65%;">
+<div style="float: right; width: 52%;">
+
+```{r ex_marginal_plot, ref.label="ex_marginal_code", echo=FALSE, out.width="100%", fig.height=3.8}
+```
+
+</div>
 
 
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
+## Two-Dimensional Density Lines {.smaller}
+
+Density lines answer: where are observations concentrated? They reveal clusters, but individual points disappear.
+
+<div style="float: left; width: 43%;">
+
+```{r ex_density_code, eval=FALSE}
+ggplot(data = d_spellname,
+       mapping = aes(x = dur,
+                     y = rt)) +
   geom_density_2d()
 ```
-</div>
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 65%;">
+<div style="float: right; width: 52%;">
 
-
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-ggplot(data = d_spellname, mapping = aes(x = dur, y = rt)) +
- geom_density_2d_filled()
+```{r ex_density_plot, ref.label="ex_density_code", echo=FALSE, out.width="100%", fig.height=3.8}
 ```
-</div>
-
-
-
-
-## Bivariate distribution
-
-<div style="float: left; width: 30%;">
-
-- function: relationship between two variables
-- variable type: typically continuous
-- examples: scatter plot, time series
 
 </div>
 
-<div style="float: right; width: 65%;">
 
+## Filled Density Regions {.smaller}
 
-```{r  out.width="100%", echo = FALSE, results=FALSE}
-read_csv("data/spellname.csv") %>% 
-  select(resp, nsyl, nchar, nphon, cat, semcat, name_div) %>% 
-  drop_na() %>% 
-  count(nchar, nphon) %>% 
-  ggplot(aes(x = nchar, y = nphon, fill = n)) +
-  geom_tile(colour = "grey90") 
+Filled density regions answer the same question with colour. They reveal broad structure, but exact values become less visible.
+
+<div style="float: left; width: 43%;">
+
+```{r ex_filled_density_code, eval=FALSE}
+ggplot(data = d_spellname,
+       mapping = aes(x = dur,
+                     y = rt)) +
+  geom_density_2d_filled()
 ```
+
+</div>
+
+<div style="float: right; width: 52%;">
+
+```{r ex_filled_density_plot, ref.label="ex_filled_density_code", echo=FALSE, out.width="100%", fig.height=3.8}
+```
+
 </div>
 
 
-## Bivariate distributions: interactivity {.columns-2}
+## Heatmaps Show Counts Across Two Variables {.smaller}
 
-Any `ggplot2` object can easily be transformed into an interactive visualisation using the `plotly` package.
+A heatmap answers: which combinations occur most often? It reveals counts across two dimensions, but not individual observations.
 
-```{r fig.width=4, eval = F}
-# Load plotly package
+```{r echo = FALSE}
+data_char <- read_csv("data/spellname.csv") %>%
+  select(resp, nsyl, nchar, nphon, cat, semcat, name_div) %>%
+  drop_na() %>%
+  count(nchar, nphon)
+```
+
+<div style="float: left; width: 43%;">
+
+```{r ex_heatmap_code, eval=FALSE}
+ggplot(data = data_char,
+       mapping = aes(x = nchar,
+                     y = nphon,
+                     fill = n)) +
+  geom_tile(colour = "grey90")
+```
+
+</div>
+
+<div style="float: right; width: 52%;">
+
+```{r ex_heatmap_plot, ref.label="ex_heatmap_code", echo=FALSE, out.width="100%", fig.height=3.8}
+```
+
+</div>
+
+
+## Optional Preview: Interactive Scatterplots {.smaller}
+
+We will return to interactivity in the Shiny part of the module.
+
+<div style="float: left; width: 43%;">
+
+```{r ex_plotly_code, eval=FALSE}
 library(plotly)
 
-# Create ggplot plot and save in `plot`
-plot <- ggplot(d_spellname, aes(x = dur, y = rt)) +
+plot <- ggplot(data = d_spellname,
+       mapping = aes(x = dur,
+                     y = rt)) +
   geom_point()
 
-# Create an interactive version of `plot` using `ggplotly`
 ggplotly(plot)
 ```
 
+</div>
 
-```{r fig.width=5, echo = F}
-# Load plotly package
-library(plotly)
+<div style="float: right; width: 52%;">
 
-# Create ggplot plot and save in `plot`
-plot <- ggplot(d_spellname, aes(x = dur, y = rt)) +
-  geom_point()
-
-# Create an interactive version of `plot` using `ggplotly`
-ggplotly(plot)
+```{r ex_plotly_plot, ref.label="ex_plotly_code", echo=FALSE, out.width="100%", fig.height=3.8}
 ```
 
-
-## Bivariate distribution
-
-Complete RMarkdown document **2_bivariate_viz.Rmd**
+</div>
 
 
+## Ordered Data: Time Trends {.smaller}
 
-## Groups comparison
+A time plot answers: how does a value change across an ordered sequence? It reveals trends, cycles, and departures from the pattern.
 
-- function: distribution of values for two or more groups (often closely tied to statistical descriptions)
-- variable type: continuous 
-- examples: (jitter) dots, box plot, violin plot, beeswarm plots, barplot (pie chart), dynamite plots
+```{r echo = FALSE}
+passenger_data <- data.frame(
+  passengers = as.numeric(AirPassengers),
+  year = rep(1949:1960, each = 12),
+  month = factor(rep(month.abb, times = 12), levels = month.abb)
+)
+```
+
+<div style="float: left; width: 43%;">
+
+```{r ex_time_code, eval=FALSE}
+ggplot(data = passenger_data,
+       mapping = aes(x = year,
+                     y = passengers,
+                     colour = month)) +
+  geom_point() +
+  stat_smooth()
+```
+
+</div>
+
+<div style="float: right; width: 52%;">
+
+```{r echo = FALSE, out.width="100%", fig.height=3.8}
+ggplot(data = passenger_data,
+       mapping = aes(x = year,
+                     y = passengers,
+                     colour = month)) +
+  geom_point() +
+  stat_smooth() +
+  scale_x_continuous(breaks = 1949:1960)
+```
+
+</div>
+
+
+## Same Data, Different Questions
+
+Each plot changes the question we can answer. This is the Week 2 point again: plots reveal structure that summaries can leave out [@anscombe1973graphs; @matejka2017same].
+
+| Plot choice | Strongest question | Main trade-off |
+|---|---|---|
+| Scatterplot | Do two variables vary together? | Can overplot dense data |
+| Trend line | What is the overall pattern? | Hides individual variation |
+| Marginal distributions | What is the relationship and each variable's spread? | More visually complex |
+| Density or heatmap | Where are observations concentrated? | Individual observations disappear |
+
+<p class="take-home">Choose the plot that makes the important comparison easiest to see.</p>
+
+
+## Continue Exercise 1: Relationships
+
+Return to **01_choosing_plot_types.Rmd**.
+
+Complete now:
+
+- Question 3: relationship between two reaction-time measures
+- Choose between scatterplot and separate histograms for the relationship question
+- Question 4: whether the relationship differs by group
+
+If you finish early, complete the Principle check.
 
 
 
-## Dynamite plot and its pitfalls
+## Compare Groups Without Hiding The Data
+
+- Compare a continuous outcome across categorical groups.
+- Put groups in distinct positions on a common outcome scale; colour, shape, or facets can also distinguish groups.
+- Add a group mapping only when it helps answer the question. Extra aesthetics can make comparison harder.
+
+We will compare raw points, boxplots, and distribution plots to see what each reveals or hides.
+
+
+## What Does This Plot Hide?
 
 <div style="float: left; width: 40%;">
 
-What problems can you think of? 
+Look at the plot first, before thinking about code. Bar plots with error bars can make summaries feel more complete than they are [@correll2014error].
 
-What's possibly problematic with this visualisation?
+- What does this visualisation suggest?
+- What information is missing?
+- Can we see spread, outliers, or sample size?
+- What would you add or change?
 
 </div>
 
@@ -496,7 +628,9 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Dynamite plot and its pitfalls
+
+
+## Why Dynamite Plots Can Mislead
 
 <div style="float: left; width: 40%;">
 
@@ -527,7 +661,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Dynamite plots: bars
+## Summary Bars Hide Raw Variation
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
 ggplot(data = d_spellname, aes(y = rt, x = modality)) +
@@ -538,7 +672,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
   labs(y = "Reaction time (in msecs)", x = "Response modality") 
 ```
 
-## Alternative geometries: points
+## Raw Points Reveal Variation
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
 ggplot(data = d_spellname, aes(y = rt, x = modality)) +
@@ -550,7 +684,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Alternative geometries: jittered points
+## Jitter Reduces Overplotting
 
 
 
@@ -563,10 +697,11 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Alternative geometries: points and errorbars
+## Combine Raw Data With Summary Estimates
 
+The larger red point highlights the mean. Its size adds emphasis; it does not represent another measured quantity.
 
-```{r  out.width="65%", echo = FALSE, results=FALSE}
+```{r out.width="65%", fig.width=7, fig.height=4.2, echo=FALSE, results=FALSE}
 ggplot(data = d_spellname, aes(y = rt, x = modality)) +
   geom_jitter(width = 0.1, size = .5, alpha = .25) + 
   stat_summary(fun.y = mean, 
@@ -582,7 +717,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 ```
 
 
-## Alternative geometries: box-and-whiskers plot
+## Boxplots Summarise Distributions
 
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
@@ -591,7 +726,7 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
   labs(y = "Reaction time (in msecs)", x = "Response modality") 
 ```
 
-## Alternative geometries: box-and-whiskers plot
+## Boxplots Work Better With Raw Points
 
 
 ```{r  out.width="65%", echo = FALSE, results=FALSE}
@@ -603,24 +738,47 @@ ggplot(data = d_spellname, aes(y = rt, x = modality)) +
 
 
 
-## Alternative geometries: box-and-whiskers plot
+## Reading A Boxplot {.smaller}
 
-```{r fig.cap="See @tukey1977exploratory", echo = F}
+Boxplots were introduced as part of exploratory data analysis [@tukey1977exploratory]. They compress a distribution into a small set of robust summaries.
+
+<div style="float: left; width: 44%;">
+
+```{r fig.cap="See @tukey1977exploratory", echo = FALSE, out.width="100%"}
 include_graphics("gfx/boxplot.png")
 ```
 
+</div>
 
-## Raincloud plots {.columns-2 .smaller}
+<div style="float: right; width: 50%;">
 
-```{r fig.width=5}
+Read the parts as:
+
+- **middle line:** median
+- **box:** middle 50% of the data
+- **lower edge:** first quartile, Q1
+- **upper edge:** third quartile, Q3
+- **box height:** interquartile range, IQR
+- **whiskers:** values within 1.5 IQR from the box
+- **points beyond whiskers:** possible outliers
+
+<p class="take-home">A boxplot is compact, but it hides individual observations unless we add raw points.</p>
+
+</div>
+
+
+## Raincloud Plots: Distribution And Raw Data {.columns-2 .smaller}
+
+```{r fig.width=4.5, fig.height=5}
 library(ggdist)
 
-ggplot(d_spellname, aes(x = modality, y = rt)) +
+ggplot(d_spellname, 
+       aes(x = modality, y = rt)) +
   # half violin (the "cloud")
   stat_halfeye(
     adjust = 0.45,        # smoothness
-    justification = -0.2, # shift left/right
-    .width = 0,           # no interval bars
+    justification = -0.2, # horiz. shift 
+    .width = 0,           # no interv bars
     point_colour = NA) +
   # boxplot
   geom_boxplot(
@@ -637,12 +795,16 @@ ggplot(d_spellname, aes(x = modality, y = rt)) +
 
 
 
-## Group comparisons
+## Exercise 2: Group Comparisons
 
-Complete RMarkdown document **3_group_comparisons.Rmd**
+Open **02_group_comparisons_and_raw_data.Rmd**.
+
+Complete the file and use the ranking task near the end to decide which plot is most honest for the question.
 
 
-## Crash course in data wrangling {.smaller}
+## Homework/Reference: Data Wrangling For Visualisation {.smaller}
+
+This is homework/reference material.
 
 - Data come in various formats.
 - For some visualisations, the format of the data needs to be changed.
@@ -662,10 +824,10 @@ drop_na()
 
 These wrangling tasks can be managed in `ggplot` and `tidyverse`, more specifically `dplyr`.  
 
-## Crash course in data wrangling {.smaller}
+## Wrangling Tools To Recognise {.smaller}
 
-- `dplyr` has many useful functions for data wrangling.
-- Knowing the following functions will give you a lot of flexibility.
+- `dplyr` and `tidyr` have useful functions for preparing data for plots.
+- You do not need to master data wrangling in this module, but these tools are useful to recognise.
 
 ```{r eval = F}
 # Transforms dataframes into a long format
@@ -686,13 +848,13 @@ mutate(data, new_var = old_var)
 
 
 
-Complete RMarkdown document **4_data_wrangling.Rmd**
+Data wrangling is homework/reference: **03_data_wrangling_for_visualisation_homework.Rmd**. Focus on how reshaping data makes it match what the geom needs.
 
 
 
 ## Homework
 
-- Complete RMarkdown document **4_data_wrangling.Rmd**
+- Data wrangling is homework/reference: **03_data_wrangling_for_visualisation_homework.Rmd**. Focus on how reshaping data makes it match what the geom needs.
 - Bring in data and anything you've already done for the formative assessment.
 - Complete recommended reading
 

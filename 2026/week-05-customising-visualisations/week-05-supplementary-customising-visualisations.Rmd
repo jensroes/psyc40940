@@ -1,0 +1,759 @@
+---
+title: "Supplementary Materials: Customising Visualisations"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggthemes)
+knitr::opts_chunk$set(echo = TRUE, comment = NA,
+                      warning = FALSE, message = FALSE)
+theme_set(
+  theme_gray(base_size = 17) +
+    theme(plot.background = element_rect(fill = "transparent", colour = NA)))
+d_spellname <- read_csv("data/spellname.csv")
+d_spellname <- summarise(d_spellname,
+                        rt = mean(rt), dur = mean(dur),
+                        .by = c(ppt_id, name_familiarised, ppt_vocab, modality))
+```
+
+## Supplementary Materials: Customising Visualisations {.smaller}
+
+Optional examples to explore in your own time, alongside the Week 5 theme exercise, `03_themes.Rmd`.
+
+- Use the exercise to compare themes and practise changing individual elements.
+- Use these slides as worked examples for facet labels, axis text, legends, grids, backgrounds, and facet strips.
+- Choose changes that improve readability or comparison; you do not need to try every option.
+
+These materials extend the main Week 5 session; detailed theme customisation is not required during class.
+
+## Facet Strips Are Labels Too
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) +
+  geom_point() + 
+  facet_grid(~modality)
+```
+
+</div>
+
+## Facet Labels Can Come From The Data
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both)
+```
+
+</div>
+
+## Recoding Changes The Data Labels
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+d_spellname <- mutate(d_spellname,
+  modality = recode(modality,
+    speech = "Spoken output",
+    writing = "Written output"))
+
+ggplot(d_spellname, 
+       aes(x = dur, 
+           y = rt)) +
+  geom_point() +
+  facet_grid(~modality)
+```
+
+</div>
+
+
+## Strip Labels Should Match The Story
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) +
+  geom_point() + 
+  facet_grid(~modality, labeller = label_both)
+```
+
+</div>
+
+
+
+
+## Start From The `ggplot2` Default
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  theme_grey(base_size = 11)
+```
+
+</div>
+
+## `theme_minimal()`: No Panel Background
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  theme_minimal(base_size = 14)
+```
+
+</div>
+
+## `theme_light()`: Light Grid And Border
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  theme_light(base_size = 14)
+```
+
+</div>
+
+## `theme_dark()`: A Dark Panel Background
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  theme_dark(base_size = 14)
+```
+
+</div>
+
+## Theme Packages Add Starting Points
+
+<div class="plot-properties">
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  facet_grid(~modality) +
+  theme_clean()
+```
+
+</div>
+
+## Choose Themes For The Comparison {.smaller}
+
+<div class="plot-properties">
+
+
+- `axis`
+- `legend`
+- `panel`
+- `plot`
+- `strip`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  theme()
+```
+
+</div>
+
+## Axis Text Is Part Of Readability {.smaller}
+
+<div class="plot-properties">
+
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, 
+       aes(y = rt,
+           x = dur)) + 
+  geom_point() +
+  theme(axis.text = 
+          element_text(face = "italic"))
+```
+
+</div>
+
+## Bold Axis Titles Can Add Emphasis {.smaller}
+
+<div class="plot-properties">
+
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) + 
+  geom_point() +
+  theme(axis.title = 
+          element_text(face = "bold"))
+```
+
+</div>
+
+## Axis Titles And Tick Labels Are Separate {.smaller}
+
+<div class="plot-properties">
+
+
+- `axis.text`
+  - `axis.text.x`
+  - `axis.text.y`
+- `axis.title`
+  - `axis.title.x`
+  - `axis.title.y`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) + 
+  geom_point() +
+  theme(axis.title.y = 
+          element_text(face = "bold"))
+```
+
+</div>
+
+## Legends Compete For Plot Space {.smaller}
+
+<div class="plot-properties">
+
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur,
+    colour = modality)) + 
+  geom_point() +
+  theme()
+```
+
+</div>
+
+## Move Legends When Space Is Tight {.smaller}
+
+<div class="plot-properties">
+
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur,
+    colour = modality)) + 
+  geom_point() +
+  theme(legend.position = "top")
+```
+
+</div>
+
+## Align A Top Legend To The Right {.smaller}
+
+<div class="plot-properties">
+
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur,
+    colour = modality)) + 
+  geom_point() +
+  theme(legend.position = "top",
+        legend.justification = "right")
+```
+
+</div>
+
+## An Inside Legend Can Cover Data {.smaller}
+
+<div class="plot-properties">
+
+- `legend.background`
+- `legend.margin`
+- `legend.spacing`
+- `legend.key`
+- `legend.text`
+- `legend.title`
+- `legend.position`
+- `legend.orientation`
+- `legend.justification`
+- `legend.box`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur,
+    colour = modality)) +
+  geom_point() + 
+  theme(legend.position = c(.15, .8))
+```
+
+</div>
+
+## Grid Lines Can Help Or Distract {.smaller}
+
+<div class="plot-properties">
+
+
+- `panel.background`
+- `panel.border`
+- `panel.spacing`
+- `panel.grid`
+  - `panel.grid.major`
+  - `panel.grid.minor`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  theme()
+```
+
+</div>
+
+## Remove The Panel Background {.smaller}
+
+<div class="plot-properties">
+
+- `panel.background`
+- `panel.border`
+- `panel.spacing`
+- `panel.grid`
+  - `panel.grid.major`
+  - `panel.grid.minor`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  theme(panel.background =
+        element_blank())
+```
+
+</div>
+
+## Plot Properties Control The Whole Figure {.smaller}
+
+<div class="plot-properties">
+
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() +
+  theme()
+```
+
+</div>
+
+## A Coloured Plot Background Adds Non-Data Ink {.smaller}
+
+<div class="plot-properties">
+
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  theme(plot.background = element_rect(
+    fill = "pink"))
+```
+
+</div>
+
+## Plot Margins Affect Readability {.smaller}
+
+<div class="plot-properties">
+
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  theme(plot.background = element_rect(
+    fill = "pink"),
+  plot.margin = unit(c(2, 2, 2, 2),
+                     "cm"))
+```
+
+</div>
+
+## Title Colour Can Help Or Hinder Readability {.smaller}
+
+<div class="plot-properties">
+
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  labs(title = "I'm a title") +
+  theme(plot.title = element_text(
+    colour = "pink"))
+```
+
+</div>
+
+## Caption Text Can Be Styled Separately {.smaller}
+
+<div class="plot-properties">
+
+- `plot.background`
+- `plot.margin`
+- `plot.title`
+- `plot.subtitle`
+- `plot.caption`
+- `plot.tag`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  labs(caption = "I'm a caption") +
+  theme(plot.caption = element_text(
+    face = "italic"))
+```
+
+</div>
+
+## Facet Strips Guide Small Multiples {.smaller}
+
+<div class="plot-properties">
+
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both) +
+  theme()
+```
+
+</div>
+
+## Strip Backgrounds Can Add Clutter {.smaller}
+
+<div class="plot-properties">
+
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both) +
+  theme(strip.background =
+        element_blank())
+```
+
+</div>
+
+## Strip Background Colour Changes The Emphasis {.smaller}
+
+<div class="plot-properties">
+
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both) +
+  theme(strip.background = element_rect(
+    fill = "forestgreen"))
+```
+
+</div>
+
+## Strip Text Needs To Stay Readable {.smaller}
+
+<div class="plot-properties">
+
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both) +
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0))
+```
+
+</div>
+
+## Combine Theme Changes Deliberately {.smaller}
+
+<div class="plot-properties">
+
+- `strip.background`
+- `strip.placement`
+- `strip.text`
+
+
+</div>
+
+<div class="code-plot">
+
+```{r echo=TRUE, fig.width=5.4, fig.height=4.4, out.width="100%"}
+ggplot(d_spellname, aes(y = rt,
+    x = dur)) +
+  geom_point() + 
+  facet_grid(~modality,
+             labeller = label_both)+
+  theme(strip.background = element_rect(fill = "forestgreen"),
+        strip.text = element_text(colour = "white", hjust = 0, 
+            face = "bold", size = 16, angle = 180))
+```
+
+</div>
+

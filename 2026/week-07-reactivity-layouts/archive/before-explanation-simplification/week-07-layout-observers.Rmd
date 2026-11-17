@@ -1,0 +1,469 @@
+---
+title: "PSYC40940: Shared Data And Clear Layouts"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+bibliography: "references.bib"
+csl: "apa.csl"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(patchwork)
+knitr::opts_chunk$set(echo = TRUE, comment = NA,
+                      warning = FALSE, message = FALSE)
+d_participants <- read_csv("data/participant_reaction_times.csv",
+                           show_col_types = FALSE)
+d_spoken <- filter(d_participants, modality == "speech")
+theme_set(theme_grey(base_size = 12))
+```
+
+## Today: Keep Several Views Consistent 
+
+By the end of this session, you should be able to:
+
+- Share one filtering step across several outputs using `reactive()`.
+- Obtain the current data with `selected_data()`.
+- Explain which controls affect which outputs.
+- Organise the same app using a sidebar and clear explanations.
+
+**What we will build:** the Week 6 histogram, a complementary plot of individual values, and a participant count, all using one group selection.
+
+## Download The Week 7 App And Worksheet {.smaller}
+
+Unzip the **whole Week 7 folder** from NOW into your existing module project.
+
+```text
+Your existing module project/
+  week-07-layout-observers/
+    intro_app.R
+    starter_app.R
+    layout_app.R
+    01_shared_data_and_layout.Rmd
+    data/
+      participant_reaction_times.csv
+```
+
+Keep the scripts and `data/` together. The folder keeps its existing name; today's core tasks do **not** use observers.
+
+Open the Rmd and click **Knit** to read its HTML guide. 
+
+## Knit The Guide, Then Follow Each Stage {.smaller}
+
+Open `01_shared_data_and_layout.Rmd` and click **Knit**. Read the HTML beside your app script; use its contents menu to find each section.
+
+| After our explanation | Guide section |
+|---|---|
+| Trace the Week 6 controls and histogram | Trace the Week 6 histogram |
+| Inspect the outputs and repeated filtering | Inspect three views of one selection |
+| See how a function call returns selected rows | A function call can return selected rows |
+| Understand `reactive()` and `selected_data()` | Share the preparation with reactive |
+| Complete and test shared-data connections | Exercise 1: connect shared data to the outputs |
+| Complete and test the sidebar layout | Exercise 2: give the same app a sidebar |
+
+## Build On The App You Already Know {.smaller}
+
+| First block | Second block |
+|---|---|
+| Inspect several outputs of the same selection | Compare two layouts |
+| Share repeated filtering with `reactive()` | Put controls in a sidebar |
+| Complete the shared-data connections | Explain the controls and test the app |
+
+**Together:** inspect and predict. **Your turn:** complete and test. **Together:** check what happened.
+
+Use the examples on the slides to complete and test your changes. No typing along with live coding is needed.
+
+A summary table is optional. Tabs become a core task in Session 8.
+
+## Recall: The UI Defines Controls And Outputs {.smaller}
+
+From the Week 6 histogram app, with the explanatory text omitted here:
+
+```{r recap-week6-ui, eval=FALSE}
+ui <- fluidPage(
+  selectInput("modality", "Output group",
+              choices = c("Spoken output" = "speech",
+                          "Written output" = "writing")),
+  sliderInput("binwidth", "Bin width (ms)",
+              min = 25, max = 300,
+              value = 100, step = 25),
+  plotOutput("rt_plot")
+)
+```
+
+**Inputs:** `selectInput()` and `sliderInput()` create controls. The server reads their values as `input$modality` and `input$binwidth`.
+
+**Output:** `plotOutput("rt_plot")` creates a place for the plot; it does not draw it.
+
+**Together:** locate the two input names, their visible labels, and the output name.
+
+## Recall: The Server Connects Inputs To The Plot {.smaller}
+
+The Week 6 server, with axis labels omitted here:
+
+```{r recap-week6-server, eval=FALSE}
+server <- function(input, output) {
+  output$rt_plot <- renderPlot({
+    selected_data <- filter(
+      d_participants, modality == input$modality
+    )
+    ggplot(selected_data, aes(x = mean_rt)) +
+      geom_histogram(binwidth = input$binwidth)
+  })
+}
+```
+
+`output$rt_plot` matches the UI's `plotOutput("rt_plot")`. `shinyApp(ui, server)` brings the interface and server together.
+
+**Together:** trace each input to what it changes: `modality` selects participants; `binwidth` groups their values into bins.
+
+**Reactivity:** Shiny tracks both inputs inside `renderPlot()` and reruns that plot calculation when either changes. It does not rerun the whole server function.
+
+## Discussion: What Does Each View Add? {.smaller}
+
+Both plots describe the **same 33 participant means** in the spoken-output group.
+
+```{r compare-views, echo=FALSE, fig.width=11, fig.height=3.5, out.width="100%"}
+p_hist <- ggplot(d_spoken, aes(mean_rt)) +
+  geom_histogram(binwidth = 100) +
+  labs(x = "Participant mean reaction time (ms)", y = "Participants")
+p_values <- ggplot(d_spoken, aes(x = "Selected group", y = mean_rt)) +
+  geom_boxplot(width = 0.25, outlier.shape = NA) +
+  geom_point(position = position_jitter(width = 0.08, height = 0, seed = 7),
+             alpha = 0.6) +
+  labs(x = NULL, y = "Participant mean reaction time (ms)")
+p_hist | p_values
+```
+
+What is easier to see in each view? What does the boxplot summarise, and what do the points add?
+
+These are participant means across familiarisation conditions, not individual trials.
+
+## Predict Which Outputs Should Change {.smaller}
+
+**Together:** run `intro_app.R`. It has the same group selector and width slider as Week 6.
+
+- Select spoken output and a width of 100 ms: the count should be **33**.
+- Predict what should happen when we select written output.
+- Then keep that group fixed and change only the width.
+
+Which of these should change: histogram, boxplot with points, participant count?
+
+Test the predictions together. The optional summary task from Week 6 is not assumed.
+
+## Three Outputs Repeat The Same Preparation {.smaller}
+
+In `intro_app.R`, this filtering step appears inside **each** render block:
+
+```{r duplicated-filter, eval=FALSE}
+selected_data <- filter(
+  d_participants, modality == input$modality
+)
+```
+
+| Render block | What it does with the selected rows |
+|---|---|
+| `renderText()` | counts the participants |
+| First `renderPlot()` | draws a histogram |
+| Second `renderPlot()` | draws a boxplot with individual points |
+
+The repeated code works. But if the preparation changes, we must update every copy.
+
+## A Function Call Can Return Selected Rows {.smaller}
+
+This ordinary function filters the same participant data:
+
+```{r function-return-example, collapse=TRUE, comment="#>"}
+select_group <- function(group) {
+  filter(d_participants, modality == group)
+}
+head(select_group("speech"), 3)
+```
+
+The last expression supplies the result: a filtered data frame. The parentheses in `select_group("speech")` call the function with a group value.
+
+This ordinary function does not track changes automatically. Next, `selected_data()` will obtain data from a reactive expression whose preparation reads `input$modality`.
+
+## Share The Filter With A Reactive Expression {.smaller}
+
+Put this **inside the server, before the render blocks**:
+
+```{r shared-filter, eval=FALSE}
+selected_data <- reactive({
+  filter(
+    d_participants, modality == input$modality
+  )
+})
+```
+
+`reactive()` defines preparation that depends on the selected group. The last expression supplies its result: the filtered data frame.
+
+Each output can use that result. Shiny can reuse it while the group selection is unchanged.
+
+We are reducing duplicated preparation, not making automatic updates possible for the first time.
+
+## Use Parentheses To Obtain The Data {.smaller}
+
+| Code | Meaning |
+|---|---|
+| `selected_data` | the reactive expression itself |
+| `selected_data()` | its current data frame |
+| `selected_data()$mean_rt` | the mean-reaction-time column in that data frame |
+
+**Week 6:** `selected_data` was an ordinary data frame prepared inside one output.
+
+**Week 7:** `selected_data` is a reactive expression shared by several outputs. Use `selected_data()` inside the render blocks.
+
+The parentheses are essential, just as in the function call we have seen. Here Shiny also tracks dependencies and manages updates.
+
+## The Histogram Uses The Shared Data {.smaller}
+
+```{r shared-histogram, eval=FALSE}
+output$rt_plot <- renderPlot({
+  ggplot(selected_data(), aes(x = mean_rt)) +
+    geom_histogram(binwidth = input$binwidth) +
+    labs(x = "Participant mean reaction time (ms)",
+         y = "Participants")
+})
+```
+
+`selected_data()` supplies the observations. `input$binwidth` changes how they are grouped into bins.
+
+There is no `filter()` inside this render block. The shared reactive expression handles it.
+
+## Join Words And A Count With `paste()` {.smaller}
+
+The summary task in Session 6 was optional, so first try this ordinary-R example:
+
+```{r paste-example, eval=FALSE}
+participant_count <- 33
+paste("Participants shown:", participant_count)
+```
+
+Result: `"Participants shown: 33"`.
+
+`paste()` joins its arguments with spaces. Quote literal words; leave variable names unquoted to insert their values.
+
+`nrow()` counts data-frame rows. In our app, `nrow(selected_data())` supplies the selected participant count.
+
+**Together:** find the label and the value in the example. Then complete the guide's short count example.
+
+## A Text Output Can Report The Selection {.smaller}
+
+UI location:
+
+```{r count-location, eval=FALSE}
+textOutput("selection_note")
+```
+
+Inside the server:
+
+```{r shared-count, eval=FALSE}
+output$selection_note <- renderText({
+  paste("Participants shown:", nrow(selected_data()))
+})
+```
+
+`nrow()` counts rows. Here each row is one participant, so the count is **33** or **39**.
+
+The matching name is `selection_note`. This block does not read bin width.
+
+## One Selection Supplies All Three Outputs {.smaller}
+
+<div class="shared-data-flow">
+<div><strong>Group selector</strong><br><code>input$modality</code></div>
+<span aria-hidden="true">&rarr;</span>
+<div><strong>Shared filtering</strong><br><code>selected_data()</code></div>
+<span aria-hidden="true">&rarr;</span>
+<div><strong>Outputs</strong><br>Histogram<br>Boxplot and points<br>Participant count</div>
+</div>
+
+| Control | Outputs affected |
+|---|---|
+| Group selector | both plots and the participant count |
+| Histogram bin width | histogram only |
+
+The boxplot's plotting code is supplied. Your task is to connect it to the same selected data, not learn a new geom.
+
+## Exercise 1: Connect The Shared Data {.smaller}
+
+Open `starter_app.R`; follow Exercise 1 in the Rmd (**about 20 minutes**).
+
+Complete **six blanks**:
+
+- One function name to create the reactive expression.
+- Three calls obtaining the selected data: two plots and one count.
+- Two matching output names in the UI.
+
+Complete all blanks before running; trace the slide examples to make each connection.
+
+**After code edits:** save, stop, and run again. **When testing controls:** keep the app running.
+
+## Together: Check The Connections {.smaller}
+
+| Test | Count | Plots |
+|---|---|---|
+| Spoken output, width 100 | 33 | both show spoken-output participants |
+| Written output, width 100 | 39 | both show written-output participants |
+| Written output, width 250 | still 39 | only the histogram changes |
+
+If it does not work, check:
+
+- `selected_data()` has its parentheses.
+- The reactive expression is inside `server`, outside the render blocks.
+- UI output names match their server names.
+- You are counting selected rows, not all 72 participants.
+
+## Discussion: Which Layout Is Clearer? {.smaller}
+
+Both versions contain the same data, controls, and outputs.
+
+<div class="layout-comparison">
+<div><strong>A: One long column</strong><img src="gfx/layout-flat.png" alt="The working introductory app with controls and plots in one long column"></div>
+<div><strong>B: Controls beside the outputs</strong><img src="gfx/layout-sidebar.png" alt="The same app arranged with controls in a sidebar and both plots in the main area"></div>
+</div>
+
+Where do you look for controls? Which arrangement helps you compare the plots and see what is selected?
+
+## A Sidebar Separates Controls From Outputs {.smaller}
+
+This is the UI structure; the full controls and outputs are already supplied in `layout_app.R`.
+
+```{r sidebar-structure, eval=FALSE}
+ui <- fluidPage(
+  titlePanel("Participant reaction times"),
+  sidebarLayout(
+    sidebarPanel(
+      # Controls and their help text.
+    ),
+    mainPanel(
+      # Count and both plot locations.
+    )
+  )
+)
+```
+
+`sidebarLayout()` holds both areas. Indentation and brackets show what belongs inside each area.
+
+## Keep Input Names When Moving Controls {.smaller}
+
+These calls belong inside `sidebarPanel()`:
+
+```{r sidebar-controls, eval=FALSE}
+selectInput("modality", "Output group",
+            choices = c("Spoken output" = "speech",
+                        "Written output" = "writing")),
+sliderInput("binwidth", "Histogram bin width (ms)",
+            min = 25, max = 300,
+            value = 100, step = 25)
+```
+
+The internal names stay `modality` and `binwidth`, so the same server connections still work.
+
+The comma separates the two controls inside the UI.
+
+## Put The Count And Plots In The Main Area {.smaller}
+
+These calls belong inside `mainPanel()`:
+
+```{r main-outputs, eval=FALSE}
+textOutput("selection_note"),
+h4("Distribution of participant means"),
+plotOutput("rt_plot", height = "250px"),
+h4("Boxplot and individual participant means"),
+plotOutput("values_plot", height = "250px")
+```
+
+`h4()` adds a visible heading. Keep each heading with the plot it describes.
+
+Changing this order changes the layout, not the data or the server behaviour.
+
+## Explain The Data And The Controls {.smaller}
+
+```{r app-explanations, eval=FALSE}
+p("Each value is one participant's mean reaction time
+   across familiarisation conditions, in milliseconds.")
+
+helpText("The group selector changes all views.
+          Bin width changes only the histogram.")
+```
+
+**Your turn:** write your own brief versions in `layout_app.R`.
+
+The data explanation belongs near the top. The control explanation belongs beside the controls.
+
+Keep the supplied limitation visible: the groups contain different participants, so differences are not evidence of a causal effect.
+
+## Exercise 2: Give The Same App A Sidebar {.smaller}
+
+Open `layout_app.R`; follow Exercise 2 in the Rmd (**about 22 minutes**).
+
+Complete **five blanks**:
+
+- Three layout function names: the wrapper, control area, and output area.
+- One sentence identifying the data and units.
+- One sentence explaining which outputs each control changes.
+
+The completed server is supplied. You can start this task even if Exercise 1 took longer.
+
+Choose whether to show the histogram or the boxplot first. Move its heading with its plot location if changing the order.
+
+## Compare The Design And Test The Behaviour {.smaller}
+
+Compare your layout and help text with a neighbour's:
+
+- Which plot do you want a reader to inspect first, and why?
+- Does the help text explain what changes and what stays fixed?
+- Are units and the participant count easy to find?
+
+Revise one sentence or one placement if needed.
+
+Then repeat the control tests: group changes update all views; bin-width changes update only the histogram.
+
+**Together: check:** which changes were only in the UI? Why could the server stay the same?
+
+## What We Have Added This Week {.smaller}
+
+- One shared preparation step with `reactive()`.
+- Two complementary plots of the same selected participants.
+- A count that identifies the selected sample.
+- Controls and explanations organised beside the outputs.
+
+Automatic updates still work. No update or reset buttons are needed.
+
+Next week: organise plots into tabs, choose controls, and explain empty selections. Session 9 introduces Plotly before adapting the ideas to another dataset.
+
+## After Class: Read About Shared Reactive Data {.smaller}
+
+**Everyone:** @Wickham2021MasteringShiny, [section 1.6](https://mastering-shiny.org/basic-app.html#reducing-duplication-with-reactive-expressions).
+
+Where is the shared preparation in the example, and which outputs use it? No written response is required.
+
+**Optional reference:** [Chapter 6, section 6.2](https://mastering-shiny.org/action-layout.html#single-page-layouts), for sidebar layouts.
+
+Keep your working app. Continue exploring possible summative datasets; it is fine not to have chosen one yet. No transfer to your own data is required this week.
+
+## Optional: Add A Summary Table {.smaller}
+
+For independent practice, or if there is time, use the guide section **Optional: add a summary table** and `extension_app.R`.
+
+- Add `tableOutput("summary_table")` in the main UI area.
+- Put the matching `renderTable()` block inside the server, alongside the plot blocks.
+- Use `selected_data()` to report count, median, and interquartile range.
+- Check that group selection updates the table; bin width should not affect it.
+
+The guide explains the placement and checks. Tabs will be taught as a core skill in Session 8.
+
+## After Completing Your App: Compare And Explain {.smaller}
+
+Now open `worked_example_app.R` to compare with your own finished app.
+
+Trace the group selector through `selected_data()` to the count and both plots. Explain why bin width affects only the histogram.
+
+Compare the layout and wording. Keep your own version and use the reference to check your reasoning.
+
+## References

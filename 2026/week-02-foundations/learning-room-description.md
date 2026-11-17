@@ -1,16 +1,16 @@
 # Week 2: Principles of data visualisation
 
-This week introduces key principles of data visualisation. We will work with behavioural data, create exploratory plots, and discuss why visualisation is useful for noticing patterns, variation, outliers, and potentially misleading summaries.
+This week introduces key principles of data visualisation through a more streamlined mix of practical plotting and discussion. We will work with behavioural data, create simple exploratory plots in `ggplot2`, and consider how visualisation helps us notice patterns, variation, outliers, and potentially misleading summaries.
 
-The session introduces core principles of effective visualisation and uses examples such as Anscombe's quartet and the Datasaurus Dozen to show why summary statistics alone are not enough. The practical work focuses on creating and interpreting basic plots in R using two visualisation exercises.
+The session starts with the Week 2 files and a short walkthrough of how a `ggplot2` plot is built. You will then complete a scatterplot exercise before we use Anscombe's quartet and the Datasaurus Dozen to show why summary statistics alone are not enough. The second half of the session focuses on visualisation as a design choice: media examples, common pitfalls, and a practical checklist for clearer and more responsible figures.
 
 By the end of Week 2, you should be able to:
 
 - explain why visualisation is important for behavioural data,
-- create basic exploratory plots in R,
+- create basic exploratory plots in R using `ggplot2`,
 - describe how different plots can reveal or hide patterns,
 - identify examples of misleading or unclear visualisation,
-- begin applying basic design principles to simple figures.
+- apply a small set of design principles to simple figures.
 
 ## Before the practical work: RStudio Project and weekly files
 

@@ -1,0 +1,7 @@
+/* The browser guide uses size and spacing, rather than bold emphasis. */
+body, h1, h2, h3, h4, h5, h6, strong, b, th,
+.tocify-item, .tocify-header, .sourceCode span {
+  font-weight: 400 !important;
+}
+h2 { margin-top: 1.5em; }
+h3 { margin-top: 1.2em; }

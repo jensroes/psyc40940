@@ -1,0 +1,181 @@
+---
+title: "Week 7: Shared data and clear layouts"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Where to work
+
+**First, open this `.Rmd` file in RStudio and click Knit.** Keep the resulting HTML guide open beside the app script; its contents menu links to the sections named on the slides. The installation chunk is not evaluated, so knitting the guide does not install packages or start an app.
+
+Read instructions in the HTML, but make app changes in the named `.R` file, not in the HTML or in worksheet chunks. You may add your own notes to the Rmd and knit again to refresh the guide. Use Run App, not Knit, to test a Shiny app.
+
+Together, let's inspect a working example, predict its behaviour, then complete a small change and check what happened. The slides introduce each pattern before you use it. You do not need to type along with a demonstration or write an app from scratch.
+
+Download and unzip the whole Week 7 folder into your existing module project. Keep the scripts beside the `data/` folder. Do not work inside the ZIP or move individual CSV files elsewhere.
+
+| File | Purpose |
+|---|---|
+| `intro_app.R` | runnable example with three outputs and repeated filtering |
+| `starter_app.R` | Exercise 1: six blanks for shared reactive data and output connections |
+| `layout_app.R` | Exercise 2: five blanks for layout and app explanations |
+| `worked_example_app.R` | complete shared-data app with a sidebar; available throughout |
+| `extension_app.R` | optional reference with tabs and a summary table |
+
+All app completion code is in the **R scripts**, not this worksheet. Finish that exercise's blanks, save, and use **Run App** to run the whole script. After editing code, save, stop the app, and run it again. When testing controls, keep the app running. Only one example app needs to be running at a time.
+
+If Shiny is not installed, run this chunk once. `eval = FALSE` skips installation when knitting; you can still run it interactively. The scripts load the packages they use. `tidyverse` is the same package collection used in previous weeks.
+
+```{r install-shiny, eval=FALSE}
+install.packages("shiny")
+```
+
+## Same data and controls as Week 6
+
+The supplied CSV contains **72 participant means**: 33 in the spoken-output group and 39 in the written-output group. Each value is a participant's mean reaction time across familiarisation conditions, in milliseconds. These are not individual trials or repeated rows for different conditions.
+
+The selector uses the underlying values `speech` and `writing`, displayed as Spoken output and Written output. It changes which participants appear. The bin-width slider changes how the selected values are grouped in the histogram, not the values themselves.
+
+We will keep automatic updates. No update button, reset button, observer, or extra `session` argument is needed for these tasks. Completing Week 6's optional summary extension is not a prerequisite.
+
+## Trace the Week 6 histogram
+
+Start with the Week 6 histogram code on the recap slides. If you have your own working `slider_app.R` from Week 6, you can also inspect that script. There is no code to complete in this recap.
+
+**Together, locate and explain:**
+
+1. **UI:** `fluidPage()` contains the group selector, bin-width slider, and a location for the histogram.
+2. **Inputs:** the controls are named `modality` and `binwidth`. The server reads their current values as `input$modality` and `input$binwidth`; their visible labels are separate from these names.
+3. **Output:** `plotOutput("rt_plot")` in the UI matches `output$rt_plot` in the server. The UI provides the location; `renderPlot()` provides the plot.
+4. **Server:** the filter selects the group's rows, then ggplot draws their reaction times using the selected bin width. `shinyApp(ui, server)` brings the interface and server together.
+
+**Predict:** what happens if the user changes the group? What happens if they change only bin width?
+
+**Check:** the group changes which participants are included. Bin width groups the same selected values differently. Both controls affect the histogram.
+
+This is **reactivity**: Shiny tracks the inputs read inside `renderPlot()` and reruns that plot calculation when either changes. It does not rerun the whole server function. Week 6 already had automatic updates without a separate `reactive()` expression. We introduce that function today to share preparation across several outputs.
+
+## Inspect three views of one selection
+
+Open and run `intro_app.R`. Select spoken output and set bin width to 100 ms. You should see a count of 33, a histogram, and a boxplot with individual points. The two plots describe the **same selected participants**.
+
+The histogram shows how values are distributed across bins. The boxplot summarises their centre and spread, while the points show the observations the summary would hide. The point positions are spread sideways to reduce overlap; their vertical reaction-time values do not change. The boxplot's separate outlier symbols are suppressed because the points already show every observation; no observations have been removed.
+
+Before changing a control, predict:
+
+1. If you select written output, which outputs should change?
+2. If you leave that group fixed and change the width, should the participant count or boxplot change?
+
+Test both predictions. Written output should show 39 participants. Changing width should affect **only the histogram**.
+
+Now find the three server blocks beginning with `renderText()` or `renderPlot()`. Each repeats the same `filter()` call. `filter()` keeps rows whose `modality` equals the selected `input$modality`; it keeps their columns and does not change the source dataset. Repeating the filter works, but it means maintaining the same preparation in several places.
+
+## A function call can return data
+
+Week 6 introduced the server as a function Shiny calls for us. Before using shared reactive data, inspect this short ordinary-R example together. The definition is supplied; you do not need to write a function from scratch.
+
+```{r function-return-example}
+make_table <- function(number) {
+  data.frame(number = number, doubled = number * 2)
+}
+make_table(1:5)
+```
+
+The last expression in the body supplies the result. Calling `make_table(1:5)` runs the instructions and gives us a data frame. Without a call, `make_table` refers to the function itself, not that result.
+
+An ordinary function is not automatically reactive. The next example adds Shiny's dependency tracking and reuse of a result. The useful connection is the parentheses: `selected_data()` obtains the current data frame from a reactive expression, rather than referring to the expression itself. It takes no argument here because its preparation already reads the group selection from `input$modality`.
+
+## Share the preparation with reactive
+
+The slides and `worked_example_app.R` show how to create one `selected_data <- reactive({ ... })` block **inside the server**, before the output blocks. The last expression inside it is the filtering step; its result is the selected data frame.
+
+To use that result inside a render block, write **`selected_data()`**, including the parentheses. In Week 6, a local `selected_data` object was an ordinary data frame created inside one render block. Here, `selected_data` is a reactive expression, and calling it obtains its current data frame. It is still accessed by column in the usual way, for example `selected_data()$mean_rt`.
+
+Shiny tracks that this preparation depends on the group selector. The outputs using it stay consistent, and Shiny can reuse the result while its input is unchanged. Changing bin width does not change the shared preparation because the filter does not use bin width.
+
+This is not a new requirement for automatic updates: Week 6's plot already updated without a separate `reactive()` expression. We introduce it now to share preparation across outputs.
+
+## Exercise 1: connect shared data to the outputs
+
+**Your turn, about 20 minutes:** open `starter_app.R`. Its controls and plotting code are supplied. Complete **all six `---` blanks** before using Run App. You can consult the complete reference throughout.
+
+1. In `selected_data <- ---({`, name the function that creates a reactive expression.
+2. In `nrow(---)`, obtain the current selected data frame. `nrow()` counts rows; here one row is one participant.
+3. In each of the two `ggplot(---, ...)` calls, obtain the same selected data frame. These are two separate blanks. Do not repeat the filter inside either plot.
+4. In the UI's `textOutput("---")`, use the output name matching `output$selection_note` in the server. Keep the quotes.
+5. In the UI's `plotOutput("---", ...)`, use the output name matching `output$values_plot` in the server. Keep the quotes.
+
+The six blanks consist of one function name, three calls obtaining data, and two output names. Keep all supplied brackets and commas. Save and run the whole script.
+
+### Test each change separately
+
+| Test | What should happen? | What should stay the same? |
+|---|---|---|
+| Select spoken output; width 100 | count 33; both plots show the spoken group | data units and interpretation |
+| Switch to written output | count becomes 39; both plots update | bin width remains 100 |
+| Keep written output; set width 250 | histogram changes | count 39 and the boxplot/points remain unchanged |
+| Switch back to spoken output | count returns to 33; both plots update | bin width remains 250 |
+
+**Together: check:** trace the group selector to the shared filter and then to all three outputs. Why does only the histogram use `input$binwidth`? Which repeated code has disappeared?
+
+### If it does not work
+
+- Check that each use of the shared data has parentheses: `selected_data()`.
+- Keep `reactive()` inside `server`, but outside both `renderPlot()` blocks and `renderText()`.
+- Check that each UI output name matches its server name. The text output and the second plot need different names.
+- A count of 72 means you may be counting `d_participants` rather than the selected data.
+- A missing-data-file error usually means that the script and `data/` folder are no longer together, or the app is not being run as a whole file.
+- Read the Console and fix one error at a time. The worked reference is there to help, not only to check finished work.
+
+## Arrange controls and outputs
+
+After the break, compare the two app layouts on the slides. They contain the same controls, data, and outputs. Which makes the controls easier to find? Which makes the relationship between the plots clearer?
+
+The layout uses three functions: `sidebarLayout()` holds the two areas, `sidebarPanel()` contains the controls and their help text, and `mainPanel()` contains the count and both plots. These functions belong to the **UI**, not the server. Their nested brackets express what belongs inside each area.
+
+Keeping both plots visible supports comparison. Moving a control changes its position, not its name or the server connection. We do not need to rewrite the reactive filtering when changing the layout.
+
+## Exercise 2: give the same app a sidebar
+
+**Your turn, about 22 minutes:** open `layout_app.R`. It includes a completed shared-data server, so you can do this exercise even if Exercise 1 took longer. There are **five blanks**: three function names and two text strings.
+
+1. Use `sidebarLayout`, `sidebarPanel`, and `mainPanel` to fill the three `---(` wrappers. The outer wrapper holds both areas; the wrapper around `selectInput()` and `sliderInput()` holds the controls; the wrapper around `textOutput()` and the plot locations holds the outputs. The opening parentheses are already supplied.
+2. Replace the `---` inside `p()` with one brief sentence identifying the participant means and milliseconds. Keep the quotation marks.
+3. Replace the `---` inside `helpText()` with an explanation of what each control affects. Make clear that bin width changes only the histogram. Keep the quotation marks.
+4. Save, stop any running app, and use Run App. Check that the controls appear in a sidebar and all outputs appear in the main area.
+5. Repeat the four control tests above. The layout change must not change the app's behaviour. Check the supplied limitation sentence too: these are different participant groups, not evidence of a causal effect.
+
+### Make and explain a layout choice
+
+You can put the histogram or the boxplot first. To change their order, move each `h4()` heading with its matching `plotOutput()` line inside `mainPanel()`. Keep commas between the UI elements. Choose the order that best supports what you want a reader to inspect first; there is no requirement to move them if the supplied order works well.
+
+Compare your arrangement and help text with a neighbour's. Can you identify which control affects which output? Does the text explain what changes and what stays fixed? Revise one sentence or one placement if needed. This is a comparison of designs, not a test of whether someone unfamiliar with the task can understand it.
+
+**Together: check:** which changes were only in the UI? Why did the same server continue to work? Keep the plots' titles and units clear, and save the working app.
+
+## Optional: put the plots in tabs
+
+This is for spare time or independent practice. It is not needed to finish the core app.
+
+Open and run `extension_app.R`. It uses the same shared data and server connections. Locate `tabsetPanel()` inside `mainPanel()`. Its two plot tabs each wrap an existing `plotOutput()` in a `tabPanel()` with a visible tab name. The third tab is a summary table.
+
+To try only the plot tabs in your own app, adapt the first two `tabPanel()` calls inside one `tabsetPanel()`, replacing the two plot headings and plot locations inside `mainPanel()`. Keep the participant count and limitation text outside the tabs. The plot names and server code stay the same. Test that switching tabs does not change the selected group or width.
+
+Compare this with the one-page version. Tabs provide more room for each plot, but hide the other view. Are they useful here, or do they make comparing the plots harder? Do not add tabs simply because you can.
+
+## Optional: add a summary table
+
+In `extension_app.R`, find `tableOutput("summary_table")` and its matching `output$summary_table <- renderTable({ ... })` block. The table reports participant count, median reaction time, and interquartile range in milliseconds for the selected group. `round(..., 1)` displays one decimal place.
+
+Copy the output location into `mainPanel()` or a summary tab in your own UI. Copy the complete `renderTable()` block inside your server, alongside the existing render blocks, not inside one of them. It uses `selected_data()` just like the plots. Check that changing group updates the table, while changing bin width does not. This table adds no new filter or observer.
+
+## After class
+
+Read Hadley Wickham's [Mastering Shiny, section 1.6](https://mastering-shiny.org/basic-app.html#reducing-duplication-with-reactive-expressions), on reducing duplicated preparation with reactive expressions. Connect the example to your own app: where is the shared preparation, and which outputs use it? No written response is required.
+
+For layout reference, use [Chapter 6, section 6.2](https://mastering-shiny.org/action-layout.html#single-page-layouts). Advanced themes, HTML, tabs, and the optional table are not additional compulsory tasks.
+
+Keep your working Week 7 app and continue browsing possible datasets for the summative assessment. It is fine not to have chosen one yet. This week does not require you to adapt the app to your own data.

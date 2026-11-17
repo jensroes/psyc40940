@@ -278,7 +278,7 @@ See here for my [Multi-language written picture-naming dataset app](https://jens
 ## Schedule 
 
 ```{r}
-read_csv("../../../module info/schedule.csv") %>% select(1:3) %>% nice_table()
+read_csv("../../../admin/module-info/schedule.csv") %>% select(1:3) %>% nice_table()
 ```
 
 

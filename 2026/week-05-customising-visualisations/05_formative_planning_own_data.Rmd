@@ -1,0 +1,193 @@
+---
+title: "Formative assessment planning: your own data"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    global_numbering: true
+    fig_caption: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6,
+                      fig.height = 4)
+```
+
+# Aim
+
+Use this template to start working with your own behavioural dataset for the formative assessment.
+
+Keep this `.Rmd` file in the same project folder as your data file, or place the data file inside a `data` folder and update the path below.
+
+Before you knit the document, change the YAML `title` at the top of this file so it describes your dataset or question. For example, use a title like "Visualising response accuracy in a memory task" rather than "Formative assessment planning". Also rename the visualisation section headings so they describe the substantive comparison, for example "Accuracy by condition" rather than "Candidate visualisation 3".
+
+The code is hidden by default in the knitted HTML file, because the final document should read like a short report. The plotting chunks use `echo = TRUE` because seeing the plotting code is useful while you are developing your figures. You can later change individual plotting chunks to `echo = FALSE` if you want the final report to show only the figures.
+
+# Citation and figure-reference example
+
+If your dataset, measure, or visualisation choice comes from a published source, add the source to `references.bib` and cite it in the text. A citation looks like this: `[@citation_key]`.
+
+For example, if you use the Blomkvist dataset, you can cite it as `[@blomkvist2017reference]`. If you add a new source, choose a clear citation key, such as `whelan2008reactiontime`, then cite it as `[@whelan2008reactiontime]`.
+
+Figures can be cross-referenced using their chunk labels. For example, the chunk labelled `distribution-plot` can be referenced in text as `Figure \@ref(fig:distribution-plot)`.
+
+# Load packages
+
+```{r packages}
+library(tidyverse)
+```
+
+# Load your data
+
+Replace the file name with your own file. If your file is inside a `data` folder, use a path like `data/my_dataset.csv`.
+
+```{r load-data}
+my_data <- read_csv("data/your_file_name.csv")
+```
+
+```{r inspect-data}
+glimpse(my_data)
+```
+
+# Understand the dataset
+
+Answer these before making final plots.
+
+- What does one row represent?
+- What behavioural outcome variables are available?
+- Which variables are continuous?
+- Which variables are categorical?
+- Are there missing values that need to be handled?
+- What source should you cite for the dataset, measure, or task?
+
+Write your notes here: ___
+
+# Prepare variables if needed
+
+Use this section for cleaning, filtering, renaming, or recoding variables. Delete it if you do not need it. The commented line below is only an example: replace it with code that fits your dataset.
+
+```{r prepare-data}
+# my_data <- drop_na(my_data, outcome_variable, group_variable)
+```
+
+# Candidate visualisation 1: distribution
+
+Figure \@ref(fig:distribution-plot) should show the distribution of one continuous behavioural variable.
+
+```{r distribution-plot, echo=TRUE, fig.cap="Distribution of [replace with your behavioural variable]."}
+ggplot(data = my_data,
+       mapping = aes(x = ---)) +
+  geom_histogram(binwidth = ---,
+                 fill = "grey70",
+                 colour = "white") +
+  labs(x = "---",
+       y = "Number of observations") +
+  theme_minimal()
+```
+
+What does this show, and why is the plot type appropriate?  
+Write 2-3 sentences here: ___
+
+# Candidate visualisation 2: relationship
+
+Figure \@ref(fig:relationship-plot) should show a meaningful relationship between two variables.
+
+```{r relationship-plot, echo=TRUE, fig.cap="Relationship between [replace with x variable] and [replace with y variable]."}
+ggplot(data = my_data,
+       mapping = aes(x = ---, y = ---)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "---",
+       y = "---") +
+  theme_minimal()
+```
+
+What does this show, and what should the viewer compare?  
+Write 2-3 sentences here: ___
+
+# Candidate visualisation 3: group comparison
+
+Figure \@ref(fig:group-comparison-plot) should compare a behavioural outcome across groups.
+
+```{r group-comparison-plot, echo=TRUE, fig.cap="[Replace with outcome variable] by [replace with grouping variable]."}
+ggplot(data = my_data,
+       mapping = aes(x = ---, y = ---)) +
+  geom_jitter(width = 0.15,
+              alpha = 0.35,
+              size = 1.8) +
+  geom_boxplot(width = 0.3,
+               outlier.shape = NA,
+               alpha = 0.35) +
+  labs(x = "---",
+       y = "---") +
+  theme_minimal()
+```
+
+What does this show, and how does it reveal variation within groups?  
+Write 2-3 sentences here: ___
+
+# Candidate visualisation 4
+
+Add a fourth visualisation only if it helps answer a different question or communicate a different pattern.
+
+Add your fourth plot in the chunk below if useful.
+
+```{r optional-plot, echo=TRUE, fig.cap="Optional fourth visualisation."}
+```
+
+If you add a fourth plot, refer to it in the text using its figure number and caption.
+
+# Check against the visualisation principles
+
+For each figure, briefly check:
+
+- Does it show relevant data and variation?
+- Is the main comparison easy to see?
+- Are the labels clear enough?
+- Are scales honest and easy to interpret?
+- Is any design element decorative rather than useful?
+- Is any source cited properly?
+
+Write your notes here: ___
+
+# Questions for tutorial support
+
+List specific questions you want to ask about your dataset or figures.
+
+- ___
+- ___
+- ___
+
+# Render checklist
+
+Before you finish, check that:
+
+- the document knits to HTML,
+- any citations appear in the text,
+- the reference list appears at the end,
+- figure numbers and captions appear,
+- figure references such as Figure \@ref(fig:distribution-plot) work.
+
+# Submission checklist
+
+Submit one ZIP archive containing:
+
+- your R Markdown file (`.Rmd`),
+- the rendered HTML report (`.html`),
+- the RStudio project file (`.Rproj`),
+- the data files used by your code, keeping the `data/` folder if your code uses it,
+- supporting files used by the report, including `references.bib`, `apa.csl`, and any images or helper scripts,
+- the GenAI Usage Declaration Form.
+
+Keep the submission anonymous: do not add your name to the report or files. If we have agreed a data-licence exception, include the source link and exact download instructions instead of the restricted data file, including the filename and where it belongs in the project.
+
+Before submitting, unzip the archive into a new folder, open the project, restart R, and knit the report. The code should load its own packages and data and use relative paths (e.g., `data/my_dataset.csv`), not paths to your computer. It should not depend on objects left in your R environment. If additional packages are needed, list them in a short README alongside any setup or download instructions.
+
+# References

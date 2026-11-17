@@ -1,0 +1,185 @@
+---
+title: 'Optional/Homework: Themes'
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      comment= NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6)
+```
+
+If patchwork is not installed, run this installation chunk once. Skip it if you installed patchwork in an earlier exercise. `eval = FALSE` skips installation when knitting; you can still run the chunk interactively.
+
+```{r install-patchwork, eval=FALSE}
+install.packages("patchwork")
+```
+
+Load the packages using `library()` each time you start a new R session.
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+library(patchwork)
+```
+
+Load our data.
+
+```{r}
+# Load the data
+d_blomkvist <- read_csv("data/blomkvist.csv")
+
+# Remove missing category for smoker and missing values for rt
+d_blomkvist <- drop_na(d_blomkvist, smoker, rt_hand_d)
+```
+
+This file is optional/homework/reference material for Week 5. It is useful if you want more practice with `theme()` after the session.
+
+**Main job:** compare themes as starting points and choose the version that makes the data easiest to read. A strong theme choice usually removes distraction; it does not need to look distinctive.
+
+We will start with a plot that has enough ink to make changes visible. Adding facets will allow you to see differences in the strips. The first line adds context to the strip labels so they are informative.
+
+
+```{r}
+d_blomkvist <- mutate(d_blomkvist, meds_cat = str_c("medication: ", meds_cat))
+
+plot_rt <- ggplot(d_blomkvist, aes(x = age, y = rt_hand_d, colour = smoker)) +
+  geom_point() +
+  facet_wrap(~meds_cat) +
+  labs(x = "Age (years)", y = "Dominant-hand reaction time (ms)")
+
+plot_rt
+```
+You can manually change `theme` properties or use existing theme functions. We compare themes here to see what changes, not because every theme is equally useful. Replace each `---`: use the stored plot for the classic version, complete its subtitle and the dark/light theme names, and add the missing plot to the final patchwork comparison. Follow the same pattern in each line, then decide which theme makes the data easiest to read.
+
+
+```{r fig.width=10}
+# Creates versions of the same plot with different themes.
+plot_bw <- plot_rt + theme_bw() + labs(subtitle = "theme_bw")
+plot_classic <- --- + theme_classic() + labs(subtitle = "---")
+plot_dark <- plot_rt + theme_---() + labs(subtitle = "theme_dark")
+plot_light <- plot_rt + theme_---() + labs(subtitle = "theme_light")
+
+# Combine all four plots using the + symbol
+plot_bw + plot_classic + --- + plot_light
+
+```
+
+Which theme makes the data easiest to read: `bw`, `classic`, `dark`, or `light`? Explain your choice.
+
+Write your choice and reason here: ___
+
+Which option distracts most from the data, and what causes the distraction?
+
+Write your answer here: ___
+
+When you type `theme_` and you will see a drop-down list with all themes available in your environment. If you load `ggthemes` you will find even more themes to choose from. The name of the package a theme comes from is listed next to the drop-down list when you type `theme_` (after loading `ggthemes`). Replace `---` below with the rest of a theme name from that package, then run the plot.
+
+```{r}
+# Load package
+library(ggthemes)
+
+plot_rt + theme_---()
+```
+There is even a `theme_tufte()`. Treat theme functions as starting points: choose the one that best supports the comparison and then adjust labels, legend position, and text size.
+
+
+All themes allow you to change the base font size (default size varies). Choose a theme that you like and change the base size to 14
+
+```{r}
+plot_rt + theme_---(base_size = ---)
+```
+
+`ggplot2` allows a lot of flexibility with editing themes. In other words there are too many options to remember. The general strategy for editing themes is to first add the `theme()` function. With the cursor inside the parentheses you will the available options. There are still many. Lets explore options that I frequently change, the options starting with `axis`, `legend`, `strip`, `panel`.
+
+`axis` allows you to change lines, ticks, text, and titles for one axis or both together. For example, you can increase the font size of both axis titles without changing other text. Use `axis.title.x` to change only the x-axis title.
+
+```{r}
+plot_rt + theme(axis.title = element_text(size = 17))
+```
+
+`legend` allows you to change aspects of the title such as title, keys, location, orientation. For example if I want the legend to be positioned on the top of plot I can set `legend.position` to "top" (other options are "bottom", "right", "left") and I can use `legend.justification` to move it to the right or left. Positioning the legend on the top gives you more plotting space when you visulisation appears on an A4 page or in any situation when your horizontal space is more limited than your vertical space (not on slides).
+
+```{r}
+plot_rt + theme(legend.position = "top",
+                legend.justification = "right")
+```
+
+Grid lines can be distracting in plots, especially with dark gridlines on white backgrounds. You can remove grid lines using `panel.grid`. For example if we want to remove only the minor grid lines, you can do the following.
+
+```{r}
+plot_rt + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank())
+```
+
+The text above each panel appears in "strips". You can change things like the colour used, the text, the frame, their position etc. For example, I can remove the background altogether.
+
+```{r}
+plot_rt + 
+  theme(strip.background = element_blank())
+```
+
+Combine options in the following code. Replace the blanks to put the legend at the bottom, align it left, remove all grid lines, and make the strip text bold and red. Use `?element_text` for help. The aim is to combine skills, not necessarily to produce a good final design.
+
+```{r}
+plot_rt + 
+  theme(legend.position = "---",
+        legend.justification = "---",
+        ---,
+        ---)
+
+```
+
+You can define themes from scratch but often it is easier to modify existing themes that already possess the properties you want. In fact, I can create my own theme:
+
+```{r}
+theme_roeser <- theme_minimal() +
+  theme(axis.title = element_text(size = 14),
+        panel.grid = element_blank(),
+        legend.position = "bottom",
+        legend.justification = "right", 
+        panel.border = element_rect(fill = NA))
+```
+
+and apply it to my plot.
+
+```{r}
+plot_rt + theme_roeser
+```
+
+I can also go ahead and set my theme as default to make visualisations appear in my style.
+
+
+```{r}
+# Set theme
+theme_set(theme_roeser)
+
+# Print plot again
+plot_rt
+```
+
+Create your own theme. Include what you please but change the default settings of the following:
+
+- location of the legend
+- any text property (size, face, angle)
+- strips (text, border, colour, etc)
+
+Define your theme in the first chunk, set it as the default in the second, and display `plot_rt` in the third to check the result. Replace each `---` with your code.
+
+```{r}
+---
+```
+
+```{r}
+---
+```
+
+```{r}
+---
+```
+
+Once you've completed all tasks above you can `knit` this document to HTML.

@@ -1,0 +1,58 @@
+---
+title: "PSYC40940: MySay Feedback 2026"
+output:
+  html_document:
+    self_contained: true
+params:
+  survey_url: "https://go.blueja.io/1jtIDQnwBEypH5X09eLhvg"
+always_allow_html: true
+---
+
+<!-- Add the 2026 survey URL to survey_url above, then knit this file.
+     Both the clickable link and QR code are generated from that same URL.
+     Leave it empty to render a draft with no outdated link or QR code. -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+survey_url <- trimws(params$survey_url)
+stopifnot(is.character(survey_url), length(survey_url) == 1L, !is.na(survey_url))
+if (nzchar(survey_url) && !grepl("^https?://[^[:space:]]+$", survey_url)) {
+  stop("survey_url must be a complete http:// or https:// URL.")
+}
+```
+
+## Your feedback matters!
+
+Taking a few minutes to complete your *MySay* survey really helps us understand how the module is working for you. Your comments guide us in improving the course -- whether that means changing something that isn’t working or keeping what supports your learning best.
+
+We genuinely want to hear from you -- what's working well and what we can do better. If only a few people respond, we might not get an accurate picture of how the class feels -- your voice helps make sure everyone's experience is represented.
+
+Even if you don't have detailed comments, please still complete the MySay form -- every response counts. A higher response rate means the results better reflect the whole class experience.
+
+We want to make this module as effective as possible for your learning. Your feedback helps us decide what to improve for future cohorts and what to keep.
+
+It only takes a few minutes, but it really makes a difference.
+
+**All feedback is:**
+
+- **Anonymous** -- we can't trace individual responses.
+- **Valued** -- we genuinely read and consider every comment.
+- **Used** -- we act on feedback to make real improvements to teaching and learning.
+
+```{r survey-link, results='asis'}
+if (nzchar(survey_url)) {
+  safe_url <- htmltools::htmlEscape(survey_url, attribute = TRUE)
+  cat(sprintf('<p>Please <a href="%s" target="_blank" rel="noopener noreferrer">complete the MySay survey</a> or scan the QR code below.</p>\n', safe_url))
+} else {
+  cat('<p><strong>2026 survey link to be added.</strong> The survey link and QR code will appear here once the new link is available.</p>\n')
+}
+```
+
+```{r survey-qr, eval=nzchar(survey_url), fig.width=4, fig.height=4, out.width='300px', fig.align='center', fig.alt='QR code linking to this module’s 2026 MySay survey', dev='png', dpi=150}
+qr <- qrcode::qr_code(survey_url, ecl = "M")
+# A four-module white margin helps phone cameras recognise the QR code.
+quiet_qr <- matrix(FALSE, nrow(qr) + 8L, ncol(qr) + 8L)
+quiet_qr[seq_len(nrow(qr)) + 4L, seq_len(ncol(qr)) + 4L] <- qr
+class(quiet_qr) <- class(qr)
+plot(quiet_qr)
+```

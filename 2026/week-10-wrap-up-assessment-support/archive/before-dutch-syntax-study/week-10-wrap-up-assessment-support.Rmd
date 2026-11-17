@@ -1,0 +1,136 @@
+---
+title: "PSYC40940: Reproduce And Review Your Portfolio"
+author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
+output:
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: slower
+    css: slides.css
+---
+
+## Today: Make The Portfolio Work For Another Reader
+
+- Run the report and separate app from submitted files.
+- Test an extracted copy of the ZIP.
+- Check coverage against the brief and improve explanations.
+- Use individual support to resolve specific remaining problems.
+
+No new Shiny feature is required. Most of the session is project work and support.
+
+## Download The Guide And Practice Project {.smaller}
+
+Unzip the whole Week 10 folder into your existing module project.
+
+Knit **`01_reproduce_and_review_your_portfolio.Rmd`** and read the HTML guide.
+
+If your own project is ready, use it for the checks. Otherwise use submission-example/ and its supplied `portfolio.Rproj`.
+
+The teaching ZIP is not a ready-made assessment submission.
+
+## Keep The Report And App Separate {.smaller}
+
+```text
+portfolio/
+  portfolio.Rproj
+  report.Rmd
+  report.html
+  references.bib
+  data/
+    participant_behaviour.csv
+  app/
+    app.R
+```
+
+The report renders to HTML. Open `app/app.R` and use Run App for the dashboard.
+
+**Together:** locate the data and setup packages each output needs.
+
+## Relative Paths Follow The Working Directory {.smaller}
+
+In `report.Rmd`, at the project root:
+
+```{r report-path, eval=FALSE}
+d <- readr::read_csv("data/participant_behaviour.csv")
+```
+
+In `app/app.R`, inside the app folder:
+
+```{r app-path, eval=FALSE}
+d <- readr::read_csv("../data/participant_behaviour.csv")
+```
+
+Keep the structure intact. The app is run as a whole file from its folder. A path to a personal Desktop or Downloads folder will not work for the marker.
+
+## Submit What Is Needed To Reproduce The Work {.smaller}
+
+| Include | Purpose |
+|---|---|
+| One Rmd and rendered HTML | source and readable report |
+| Existing Rproj | project organisation |
+| `app.R` or `app/app.R` | separate runnable dashboard |
+| Data and helper/bibliography files | dependencies used by the code |
+| Package setup and `sessionInfo()` | dependencies and versions |
+| Access instructions/code where needed | data that cannot be included |
+
+Follow the brief for the AI declaration and anonymity requirements. Do not include guides, slides, unused drafts or saved workspaces.
+
+## Test The Extracted ZIP {.smaller}
+
+Use the guide's **Exercise: test an extracted copy** (**20 minutes**).
+
+1. Render the report and save the app.
+2. ZIP only the intended submission files.
+3. Restart R without a restored workspace.
+4. Extract to a different temporary folder and open that project.
+5. Knit its Rmd and run its app.
+6. Test controls, tabs, empty selections and recovery.
+
+A successful run in your original folder does not prove the ZIP is complete.
+
+## Check The Required Outputs {.smaller}
+
+- One suitably rich behavioural dataset, with source and observation unit.
+- Four different static visualisation types, with design commentary.
+- Separate Shiny app with meaningful inputs and at least two interactive plots.
+- No more than three tabs.
+- Specific reflection on decisions, challenges and practical constraints.
+
+Shiny-reactive ggplots satisfy the interactivity requirement. Plotly, tables, generated UI and observers are tools to choose when useful.
+
+## Explanations Must Work Without You Present
+
+Can the reader identify the question, data, units, current selection and limitations?
+
+Do controls explain what they change? Does each tab have a clear purpose?
+
+Does the report explain why the figures and dashboard views suit the behavioural questions?
+
+These are assessed communication and design decisions.
+
+## Review One Decision In Your Own Words
+
+Choose a concrete example:
+
+- a tab structure that helped navigation but hid a comparison;
+- a filter that revealed a pattern and excluded some observations;
+- a simpler view that communicated more clearly;
+- a data limitation that constrained the conclusion.
+
+Explain the consequence, tradeoff and possible improvement. Avoid a list of function names.
+
+## Use The Remaining Time For Your Project
+
+Bring a specific question: the file, smallest failing step, expected behaviour and error message.
+
+If the code works, improve the question, views, controls and explanations.
+
+The second block is primarily individual support. Aim to have a working report and dashboard before the winter break.
+
+## Before Submission
+
+Check the current brief for the deadline and full instructions.
+
+Maximum 2,000 words includes report text, figure commentary/captions, dashboard explanatory text and reflection.
+
+Code, references, raw R output and data-file contents are excluded. Check anonymity and the AI declaration. Retain the tested ZIP and submission confirmation.

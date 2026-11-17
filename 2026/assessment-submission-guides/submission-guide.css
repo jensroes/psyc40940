@@ -1,0 +1,20 @@
+body { font-size: 16px; line-height: 1.55; color: #263238; }
+body, h1, h2, h3, h4, h5, h6, strong, b, th,
+.tocify-item, .tocify-header, .sourceCode span, code span { font-weight: 400 !important; }
+h1 { font-size: 31px; line-height: 1.2; }
+h2 { font-size: 25px; margin-top: 1.6em; }
+h3 { font-size: 20px; margin-top: 1.3em; }
+table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+th, td { border: 1px solid #d5dadd; padding: 8px 10px !important; vertical-align: top; }
+thead { background: #e9edef; }
+tbody tr:nth-child(even) { background: #f5f6f7; }
+pre { font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+li { margin-bottom: 0.35em; }
+@media print {
+  #TOC { display: none; }
+  .toc-content { width: 100% !important; margin-left: 0 !important; }
+  .main-container { width: 100%; max-width: none; }
+  body { font-size: 11pt; }
+  h2, h3 { break-after: avoid; }
+  tr, pre { break-inside: avoid; }
+}

@@ -80,6 +80,22 @@
   margin-top: 12px;
 }
 
+.shiny-example-image { display: block; width: 100%; height: 410px; object-fit: contain; }
+.embedded-reaction-demo { width: 100%; height: 440px; }
+.embedded-reaction-demo .html-widget { width: 100% !important; height: 440px !important; }
+.dashboard-activity { display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); gap: 30px; margin: 18px 0; font-size: 22px; line-height: 1.3; }
+.dashboard-activity > div { min-width: 0; }
+.dashboard-activity li { margin-bottom: 12px; }
+.shiny-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 18px; align-items: center; margin: 24px 0; font-size: 23px; line-height: 1.3; }
+.shiny-flow > div { min-width: 0; border-top: 3px solid #0868ac; padding-top: 10px; }
+.shiny-flow > span { font-size: 30px; color: #0868ac; }
+.shiny-code-plot { display: grid; grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); gap: 24px; align-items: start; }
+.shiny-code-plot > div, .shiny-code-plot > p { min-width: 0; margin: 0; }
+.shiny-code-plot img { width: 100%; height: auto; }
+article pre { box-sizing: border-box; left: 0; max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 19px; line-height: 1.25; }
+article table { width: 100%; table-layout: fixed; font-size: 22px; }
+article table th, article table td { padding: 9px 10px !important; line-height: 1.25; vertical-align: top; }
+
 .question {
   color: #084081;
   font-size: 31px;
@@ -764,14 +780,58 @@ slides > slide:not(.nobackground):before {
   background-size: 100px 30px;
 }
 
-/* Bibliography slides with many citations. */
+/* Neutral tables: let the content determine each column's share of the width. */
+slides > slide article table.rmdtable {
+  width: 100%;
+  max-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 16px 0 20px;
+}
+slides > slide article table.rmdtable col,
+slides > slide article table.rmdtable th,
+slides > slide article table.rmdtable td {
+  width: auto !important;
+}
+slides > slide article table.rmdtable th,
+slides > slide article table.rmdtable td {
+  border: 1px solid #b8b8b8;
+  padding: 9px 10px !important;
+  color: #333333;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: left;
+  vertical-align: top;
+}
+slides > slide article table.rmdtable th {
+  background: #e3e3e3;
+  font-weight: 600;
+  text-shadow: none;
+}
+slides > slide article table.rmdtable tbody tr:nth-child(odd) {
+  background: #f3f3f3;
+}
+slides > slide article table.rmdtable tbody tr:nth-child(even) {
+  background: #ffffff;
+}
+slides > slide article table.rmdtable td:first-child {
+  font-weight: normal;
+}
+slides > slide article.shiny-roadmap table.rmdtable th,
+slides > slide article.shiny-roadmap table.rmdtable td {
+  font-size: 20px;
+  line-height: 1.2;
+  padding: 7px 10px !important;
+}
+
+/* References use the same readable text size as the rest of the slide. */
 #refs,
 .references,
 section[role="doc-bibliography"] {
-  column-count: 2;
-  column-gap: 34px;
-  font-size: 15px;
-  line-height: 1.22;
+  column-count: 1;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 #refs .csl-entry,

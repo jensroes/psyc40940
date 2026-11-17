@@ -1,0 +1,296 @@
+---
+title: "Week 8: Tabs and reliable controls"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## Where to work
+
+Download `psyc40940-week-08-tabs-controls.zip` from NOW and unzip the **whole folder** into your existing module RStudio project. Keep the scripts beside `data/` inside `week-08-tabs-controls/`.
+
+Open this Rmd and **Knit** it first. Keep the HTML guide beside the named app script; use the contents menu to find the stage shown on the slides. A ready-made HTML guide is also supplied. Read instructions here, but make app changes in the **R scripts** and use **Run App**.
+
+The slides introduce an example before you modify it. You do not need to type along or build an app from scratch. Complete the active blanks for the **current checkpoint** before running. In Exercise 2, two later blanks are deliberately inside a commented block and remain untouched until checkpoint B.
+
+| File | Purpose |
+|---|---|
+| `intro_app.R` | familiar working Week 7 sidebar app |
+| `starter_app.R` | Exercise 1: five blanks for tabs and their explanations |
+| `controls_app.R` | Exercise 2A: four filtering blanks; Exercise 2B: two validation blanks |
+| `extension_app.R` | optional worked example adding a third summary tab |
+| `optional_density_app.R` | optional third plot tab with a colour/facet control; seven blanks |
+
+After source edits, save, stop the running app and use **Run App** again. Keep it running while testing its controls. Only one example needs to be running at a time.
+
+If needed, run this installation chunk once. `eval = FALSE` skips installation when knitting. The apps load `shiny` and `tidyverse`, as in previous weeks; no extra packages are needed.
+
+```{r install-shiny, eval=FALSE}
+install.packages("shiny")
+```
+
+## Reference for the Week 7 recap
+
+The opening task uses your completed Week 7 `layout_app.R`, before the Week 8 download instructions. Match the shared expression and one of its calls to the dependency graph. `selected_data` is a name we chose when using `reactive()`; `selected_data()` calls that expression to obtain its current result.
+
+![Week 7: group selection feeds a shared filter and three outputs. Bin width feeds only the histogram.](gfx/reactivity-recap.svg)
+
+Changing group affects the shared data, participant count and both plots. Changing only bin width leaves the shared data and the other outputs unchanged. Arrows show dependencies, not a fixed execution order. These notes support the recap; they are not a separate exercise.
+
+## Decide what should remain visible
+
+Open `intro_app.R` and choose **Run App**. It reproduces the Week 7 sidebar app's UI, reaction-time observations, plots and shared-data server. The CSV now also includes `vocabulary_score` for the later filtering task; the opening apps do not use that extra column. The supplied CSV still contains **72 participant means**, 33 speech and 39 writing. Each value is a mean across familiarisation conditions, in milliseconds, not an individual trial.
+
+Compare the one-page app with the tab example on the slides. Tabs give a view more space but hide the other view, which can make direct comparisons harder. Keep shared controls and the participant count outside the tabs so the reader can always see the current selection.
+
+![The dependencies stay the same after locating the plots in two tabs. The participant count remains outside the tabs.](gfx/reactivity-tabs.svg)
+
+A control's location alone does not determine its scope. Outputs depend on the inputs their server code reads. Moving an output location into a tab preserves its connection when you keep its name unchanged. Open each tab to check the current selection; a hidden plot may wait until it is displayed before rendering.
+
+## Exercise 1: build two tabs
+
+**Your turn, about 20 minutes:** open `starter_app.R`. The server and plotting code are unchanged from the familiar Week 7 app. Complete **all five `---` blanks** before running:
+
+1. Replace the outer wrapper with `tabsetPanel`.
+2. Replace each of the two inner wrappers with `tabPanel`.
+3. Complete the two `p("---")` strings with your own short explanations of what a reader can learn from the histogram and the boxplot with points. Keep the quotation marks.
+
+The opening parentheses are supplied. Keep the plot names `"rt_plot"` and `"values_plot"`, the commas, and the brackets. Both controls stay in the sidebar, while the count stays above the tab container.
+
+Save and run. Select writing, then open each tab: the count should be **39**, and both views should show that group. Change bin width: only the histogram should change. Switch tabs again and check that the controls retain their values.
+
+Choose which view should appear first. If changing the order, move each whole `tabPanel()` block, including its explanation and plot. Explain why this order helps the reader. For direct comparison, two plots shown together may be preferable to tabs.
+
+**Together, check:** identify an unchanged output name and its server counterpart. Why could we change the navigation without rewriting the server?
+
+## Choose one or several groups
+
+Before the break, inspect the checkbox example on the slides. This is core teaching today; completing Week 7's optional groups task is not assumed.
+
+`selectInput()` supplies one group in the familiar app. `checkboxGroupInput()` can supply one, both, or no groups. The named `choices` vector offers the values `"speech"` and `"writing"` with readable labels. `selected = c("speech", "writing")` ticks both initially. The current selection is held in `input$groups`.
+
+The UI name `"groups"` matches `input$groups` in the server. The data column is still called `modality`. The names have different jobs; `filter()` explicitly compares the column with the selected values.
+
+Use `modality %in% input$groups` to keep a row if its group matches **any** selected value. For example, `"speech" %in% c("speech", "writing")` is `TRUE`. `==` compares element by element and can recycle multiple selected values across rows, rather than checking membership. `%in%` handles one, both, or no selected groups.
+
+**Break:** after the break we will add a vocabulary-score range filter, test a working app, and then improve its empty-selection feedback.
+
+## Vocabulary range selects participants; plots still show reaction time
+
+The added column `vocabulary_score` comes from the source data's participant-level `ppt_vocab`. Each of the 72 participants has one recorded score; observed values run from **0.8125 to 1.0000**. We retain the supplied scale and round scores to four decimal places to remove floating-point noise at filter boundaries. The data dictionary is in `data/README.md`; the preparation script is for teaching staff, not an additional exercise.
+
+The histogram and boxplot still display **mean reaction time in milliseconds**. Vocabulary score is used only to select participants, for example when asking how reaction times are distributed among participants with scores from 0.90 to 0.95.
+
+The supplied `sliderInput("vocab_range", ...)` starts with `value = c(0.80, 1.00)`. Its two handles return a vector: `input$vocab_range[1]` is the lower bound and `input$vocab_range[2]` is the upper bound. Square brackets select one element of that vector.
+
+In `filter()`, the group, lower-bound and upper-bound conditions must all hold for a row to remain. `>=` includes the lower endpoint; `<=` includes the upper endpoint. Narrowing the vocabulary range selects participants by their scores, rather than trimming reaction-time values. It does not establish that excluded participants were errors or that vocabulary causes reaction-time differences.
+
+The separate `binwidth` slider changes how the included reaction times are grouped into histogram bins. It does not remove participants.
+
+![Group choices and vocabulary-score range feed the shared reactive filter. Bin width feeds only the histogram.](gfx/reactivity-controls.svg)
+
+Trace each input. Which two change the participant count? Which changes the histogram without changing the count or boxplot?
+
+## Exercise 2A: filter groups and a range
+
+**Your turn, about 12 minutes:** open `controls_app.R`. Its tabs are complete, so you can start even if Exercise 1 took longer.
+
+This script has **six blanks in total**, but only **four are active at checkpoint A**. Leave the four lines beginning with `# validate(need(` through `# ))` commented. Their two blanks belong to checkpoint B.
+
+Complete the four active blanks:
+
+1. Name the checkbox function in the UI: `checkboxGroupInput`.
+2. In the group filter's `input$---`, supply the control name declared in that UI function.
+3. In the first `input$vocab_range[---]`, supply the index of the lower value.
+4. In the second `input$vocab_range[---]`, supply the index of the upper value.
+
+The supplied `req(input$vocab_range)` silently stops the current attempt if the range input is unavailable. Keep it as written; we will explain visible feedback after testing this stage.
+
+The boxplot now uses `aes(x = modality, y = mean_rt)` so selecting both groups puts them at separate x positions. The histogram retains `aes(x = mean_rt)`, pooling the selected groups. Its optional `facet_wrap()` line is commented for now. This change to the comparison is separate from the tab exercise, whose plotting code stayed unchanged.
+
+Save and choose **Run App**. Test these valid selections first:
+
+| Selection | Expected result |
+|---|---|
+| Both groups; full range 0.80–1.00 | count 72; histogram pools groups; boxplot separates them |
+| Speech only; full range | count 33 |
+| Writing only; full range | count 39 |
+| Both groups; vocabulary range 0.90–0.95 | count 19; both views show those participants' reaction times |
+| Change only bin width | histogram changes; count and boxplot stay fixed |
+| Switch tabs | selected controls persist |
+
+Then uncheck both groups, or select both and narrow the range to **0.80–0.81**. Observe the count and plots: is it clear what happened and how the reader can recover? Restore both groups and the full range. We will use that problem to motivate checkpoint B.
+
+## Check the rows before returning the data
+
+The three functions have different roles. `req()` checks a prerequisite and stops the current attempt silently if it is unavailable. It does not keep R in a waiting loop; Shiny can try again after an input changes. Our fixed vocabulary slider normally supplies a default value, so `req(input$vocab_range)` is mainly a startup guard here. If an unavailable range reached our filter without this guard, filtering could raise an R error.
+
+`need(condition, "message")` returns `NULL` when the condition passes or the message when it fails. It does not stop the calculation or display that message on its own. `validate()` acts on the check: when it fails, the current calculation stops and dependent outputs display the feedback. We teach `validate(need(...))` as a pair. See Shiny's [`req()`](https://shiny.posit.co/r/reference/shiny/latest/req.html) and [validation documentation](https://shiny.posit.co/r/reference/shiny/latest/validate.html).
+
+Without the validation block, an empty selection in our app produces count **0** and empty plots, but provides no recovery guidance. This is the behaviour you observed at checkpoint A. With validation, that state produces an explanation instead. Valid selections work in both versions.
+
+`selected` holds the filtered data frame inside the shared reactive expression. It is an ordinary data frame, so `nrow(selected)` counts its rows. The last line, `selected`, supplies the result returned when the reactive expression is called.
+
+Place `validate(need(...))` after filtering and before that last line. `need(nrow(selected) > 0, "message")` checks whether at least one row remains. When it fails, `validate()` stops the calculation and passes the message to each output using the shared expression. When the check passes, the expression continues and returns `selected`.
+
+The already supplied `req(input$vocab_range)` handles an input that is not available yet by stopping silently. It does not explain an empty result. Do not add `req(input$groups)` here: clearing both groups is a foreseeable user action, for which we want a visible recovery message.
+
+![The prerequisite check, filtering, validation and returned data are code inside one shared reactive expression. Its count and plots use the same dependencies for valid data or validation feedback.](gfx/reactivity-validation.svg)
+
+The numbered steps show what happens inside the expression when it is evaluated. They are not separate reactive nodes. When validation fails, Shiny passes the validation condition to outputs using this expression. After the user changes an input to a valid selection, the expression can return data and the plots appear again.
+
+## Exercise 2B: explain an empty selection
+
+**Continue in the same app, about 13 minutes.** Stop the running app before editing.
+
+1. Locate the four commented lines from `# validate(need(` through `# ))` inside the shared reactive expression.
+2. Select those four lines and use RStudio's **Code > Comment/Uncomment Lines**, or remove their leading `#` characters. Leave the separate `facet_wrap()` line commented.
+3. Complete the two newly active blanks. In `nrow(---)`, name the filtered data frame assigned just above. In the quoted message, write your own explanation of what happened and how to recover. Mention selecting a group or widening the range.
+4. Keep `selected` as the final line of the reactive expression. Save and use **Run App** again.
+
+Test empty selections **and recovery**:
+
+| Test | Expected result |
+|---|---|
+| Uncheck both groups | recovery message in the count and each plot location |
+| Both groups; range 0.80–0.81 | recovery message |
+| Restore both groups and range 0.80–1.00 | count 72; plots return |
+| Return to each single group | counts 33 and 39 |
+| Change bin width only | histogram changes; count and boxplot stay fixed |
+| Switch tabs | filters retain their values; each view respects them |
+
+**Together, check:** where do filtering, validation and plotting happen? Why does one check supply feedback to several outputs? Is your message useful without you explaining it aloud?
+
+Differences between these participant groups do not establish a causal effect of output modality. Keep the app's data description, units and limitation sentence visible.
+
+## Draw the complete reactivity graph (4 minutes including checking)
+
+After Exercise 2B, keep **your completed `controls_app.R`** open. In Week 7 the
+boxes and arrows were supplied; now use paper or a drawing tool to create both.
+This is a check of the core app, not a new coding task or an optional extension.
+
+1. Read the server and identify its input references, shared reactive expression
+   and output definitions. Give each one a named box.
+2. Draw an arrow from each dependency to the calculation that reads it. A call
+   to your shared expression connects that expression to the output using it.
+3. Annotate where `req()` and `validate(need())` happen. Ordinary checks and
+   `filter()` stay inside their reactive expression; they are not extra nodes.
+   The static source data and UI tab containers are not reactive nodes either.
+4. Follow the arrows to predict the effect of changing the vocabulary range,
+   then of changing only bin width. Does a range input have to appear on a plot
+   axis to affect that plot?
+
+Try for **three minutes**, then check the answer below or on the next slide.
+Use the graph to explain the empty-selection and restoration tests above;
+those tests are part of Exercise 2B's allocated time.
+
+<details>
+<summary>After drawing: check your graph</summary>
+
+![Complete core dependencies: groups and vocabulary range feed the shared selection; it feeds count and both plots; bin width feeds only the histogram. Checks are inside the shared expression.](gfx/reactivity-drawing-answer.svg)
+
+There are **seven reactive nodes** and **six direct arrows**:
+
+- `input$groups` → `selected_data()`.
+- `input$vocab_range` → `selected_data()`.
+- `selected_data()` → `output$selection_note`.
+- `selected_data()` → `output$rt_plot`.
+- `selected_data()` → `output$values_plot`.
+- `input$binwidth` → `output$rt_plot`.
+
+The shared expression's input check, filter and row validation are code within
+one node, not separate reactive nodes. Both vocabulary-range endpoints are
+values from the same input, so they do not need separate input boxes. Tabs
+change where outputs appear, not these dependencies. Box positions are your
+choice; correct names and connections matter.
+
+Changing group or range invalidates the shared selection and its dependent
+outputs. Changing bin width updates only the histogram and leaves the shared
+selection cached. If validation fails, feedback reaches the count and plots
+through these same dependencies; restoring a valid selection restores outputs.
+
+</details>
+
+## Optional: compare pooled and faceted histograms
+
+If the core works, choose this task, the summary-table task, or the density task below. They are independent; remaining tasks can be completed after class.
+
+In your completed `controls_app.R`, locate `# facet_wrap(~modality) +` inside the histogram code. The current pooled histogram is useful for asking **how the selected sample is distributed overall**. Uncomment this single line to create one histogram panel per value of `modality`. The faceted version is useful for asking **how distribution shapes differ between groups**. Keep the following `labs()` line and the `+` signs.
+
+Select both groups, keep the same range and bin width, and compare the two versions by commenting the line in and out. Which helps your question? Keep your preferred version and update the Distribution tab's `p()` explanation so it accurately describes pooled data or separate panels. The boxplot already compares groups on its x axis.
+
+## Optional: add a third summary tab
+
+`extension_app.R` is a worked example of a third Summary tab. Find `tabPanel("Summary", ...)`, its `tableOutput("summary_table")`, and the matching `output$summary_table <- renderTable({ ... })` block.
+
+Add that whole tab to your own `tabsetPanel()`, keeping commas between tabs. Add the whole render block inside your server, alongside the other outputs. `group_by(selected_data(), modality)` groups the selected rows; `summarise()` calculates a participant count with `n()` and a median for each group. This example uses nested function calls, without pipes.
+
+Test both groups, each group and an empty selection. The shared expression already supplies data or the validation message. Keep the table's explanation meaningful to the reader.
+
+For the assessment, **three tabs is a maximum**, not a target, and a table is optional. At least two useful interactive plots are required; plots responding to Shiny controls qualify. Keep a third tab only if it helps answer a useful question.
+
+## Optional: add a density comparison tab
+
+**Question:** how do the shapes of the speech and writing reaction-time distributions compare within the selected vocabulary-score range?
+
+Open `optional_density_app.R`. It supplies the completed core app plus a third **Density comparison** tab with **seven `---` blanks**. This task is independent of the other optional tasks. Use Density **instead of** Summary as your third tab; if you try both, replace the third tab rather than adding a fourth.
+
+`geom_density()` draws a smooth estimate of a distribution. Compare its shapes and positions; its y axis is density rather than participant count. Compare it with the existing boxplot and points to see what the smooth summary conceals. See the [ggplot2 density documentation](https://ggplot2.tidyverse.org/reference/geom_density.html) for reference.
+
+Complete all seven blanks in the **R script**, then save and use **Run App**:
+
+1. In the new tab's `p("---")`, write an explanation of what readers can compare and how the new control changes the view.
+2. Supply `radioButtons` for the new input function. The values `"colour"` and `"facets"` are supplied as named choices; radio buttons let the reader select **one**. The server reads it through `input$density_view`.
+3. In `plotOutput("---")`, use the name matching the new `output$density_plot` block in the server. Keep quotation marks.
+4. Complete the matching server's render function with `renderPlot`.
+5. Supply `selected_data()` as the data for the new `ggplot()` call. This reuses the existing group and vocabulary filters.
+6. In the colour branch, supply `geom_density` for the layer mapping `colour = modality`.
+7. In the separate-panel branch, supply `facet_wrap` for `~modality`.
+
+### How the supplied choice code works
+
+`p_density <-` stores a ggplot in an ordinary R variable. The supplied `if (input$density_view == "colour") { ... } else { ... }` checks the single radio selection. The first branch adds coloured density curves to one set of axes; the other branch adds density curves in separate group panels. R runs only the chosen branch. The final `p_density` returns that plot to Shiny. You do not need to write this conditional structure yourself.
+
+In Colour mode, mapping colour to `modality` tells ggplot to estimate a curve for each group. In Separate panels mode, `facet_wrap(~modality)` separates the groups and uses matching axis scales. Coloured curves make overlap easy to inspect; panels reduce overlap but require comparisons across panels. Both can be useful: explain your preferred view for the question.
+
+![Additional dependencies for the new density view. Shared data feed the density plot; the new radio selection affects only that plot. Existing outputs retain their previous connections and are omitted here.](gfx/reactivity-density.svg)
+
+The radio control is inside the Density tab. It affects only this plot **because only the density render block reads `input$density_view`**. Its UI position alone does not establish its scope. Existing count, histogram and boxplot connections stay as before.
+
+### Check the new plot and its dependencies
+
+- With both groups and score range **0.80–1.00**, switch between Colour and Separate panels. The density arrangement should change; the selected participants, count, histogram and boxplot should not.
+- Select each group, then try score range **0.90–0.95** with both groups. The shared selection should update the density as well as the existing views; the latter range gives count **19**.
+- Change histogram bin width. The histogram should change while the density stays the same: its smoothing is separate from histogram binning.
+- Uncheck both groups or use **0.80–0.81**. The existing shared validation should supply recovery feedback to the density too. Restore a valid selection.
+- Try **0.81–0.82**, which leaves one participant in this dataset. The count and existing plots can show that observation; the density should explain that it needs more participants.
+
+The density output has an additional supplied check: `table(selected_data()$modality)` counts participants in each selected group, and `all(... >= 2)` checks that each group has at least two. Its `validate(need(...))` belongs inside this **one render block**, because this requirement is specific to density curves. It explains how to recover without preventing the other views from displaying a smaller valid sample. The supplied `req(input$density_view)` guards against an unavailable radio value.
+
+Keep the new plot's units and group legend clear. Record which view you find most useful and why in the app's explanatory text.
+
+## Optional reference: other ways to supply values
+
+The same dependency pattern works with other controls. Choose a control for the value the calculation needs:
+
+| Control | Value | Useful when |
+|---|---|---|
+| `selectInput()` | one selected value by default | a compact list is helpful |
+| `radioButtons()` | one selected value | a few alternatives should all stay visible |
+| `checkboxGroupInput()` | a vector of selected values | readers may include several groups |
+| `numericInput()` | one number | readers need to type an exact value |
+| `checkboxInput()` | `TRUE` or `FALSE` | a single option is on or off |
+
+Inputs may affect data selection or how a plot is drawn. Our vocabulary-range slider selects participants; our bin-width slider changes a plotting argument. These are reference options for later project work, not additional exercises to finish today.
+
+## After class
+
+Read Wickham's *Mastering Shiny*, [section 6.3.1: tabsets](https://mastering-shiny.org/action-layout.html#tabsets) and [section 8.1.4: validating outputs](https://mastering-shiny.org/action-feedback.html#validate-output). Focus on tab placement and actionable recovery feedback. No written response or extra feedback package is required.
+
+**Bring a dataset for Week 9.** Have the data available in your project, the code that loads it, its source, and one question you want to explore. A candidate is fine if you are still deciding. Week 9 adds Plotly hover/zoom and time to adapt the dashboard; supplied practice data are available as a backup. Week 10 focuses on reproducibility, explanations and project support.
+
+## After completing your app: compare with the reference
+
+Now run `worked_example_app.R`. Compare both tabs, the shared controls and every empty-selection test. Trace each input into the shared filter or histogram and explain any changes needed before editing your own code. Compare the app explanations too, and keep your own version.

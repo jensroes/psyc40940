@@ -1,0 +1,180 @@
+---
+title: "Exercise 1: Choosing plot types"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6,
+                      fig.height = 4)
+```
+
+In this exercise you will practise choosing a plot type based on the question and the variable types.
+
+Main job: **choose the geom that answers the question best**.
+
+By the end, you should be able to choose a plot for:
+
+- one continuous variable,
+- two continuous variables,
+- one continuous variable split by a group.
+
+## Load packages and data
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+blomkvist <- read_csv("data/blomkvist.csv")
+blomkvist <- drop_na(blomkvist, smoker, rt_hand_d, rt_hand_nd, age)
+```
+
+```{r}
+glimpse(blomkvist)
+```
+
+## Data structure and geoms
+
+Different geoms expect different variables to be available in the data frame. Before choosing a geom, check whether the data have the columns needed for the visual comparison.
+
+| Geom | Data structure it needs | Typical mapping |
+|---|---|---|
+| `geom_histogram()` | one row per observation and one numeric variable | `aes(x = numeric_variable)` |
+| `geom_point()` | one row per observation and two numeric variables | `aes(x = numeric_variable_1, y = numeric_variable_2)` |
+| colour or shape groups | a grouping variable in the same data frame | `aes(colour = group_variable)` |
+
+<p class="take-home">The plot can only show variables that are present in the right structure for the geom.</p>
+
+## Question 1: What is the distribution of age?
+
+Age is one continuous variable, so a histogram is a good first choice. The data structure is simple: `age` is one numeric column, and each row is one participant.
+
+Complete the plot.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = ___)) +
+  geom_histogram(binwidth = ___, fill = "grey70", colour = "white") +
+  labs(x = "Age (years)",
+       y = "Number of participants") +
+  theme_minimal()
+```
+
+Try two different `binwidth` values. What changes?
+
+Write one sentence here: ___
+
+### Choose a geom for the same question
+
+Run both plots, then answer the question below the code chunk.
+
+```{r}
+# Option A: histogram
+ggplot(data = blomkvist, mapping = aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = "grey70", colour = "white") +
+  theme_minimal()
+
+# Option B: scatterplot against participant id
+ggplot(data = blomkvist, mapping = aes(x = id, y = age)) +
+  geom_point(alpha = 0.6) +
+  theme_minimal()
+
+```
+
+Which plot better shows the distribution of age: the histogram or the scatterplot? Explain what makes the distribution easier to see.
+
+Write your choice and reason here: ___
+
+## Question 2: What is the distribution of reaction times?
+
+Create a histogram for dominant-hand reaction time.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = ___)) +
+  geom_histogram(binwidth = ___, fill = "grey70", colour = "white") +
+  labs(x = "Dominant-hand reaction time (ms)",
+       y = "Number of participants") +
+  theme_minimal()
+```
+
+What do you notice about the shape of the distribution?
+
+Write one sentence here: ___
+
+## Question 3: Are two reaction-time measures related?
+
+Two continuous variables are often shown with a scatterplot. This works because `rt_hand_d` and `rt_hand_nd` are two numeric columns in the same row for each participant.
+
+Complete the plot using dominant-hand reaction time on the x-axis and non-dominant-hand reaction time on the y-axis.
+
+```{r}
+ggplot(data = blomkvist, mapping = aes(x = ___, y = ___)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Dominant-hand reaction time (ms)",
+       y = "Non-dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+What should the viewer compare in this plot?
+
+Write one sentence here: ___
+
+### Choose a geom for the relationship question
+
+Run both plots, then answer the question below the code chunk.
+
+```{r}
+# Option A: scatterplot
+ggplot(data = blomkvist,
+       mapping = aes(x = rt_hand_d, y = rt_hand_nd)) +
+  geom_point(alpha = 0.6) +
+  theme_minimal()
+
+# Option B: two separate histograms
+ggplot(data = blomkvist, mapping = aes(x = rt_hand_d)) +
+  geom_histogram(binwidth = 50, fill = "grey70", colour = "white") +
+  theme_minimal()
+
+ggplot(data = blomkvist, mapping = aes(x = rt_hand_nd)) +
+  geom_histogram(binwidth = 50, fill = "grey70", colour = "white") +
+  theme_minimal()
+
+```
+
+Which option better shows whether the two reaction-time measures are related: the scatterplot or the separate histograms? Explain what information is needed to see the relationship.
+
+Write your choice and reason here: ___
+
+## Question 4: Does the relationship differ by group?
+
+Add `smoker` as a colour aesthetic. This works because the grouping variable is in the same data frame as the two reaction-time variables. Keep the rest of the plot simple.
+
+```{r}
+ggplot(data = blomkvist,
+       mapping = aes(x = rt_hand_d, y = rt_hand_nd, colour = ___)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Dominant-hand reaction time (ms)",
+       y = "Non-dominant-hand reaction time (ms)",
+       colour = "Smoking status") +
+  theme_minimal()
+```
+
+Does the colour mapping help the comparison, or does it make the plot harder to read?
+
+Write one sentence here: ___
+
+## Principle check
+
+Choose one plot from this exercise. Check it against the Week 2 principles.
+
+- Does it show relevant data and variation?
+- Is the main comparison easy to see?
+- Are labels clear enough?
+- Is any visual feature unnecessary?
+
+Write your notes here: ___

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="340" viewBox="0 0 1000 340" role="img" aria-labelledby="title desc">
+  <title id="title">Checks inside one shared reactive expression</title>
+  <desc id="desc">Group and vocabulary inputs feed one reactive expression called selected_data. Inside it, req checks availability, filter selects rows, validate and need check the rows, and selected returns valid data. Validation failures reach the count and both plots along the same dependencies. Bin width feeds only the histogram.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#53606a"/></marker>
+    <marker id="bin-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#237b80"/></marker>
+    <style>
+      text {font-family:Arial,sans-serif;font-size:21px;text-anchor:middle;fill:#28323a}
+      .code {font-family:monospace;font-size:20px}
+      .step {text-anchor:start;font-size:20px}
+      rect {rx:9;stroke-width:1.5}
+      .input {fill:#eaf5f4;stroke:#6ca4a1}
+      .reactive {fill:#fff3d6;stroke:#bf9a47}
+      .output {fill:#f5f5f5;stroke:#9da5aa}
+      .edge {fill:none;stroke:#53606a;stroke-width:2.5;marker-end:url(#arrow)}
+      .bin {fill:none;stroke:#237b80;stroke-width:2.5;stroke-dasharray:7 5;marker-end:url(#bin-arrow)}
+    </style>
+  </defs>
+  <rect width="1000" height="340" fill="white" stroke="none"/>
+  <path class="edge" d="M215 77 C245 77 245 110 275 110"/>
+  <path class="edge" d="M215 187 C245 187 245 170 275 170"/>
+  <path class="edge" d="M635 145 C695 145 700 60 760 60"/>
+  <path class="edge" d="M635 145 C695 145 700 165 760 165"/>
+  <path class="edge" d="M635 145 C695 145 700 275 760 275"/>
+  <path class="bin" d="M215 292 H760"/>
+  <rect class="input" x="15" y="45" width="200" height="64"/>
+  <text class="code" x="115" y="84">input$groups</text>
+  <rect class="input" x="15" y="155" width="200" height="64"/>
+  <text class="code" x="115" y="194" style="font-size:18px">input$vocab_range</text>
+  <rect class="input" x="15" y="260" width="200" height="64"/>
+  <text class="code" x="115" y="299">input$binwidth</text>
+  <rect class="reactive" x="275" y="22" width="360" height="245"/>
+  <text class="code" x="455" y="57">selected_data()</text>
+  <text class="step" x="295" y="95">1. req(): check input availability</text>
+  <text class="step" x="295" y="132">2. filter(): select participants</text>
+  <text class="step" x="295" y="170">3. validate(need(...)):</text>
+  <text class="step" x="317" y="199">check rows; stop with feedback</text>
+  <text class="step" x="295" y="242">4. selected: return valid data</text>
+  <rect class="output" x="760" y="30" width="225" height="60"/>
+  <text x="872" y="67">Participant count</text>
+  <rect class="output" x="760" y="140" width="225" height="50"/>
+  <text x="872" y="171">Boxplot + points</text>
+  <rect class="output" x="760" y="255" width="225" height="50"/>
+  <text x="872" y="286">Histogram</text>
+</svg>

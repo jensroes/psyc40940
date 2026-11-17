@@ -1,0 +1,159 @@
+---
+title: "Homework: Data wrangling for visualisation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = NA,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.width = 6,
+                      fig.height = 4)
+```
+
+This homework introduces a few data-wrangling tools that are useful for visualisation.
+
+Main job: **reshape the data so the geom can use it**.
+
+This module is not primarily a data-wrangling module. You do not need to memorise these functions now, but you should recognise why they are useful when a plot needs the data in a different format.
+
+## Load packages and data
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+blomkvist <- read_csv("data/blomkvist.csv")
+blomkvist <- drop_na(blomkvist, smoker, rt_hand_d, rt_hand_nd)
+```
+
+## Why reshape data?
+
+Dominant-hand and non-dominant-hand reaction times are currently in separate columns.
+
+```{r}
+glimpse(blomkvist)
+```
+
+Try this first. It runs, but it does not give us the comparison we really want.
+
+```{r}
+# Two separate y variables are awkward for one grouped boxplot.
+ggplot(data = blomkvist, mapping = aes(y = rt_hand_d)) +
+  geom_boxplot() +
+  theme_minimal()
+
+ggplot(data = blomkvist, mapping = aes(y = rt_hand_nd)) +
+  geom_boxplot() +
+  theme_minimal()
+
+```
+
+The data are currently wide. Would wide or long data make it easier to compare both hands in one grouped plot?
+
+Write your choice here: ___
+
+This makes it awkward to compare them in one boxplot. For `geom_jitter()` and `geom_boxplot()`, it is easier if the group labels are in one column and the reaction times are in another column. We can use `pivot_longer()` to put both reaction-time columns into one column.
+
+Complete the column names.
+
+```{r}
+hand_rt <- pivot_longer(data = blomkvist,
+                        cols = c(___, ___),
+                        names_to = "hand",
+                        values_to = "rt")
+```
+
+```{r}
+glimpse(hand_rt)
+```
+
+## Plot the reshaped data
+
+Now use the new `hand` and `rt` columns to compare dominant and non-dominant hand reaction times. The data now match what these geoms expect: `hand` is the grouping variable on `x`, and `rt` is the numeric outcome on `y`.
+
+```{r}
+ggplot(data = hand_rt, mapping = aes(x = ___, y = ___)) +
+  geom_jitter(width = 0.15, alpha = 0.25, size = 1.5) +
+  geom_boxplot(width = 0.35, outlier.shape = NA, alpha = 0.35) +
+  labs(x = "Measure",
+       y = "Reaction time (ms)") +
+  theme_minimal()
+```
+
+Check the reshaped data and the mapping in your plot:
+
+- Which column contains the groups? ___
+- Which column contains the numeric outcome? ___
+- Which column did you map to `x`, and which to `y`? ___
+
+Why did reshaping the data make this plot easier to create?
+
+Write one sentence here: ___
+
+## Filter rows
+
+`filter()` keeps rows that match a condition. For example, the code below keeps participants older than 60.
+
+```{r}
+older_participants <- filter(blomkvist, age > 60)
+```
+
+Create a plot using `older_participants`.
+
+```{r}
+ggplot(data = older_participants, mapping = aes(x = smoker, y = rt_hand_d)) +
+  geom_jitter(width = 0.15, alpha = 0.4) +
+  labs(x = "Smoking status",
+       y = "Dominant-hand reaction time (ms)") +
+  theme_minimal()
+```
+
+## Select columns
+
+`select()` keeps columns. This is useful when a dataset is large and you only need a few variables.
+
+Complete the code so that it keeps `id`, `age`, `smoker`, and the two hand reaction-time variables.
+
+```{r}
+hand_data <- select(blomkvist, ___, ___, ___, ___, ___)
+```
+
+```{r}
+glimpse(hand_data)
+```
+
+## Create a new variable
+
+`mutate()` creates or changes variables. Here we calculate how much slower the non-dominant hand is than the dominant hand.
+
+```{r}
+hand_data <- mutate(hand_data,
+                    rt_hand_difference = rt_hand_nd - rt_hand_d)
+```
+
+Plot the new variable.
+
+```{r}
+ggplot(data = hand_data, mapping = aes(x = rt_hand_difference)) +
+  geom_histogram(binwidth = 50, fill = "grey70", colour = "white") +
+  labs(x = "Non-dominant minus dominant hand RT (ms)",
+       y = "Number of participants") +
+  theme_minimal()
+```
+
+What does a positive value mean?
+
+Write one sentence here: ___
+
+## Summary
+
+For visualisation, data wrangling is useful when you need to:
+
+- put variables into a format that `ggplot2` can map easily,
+- keep only relevant rows or columns,
+- create new variables that answer a clearer question.
+
+List one wrangling step that might be useful for your formative assessment dataset: ___
