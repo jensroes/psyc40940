@@ -1495,6 +1495,18 @@ finish the current script’s <code>---</code> blanks before running.</p>
 from the familiar naming study (about 15 minutes including explanation
 and testing). For the rest of the session, use your own data if ready,
 or investigate the supplied language-learning study.</p>
+<p>Follow the guide in this order:</p>
+<ol style="list-style-type: decimal">
+<li>Exercise 1: everyone adds Plotly to the familiar naming-data
+app.</li>
+<li>Choose your data, then complete Exercises 2 and 3: plan the purpose,
+tabs, controls and graph on paper or in Word.</li>
+<li>Exercise 4: follow one coding route—Route A for your own data or
+Route B for the supplied data—using the plan you have already made.</li>
+<li>Exercise 5: show your app to another student nearby, use their
+feedback to refine it and retest it. Try an optional addition if the
+core works.</li>
+</ol>
 </div>
 <div id="install-plotly" class="section level2">
 <h2>Install Plotly</h2>
@@ -1505,15 +1517,15 @@ skip this step. The app scripts load their own packages.</p>
 </div>
 <div id="exercise-1-add-hover-and-zoom" class="section level2">
 <h2>Exercise 1: add hover and zoom</h2>
-<p>Your turn, about 10 minutes: open <code>plotly_app.R</code>. This
-task uses <code>data/trial_reaction_times.csv</code>: 8,648 naming
-trials from 72 participants. The scatterplot shows response duration
-(<code>dur</code>) on x and reaction time (<code>rt</code>) on y, both
-in milliseconds, with output group as colour. Many trials come from the
-same participant. The count reports both participants and trials.
-Complete its three connections using the slides: the Plotly UI output
-function, its matching render function, and the function converting the
-ggplot stored in <code>p</code>.</p>
+<p>Open <code>plotly_app.R</code>. This task uses
+<code>data/trial_reaction_times.csv</code>: 8,648 naming trials from 72
+participants. The scatterplot shows response duration (<code>dur</code>)
+on x and reaction time (<code>rt</code>) on y, both in milliseconds,
+with output group as colour. Many trials come from the same participant.
+The count reports both participants and trials. Complete its three
+connections using the slides: the Plotly UI output function, its
+matching render function, and the function converting the ggplot stored
+in <code>p</code>.</p>
 <details>
 <summary>
 Hint: the Plotly function names
@@ -1568,54 +1580,50 @@ experimenting with the result.</li>
 the predictions from your graph and the guide’s checks to retest after
 changes.</li>
 </ul>
-<p>The purpose → provisional plots → inputs → graph sequence is the
-planning framework used in this workshop, rather than a fixed sequence
-prescribed by Wickham. It combines purposeful visualisation choices with
-his small-prototype and iterative-development approach.</p>
+<p>The <code>purpose → provisional plots → inputs → graph</code>
+sequence is the planning framework used in this workshop, rather than a
+fixed sequence. It combines purposeful visualisation choices with his
+small-prototype and iterative-development approach.</p>
 </div>
 <div id="choose-your-workshop-route" class="section level2">
 <h2>Choose your workshop route</h2>
-<p>After Plotly, choose which data description to use. Both routes start
-with the same planning tasks on paper or in Word/PowerPoint. App files
-will be introduced at the coding stage.</p>
+<p>Choose which data description to use. Both routes start with the same
+planning tasks on paper or in Word. App files will be introduced at the
+coding stage.</p>
 <ul>
-<li>Own data available: use its observation unit, variables and source
-to choose a purpose and plan the views.</li>
-<li>No dataset yet: read <a href="#supplied-data-brief">Supplied dataset
-for the planning tasks</a> below. It provides the observations, variable
-types and levels, and possible purposes needed for the same planning
+<li>Route A <strong>own data</strong>: explain what one row in your
+dataset represents—for example, one participant, one trial, or one
+participant’s summary for a condition. Identify the variables and data
+source, then use this information to complete Exercises 2 and 3. Skip
+the supplied-data description and continue to Exercise 2.</li>
+<li>Route B <strong>supplied data</strong>: read <a href="#supplied-data-brief">Supplied dataset for the planning tasks</a>
+below, including its app requirements, then complete Exercises 2 and 3.
+It provides the observations, variable types and levels needed for those
 tasks.</li>
 </ul>
-<p>Use about 10 minutes for the purpose, tab roles and intended
-controls, then about five minutes for the preliminary graph. Build and
-test one part at a time afterwards.</p>
 </div>
 <div id="supplied-data-brief" class="section level2">
 <h2>Supplied dataset for the planning tasks</h2>
 <p>If you have not brought your own data, use this description for
 Exercises 2 and 3. You can choose a purpose, sketch tabs and plan the
-inputs and graph entirely from this page, without loading data or
-opening app code. Students using their own dataset can use its variable
-notes instead.</p>
-<p>This is the workshop dataset,
-<code>data/participant_rates.csv</code>, rather than the naming-trial
-data used in the short Plotly task.</p>
+inputs and graph, without loading data or opening app code.</p>
+<p>This is the workshop dataset:
+<code>data/participant_rates.csv</code>. The data come from <a href="https://doi.org/10.1007/s41809-023-00131-5">van Lieburg et
+al. (2023), <em>The development of abstract syntactic representations in
+beginning L2 learners of Dutch</em></a>.</p>
 <div id="what-was-recorded" class="section level3">
 <h3>What was recorded?</h3>
 <p>Seventeen learners of Dutch described pictures at up to five testing
 occasions over eight months. Before each response, they heard a prompt:
-a neutral word pair (Baseline), an active sentence, or a passive
-sentence. For example, “The girl pushes the boy” is active; “The boy is
-pushed by the girl” is passive.</p>
-<p>At each testing occasion, picture-description tasks happened before
-and after a short practice block using passive sentences. Before and
-After are phases within a visit, not different groups of people. The
-same learners therefore appear repeatedly.</p>
+a neutral word pair (Baseline), a sentence in active or passive voice.
+For example, “The girl pushes the boy” is active; “The boy is pushed by
+the girl” is passive. At each testing occasion, picture-description
+tasks happened before and after a short practice block using passive
+sentences. Before and After are phases within a visit.</p>
 <p>The outcome is how often a learner produced a full passive sentence.
 It is not a correctness or general language-ability score. A reasonable
 exploratory app can compare patterns across occasions or conditions, and
-inspect the individual variation behind an average. These comparisons
-alone do not establish what caused a change.</p>
+inspect the individual variation.</p>
 </div>
 <div id="what-does-one-row-mean" class="section level3">
 <h3>What does one row mean?</h3>
@@ -1658,9 +1666,10 @@ are not zero responses.</p>
 <td>identifies the phase within each visit</td>
 </tr>
 <tr class="odd">
-<td><code>passive_percent</code></td>
-<td>numeric percentage; 0, 25, 50, 75 or 100</td>
-<td>full passive responses out of four recorded target trials</td>
+<td><code>n_passive</code></td>
+<td>count; 0, 1, 2, 3 or 4</td>
+<td>number of full passive responses out of four recorded target
+trials</td>
 </tr>
 <tr class="even">
 <td><code>vocabulary_score</code></td>
@@ -1670,11 +1679,6 @@ extension</td>
 </tr>
 </tbody>
 </table>
-<p>For the small core app, use sentence condition and phase as the two
-controls. Plot percentages across occasions, comparing average patterns
-with individual learners. Vocabulary filtering is optional; you do not
-need it to complete the planning task. The CSV is already prepared, and
-the data dictionary provides further details when coding starts.</p>
 </div>
 <div id="two-possible-starting-purposes" class="section level3">
 <h3>Two possible starting purposes</h3>
@@ -1690,24 +1694,39 @@ consistent across occasions and learners. Tab 1 makes condition means
 easy to compare; Tab 2 shows the individual paths behind those means.
 The same two controls focus the comparison.</li>
 </ul>
-<p>Both purposes fit the same small starting app, but emphasise a
-different question. Choose one, write your own purpose sentence and tab
-explanations, and use <a href="#route-b">Route B’s specification</a> to
-plan the graph. You are not expected to establish the study’s research
-conclusions.</p>
+<p>Both purposes fit the same small app, but emphasise a different
+question. Use one as your starting point for Exercise 2.</p>
+</div>
+<div id="supplied-data-app-requirements-for-your-plan" class="section level3">
+<h3>Supplied-data app requirements for your plan</h3>
+<p>Use these requirements when completing Exercises 2 and 3:</p>
+<ul>
+<li>Inputs: condition checkboxes (<code>input$prime_condition</code>)
+and a one-choice phase selector (<code>input$phase</code>).</li>
+<li>Reactivity: <code>selected_data()</code> filters the rows once using
+both selections, then supplies both plots.</li>
+<li>Outputs: <code>output$overview_plot</code> shows mean counts out of
+four trials across occasions; <code>output$participant_plot</code> shows
+individual learner paths. Each plot has its own tab.</li>
+</ul>
+<p>Plan this small core first. Continue to Exercise 2 to write the
+purpose and tab roles, then draw these connections in Exercise 3. Keep
+app code closed until Exercise 4.</p>
 </div>
 </div>
 <div id="exercise-2-define-the-purpose-and-tab-roles" class="section level2">
 <h2>Exercise 2: define the purpose and tab roles</h2>
-<p>Planning only: use pen and paper, or Word/PowerPoint, for Exercises 2
-and 3. Do not write or edit R code during these tasks. After the Plotly
-exercise, coding resumes in Exercise 4 (A2 for your own data, B2 onwards
-for supplied data).</p>
-<p>Spend about 10 minutes deciding what a reader should learn. An
-exploratory purpose is sufficient: you do not need a new theory or a
-statistical model. Use your own data notes or the supplied-data
-description and two starting purposes immediately above this
-exercise.</p>
+<p>If you are using the supplied data (Route B), first read the previous
+section, <a href="#supplied-data-brief">Supplied dataset for the
+planning tasks</a>, including the variable table, suggested purposes and
+app requirements. Use that information to complete this exercise. If you
+are using your own data (Route A), use your own dataset description
+instead.</p>
+<p>Planning only: use pen and paper, Word or similar, for Exercises 2
+and 3. Do not write or edit R code during these tasks.</p>
+<p>What should the reader learn from the data? An exploratory purpose is
+sufficient. Use your own data notes or the supplied-data description and
+two starting purposes.</p>
 <div id="find-a-question-the-data-can-address" class="section level3">
 <h3>1. Find a question the data can address</h3>
 <p>Identify the behavioural outcome, what one row represents, and the
@@ -1720,10 +1739,9 @@ compare. Choose a question pattern that fits the data:</p>
 <li>How does behaviour change across occasions?</li>
 <li>Does an overall pattern describe individuals equally well?</li>
 </ul>
-<p>Avoid promising a causal conclusion from observational comparisons.
-Write: “This app helps readers explore how ______ varies with / across
-______.” Name a reader or audience if that helps clarify the
-purpose.</p>
+<p>Write: “This app helps readers explore how ______ varies with /
+across ______.” Avoid promising a causal conclusion from observational
+comparisons.</p>
 </div>
 <div id="give-each-tab-a-job" class="section level3">
 <h3>2. Give each tab a job</h3>
@@ -1738,20 +1756,46 @@ variables may support an association plot; a continuous outcome across
 categories may support a distribution comparison. Many category levels
 may need ordering or a different layout. The question and comparison
 should guide the choice alongside variable type.</p>
-<p>Revisit Weeks 3 and 4 for <code>aes()</code>, geoms,
-continuous/categorical variables and the data structure each plot needs.
-Week 4 also compares raw observations with summaries. Use Week 5,
-especially “Variable Type Also Guides Aesthetics” and
-<code>02_colours_and_aesthetics.Rmd</code>, for colour, shape, scales
-and comparison choices. <code>01_labels_and_legends.Rmd</code> helps
-with readable labels and legends; the Week 5 supplementary slides
-contain further faceting and theme examples. Week 2 provides the
-perception and comparison principles for explaining why a design helps
-the reader.</p>
-<p>For example, a response-timing app could first compare group
-distributions, then examine the relationship between reaction time and
-response duration. A summary and an individual-observation view could
-instead reveal whether an average pattern describes everyone.</p>
+<details>
+<summary>
+Help: earlier session materials
+</summary>
+<p>Continue with your plan using what you already know. You do not need
+to revisit earlier weeks now; open these materials only if you need a
+reminder or code example.</p>
+<ul>
+<li>Weeks 3 and 4: <code>aes()</code>, geoms, continuous/categorical
+variables and the data structure each plot needs. Week 4 also compares
+raw observations with summaries.</li>
+<li>Week 5: “Variable Type Also Guides Aesthetics” and
+<code>02_colours_and_aesthetics.Rmd</code> cover colour, shape, scales
+and comparison choices. <code>01_labels_and_legends.Rmd</code> covers
+readable labels and legends; the supplementary slides contain further
+faceting and theme examples.</li>
+<li>Week 2: perception and comparison principles to help explain why a
+design helps the reader.</li>
+</ul>
+</details>
+<details>
+<summary>
+Examples: give two plots different jobs
+</summary>
+<p>Use these examples if you need ideas; choose plots that suit your own
+question and variables.</p>
+<ul>
+<li>Compare distributions and explore an association: one tab could use
+density curves or boxplots with individual points to compare reaction
+times between groups. A second could use a scatterplot of reaction time
+against response duration, with colour identifying the groups.</li>
+<li>Compare an average with individual patterns: one tab could use a
+point-and-line plot of mean responses across testing occasions. A second
+could use individual learner trajectories or a learner-by-occasion
+heatmap to show variation concealed by the average. For the supplied
+data, plot full passive-response counts out of four trials.</li>
+</ul>
+<p>Explain what the second view adds to the first, rather than choosing
+two plot types just to make them different.</p>
+</details>
 </div>
 <div id="specify-useful-interaction" class="section level3">
 <h3>3. Specify useful interaction</h3>
@@ -1769,8 +1813,12 @@ buttons or checkboxes, while a longer list may suit a dropdown. For a
 numeric range, check meaningful bounds, units and increments. Not every
 plotted variable needs an input. These choices are provisional: a better
 plot or a revised question may lead you to change the controls.</p>
-<p>For control examples, open the relevant earlier session materials on
-NOW:</p>
+<details>
+<summary>
+Optional help: control examples from earlier sessions
+</summary>
+<p>Use these references only if you need ideas or a reminder. You do not
+need to open earlier materials now; they are available on NOW.</p>
 <table>
 <colgroup>
 <col width="50%" />
@@ -1813,29 +1861,29 @@ guide</td>
 </tr>
 </tbody>
 </table>
-<p>Use these references now to choose suitable ideas. When coding begins
-in Exercise 4, borrow a small working pattern and adapt its names,
-choices, ranges and labels to your variables. Check your graph to
+<p>In Exercise 4, you can borrow a small working pattern and adapt its
+names, choices, ranges and labels to your variables. Check your graph to
 identify which outputs should change; the original example’s behaviour
 is not automatically the right behaviour for your app.</p>
+</details>
 <p>Keep three short planning items: the overall purpose sentence, the
 two-tab sketch with each view’s contribution, and two controls with
-their reasons. Use them for the preliminary graph and revise them as you
-inspect plots.</p>
+their reasons. Use them for the preliminary graph and revise them later
+as you inspect plots.</p>
 </div>
 </div>
 <div id="exercise-3-sketch-the-preliminary-reactivity-graph" class="section level2">
 <h2>Exercise 3: sketch the preliminary reactivity graph</h2>
-<p>This is still a drawing task, not an R coding task. Use PowerPoint,
-Word, or paper. The blank template below is inspiration: copy it, print
-it, or draw your own boxes. A separate
-<code>reactivity-graph-template.svg</code> is included in the folder. It
-has no names or arrows filled in.</p>
+<p>Use Word, or pen and paper. The blank template below is
+inspiration.</p>
 <div class="float">
 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTAwIiBoZWlnaHQ9IjQ4MCIgdmlld0JveD0iMCAwIDExMDAgNDgwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+Cjx0aXRsZSBpZD0idGl0bGUiPkJsYW5rIGFwcCBwbGFubmluZyB0ZW1wbGF0ZTwvdGl0bGU+PGRlc2MgaWQ9ImRlc2MiPlRocmVlIGFyZWFzIG5hbWVkIElucHV0cywgUmVhY3Rpdml0eSBhbmQgT3V0cHV0cywgd2l0aCB0d28gZW1wdHkgaW5wdXQgYm94ZXMsIG9uZSBzaGFyZWQtcHJlcGFyYXRpb24gYm94IGFuZCB0d28gZW1wdHkgb3V0cHV0IGJveGVzLiBTdHVkZW50cyBhZGQgbmFtZXMsIGRlcGVuZGVuY3kgYXJyb3dzIGFuZCB0YWIgbGFiZWxzLjwvZGVzYz4KPHJlY3Qgd2lkdGg9IjExMDAiIGhlaWdodD0iNDgwIiBmaWxsPSJ3aGl0ZSIvPgo8c3R5bGU+dGV4dHtmb250LWZhbWlseTpBcmlhbCxzYW5zLXNlcmlmO2ZpbGw6IzI4MzIzYTt0ZXh0LWFuY2hvcjptaWRkbGU7Zm9udC1zaXplOjI2cHh9cmVjdC5ib3h7c3Ryb2tlLXdpZHRoOjI7cng6MTB9PC9zdHlsZT4KPHRleHQgeD0iMTgwIiB5PSI1NSI+SW5wdXRzPC90ZXh0Pjx0ZXh0IHg9IjU1MCIgeT0iNTUiPlJlYWN0aXZpdHk8L3RleHQ+PHRleHQgeD0iOTIwIiB5PSI1NSI+T3V0cHV0czwvdGV4dD4KPHJlY3QgY2xhc3M9ImJveCIgeD0iNTAiIHk9IjExMCIgd2lkdGg9IjI2MCIgaGVpZ2h0PSI5NSIgZmlsbD0iI2VhZjVmNCIgc3Ryb2tlPSIjNmNhNGExIi8+CjxyZWN0IGNsYXNzPSJib3giIHg9IjUwIiB5PSIyOTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iOTUiIGZpbGw9IiNlYWY1ZjQiIHN0cm9rZT0iIzZjYTRhMSIvPgo8cmVjdCBjbGFzcz0iYm94IiB4PSI0MTAiIHk9IjIwMCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI5NSIgZmlsbD0iI2ZmZjNkNiIgc3Ryb2tlPSIjYmY5YTQ3Ii8+CjxyZWN0IGNsYXNzPSJib3giIHg9Ijc5MCIgeT0iMTEwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9Ijk1IiBmaWxsPSIjZjVmNWY1IiBzdHJva2U9IiM5ZGE1YWEiLz4KPHJlY3QgY2xhc3M9ImJveCIgeD0iNzkwIiB5PSIyOTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iOTUiIGZpbGw9IiNmNWY1ZjUiIHN0cm9rZT0iIzlkYTVhYSIvPgo8dGV4dCB4PSI1NTAiIHk9IjQ1MCIgc3R5bGU9ImZvbnQtc2l6ZToyMXB4Ij5BZGQgbmFtZXMgYW5kIGFycm93cy4gTGFiZWwgdGhlIG91dHB1dCB0YWJzLiBBZGQgYm94ZXMgaWYgeW91ciBwbGFuIG5lZWRzIHRoZW0uPC90ZXh0Pgo8L3N2Zz4=" alt="Empty input, reactivity and output boxes for your app plan. Add names, dependency arrows and tab labels." />
 <div class="figcaption">Empty input, reactivity and output boxes for
 your app plan. Add names, dependency arrows and tab labels.</div>
 </div>
+<p>Use your plan from Exercise 2. For supplied data, use the input and
+output names in the requirements above. For your own data, choose names
+that match your proposed controls and plots.</p>
 <p>Show three areas:</p>
 <ol style="list-style-type: decimal">
 <li>Inputs: the two controls readers will use.</li>
@@ -1843,35 +1891,24 @@ your app plan. Add names, dependency arrows and tab labels.</div>
 data.</li>
 <li>Outputs: the two plot outputs, with their tab names.</li>
 </ol>
-<p>Draw arrows from each value to the calculation that reads it. For a
-later display-only control, connect it to the plot it changes. Tabs
-organise the interface; they are not additional reactive nodes. Predict
-what each input should update. The graph records your current plan;
-revise it when a plot or control changes during implementation.</p>
-<p>For this exercise, use at least two tabs and two interactive plots,
-with no more than three tabs. Start with two controls; a third is
-optional. The graph is a planning aid, not an additional assessment
-submission. Read your route’s requirements before drawing; check the
-completed example only after your own attempt.</p>
+<p>Draw arrows from each value to the calculation that reads it. Predict
+what each input in your own graph should update. The graph records your
+current plan; revise it when a plot or control changes during
+implementation.</p>
+<p>For this exercise, use at least two tabs and two interactive plots.
+Start with two controls; a third is optional.</p>
+<p>Your planning is now complete. Continue to Exercise 4 using <a href="#route-a">Route A for your own data</a> or <a href="#route-b">Route B for supplied data</a>. Complete one coding
+route, then continue to Exercise 5 for feedback, refinement and
+testing.</p>
 </div>
 <div id="route-a" class="section level2">
-<h2>Route A: build with your own data</h2>
-<div id="a1.-specify-a-small-first-version" class="section level3">
-<h3>A1. Specify a small first version</h3>
-<p>Use Exercise 2 to write the purpose sentence, sketch the two tabs and
-justify two controls. State what one row represents and check that the
-variables support your comparisons. Then draw the preliminary graph in
-Exercise 3. Do this before implementing the app.</p>
-<p>You decide the plot types and controls. Possible pairings include a
-distribution and an association plot, or an overall summary and
-individual observations. Possible controls include selecting groups, a
-numeric range, choosing a phase, or a display choice. These are
-suggestions, not required features. Keep the first version small.</p>
-</div>
-<div id="a2.-exercise-4-implement-and-test-in-stages" class="section level3">
-<h3>A2. Exercise 4: implement and test in stages</h3>
-<p>Coding starts here, after your purpose sentence, tab sketch and
-preliminary graph are ready.</p>
+<h2>Exercise 4 <em>Route A</em>: build with your own data</h2>
+<p>Your purpose sentence, two-tab sketch, two controls and preliminary
+graph are now ready. Use those decisions to build your first version;
+adjust the plan when testing suggests a better choice. Follow this route
+only if you are using your own data.</p>
+<div id="a1.-load-your-data-then-implement-and-test-in-stages" class="section level3">
+<h3>A1. Load your data, then implement and test in stages</h3>
 <ol style="list-style-type: decimal">
 <li>Open <code>own_data_app.R</code>. Replace <code>&quot;data/---&quot;</code>
 with your CSV path, or adapt the import to your file format. If you
@@ -1891,80 +1928,59 @@ and <code>validate(need(...))</code> checks. The reactive wrapper is
 already supplied.</li>
 <li>Replace the first plot’s <code>NULL</code> with its ggplot, now
 using <code>selected_data()</code> as the data. Run App and test this
-output before connecting the second. The UI output names already match
-the server.</li>
+output. Next, connect and test the second plot in its render block. The
+UI output names already match the server.</li>
 <li>Add the purpose, meaningful tab names, axis labels and short
 explanations. Describe what each tab adds, what the controls change and
 any important limits of the selected observations.</li>
 <li>Test the predictions from your graph, every tab, empty selections
-where relevant and recovery. Restart R to check that the code loads its
-packages and files. Revise the plan or code when behaviour differs from
-your intention.</li>
+where relevant and recovery. Revise the plan or code when behaviour
+differs from your intention.</li>
 </ol>
 <p>The <code>NULL</code> values are temporary empty results so the
 outline can run while unfinished. Replace them, rather than adding a
 second reactive expression or duplicate render function. The
 <code># ---</code> markers identify the blocks to complete; instructions
 belong here in the guide.</p>
-</div>
-<div id="a3.-choose-a-useful-addition" class="section level3">
-<h3>A3. Choose a useful addition</h3>
-<p>Once both plots and controls work, choose one addition from the
-options below, adapted to your own variables. Keep no more than three
-controls in this exercise. You do not need to reproduce the supplied
-study’s plots or add functions simply because the example uses them.</p>
+<p>Once both plots and controls work, skip Route B and continue to <a href="#exercise-5">Exercise 5: show your app to another student and
+refine it</a>.</p>
 </div>
 </div>
 <div id="route-b" class="section level2">
-<h2>Route B: build with supplied data</h2>
-<div id="b1.-read-the-small-app-specification" class="section level3">
-<h3>B1. Read the small app specification</h3>
-<p>For the data description, variable types and starting questions, use
-<a href="#supplied-data-brief">Supplied dataset for the planning
-tasks</a> above Exercise 2. Choose a purpose there, then use the
-following input/output specification for the pen-and-paper graph. The
-app outline is introduced when coding begins in B2.</p>
-<p>Build these connections:</p>
-<ul>
-<li>Inputs: condition checkboxes (<code>input$prime_condition</code>)
-and a one-choice phase selector (<code>input$phase</code>).</li>
-<li>Reactivity: <code>selected_data()</code> filters the rows once using
-both selections, then supplies both plots.</li>
-<li>Outputs: <code>output$overview_plot</code> shows mean percentages
-across occasions; <code>output$participant_plot</code> shows individual
-learner paths. Put them in the two supplied tabs.</li>
-</ul>
-<p>Draw this graph before completing the code. No count output, range
-slider, layout switch, SE calculation or heatmap is required in the
-first version.</p>
-</div>
-<div id="b2.-exercise-4-inspect-the-outline-and-preview-the-plots" class="section level3">
-<h3>B2. Exercise 4: inspect the outline and preview the plots</h3>
-<p>Coding starts here, after you have drawn the graph from B1’s
-specification. Open <code>starter_app.R</code> now.</p>
+<h2>Exercise 4 <em>Route B</em>: build with supplied data</h2>
+<p>Use your completed purpose sentence, tab sketch and graph to
+implement the supplied-data app. The input/output requirements were
+provided before Exercises 2 and 3; this section puts that plan into
+code.</p>
+<div id="b1.-inspect-the-outline-and-preview-the-plots" class="section level3">
+<h3>B1. Inspect the outline and preview the plots</h3>
+<p>Open <code>supplied_data_app.R</code> now. Keep your completed plan
+beside it so you can check the connections as you build.</p>
 <p>The script already loads the packages and ready CSV and supplies
 <code>ui</code>, <code>server</code>, <code>sidebarLayout()</code> and
-two tabs with matching output/render names. Use Run App to inspect the
-empty outline. Its <code>NULL</code> results deliberately display no
-plots yet. The <code># ---</code> markers show five blocks to build: two
-controls, one shared preparation and two plots. Two tab explanations
-also need your own text.</p>
+two tabs with matching output/render names. The CSV is already prepared;
+use <code>data/README.md</code> for further details about its columns
+and coding. Use Run App to inspect the empty outline. Its
+<code>NULL</code> results deliberately display no plots yet. The
+<code># ---</code> markers show five blocks to build: two controls, one
+shared preparation and two plots. Two tab explanations also need your
+own text.</p>
 <p>Before wiring the controls, preview the ggplots in a separate R
 script. Load the CSV with the code below and use
 <code>preview_data</code> in place of the first <code>---</code> in each
-plotting example in B5. This previews one phase without needing working
+plotting example in B4. This previews one phase without needing working
 Shiny inputs. It lets you check the variables, axes and two tab roles
 first.</p>
 <pre class="r"><code>library(tidyverse)
 d_workshop &lt;- read_csv(&quot;data/participant_rates.csv&quot;, show_col_types = FALSE)
 preview_data &lt;- filter(d_workshop, phase == &quot;Before&quot;)</code></pre>
-<p>Then return to the app and follow B3–B5 to connect controls and
+<p>Then return to the app and follow B2–B4 to connect controls and
 shared preparation. Use <code>selected_data()</code> for the ggplot data
 inside the render blocks, rather than leaving <code>preview_data</code>
 there.</p>
 </div>
-<div id="b3.-add-the-two-controls" class="section level3">
-<h3>B3. Add the two controls</h3>
+<div id="b2.-add-the-two-controls" class="section level3">
+<h3>B2. Add the two controls</h3>
 <p>Replace the first sidebar marker with the input below. Complete the
 function name for a control that allows several choices. Keep the
 supplied input name, choices and defaults.</p>
@@ -1990,8 +2006,8 @@ only the relevant input call and adapt its name and values; do not paste
 a whole second UI.</p>
 </details>
 </div>
-<div id="b4.-build-the-shared-reactive-preparation" class="section level3">
-<h3>B4. Build the shared reactive preparation</h3>
+<div id="b3.-build-the-shared-reactive-preparation" class="section level3">
+<h3>B3. Build the shared reactive preparation</h3>
 <p>Replace <code>NULL # --- shared preparation</code> inside the
 existing <code>reactive({ ... })</code> with this code. Complete the
 data object and a recovery message that tells the reader what to
@@ -2009,50 +2025,58 @@ phase. The final line returns the filtered rows. Reuse the shared
 expression for both plots, as in Week 7. Week 8 shows the validation
 pair and recovery messages.</p>
 </div>
-<div id="b5.-add-and-test-one-plot-at-a-time" class="section level3">
-<h3>B5. Add and test one plot at a time</h3>
+<div id="b4.-add-and-test-one-plot-at-a-time" class="section level3">
+<h3>B4. Add and test one plot at a time</h3>
 <p>Replace the first render block’s <code>NULL</code> with the average
 plot below. Complete its data argument using your shared reactive result
 and write the axis labels. Keep the supplied variable mappings.</p>
 <pre class="r"><code>ggplot(---,
-       aes(x = study_session, y = passive_percent,
+       aes(x = study_session, y = n_passive,
            colour = prime_condition, group = prime_condition)) +
   stat_summary(fun = mean, geom = &quot;line&quot;) +
   stat_summary(fun = mean, geom = &quot;point&quot;) +
   scale_x_continuous(breaks = 1:5) +
-  coord_cartesian(ylim = c(0, 100)) +
+  scale_y_continuous(breaks = 0:4) +
+  coord_cartesian(ylim = c(0, 4)) +
   labs(x = &quot;---&quot;, y = &quot;---&quot;, colour = &quot;Sentence condition&quot;)</code></pre>
 <p>Use <code>selected_data()</code> for the data. Label x as testing
-occasion and y as passive responses (%).
+occasion and y as mean full passive responses (out of 4).
+<code>n_passive</code> counts full passive responses out of four trials,
+so each learner has an integer value from 0 to 4.
 <code>stat_summary(fun = mean, ...)</code> calculates a mean across
-learners for each occasion and condition. The shared filter has already
-selected one phase. Save and run before proceeding: change condition and
-phase and check that this plot updates.</p>
+learners for each occasion and condition; this average can be
+fractional. The shared filter has already selected one phase. Save and
+run before proceeding: change condition and phase and check that this
+plot updates. Once the average plot works, add the individual plot
+below.</p>
 <p>Replace the second render block’s <code>NULL</code> with the
 individual plot below. Complete its shared data argument and labels.</p>
 <pre class="r"><code>ggplot(---,
-       aes(x = study_session, y = passive_percent,
+       aes(x = study_session, y = n_passive,
            colour = prime_condition,
            group = interaction(participant, prime_condition))) +
   geom_line(alpha = 0.35) +
   geom_point(alpha = 0.35) +
   scale_x_continuous(breaks = 1:5) +
-  coord_cartesian(ylim = c(0, 100)) +
+  scale_y_continuous(breaks = 0:4) +
+  coord_cartesian(ylim = c(0, 4)) +
   labs(x = &quot;---&quot;, y = &quot;---&quot;, colour = &quot;Sentence condition&quot;)</code></pre>
-<p><code>interaction(participant, prime_condition)</code> identifies one
-learner–condition path, preventing lines from joining different learners
-or conditions. The code is supplied; you do not need to invent this
-grouping. The mean reveals the overall pattern while individual paths
-reveal variation. Missing occasions are not zero responses, and repeated
-rows are not additional learners.</p>
+<p>Label y as full passive responses (out of 4), with ticks 0–4. A
+one-unit change represents one more or fewer full passive response in
+four trials. <code>interaction(participant, prime_condition)</code>
+identifies one learner–condition path, preventing lines from joining
+different learners or conditions. The code is supplied; you do not need
+to invent this grouping. The mean reveals the overall pattern while
+individual paths reveal variation. Missing occasions are not zero
+responses, and repeated rows are not additional learners.</p>
 <p>Replace each tab’s <code>p(&quot;---&quot;)</code> with a brief explanation of
 what its plot contributes to your chosen purpose. Put the overall
 purpose in the app introduction and tell readers what the controls
 change. Keep labels and explanation relevant to the comparison. You do
 not need to interpret the paper’s research findings.</p>
 </div>
-<div id="b6.-check-the-core-before-extending-it" class="section level3">
-<h3>B6. Check the core before extending it</h3>
+<div id="b5.-check-the-core-before-extending-it" class="section level3">
+<h3>B5. Check the core before extending it</h3>
 <ol style="list-style-type: decimal">
 <li>With all conditions and Before, the shared selection has 246 summary
 rows. After also has 246 rows. Baseline alone in either phase gives 82
@@ -2062,8 +2086,6 @@ need to build.</li>
 both plots should change. Compare these effects with your graph.</li>
 <li>Clear all conditions: both plots should show your recovery message.
 Restore a condition and check both tabs again.</li>
-<li>Stop the app, restart R and run the script again. The packages, CSV
-and code should be sufficient without saved objects.</li>
 </ol>
 <details>
 <summary>
@@ -2080,6 +2102,53 @@ extra reactive nodes.</p>
 </details>
 </div>
 </div>
+<div id="exercise-5" class="section level2">
+<h2>Exercise 5: show your app to another student and refine it</h2>
+<p>Both routes complete this exercise. Show your app to another student
+nearby and ask for feedback. Allow about 10 minutes to show your app,
+hear their suggestions and make improvements.</p>
+<div id="make-the-app-ready-for-a-reader" class="section level3">
+<h3>1. Make the app ready for a reader</h3>
+<p>Include its purpose, what each tab adds, units, what the controls
+change and relevant limitations. Use <code>p()</code> and
+<code>helpText()</code> from the earlier apps; comments in the R script
+are not visible to the reader.</p>
+</div>
+<div id="show-your-app-to-another-student" class="section level3">
+<h3>2. Show your app to another student</h3>
+<p>Show your app to another student nearby and let them explore it
+before you explain it aloud. Ask them to describe:</p>
+<ul>
+<li>what question the app helps them explore,</li>
+<li>what each tab shows and what the second view adds,</li>
+<li>what they expect a control to change, then whether the result
+matches that expectation,</li>
+<li>anything unclear about the labels, units, instructions or
+behaviour.</li>
+</ul>
+<p>Then show your purpose sentence and graph. Do they match what the
+other student understood and observed? Explain one design choice and how
+it helps the reader. For the supplied-data route, focus on the app’s
+clarity and behaviour; detailed interpretation of the paper’s findings
+is not required.</p>
+</div>
+<div id="refine-and-retest" class="section level3">
+<h3>3. Refine and retest</h3>
+<p>Use the feedback to improve something that was unclear. For example,
+if the other student cannot tell what a control changes, revise its
+label or add a short <code>helpText()</code> explanation. If the tabs
+seem to repeat each other, clarify what each view contributes or adjust
+a plot.</p>
+<p>Retest the affected controls and both tabs, including empty
+selections and recovery where relevant. Use your graph to predict which
+outputs should change; revise the code or graph if they disagree.</p>
+<p>Record one change and why it helps the reader; this can inform your
+later reflection. If no change is needed, record one choice the other
+student found clear and why it worked. Further refinement can continue
+independently and in Session 10. Try optional additions only after the
+core app works.</p>
+</div>
+</div>
 <div id="optional-choose-one-addition-after-the-core-works" class="section level2">
 <h2>Optional: choose one addition after the core works</h2>
 <p>Choose an addition useful for your question. You may borrow code from
@@ -2088,9 +2157,10 @@ output or shared expression reads it. Keep the app to two plots and two
 or three controls for this exercise.</p>
 <div id="option-1-add-a-numeric-range-filter" class="section level3">
 <h3>Option 1: add a numeric range filter</h3>
-<p>For the supplied data, add a LexTALE slider using this UI call before
-the sidebar’s <code>helpText()</code>, with a comma after it. For your
-own data, choose a suitable numeric variable and bounds.</p>
+<p>For the supplied data, add a slider for the LexTALE scores
+(<code>vocabulary_score</code>) using this UI call before the sidebar’s
+<code>helpText()</code>. For your own data, choose a suitable numeric
+variable and bounds.</p>
 <pre class="r"><code>sliderInput(&quot;lextale_range&quot;, &quot;Vocabulary score (LexTALE)&quot;,
             min = 0, max = 1, value = c(0, 1), step = 0.0125)</code></pre>
 <p>Replace the <code>filter()</code> call inside the shared expression
@@ -2140,40 +2210,6 @@ explain whether hover or zoom adds useful information.
 <code>extension_app.R</code> is a worked reference for converting both
 plots, to compare after your attempt.</p>
 </div>
-</div>
-<div id="shared-checkpoint-show-a-working-first-step" class="section level2">
-<h2>Shared checkpoint: show a working first step</h2>
-<p>Show your overall purpose, two-tab sketch, preliminary graph and
-first working plot. If a control is connected, demonstrate its effect;
-otherwise identify the next connection to build. Check what one row
-represents, the variables, units and which observations contribute. You
-do not need a completed app at this first checkpoint.</p>
-<p>Continue towards two working plots and two controls, testing each
-stage. If blocked, get one plot working before adding the second. Try
-inputs, tabs, invalid selections and recovery; restart R to check that
-code loads packages and data without saved objects. For your own data,
-choose tests matching your variables rather than copying the practice
-data’s numerical expectations.</p>
-</div>
-<div id="descriptions-testing-and-refinement" class="section level2">
-<h2>Descriptions, testing and refinement</h2>
-<p>An app should make sense without your spoken explanation. Include its
-purpose, what each tab adds, units, what controls change and relevant
-limitations. Borrow <code>p()</code> and <code>helpText()</code> from
-the earlier apps; comments in the R script are not visible to the
-reader.</p>
-<p>Use the graph to predict behaviour, test it, then revise the code or
-graph. A useful prototype is a small working app whose controls support
-its question. Add optional features only after the core works; further
-refinement can continue independently and in Session 10.</p>
-</div>
-<div id="compare-a-design-decision" class="section level2">
-<h2>Compare a design decision</h2>
-<p>Show a neighbour your purpose sentence, app and graph. Can they
-identify what the controls do and what the second tab adds? Explain one
-choice and its consequence for the reader. For the supplied route, use
-your selected purpose and the specification; detailed interpretation of
-the research findings is not required.</p>
 </div>
 <div id="between-weeks-9-and-10" class="section level2">
 <h2>Between Weeks 9 and 10</h2>
