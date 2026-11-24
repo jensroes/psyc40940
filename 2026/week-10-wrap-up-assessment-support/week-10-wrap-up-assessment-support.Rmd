@@ -3,6 +3,8 @@ title: "PSYC40940: Connect Your App Controls And Prepare Your Portfolio"
 author: '<span style="font-size: 40px; font-face: bold">Jens Roeser</span>'
 output:
   ioslides_presentation:
+    includes:
+      after_body: ../../publishing/slide-navigation.html
     incremental: false
     widescreen: true
     transition: slower

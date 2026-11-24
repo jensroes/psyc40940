@@ -1,16 +1,16 @@
 # Week 10: Connect your app controls and prepare your portfolio
 
-This week continues directly from the app you started in Week 9. You have made a plot appear inside Shiny; now connect input controls so readers can change what it shows. We start by organising a dedicated assessment project, then spend most of the session completing, testing and explaining your app. We will also go through the summative submission requirements.
+This week continues from the app you started in Week 9. The next step is to connect input controls so readers can change what your plot shows, then add a second complementary view. Most of the session is for developing, testing and explaining your app. We will also go through the summative submission requirements and the structure of the static report.
 
-Use your current app and data, even if unfinished. You do not need a completed report or dashboard before this session. The first priority is a working connection from a control through shared reactive preparation to your existing plot, followed by a second complementary view.
+We start by setting up your assessment project to address the data-loading problems encountered last week. Keeping the project file, app and report together gives their relative data paths the same starting point.
 
 By the end, you should be able to:
 
-- connect UI controls to shared reactive filtering and a plot,
-- make a second view use the same selected observations,
-- test selections, empty results and recovery in both tabs,
-- explain the purpose, views and controls to another reader,
-- identify the files and checks needed for the summative submission.
+- organise your report, app and data in one assessment project,
+- connect UI controls to shared reactive filtering and your plots,
+- test selections, empty results and recovery across both tabs,
+- explain what each view and control contributes,
+- identify the files and checks needed for a reproducible summative submission.
 
 ## Materials
 
@@ -19,46 +19,52 @@ By the end, you should be able to:
 - [Week 10 exercises (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip)
 - [Portfolio starter (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip)
 
-The slides have Previous/Next arrow buttons; the keyboard arrow keys also work.
+The Week 10 ZIP already includes the portfolio starter; you do not need to download both ZIPs. The separate starter link is available if you only need the assessment project and report template.
+
+Use the slides' Previous/Next arrow buttons or your keyboard arrow keys to move through them. Open the session guide in a browser beside RStudio; follow its instructions while editing and running your app script.
 
 ## Before the session
 
-1. Bring and save the app script and actual data files you used in Week 9, together with your purpose, tab sketch and reactivity graph. Keep the original weekly work as a backup. Bring any current error and a note of what you expected to happen.
-2. Download `psyc40940-week-10-wrap-up-assessment-support.zip` and unzip the whole folder into your module project. Open `session-guide.html` in a browser beside RStudio; edit the app script and use Run App.
-3. We will copy your working script into a dedicated assessment project as `app.R`, with the data in `data/`. If you missed Week 9 or have no working app, the download also includes its own-data and supplied-data templates for the catch-up route. The included `psyc40940-portfolio/` supplies a project file, a report template, an example bibliography and APA style file. Copy this folder to your assessment location, copy last week's app into it as `app.R`, and copy your data file into `data/`, keeping its filename and format. Double-click `psyc40940-portfolio.Rproj` to open the project.
-4. Have your formative feedback and the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) available. Bring your report draft if started; it is fine if the app is still your immediate priority. No additional package installation is required for the core tasks.
+Download and unzip the Week 10 exercises. Have the app script and data file you used last week available, together with your purpose, tab sketch and reactivity graph. Save your current work and keep the original weekly files as a backup. Bring any current error and a note of what you expected to happen.
 
-## Continue building the app
+Have your formative feedback and the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) available. An unfinished app is fine. If you missed Week 9 or do not yet have a dataset, the download includes templates and practice data so you can join the workshop. No additional package installation is required for the core app tasks.
 
-The first teaching block focuses on connecting your existing plot:
+## Exercise 1: organise your assessment project
 
-- Exercise 1, about 10 minutes: address the path and data-loading problems encountered in Week 9. Copy the supplied portfolio folder, copy last week's app into it and rename the copy `app.R`, put your data file into `data/`, and double-click `psyc40940-portfolio.Rproj`. Update the import path and check the existing plot. The blank report knits immediately; completing it is independent work. Keep `app.R`, the report Rmd and `.Rproj` at the same folder level. Both app and report can then use the same `data/` path with your actual filename and the import function for its format, including when checking the import from the project Console.
-- After a short explanation, Exercise 2 takes about 35 minutes, including testing and brief feedback: add UI controls, complete shared reactive preparation and connect the first plot. Test one input at a time, empty selections and recovery. If a control does not change the plot, trace its name, filter and data connection against your graph. The guide provides supplied-data code to complete and explains how to adapt the pattern to your own variables.
+Allow about 10 minutes. Together, set up the supplied portfolio folder:
 
-If you missed Week 9 or have not built the first plot, begin with the same project-organisation task. With your own data, copy `own_data_app.R` as `app.R`, load your data file and put one working ggplot into its first render block. Without a dataset, use `supplied_data_template.R` and the provided CSV; the guide supplies a first plot to complete. These are the Week 9 templates, included again so you do not need a separate download. Once that plot runs, continue with the controls task. A useful catch-up outcome is one plot responding to a control; identify a candidate dataset and next step for your own assessment before leaving.
+1. Copy the whole `psyc40940-portfolio/` folder from the unzipped download to the location where you want to keep your assessment work.
+2. Copy the app script you started in Week 9 into that folder and rename the copy `app.R`.
+3. Copy your data file into its existing `data/` folder. Keep the actual filename and extension, whether CSV, Excel, SPSS or another supported format. Include any additional files your app needs.
+4. Double-click `psyc40940-portfolio.Rproj` inside the portfolio folder to open the project in RStudio.
+5. Open the copied `app.R`, update the import path to your file inside `data/`, and use Run App to check the existing plot. Keep the import function appropriate to your file format.
 
-You may use an AI coding assistant during the app work. The guide shows how to get R to list the chosen variable and its available values. Copy the command and output with your current app code into the short prompt, then ask how and where to add the control in the UI and server. Read and test the suggested changes in RStudio. This is optional help within the existing exercises. Write your own assessment commentary and design rationale, and declare any assistance using the official NOW form.
+The project already contains `report.Rmd`, `references.bib` and `apa.csl`. Keep these beside `app.R` and the project file. Knit the blank report once to check it renders; completing it continues independently.
 
-Exercise 3 starts the second block, about 25 minutes. Add the complementary plot from your Week 9 plan and make it use the shared selection. For supplied data, compare the average pattern with individual learner paths, using full passive-response counts out of four trials. Add explanations of the app's purpose, tabs, units and controls. Show the app to another student nearby, use their feedback to refine it and retest both views.
+If you have no working app yet, follow the guide's catch-up route after setting up the same project. With your own data, copy `own_data_app.R` as `app.R`, load your file and add one working ggplot to its first render block. Without a dataset, use `supplied_data_template.R` and the provided data; the guide gives you a first plot to complete. Once the plot works, continue to Exercise 2. A useful catch-up outcome is one plot responding to one control.
 
-Two useful plots and two controls remain the workshop target. If unfinished, save a runnable version and record the next connection to build. You do not need to repeat the Week 9 planning or Plotly exercise. Extra features can wait until the core works.
+## Exercises 2 and 3: connect and extend your app
+
+After a short explanation, Exercise 2 takes about 35 minutes, including testing and brief feedback. Add useful UI controls, complete shared reactive preparation and connect your first plot to the selected data. Test one input at a time, empty selections and recovery. If a control does not change the plot, trace its name, filter and plot connection against your graph. The guide provides supplied-data code to complete and explains how to adapt the pattern to your own variables.
+
+Exercise 3 takes about 25 minutes. Add a complementary plot using the same shared selection. For supplied data, compare the average pattern with individual learner paths. Add explanations of the app's purpose, tabs, units and controls. Show the app to another student nearby, use their feedback to refine it and retest both views.
+
+Two useful plots and two controls are the workshop target. If unfinished, save a runnable version and record the next connection to build. There is no need to repeat the Week 9 planning or Plotly exercise; additional features can follow once the core works.
+
+You may use an AI coding assistant during these tasks. The guide includes a short prompt and shows how to obtain your chosen variable's available values in R. Supply those values and your current code, then ask how and where to add one control. Read, understand and test the suggested changes. Write your own assessment commentary, interpretation, design rationale and reflection, and declare any assistance using the official NOW form.
 
 ## Submission requirements and the static report
 
-We will protect about 15 minutes for the full submission sequence. Open the [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394) on NOW and the [official AI declaration form](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556). Building on the project organised at the start, this walkthrough checks the report, app, actual data and supporting files, anonymity, the completed declaration, and testing an extracted ZIP. The guide retains the full project-creation steps for reference.
+We will spend about 15 minutes walking through the submission requirements. Open the [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394) and the [official AI declaration form](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556) on NOW.
 
-Submit one Rmd report and its rendered output, the RStudio project file, a separate runnable Shiny app, the data and any helper/bibliography/style files needed, package/version information, and the required NOW AI declaration. Follow agreed data-access arrangements where needed. Use the current brief and submission guide for the authoritative file requirements and upload instructions. The weekly teaching ZIP is not your assessment submission.
+Your submission needs one Rmd report and its rendered output, the RStudio project file, a separate runnable Shiny app, the data and supporting files needed to reproduce the work, package/version information and the completed AI declaration. Follow any agreed data-access arrangements. The walkthrough also covers anonymity and testing a fresh copy extracted from your final ZIP. Use the current brief and submission guide for the full requirements and upload instructions.
 
-The full fresh-session extracted-ZIP check is essential before submission, but is independent preparation rather than another timed exercise during this app workshop. Detailed project, report and ZIP instructions remain in collapsed reference sections of the session guide. The separate `submission-example/` project is available for practising these checks after class; it is not a set of extra app features to reproduce today.
+We will spend about five minutes identifying what the static report still needs. The starter report provides four figure sections with caption placeholders, an example citation and bibliography entry, dashboard commentary, reflection and package/version information. Give it your own meaningful title and section headings, choose four different static plot types, and replace all placeholders and the example citation with your own work and sources. Explain the findings and justify design choices using the visualisation principles. Use your formative feedback to identify an improvement for the new dataset.
 
-The starter is also available separately as `psyc40940-portfolio.zip`. Its report template provides four figure sections, captions, one citation example, dashboard commentary, reflection and package/version information. Replace its placeholders and example citation with your own work.
-
-We will also spend about five minutes identifying what the static report still needs. Plan four different static plot types with clear questions, interpretation and justified design choices. Use your formative feedback to identify one improvement for the new dataset. The dashboard complements this report; it does not replace the static figures, commentary or reflection.
+The report and app should use the same dataset and make complementary contributions. Routine code can remain hidden in the rendered report; its source remains available in the submitted Rmd.
 
 ## After the session
 
-Save the app and graph, and write a specific next step. Continue the static report independently, with meaningful Markdown headings, captioned figures, citations, interpretation, design reasoning and reflection. The report and app should use the same dataset and make complementary contributions.
+Continue the app and static report, using the targeted resources in the guide when needed. Completed core app code is introduced at the end of the guide, after your own attempt. The separate `submission-example/` project is available for independent reproducibility practice.
 
-Use the targeted Shiny, ggplot2 and RMarkdown resources in the guide when needed; they are optional references, not additional tasks. Completed core app code is introduced at the end of the guide, after your own attempt.
-
-Before submitting, follow the [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394): assemble the required files and official AI declaration, check anonymity, ZIP them, restart R, extract to a different folder and test both the report and app. Retain the tested ZIP and submission confirmation. Use the assessment brief for the deadline and full requirements.
+Before submitting, follow the submission guide: assemble the required files and completed AI declaration, check anonymity, ZIP the project, extract it to a different folder, restart R and test both the report and app. This full check is independent preparation. Keep the tested ZIP and submission confirmation, and use the assessment brief for the deadline.
