@@ -20,13 +20,20 @@ output:
 
 Most of the session is app building. A report and full submission ZIP do not need to be finished today.
 
-Download and unzip the Week 10 folder; open `session-guide.html` in a browser. Have your Week 9 app and actual data files available to copy into the assessment project.
+Open the [session guide](https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/session-guide.html) in a browser beside RStudio. Have your Week 9 app and data file available if you have them. Choose your download on the next slide.
+
+## Choose One ZIP For Your Starting Point
+
+- **Have your Week 9 app and data?** Download the [Portfolio starter (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip). It contains the assessment project and report template. Copy in your own app and data; use the session guide online.
+- **Need an app template or practice data?** Download the [Week 10 exercises (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip). It includes the catch-up templates, practice data, session guide and the same portfolio starter folder.
+
+**You only need one ZIP.** If you download the Week 10 exercises, the portfolio starter is already included. Unzip your chosen download before opening any files.
 
 ## Exercise 1: Fix Last Week's Data Paths
 
 Last week, some data imports worked but others failed. Give the `.Rproj` file, the `.R` script and the `.Rmd` file the same starting folder.
 
-1. Download this week's exercises, copy **`psyc40940-portfolio/`** from the unzipped download to your module folder.
+1. Copy **`psyc40940-portfolio/`** from your chosen, unzipped download to your module folder.
 2. Copy last week's app script into it and rename the copy **`app.R`**.
 3. Copy your data file into **`data/`**, keeping its filename and format.
 4. Double-click **`psyc40940-portfolio.Rproj`** to open the project.

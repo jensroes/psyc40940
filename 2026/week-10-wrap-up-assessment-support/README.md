@@ -29,3 +29,7 @@ AI coding support is optional within the existing workshop time. A short slide a
 ## Lightweight assessment starter
 
 `psyc40940-portfolio/` supplies psyc40940-portfolio.Rproj, a blank but renderable report.Rmd, a one-entry references.bib, apa.csl and data/README.md. It is included in the Week 10 ZIP and distributed separately as psyc40940-portfolio.zip. All students copy this folder, copy last week's app as app.R, put their data file in data/ and double-click psyc40940-portfolio.Rproj. Data may use any supported format; retain the appropriate import function. They supply their own app.R and data. Four empty named figure chunks have caption placeholders; default echo is FALSE. Report instructions are HTML comments, with details in the README and guide. The example citation must be replaced. This setup fits Exercise 1; report completion remains independent.
+
+## Choosing a download
+
+Students with their Week 9 app and data need only psyc40940-portfolio.zip and the online guide. Students needing catch-up templates or practice data use the larger Week 10 ZIP, which already contains the identical portfolio folder and HTML guide. Both ZIPs are not required. The larger download also supplies optional reproducibility examples. Slides, guide and NOW text explain these routes before Exercise 1.

@@ -15,6 +15,17 @@ If you made a plot work inside Shiny in Week 9, continue from that version today
 
 Keep your Week 9 purpose, tab sketch and graph beside the code. Update the graph when your app changes; there is no new graph-drawing task. Keep a runnable version and change one part at a time.
 
+## Which ZIP do you need?
+
+Choose one download to match your starting point:
+
+- Have your Week 9 app and data file: download [psyc40940-portfolio.zip](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip). It supplies the assessment project, report template, bibliography and citation style. Copy your app and data into it in Exercise 1. Keep this [session guide open online](https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/session-guide.html); it is not included in the smaller ZIP.
+- Need an app template or practice data: download [psyc40940-week-10-wrap-up-assessment-support.zip](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip). It contains the catch-up templates and supplied data, this guide as `session-guide.html`, and the same `psyc40940-portfolio/` starter folder.
+
+You do not need both ZIPs. Unzip the one you choose. The portfolio folder is at the top level of the smaller ZIP and inside `week-10-wrap-up-assessment-support/` in the larger ZIP. Both lead to the same project setup below.
+
+The larger Week 10 ZIP also includes the optional reproducibility practice project. You can download it later if you want those additional examples; you do not need it to continue an existing app with your own data.
+
 ## Where to work
 
 Have your Week 9 work available if you have it, or bring your data files if you have not started the app. Supplied practice data are available if you have neither. Save your current script and stop the running app before opening another project. Begin by organising a dedicated assessment project. Work on a copy so your previous working version remains available. You do not need to copy the whole weekly teaching folder into the assessment project.
@@ -27,7 +38,7 @@ Together, set up `psyc40940-portfolio` as your summative project. Keep the app, 
 
 ### Set up your portfolio folder
 
-1. Copy the whole `psyc40940-portfolio/` folder from the unzipped Week 10 download to the location where you want to keep your assessment work, separate from the weekly teaching folders. It is also available in the separate `psyc40940-portfolio.zip`; unzip it before continuing.
+1. Copy the whole `psyc40940-portfolio/` folder from your chosen, unzipped download to the location where you want to keep your assessment work, separate from the weekly teaching folders.
 2. Copy the app script you started in Week 9 into `psyc40940-portfolio/`. Rename the copied script `app.R`. Keep your original Week 9 script as a backup.
 3. Copy the data file your app uses into the portfolio's existing `data/` folder. Keep its original filename and extension: it might be a CSV, Excel, SPSS or another supported format. If your app needs additional files, copy those too.
 4. Double-click `psyc40940-portfolio.Rproj` inside `psyc40940-portfolio/` to open this project in RStudio. Check that RStudio shows `psyc40940-portfolio` as the current project.
@@ -50,7 +61,7 @@ A project file stores settings; copying it alone does not copy your app or data.
 
 <details><summary>If you do not yet have an app from Week 9</summary>
 
-Follow the same folder and project steps. If you have data, copy `own_data_app.R` from this download into the portfolio folder and rename it `app.R`. If you have neither an app nor data, copy `supplied_data_template.R` as `app.R` and put the supplied `participant_rates.csv` and its dictionary into `data/`. Then follow the catch-up instructions below before Exercise 2. The supplied data are for practice; choose your own dataset for the summative submission.
+Use the larger Week 10 exercises ZIP for this catch-up route, then follow the same folder and project steps. If you have data, copy `own_data_app.R` from that download into the portfolio folder and rename it `app.R`. If you have neither an app nor data, copy `supplied_data_template.R` as `app.R` and put the supplied `participant_rates.csv` and its dictionary into `data/`. Then follow the catch-up instructions below before Exercise 2. The supplied data are for practice; choose your own dataset for the summative submission.
 
 </details>
 
@@ -78,7 +89,7 @@ Check the project name, then inspect the Files pane. Confirm that your data file
 
 ## Catch-up: build your first plot if you missed Week 9
 
-Complete this section only if you do not yet have a working plot inside Shiny. Begin with Exercise 1's project and file organisation, then follow the route matching your data. You can work on this while others connect controls. Once the plot runs, join Exercise 2; a useful target today is one plot that responds to a control.
+Complete this section only if you do not yet have a working plot inside Shiny. Use the templates and practice data in the larger Week 10 exercises ZIP. Begin with Exercise 1's project and file organisation, then follow the route matching your data. You can work on this while others connect controls. Once the plot runs, join Exercise 2; a useful target today is one plot that responds to a control.
 
 <details>
 <summary>I have data but have not built the app yet</summary>

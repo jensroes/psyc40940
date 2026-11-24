@@ -19,21 +19,26 @@ By the end, you should be able to:
 - [Week 10 exercises (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip)
 - [Portfolio starter (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip)
 
-The Week 10 ZIP already includes the portfolio starter; you do not need to download both ZIPs. The separate starter link is available if you only need the assessment project and report template.
+Choose one ZIP:
+
+- Already have your Week 9 app and data file: download the Portfolio starter ZIP and use the session guide online. This smaller ZIP contains the assessment project and report template.
+- Need an app template or practice data: download the Week 10 exercises ZIP. It includes the catch-up templates, supplied data, browser guide and the same portfolio starter folder.
+
+You do not need both ZIPs. The larger Week 10 ZIP also contains optional reproducibility examples, which you can download later if useful.
 
 Use the slides' Previous/Next arrow buttons or your keyboard arrow keys to move through them. Open the session guide in a browser beside RStudio; follow its instructions while editing and running your app script.
 
 ## Before the session
 
-Download and unzip the Week 10 exercises. Have the app script and data file you used last week available, together with your purpose, tab sketch and reactivity graph. Save your current work and keep the original weekly files as a backup. Bring any current error and a note of what you expected to happen.
+Download and unzip the ZIP for your route above. Have the app script and data file you used last week available, together with your purpose, tab sketch and reactivity graph. Save your current work and keep the original weekly files as a backup. Bring any current error and a note of what you expected to happen.
 
-Have your formative feedback and the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) available. An unfinished app is fine. If you missed Week 9 or do not yet have a dataset, the download includes templates and practice data so you can join the workshop. No additional package installation is required for the core app tasks.
+Have your formative feedback and the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) available. An unfinished app is fine. If you missed Week 9 or do not yet have a dataset, choose the larger Week 10 exercises ZIP for the templates and practice data so you can join the workshop. No additional package installation is required for the core app tasks.
 
 ## Exercise 1: organise your assessment project
 
 Allow about 10 minutes. Together, set up the supplied portfolio folder:
 
-1. Copy the whole `psyc40940-portfolio/` folder from the unzipped download to the location where you want to keep your assessment work.
+1. Copy the whole `psyc40940-portfolio/` folder from your chosen, unzipped download to the location where you want to keep your assessment work.
 2. Copy the app script you started in Week 9 into that folder and rename the copy `app.R`.
 3. Copy your data file into its existing `data/` folder. Keep the actual filename and extension, whether CSV, Excel, SPSS or another supported format. Include any additional files your app needs.
 4. Double-click `psyc40940-portfolio.Rproj` inside the portfolio folder to open the project in RStudio.
@@ -65,6 +70,6 @@ The report and app should use the same dataset and make complementary contributi
 
 ## After the session
 
-Continue the app and static report, using the targeted resources in the guide when needed. Completed core app code is introduced at the end of the guide, after your own attempt. The separate `submission-example/` project is available for independent reproducibility practice.
+Continue the app and static report, using the targeted resources in the guide when needed. Completed core app code is introduced at the end of the guide, after your own attempt. The `submission-example/` project in the larger Week 10 ZIP is available for independent reproducibility practice.
 
 Before submitting, follow the submission guide: assemble the required files and completed AI declaration, check anonymity, ZIP the project, extract it to a different folder, restart R and test both the report and app. This full check is independent preparation. Keep the tested ZIP and submission confirmation, and use the assessment brief for the deadline.
