@@ -1,7 +1,7 @@
 library(shiny)
 library(tidyverse)
 
-d_workshop <- read_csv("../data/participant_rates.csv",
+d_workshop <- read_csv("data/participant_rates.csv",
                        show_col_types = FALSE)
 # Keep the within-session phases in their temporal order.
 d_workshop$phase <- factor(d_workshop$phase,

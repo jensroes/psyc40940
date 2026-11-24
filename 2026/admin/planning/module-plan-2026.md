@@ -13,7 +13,7 @@ The Shiny sequence was aligned to the current summative brief with Jens on 29 Oc
 | 7 | Shared data and clear layouts | Core paste/count output, reactive preparation, complementary plots and sidebar |
 | 8 | Tabs and reliable controls | Core tabs, multiple-group/range filters and empty-selection feedback |
 | 9 | Turn questions into a dashboard | Brief Plotly introduction, then adapt a two-view app to behavioural questions/data |
-| 10 | Reproduce and review the portfolio | Separate report/app, fresh extracted-ZIP test, coverage/reflection review and individual support |
+| 10 | Connect app controls and prepare the portfolio | Continue Week 9: shared filtering, connected views and testing; concise submission walkthrough and static-report reminder |
 
 Teach each pattern using supplied examples, then code completion/modification, then a shared check. Do not rely on live coding or typing along. Each Shiny week has a session guide and full app scripts. Weeks 7–8 supply a browser-ready HTML guide only; Week 6 retains the Rmd for its short ordinary-R exercise. Introduce completed reference apps at the end.
 
@@ -41,3 +41,5 @@ to predict and test updates. Build on the same visual language in later sessions
 adding a shared reactive expression when it is introduced in Session 7. See the
 [Week 6 notes](../../week-06-shiny-basics-reactivity/notes-for-next-year.md) for
 the teaching rationale and scaffolding.
+
+For next year's Week 9, create/check the dedicated summative assessment project before data import and app development. Put app.R and the report beside .Rproj, with data in data/, to prevent the Console/Run App path mismatch. See [Week 9 notes for next year](../../week-09-dashboard-workshop/notes-for-next-year.md).

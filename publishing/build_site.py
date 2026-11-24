@@ -12,6 +12,7 @@ import shutil
 from urllib.parse import unquote, urlsplit
 
 from audit_publication import ROOT, check_path, scan_payload
+from slide_navigation import with_navigation
 
 MANIFEST = Path(__file__).with_name('site_manifest.json')
 
@@ -117,6 +118,8 @@ def build(root=ROOT, output=None, manifest=None):
         source = source_path(root, name)
         data = source.read_bytes()
         scan_payload(data, name)
+        if source.suffix.lower() == '.html':
+            data = with_navigation(data.decode()).encode()
         destination = output / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(data)

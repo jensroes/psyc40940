@@ -412,7 +412,7 @@ Figure 4: Response-category proportions after baseline prompts in each session a
 </div>
 <div id="dashboard" class="section level1">
 <h1>Dashboard</h1>
-<p>The separate app in app/app.R lets users choose a prompt condition, phases and study sessions, and compares the average with individual patterns. It uses the shared-preparation and tab patterns described by <span class="citation">Wickham (2021)</span>. Run it with Run App; stop it before rendering the report again.</p>
+<p>The separate app in app.R lets users choose prompt conditions, phases and a vocabulary-score range, and compares the average with individual patterns. It uses the shared-preparation and tab patterns described by <span class="citation">Wickham (2021)</span>. Run it with Run App; stop it before rendering the report again.</p>
 <p>Explain what the app adds to these static figures, why the controls help and a limitation: <code>---</code></p>
 </div>
 <div id="reflection" class="section level1">
@@ -421,7 +421,7 @@ Figure 4: Response-category proportions after baseline prompts in each session a
 </div>
 <div id="reproducibility-information" class="section level1">
 <h1>Reproducibility information</h1>
-<p>The report and app load their packages independently and use relative paths. The report reads data/ from the project root; the separate app reads ../data/ from its app folder. The dictionary identifies the source files and supplied preparation. This example does not require the authors’ model-fitting packages.</p>
+<p>The report and app load their packages independently and use relative paths. The report and root-level app both read data/ from the project root. Keep report.Rmd, app.R and the Rproj file together so Console checks, knitting and Run App use the same relative paths. The dictionary identifies the source files and supplied preparation. This example does not require the authors’ model-fitting packages.</p>
 <pre><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.4 LTS

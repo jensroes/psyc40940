@@ -102,7 +102,7 @@ How does retaining other responses change the question compared with showing onl
 
 # Dashboard
 
-The separate app in app/app.R lets users choose a prompt condition, phases and study sessions, and compares the average with individual patterns. It uses the shared-preparation and tab patterns described by @Wickham2021MasteringShiny. Run it with Run App; stop it before rendering the report again.
+The separate app in app.R lets users choose prompt conditions, phases and a vocabulary-score range, and compares the average with individual patterns. It uses the shared-preparation and tab patterns described by @Wickham2021MasteringShiny. Run it with Run App; stop it before rendering the report again.
 
 Explain what the app adds to these static figures, why the controls help and a limitation: `---`
 
@@ -112,7 +112,7 @@ Record a specific design choice, challenge, trade-off or possible improvement in
 
 # Reproducibility information
 
-The report and app load their packages independently and use relative paths. The report reads data/ from the project root; the separate app reads ../data/ from its app folder. The dictionary identifies the source files and supplied preparation. This example does not require the authors' model-fitting packages.
+The report and app load their packages independently and use relative paths. The report and root-level app both read data/ from the project root. Keep report.Rmd, app.R and the Rproj file together so Console checks, knitting and Run App use the same relative paths. The dictionary identifies the source files and supplied preparation. This example does not require the authors' model-fitting packages.
 
 ```{r package-versions}
 sessionInfo()

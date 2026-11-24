@@ -1,13 +1,13 @@
 ## Summative submission guide
 
-Read `summative-submission-guide.html` before preparing your final portfolio.
+Read the [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394) before preparing your final portfolio.
 It takes you through creating or organising the RStudio project, saving data,
 writing and rendering the RMarkdown report, keeping the Shiny app separate,
 and testing and zipping the complete submission. It includes a file checklist
 and Windows/Mac ZIP instructions.
 
-Download and complete the AI declaration form in this Assessments section and
-include it in your ZIP. Use the current assessment brief for the deadline,
+Download and complete the [AI declaration form on NOW](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556) and
+include it in your ZIP. Use the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) for the deadline,
 content requirements and word limit. Test the extracted ZIP before uploading.
 
 ## Formative submission guide

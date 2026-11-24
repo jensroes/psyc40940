@@ -411,7 +411,7 @@ testServer(app$server, {
 })
 cat("Checked guide recipes: third numeric range or display-only faceting control.\n")
 
-setwd(file.path(root,"week-10-wrap-up-assessment-support/submission-example/app"))
+setwd(file.path(root,"week-10-wrap-up-assessment-support/submission-example"))
 app <- load_app("app.R")
 testServer(app$server, {
   session$setInputs(prime_condition=c("Baseline","Active sentence","Passive sentence"),

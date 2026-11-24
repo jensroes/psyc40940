@@ -59,3 +59,9 @@ and summative submission guides in `2026/assessment-submission-guides/`.
 Add `formative` or `summative` to build one. Distribute the self-contained HTML;
 Rmd sources and shared CSS are for maintenance. The folder README records the
 brief alignment and checks needed before future-year reuse.
+
+## Week 10 continuation after Week 9 progress
+
+`Rscript 2026/scripts/check_week10_continuation.R` tests the one-plot fallback and completes the actual tasks from the Week 10 guide in an extracted student ZIP. It checks both controls, shared selections, both plots and recovery. Week 10 protects 75 minutes for app continuation; detailed report and ZIP exercises are independent practice rather than extra class tasks.
+
+`Rscript 2026/scripts/check_summative_starter.R` extracts the standalone starter ZIP, renders it without data, and checks the single bibliography entry, citation, four captioned figure chunks and a completed example figure cross-reference. Build the ZIP first with `python3 2026/scripts/package_workshop_materials.py`.

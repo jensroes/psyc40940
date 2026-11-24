@@ -8,9 +8,20 @@ import zipfile
 
 from audit_publication import check_path, scan_payload
 from build_site import build
+from slide_navigation import with_navigation
 
 
 class PublicationTests(unittest.TestCase):
+    def test_navigation_is_idempotent_and_leaves_guides_unchanged(self):
+        guide = '<html><body><h1>Guide</h1></body></html>'
+        self.assertEqual(with_navigation(guide), guide)
+        deck = '<html><body><slides><slide>One</slide></slides></body></html>'
+        result = with_navigation(deck)
+        self.assertEqual(with_navigation(result), result)
+        self.assertEqual(result.count('id="course-slide-navigation-script"'), 1)
+        self.assertIn('deck.prevSlide()', result)
+        self.assertIn('deck.nextSlide()', result)
+
     def test_private_paths_are_rejected(self):
         for path in ('2026/formative-assessment/report.html', 'answers/app.R',
                      'student-feedback/report.pdf', 'submissions/report.zip',

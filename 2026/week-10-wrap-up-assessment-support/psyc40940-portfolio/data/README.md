@@ -1,0 +1,1 @@
+Copy the data file used by your report and app into this folder. Keep its filename and extension, whether CSV, Excel, SPSS or another supported format. Update the import path to data/ followed by the actual filename, using the import function appropriate to that format. Include any other required data files and document the source and preparation needed to reproduce your work.

@@ -55,3 +55,7 @@ detail in prose, images or PDFs. Keep private material outside the public file s
 publications are untouched. Browser slides retain their interactive Plotly
 figures. GitHub Pages serves static files: students download Shiny exercises and
 run the R apps in RStudio; Pages does not run a Shiny server.
+
+## Clickable slide navigation
+
+All published ioslides include visible Previous/Next arrow buttons and a slide counter. Keyboard navigation and incremental reveals use the original deck controller. The controls are self-contained, work in downloaded HTML, and are hidden for print and PowerPoint captures. `slide_navigation.py` updates selected local decks; the slide renderer and site builder also apply it automatically, so future renders retain the controls. Edit `slide-navigation.html` for their appearance or behaviour.

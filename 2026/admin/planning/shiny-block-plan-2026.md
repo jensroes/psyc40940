@@ -160,3 +160,15 @@ bold emphasis. Build with 2026/scripts/render_session_guides.R. Each HTML is
 self-contained, including guide CSS and images. Do not include the guide Rmd,
 old generated guide HTML, guide CSS or gfx/ in the student ZIPs. Week 6's Rmd contains
 a short ordinary-R exercise and is unchanged by this Week 7/8 update.
+
+## Week 10 revision after actual Week 9 progress (19 November 2026)
+
+Week 9 reached a single static plot inside Shiny without connected controls. Resume there in Week 10. Allocate 75 minutes to app continuation: first block open/identify 5, tracing/example 8, connect controls and shared filtering 27, testing/recovery 10; second block complementary view, explanations and refinement 25. Reserve 15 minutes for the full submission walkthrough, 5 for the static report/formative-feedback reminder, and 5 for closing next steps. Keep full Rmd preparation and extracted-ZIP exercises as independent practice/reference. Do not assume a completed dashboard or report on arrival. A runnable one-plot fallback is supplied; the richer submission-example project remains an independent reproducibility aid. No new Shiny feature or repeated planning/Plotly task is required.
+
+## Week 10 organisation-first revision (24 November 2026)
+
+Start by creating/checking a dedicated assessment RStudio project and copying the working Week 9 app as root-level app.R, with report.Rmd beside it and actual data in data/. Preserve the weekly originals. This keeps the Console, Rmd and Run App starting from the same folder, avoiding the data/... versus ../data/... switch caused by a nested app directory. The supplied submission example now follows that layout too. First block: project/files/path test 10, connection recap 5, implement controls/shared filtering 25, testing/recovery 10. Second block remains complementary view/refinement 25, final submission requirements 15, static report reminder 5, close 5. The later submission walkthrough checks the project rather than repeating its creation.
+
+## Next year: create the assessment project in Week 9 (24 November 2026)
+
+Move dedicated assessment-project creation and file organisation to the beginning of Week 9. Keep app.R, the report Rmd and .Rproj together, with CSVs in data/, so Console, Knit and Run App use the same relative paths. Do this before students build their first app plot. See week-09-dashboard-workshop/notes-for-next-year.md. For current Week 10 catch-up, students without a working app first organise the project, use the Week 9 own-data or supplied-data template, load data and build one plot, then join the controls task. The templates are included in the Week 10 ZIP.

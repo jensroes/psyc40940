@@ -64,11 +64,13 @@ Course index: https://jensroes.github.io/psyc40940/
 - Exercises (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-09-dashboard-workshop.zip
 - PowerPoint: https://jensroes.github.io/psyc40940/2026/week-09-dashboard-workshop/week-09-dashboard-workshop.pptx
 
-## Week 10: Reproduce and review your portfolio
+## Week 10: Connect your app controls and prepare your portfolio
 
 - Slides: https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/week-10-wrap-up-assessment-support.html
 - Session guide: https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/session-guide.html
 - Exercises (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip
+
+- Portfolio starter (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip
 
 ## Submission guides
 

@@ -834,3 +834,23 @@ section[role="doc-bibliography"] p {
   margin-top: 0;
 }
 
+
+/* Side-by-side UI/server example for the continuation workshop. */
+.study-code-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.study-code-columns > div { min-width: 0; }
+.study-code-columns pre {
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0 14px !important;
+  padding: 12px !important;
+}
+.study-code-columns pre, .study-code-columns pre code {
+  font-size: 18px;
+  line-height: 1.25;
+}

@@ -199,7 +199,7 @@
     },
     {
       "week": 10,
-      "title": "Reproduce and review your portfolio",
+      "title": "Connect your app controls and prepare your portfolio",
       "files": [
         {
           "label": "Slides",
@@ -212,6 +212,10 @@
         {
           "label": "Exercises (ZIP)",
           "source": "2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip"
+        },
+        {
+          "label": "Portfolio starter (ZIP)",
+          "source": "2026/student-zips/psyc40940-portfolio.zip"
         }
       ]
     }

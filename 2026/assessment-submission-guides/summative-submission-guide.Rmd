@@ -12,7 +12,7 @@ output:
 ---
 
 This guide takes you from an assessment project folder to a tested ZIP for
-PSYC40940. Read it alongside the summative assessment brief and grading matrix
+PSYC40940. Read it alongside the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) and grading matrix
 in the current NOW learning room. Use the current brief and Dropbox to check
 the deadline and any year-specific instructions.
 
@@ -27,7 +27,7 @@ using one suitably rich behavioural dataset.
 | Reflection in the same report | Discuss decisions, challenges, trade-offs and practical constraints in your own words |
 | Separate Shiny app | Provide at least two useful interactive plots and meaningful user inputs, with at most three tabs |
 | Reproducible project | Supply source, rendered report, data or an approved access route, and required supporting files |
-| AI declaration | Include the completed form supplied in the NOW Assessments section |
+| AI declaration | Include the completed [form supplied on NOW](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556) |
 
 Shiny plots that update when users change filters or selections meet the
 interactivity requirement. Plotly is an option, rather than a compulsory
@@ -175,8 +175,8 @@ other resource folders generated alongside the HTML.
 
 ## 6. Complete the AI declaration from NOW
 
-1. Go to the Assessments section of the PSYC40940 NOW learning room.
-2. Download the supplied GenAI/AI usage declaration form.
+1. Open the [GenAI/AI usage declaration form on NOW](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556).
+2. Download the form provided there.
 3. Complete it. In its explanation of AI use, describe how you used any tools
    for permitted support such as code development or debugging. If you did not
    use GenAI, state that.

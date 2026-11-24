@@ -61,6 +61,9 @@ render_html <- function(slide) {
   setwd(dirname(slide))
   message("Rendering HTML: ", slide)
   rmarkdown::render(basename(slide), quiet = TRUE)
+  status <- system2("python3", c(shQuote(file.path(repo_root, "publishing/slide_navigation.py")),
+                                shQuote(sub("[.]Rmd$", ".html", slide))))
+  if (status != 0) stop("Could not add slide navigation", call. = FALSE)
 }
 
 html_for_slide <- function(slide) {
@@ -80,6 +83,7 @@ prepare_capture_html <- function(html_file) {
   lines <- readLines(html_file, warn = FALSE)
   inject <- c(
     "<style>",
+    "#course-slide-navigation { display: none !important; }",
     "*, *::before, *::after { transition-delay: 0s !important; transition-duration: 0s !important; animation-delay: 0s !important; animation-duration: 0s !important; }",
     ".build > *, .to-build, .build-fade, .auto-fadein { visibility: visible !important; opacity: 1 !important; }",
     "</style>",

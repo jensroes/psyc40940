@@ -12,7 +12,7 @@
 <meta name="author" content="Jens Roeser" />
 
 
-<title>Week 10: Reproduce and review your portfolio</title>
+<title>Week 10: Connect your app controls and prepare your portfolio</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1478,70 +1478,533 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Week 10: Reproduce and review your
-portfolio</h1>
+<h1 class="title toc-ignore">Week 10: Connect your app controls and
+prepare your portfolio</h1>
 <h4 class="author">Jens Roeser</h4>
 
 </div>
 
 
-<div id="start-with-the-submission-not-another-shiny-feature" class="section level2">
-<h2>Start with the submission, not another Shiny feature</h2>
-<p>This session continues the prototype and purpose plan from Week 9 and
-consolidates the report and app. There is time for project-specific
-questions and support. No additional Shiny function is required.</p>
-<p>Unzip the whole teaching folder into your existing module project.
-Open session-guide.html in your browser. The submission-example/ folder
-is a separate practice project already supplied with a project file; you
-do not need to create a new RStudio project.</p>
-<p>This teaching ZIP is not your assessment submission: it contains
-guide and example materials that must not all be submitted together.</p>
+<div id="continue-from-your-week-9-app" class="section level2">
+<h2>Continue from your Week 9 app</h2>
+<p>If you made a plot work inside Shiny in Week 9, continue from that
+version today: add input controls, connect them to shared reactive
+preparation, then add a second view. If you missed Week 9 or do not yet
+have a working plot, follow the catch-up route in Exercise 1 first. Most
+of the session is for implementing and testing these connections.
+Submission requirements are covered near the end; detailed report and
+ZIP instructions below are for reference and independent practice.</p>
+<p>Keep your Week 9 purpose, tab sketch and graph beside the code.
+Update the graph when your app changes; there is no new graph-drawing
+task. Keep a runnable version and change one part at a time.</p>
 </div>
-<div id="start-with-a-plan-for-the-static-report-and-app" class="section level2">
-<h2>Start with a plan for the static report and app</h2>
-<p>Bring your Week 9 purpose sentence, tab sketch, graph, app and draft
-rendered report. An unfinished prototype is fine: identify what works
-and one specific next step. Spend about five minutes listing what your
-portfolio will communicate before starting the submission checks. Use
-your own project even if some views are unfinished.</p>
+<div id="where-to-work" class="section level2">
+<h2>Where to work</h2>
+<p>Have your Week 9 work available if you have it, or bring your data
+files if you have not started the app. Supplied practice data are
+available if you have neither. Save your current script and stop the
+running app before opening another project. Begin by organising a
+dedicated assessment project. Work on a copy so your previous working
+version remains available. You do not need to copy the whole weekly
+teaching folder into the assessment project.</p>
+</div>
+<div id="exercise-1-resolve-the-data-loading-problems-from-week-9" class="section level2">
+<h2>Exercise 1: resolve the data-loading problems from Week 9</h2>
+<p>Last week, some data imports worked when run line by line in the
+project Console but failed with Run App, or vice versa. The app and
+project were sometimes in different folders, so the same relative path
+started from different locations.</p>
+<p>Together, set up <code>psyc40940-portfolio</code> as your summative
+project. Keep the app, report and project file together, with your data
+file inside <code>data/</code>, so the Console, report and app use the
+same starting point for paths.</p>
+<div id="set-up-your-portfolio-folder" class="section level3">
+<h3>Set up your portfolio folder</h3>
 <ol style="list-style-type: decimal">
-<li>List four different static plot types for the report. For each,
-state its behavioural question, the variables or quantities shown, and
-what the reader should learn.</li>
-<li>List at least two interactive plot views for the Shiny app. Explain
-what users can explore through the controls and how this complements the
-static report.</li>
-<li>Revisit your individual formative feedback and identify one priority
-for your static figures or commentary. Carry that lesson into your
-summative dataset.</li>
+<li>Copy the whole <code>psyc40940-portfolio/</code> folder from the
+unzipped Week 10 download to the location where you want to keep your
+assessment work, separate from the weekly teaching folders. It is also
+available in the separate <code>psyc40940-portfolio.zip</code>; unzip it
+before continuing.</li>
+<li>Copy the app script you started in Week 9 into
+<code>psyc40940-portfolio/</code>. Rename the copied script
+<code>app.R</code>. Keep your original Week 9 script as a backup.</li>
+<li>Copy the data file your app uses into the portfolio’s existing
+<code>data/</code> folder. Keep its original filename and extension: it
+might be a CSV, Excel, SPSS or another supported format. If your app
+needs additional files, copy those too.</li>
+<li>Double-click <code>psyc40940-portfolio.Rproj</code> inside
+<code>psyc40940-portfolio/</code> to open this project in RStudio. Check
+that RStudio shows <code>psyc40940-portfolio</code> as the current
+project.</li>
+<li>Open the copied <code>app.R</code>, update its data path as
+explained below, and use Run App to check that your existing plot still
+works.</li>
 </ol>
-<p>For each static figure, check the match between question and plot,
-the interpretation and limits of the observed pattern, and a concrete
-design choice justified by the principles from Weeks 2, 4 and 5. For
-example, common panel scales support comparison, while showing raw
-points alongside a summary reveals variation the summary hides. Include
-clear captions and relevant citations, as in the formative report.</p>
-<p>Keep this plan beside you and use it to choose what to improve during
-project work. If practising with the supplied project, identify what its
-four static figures and two app views contribute, then note the views
-your own portfolio still needs. The app does not replace the static
-report’s design commentary and interpretation.</p>
-<p>Your Session 9 reactivity graph can help debug the app. Update it if
-your inputs or shared calculations have changed; there is no separate
-graph-drawing task or extra submission requirement today.</p>
+<p>The folder already contains <code>report.Rmd</code>,
+<code>references.bib</code> with one example entry, <code>apa.csl</code>
+and <code>data/</code>. The project settings disable saving/restoring a
+workspace. Knit <code>report.Rmd</code> once to check the blank template
+renders; no data or figures are needed yet. Completing the report
+continues independently.</p>
+<pre class="text"><code>psyc40940-portfolio/
+  psyc40940-portfolio.Rproj  &lt;- double-click this file
+  app.R                    &lt;- your copied Week 9 script
+  report.Rmd
+  references.bib
+  apa.csl
+  data/
+    your-data-file          &lt;- keep its actual name and extension</code></pre>
+<p>A project file stores settings; copying it alone does not copy your
+app or data. Keep <code>app.R</code> beside the report and project
+file.</p>
+<details>
+<summary>
+If you do not yet have an app from Week 9
+</summary>
+<p>Follow the same folder and project steps. If you have data, copy
+<code>own_data_app.R</code> from this download into the portfolio folder
+and rename it <code>app.R</code>. If you have neither an app nor data,
+copy <code>supplied_data_template.R</code> as <code>app.R</code> and put
+the supplied <code>participant_rates.csv</code> and its dictionary into
+<code>data/</code>. Then follow the catch-up instructions below before
+Exercise 2. The supplied data are for practice; choose your own dataset
+for the summative submission.</p>
+</details>
 </div>
-<div id="open-the-submission-guide-and-declaration-form" class="section level2">
-<h2>Open the submission guide and declaration form</h2>
-<p>In the NOW Assessments section, open the current assessment brief and
-Summative submission guide. Find the official AI declaration form and
-download a copy. The brief defines the requirements; the submission
-guide takes you through preparing and checking the files.</p>
+<div id="use-one-path-in-the-console-report-and-app" class="section level3">
+<h3>Use one path in the Console, report and app</h3>
+<p>A relative file path starts from R’s current working directory.
+Opening the assessment project sets that directory to its main folder.
+When Shiny runs an app, it uses the app’s folder. With
+<code>app.R</code>, the Rmd and <code>.Rproj</code> together, all three
+start from the same folder.</p>
+<p>For the supplied data, both app and report can therefore use:</p>
+<pre class="r"><code>d_workshop &lt;- read_csv(&quot;data/participant_rates.csv&quot;)</code></pre>
+<p>For your own data, keep the import function appropriate to your file
+format and update its path to <code>data/</code> followed by the actual
+filename and extension. The <code>read_csv()</code> example is only for
+CSV files; an Excel or SPSS import should keep its existing import
+function. Change any old <code>../data/</code> path or week-folder
+prefix in the copied code to match this new structure. Do not insert an
+absolute Desktop or Downloads path.</p>
+<p>Keep package loading and data import in <code>app.R</code>, then use
+Run App to check the original plot still appears. Test input-dependent
+reactive code with Run App; line-by-line checks are for data loading and
+ordinary R code.</p>
+<p>Once the plot runs, identify its data argument, UI output and
+matching render block. Keep the Week 9 graph beside it and decide which
+useful control to connect first. For supplied data, use
+sentence-condition checkboxes and one-choice phase selection; for your
+own data, choose controls suited to its variables.</p>
+<details>
+<summary>
+Optional help: if the import still fails
+</summary>
+<p>Check the project name, then inspect the Files pane. Confirm that
+your data file is inside <code>data/</code>, with matching spelling and
+capitalisation. Check you opened the copied <code>app.R</code> from the
+assessment project, not the original weekly script. Test package loading
+and the import line before changing any plotting or filtering code.</p>
+</details>
+</div>
+</div>
+<div id="catch-up-build-your-first-plot-if-you-missed-week-9" class="section level2">
+<h2>Catch-up: build your first plot if you missed Week 9</h2>
+<p>Complete this section only if you do not yet have a working plot
+inside Shiny. Begin with Exercise 1’s project and file organisation,
+then follow the route matching your data. You can work on this while
+others connect controls. Once the plot runs, join Exercise 2; a useful
+target today is one plot that responds to a control.</p>
+<details>
+<summary>
+I have data but have not built the app yet
+</summary>
+<p>Use the copied <code>own_data_app.R</code> as your project’s
+<code>app.R</code>.</p>
+<ol style="list-style-type: decimal">
+<li>Put your data file inside <code>data/</code>. In the import line,
+replace <code>data/---</code> with its actual filename and extension.
+The template uses <code>read_csv()</code> for CSV files; for another
+format, use the import function you used successfully before. Keep the
+imported object named <code>my_data</code>, or consistently use the name
+already in your code.</li>
+<li>Run the library and import lines in the project Console. Inspect the
+data and choose one question and a suitable column for your first plot.
+State what one row represents; you do not need to complete the full Week
+9 planning exercise before trying one plot.</li>
+<li>Create a simple ggplot outside Shiny. You can reuse code from
+earlier weeks or complete one of the examples below. Replace
+<code>---</code> with an actual column name, without quotation marks.
+Choose one example that suits your variable.</li>
+</ol>
+<p>For a numeric variable, inspect its distribution:</p>
+<pre class="r"><code>ggplot(my_data, aes(x = ---)) +
+  geom_histogram(bins = 20)</code></pre>
+<p>For a categorical variable, compare the number of observations in
+each category:</p>
+<pre class="r"><code>ggplot(my_data, aes(x = ---)) +
+  geom_bar()</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>In the existing <code>output$plot_one</code> render block, replace
+<code>NULL # --- first plot</code> with your working ggplot code. Keep
+the surrounding <code>renderPlot({ ... })</code> and its matching UI
+output name.</li>
+<li>Save <code>app.R</code> and use Run App. Check that the same plot
+now appears in the first tab. Keep the second output and
+shared-preparation placeholders until you need them; they do not prevent
+this first plot from running.</li>
+</ol>
+<p>Then follow Exercise 2 to connect a useful control. Your imported
+object is <code>my_data</code> and your first output is
+<code>plot_one</code>; adapt the supplied-data examples’
+<code>d_workshop</code> and <code>overview_plot</code> names
+accordingly. Add the second view when the first connection works.</p>
+</details>
+<details>
+<summary>
+I have neither an app nor a dataset yet
+</summary>
+<p>Use the copied <code>supplied_data_template.R</code> as your
+project’s <code>app.R</code>, with
+<code>data/participant_rates.csv</code> beside it in the
+<code>data/</code> folder. The template imports this ready CSV as
+<code>d_workshop</code>; keep its package and import lines in the
+app.</p>
+<p>The supplied data describe 17 learners across testing occasions,
+sentence conditions and Before/After phases. One row summarises four
+target trials; <code>n_passive</code> counts full passive responses from
+0 to 4. Use <code>data/README.md</code> for the source paper and
+variable descriptions. For a first question, compare average passive
+counts across occasions and conditions in the Before phase.</p>
+<ol style="list-style-type: decimal">
+<li>Run the library and import lines in the project Console and inspect
+the data. Test the plot below in ordinary R first. Complete the outcome
+mapping using the count column just described.</li>
+</ol>
+<pre class="r"><code>ggplot(filter(d_workshop, phase == &quot;Before&quot;),
+       aes(x = study_session, y = ---,
+           colour = prime_condition, group = prime_condition)) +
+  stat_summary(fun = mean, geom = &quot;line&quot;) +
+  stat_summary(fun = mean, geom = &quot;point&quot;) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 0:4) +
+  coord_cartesian(ylim = c(0, 4)) +
+  labs(x = &quot;Testing occasion&quot;,
+       y = &quot;Mean full passive responses (out of 4)&quot;,
+       colour = &quot;Sentence condition&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Replace <code>NULL # --- average plot</code> inside the existing
+<code>output$overview_plot</code> render block with this completed
+ggplot code. Keep the surrounding <code>renderPlot({ ... })</code> and
+UI output name.</li>
+<li>Save <code>app.R</code> and use Run App. Check that the first plot
+appears. Leave the second-plot and shared-preparation placeholders until
+you reach their tasks.</li>
+<li>Join Exercise 2 to connect condition and phase controls, then add
+the second view if ready. When adding shared preparation, replace the
+template’s unfinished
+<code>selected_data &lt;- reactive({ NULL })</code> expression, rather
+than creating a second expression with that name.</li>
+</ol>
+<p>A one-plot reference, <code>supplied_data_app.R</code>, is available
+if you need help locating where the ggplot belongs. Compare only the
+relevant render block, then continue in your own <code>app.R</code>.</p>
+<p>The practice app helps you learn the pattern; the summative portfolio
+needs your own suitable dataset and question. Before leaving, identify a
+candidate source and one specific next step towards using it. You can
+still take part in the submission walkthrough using this practice
+project.</p>
+</details>
+</div>
+<div id="together-trace-a-control-through-the-app" class="section level2">
+<h2>Together: trace a control through the app</h2>
+<p>A UI control stores the reader’s selection in <code>input</code>.
+Code inside your shared <code>reactive()</code> expression reads that
+value and returns selected rows. A render block uses that reactive
+result to build the plot. Merely displaying a control does not make the
+plot use it.</p>
+<div class="float">
+<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTAwIiBoZWlnaHQ9IjQ4MCIgdmlld0JveD0iMCAwIDExMDAgNDgwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+Cjx0aXRsZSBpZD0idGl0bGUiPlN1cHBsaWVkIGNvcmUgYXBwIGdyYXBoIGFuc3dlcjwvdGl0bGU+PGRlc2MgaWQ9ImRlc2MiPlNlbnRlbmNlLWNvbmRpdGlvbiBhbmQgcGhhc2UgaW5wdXRzIGZlZWQgc2VsZWN0ZWRfZGF0YSwgd2hpY2ggZmVlZHMgdGhlIGF2ZXJhZ2UgcGxvdCBhbmQgaW5kaXZpZHVhbCBwbG90LiBGb3VyIGFycm93cyBzaG93IHRoZXNlIGRlcGVuZGVuY2llcy48L2Rlc2M+CjxyZWN0IHdpZHRoPSIxMTAwIiBoZWlnaHQ9IjQ4MCIgZmlsbD0id2hpdGUiLz4KPHN0eWxlPnRleHR7Zm9udC1mYW1pbHk6QXJpYWwsc2Fucy1zZXJpZjtmaWxsOiMyODMyM2E7dGV4dC1hbmNob3I6bWlkZGxlO2ZvbnQtc2l6ZToyNnB4fXJlY3QuYm94e3N0cm9rZS13aWR0aDoyO3J4OjEwfTwvc3R5bGU+Cjx0ZXh0IHg9IjE4MCIgeT0iNTUiPklucHV0czwvdGV4dD48dGV4dCB4PSI1NTAiIHk9IjU1Ij5SZWFjdGl2aXR5PC90ZXh0Pjx0ZXh0IHg9IjkyMCIgeT0iNTUiPk91dHB1dHM8L3RleHQ+CjxyZWN0IGNsYXNzPSJib3giIHg9IjUwIiB5PSIxMTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iOTUiIGZpbGw9IiNlYWY1ZjQiIHN0cm9rZT0iIzZjYTRhMSIvPgo8cmVjdCBjbGFzcz0iYm94IiB4PSI1MCIgeT0iMjkwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9Ijk1IiBmaWxsPSIjZWFmNWY0IiBzdHJva2U9IiM2Y2E0YTEiLz4KPHJlY3QgY2xhc3M9ImJveCIgeD0iNDEwIiB5PSIyMDAiIHdpZHRoPSIyODAiIGhlaWdodD0iOTUiIGZpbGw9IiNmZmYzZDYiIHN0cm9rZT0iI2JmOWE0NyIvPgo8cmVjdCBjbGFzcz0iYm94IiB4PSI3OTAiIHk9IjExMCIgd2lkdGg9IjI2MCIgaGVpZ2h0PSI5NSIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjOWRhNWFhIi8+CjxyZWN0IGNsYXNzPSJib3giIHg9Ijc5MCIgeT0iMjkwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9Ijk1IiBmaWxsPSIjZjVmNWY1IiBzdHJva2U9IiM5ZGE1YWEiLz4KPHRleHQgeD0iNTUwIiB5PSI0NTAiIHN0eWxlPSJmb250LXNpemU6MjFweCI+SW5wdXRzIHNlbGVjdCByb3dzIG9uY2U7IGJvdGggcGxvdHMgdXNlIHRoYXQgc2hhcmVkIHJlc3VsdC48L3RleHQ+CjxkZWZzPjxtYXJrZXIgaWQ9ImFycm93IiBtYXJrZXJXaWR0aD0iOSIgbWFya2VySGVpZ2h0PSI5IiByZWZYPSI4IiByZWZZPSI0IiBvcmllbnQ9ImF1dG8iPjxwYXRoIGQ9Ik0wIDBMOCA0TDAgOCIgZmlsbD0iIzUzNjA2YSIvPjwvbWFya2VyPjwvZGVmcz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiM1MzYwNmEiIHN0cm9rZS13aWR0aD0iMyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiPjxwYXRoIGQ9Ik0zMTAgMTU3TDQxMCAyMjUiLz48cGF0aCBkPSJNMzEwIDMzN0w0MTAgMjcwIi8+PHBhdGggZD0iTTY5MCAyMjVMNzkwIDE1NyIvPjxwYXRoIGQ9Ik02OTAgMjcwTDc5MCAzMzciLz48L2c+CjxnIHN0eWxlPSJmb250LWZhbWlseTptb25vc3BhY2U7Zm9udC1zaXplOjE4cHgiPjx0ZXh0IHg9IjE4MCIgeT0iMTY1Ij5pbnB1dCRwcmltZV9jb25kaXRpb248L3RleHQ+PHRleHQgeD0iMTgwIiB5PSIzNDUiPmlucHV0JHBoYXNlPC90ZXh0Pjx0ZXh0IHg9IjU1MCIgeT0iMjU1Ij5zZWxlY3RlZF9kYXRhKCk8L3RleHQ+PHRleHQgeD0iOTIwIiB5PSIxNTgiPm91dHB1dCRvdmVydmlld19wbG90PC90ZXh0Pjx0ZXh0IHg9IjkyMCIgeT0iMzM4Ij5vdXRwdXQkcGFydGljaXBhbnRfcGxvdDwvdGV4dD48L2c+PC9zdmc+" alt="Sentence-condition and phase inputs feed shared selected rows, which supply the two plot outputs." />
+<div class="figcaption">Sentence-condition and phase inputs feed shared
+selected rows, which supply the two plot outputs.</div>
+</div>
+<p>Keep this chain in mind: change a control, select the relevant rows,
+redraw the connected plot. Your second plot will reuse the same selected
+rows. The bin-width example from earlier weeks is different: it changes
+the histogram’s bins directly, without selecting different rows.</p>
+</div>
+<div id="exercise-2-connect-the-controls-and-test-your-first-plot" class="section level2">
+<h2>Exercise 2: connect the controls and test your first plot</h2>
+<p>Save and Run App after each stage. Own-data students follow the same
+stages with their own data object and variables. Supplied-data students
+complete the code below in the copied <code>app.R</code> in their
+assessment or practice project.</p>
+<div id="optional-ai-help-request-one-control-for-your-current-app" class="section level3">
+<h3>Optional AI help: request one control for your current app</h3>
+<p>Choose the variable you want the control to use. After running your
+package-loading and data-import lines in the project Console, ask R to
+list its available values:</p>
+<pre class="r"><code>distinct(d_workshop, phase)</code></pre>
+<p>Replace <code>d_workshop</code> with your data object’s name and
+<code>phase</code> with the column you want to use, without quotation
+marks. <code>distinct()</code> keeps one row for each observed value and
+preserves the column name. Copy this command and its printed output into
+the prompt; you do not need to write the variable overview yourself.</p>
+<details>
+<summary>
+Copyable prompt: add a control using my variable
+</summary>
+<p>Paste the R command and output into the first <code>---</code>, and
+your current complete <code>app.R</code> into the second. This example
+asks for a dropdown; request checkboxes instead if readers should select
+several values.</p>
+<pre class="text"><code>I am learning R Shiny. Add a dropdown control for the variable below
+so it filters the data used by my existing plot.
+
+Show the code to add or replace in the UI and server, using exact
+lines from my current code to tell me where each change goes.
+Briefly explain the changes.
+
+Variable name and available values (R command and printed output):
+---
+
+My current app.R:
+---</code></pre>
+</details>
+<p>Save the working version, read the suggested changes and test them in
+RStudio. Ask for an explanation of unfamiliar code. <a href="https://gallery.shinyapps.io/assistant/">Posit’s Shiny
+Assistant</a> is one option; choose R. Your usual coding assistant can
+use the same prompt. This is optional support within Exercise 2, not a
+separate task.</p>
+<p>The assessment permits AI coding support. Write your own report
+commentary, interpretation, reflection, design rationale and
+explanations, and record the coding help in the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556">official
+AI declaration</a>.</p>
+</div>
+<div id="add-the-ui-controls" class="section level3">
+<h3>Add the UI controls</h3>
+<p>In <code>sidebarPanel()</code>, replace the condition-control marker
+with this input. Complete the function name that permits several
+selections. Keep the supplied control name, choices and defaults.</p>
+<pre class="r"><code>---(&quot;prime_condition&quot;, &quot;Sentence conditions&quot;,
+    choices = c(&quot;Baseline&quot;, &quot;Active sentence&quot;, &quot;Passive sentence&quot;),
+    selected = c(&quot;Baseline&quot;, &quot;Active sentence&quot;, &quot;Passive sentence&quot;))</code></pre>
+<p>Replace the phase-control marker with this single-choice selector.
+Complete its function name.</p>
+<pre class="r"><code>---(&quot;phase&quot;, &quot;Phase to display&quot;,
+    choices = c(&quot;Before&quot;, &quot;After&quot;), selected = &quot;Before&quot;)</code></pre>
+<p>Add a comma after each control when it is followed by another element
+inside <code>sidebarPanel()</code>. Run the app: the controls should
+appear, but the plot will not change until its data are connected. If
+you added the controls in Week 9, check their names and continue to the
+shared preparation.</p>
+<details>
+<summary>
+Optional reminder: input functions and names
+</summary>
+<p>Use <code>checkboxGroupInput()</code> for several conditions and
+<code>selectInput()</code> for one phase. The quoted UI names correspond
+to <code>input$prime_condition</code> and <code>input$phase</code> in
+the server. The data columns <code>prime_condition</code> and
+<code>phase</code> are the values compared with those selections in
+<code>filter()</code>. Weeks 7 and 8 provide earlier examples.</p>
+</details>
+</div>
+<div id="add-shared-reactive-preparation" class="section level3">
+<h3>Add shared reactive preparation</h3>
+<p>At the shared-preparation marker inside <code>server</code>, add the
+following expression. If your Week 9 script already has
+<code>selected_data &lt;- reactive({ NULL })</code>, replace that
+unfinished expression instead of creating a duplicate. Complete the
+function name, two input names and a recovery message.</p>
+<pre class="r"><code>selected_data &lt;- ---({
+  selected &lt;- filter(
+    d_workshop,
+    prime_condition %in% input$---,
+    phase == input$---
+  )
+  validate(need(nrow(selected) &gt; 0, &quot;---&quot;))
+  selected
+})</code></pre>
+<p>Use <code>reactive()</code> to make the shared expression respond to
+its inputs. <code>%in%</code> retains any selected sentence condition;
+<code>==</code> matches the one phase. <code>validate(need(...))</code>
+explains an empty selection; write a message telling the reader how to
+recover. The final <code>selected</code> line returns the data frame.
+These are the shared-filter and recovery patterns from Weeks 7 and
+8.</p>
+<p>For your own data, use your loaded data object and the input names
+you chose. Begin with one filter and connect it to the plot before
+extending it. Do not put a reference to <code>input$...</code> in
+ordinary preparation code outside the server’s reactive expressions.</p>
+</div>
+<div id="make-the-existing-plot-use-the-selected-rows" class="section level3">
+<h3>Make the existing plot use the selected rows</h3>
+<p>Inside <code>output$overview_plot</code>, change the ggplot’s data
+argument to <code>selected_data()</code>. In the fallback app, this
+replaces <code>filter(d_workshop, phase == &quot;Before&quot;)</code>. Keep the
+existing geoms, mappings and labels. Do not add another render block for
+the same output.</p>
+<p><code>selected_data()</code> obtains the rows returned by the shared
+reactive expression you created. The parentheses are required because it
+is a reactive expression, rather than an ordinary data frame. You can
+now change a control and see the first plot update.</p>
+</div>
+<div id="test-the-first-connection-and-recover" class="section level3">
+<h3>Test the first connection and recover</h3>
+<p>Use the final part of Exercise 2 for these checks and brief class
+feedback. Change one input at a time and compare the result with your
+graph.</p>
+<p>For the supplied data:</p>
+<ol style="list-style-type: decimal">
+<li>Select all conditions and Before: the selection contains 246 summary
+rows from 17 learners. You do not need to add a count output.</li>
+<li>Select Baseline only: only that condition should remain in the plot;
+the selection contains 82 rows for either phase.</li>
+<li>Switch Before to After: the phase selection changes the data used
+for the plot. All conditions in After also gives 246 rows.</li>
+<li>Clear the conditions: the recovery message should explain what to
+select. Restore a condition and check the plot returns.</li>
+</ol>
+<p>For your own data, choose tests with known outcomes, including an
+empty selection where possible. If a control appears but the plot stays
+unchanged, check that the shared expression reads the correct
+<code>input$...</code> name and that the plot uses
+<code>selected_data()</code> rather than the original data frame.</p>
+<p>The first priority is one plot that responds correctly to a useful
+control. Finish and test that connection before adding more
+features.</p>
+</div>
+</div>
+<div id="exercise-3-add-the-second-view-and-explain-the-app" class="section level2">
+<h2>Exercise 3: add the second view and explain the app</h2>
+<p>Allow about 25 minutes, including feedback and support. Once the
+first connection works, add the complementary plot from your Week 9
+plan. It should answer a related question or reveal information
+concealed by the first view. Reuse the shared rows when the controls
+should affect both views.</p>
+<p>For the supplied data, replace
+<code>NULL # --- individual plot</code> inside the existing
+<code>output$participant_plot</code> render block with the code below.
+Complete its data argument and y-axis label.</p>
+<pre class="r"><code>ggplot(---,
+       aes(x = study_session, y = n_passive,
+           colour = prime_condition,
+           group = interaction(participant, prime_condition))) +
+  geom_line(alpha = 0.35) +
+  geom_point(alpha = 0.35) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 0:4) +
+  coord_cartesian(ylim = c(0, 4)) +
+  labs(x = &quot;Testing occasion&quot;, y = &quot;---&quot;,
+       colour = &quot;Sentence condition&quot;)</code></pre>
+<p>Use <code>selected_data()</code> and label the outcome as full
+passive responses out of four trials. The supplied
+<code>interaction()</code> grouping gives each learner–condition
+combination its own path. The first plot summarises the average; this
+view reveals individual variation. Missing occasions are not zero
+responses.</p>
+<p>Replace the second tab’s <code>p(&quot;---&quot;)</code> with an explanation of
+what it adds. Update the sidebar’s <code>helpText()</code> to describe
+the controls now connected to your plots. Add an overall purpose and
+meaningful units to your own-data app too. These instructions are
+visible to readers; R comments are not.</p>
+<p>Test both tabs after changing each control. Ask another student
+nearby to use the app before you explain it aloud: can they identify the
+purpose, what each view adds and what the controls change? Use the
+feedback to improve a label, instruction or behaviour, then retest.
+Update the graph if the actual connections differ from your original
+plan.</p>
+<p>Two plots and two useful controls remain the workshop target. If
+unfinished, save the runnable version and record the next connection to
+build. Students who finish can refine their own dataset’s app or use
+Week 9’s optional extensions independently; no extra Shiny feature is
+required today.</p>
+</div>
+<div id="submission-walkthrough-prepare-the-files-the-marker-needs" class="section level2">
+<h2>Submission walkthrough: prepare the files the marker needs</h2>
+<p>Allow about 15 minutes. Open the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379">summative
+assessment brief</a> and <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394">summative
+submission guide</a> on NOW. Open the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556">official
+AI declaration form on NOW</a>. Together, trace the complete sequence;
+keep the detailed reference instructions below for preparing and testing
+your final submission independently.</p>
+<ol style="list-style-type: decimal">
+<li>Check the dedicated assessment project organised at the start of the
+session. Keep <code>app.R</code> and the report beside
+<code>.Rproj</code>, with actual data in <code>data/</code>. The
+detailed setup instructions below remain available if needed.</li>
+<li>Keep one Rmd report, its rendered HTML (or justified PDF), the
+separate Shiny app, actual data, bibliography and any required helper
+files inside that project. Keep paths relative and make the report and
+app load their own packages and data. Follow agreed data-access
+arrangements where data cannot be supplied.</li>
+<li>Complete the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556">official
+AI declaration from NOW</a>, including a statement if no AI was used,
+and include the saved form. Check that the report, app and filenames
+meet the brief’s anonymity requirements.</li>
+<li>ZIP only the intended submission files. Before submitting, restart R
+without a saved workspace, extract the ZIP into a different folder, open
+its project, knit the report and run the app. Repair missing
+dependencies and retest the extracted copy. This full check is
+independent preparation, rather than another timed class exercise
+today.</li>
+</ol>
+<p>Do not submit the weekly teaching ZIP or a folder containing all
+teaching materials. The assessment brief is authoritative; the
+submission guide explains the file-preparation steps.</p>
+</div>
+<div id="keep-the-static-report-in-your-completion-plan" class="section level2">
+<h2>Keep the static report in your completion plan</h2>
+<p>Allow about five minutes. The dashboard does not replace the report.
+List four different static plot types for your summative dataset, each
+with its question, interpretation and a design reason linked to the
+visualisation principles. Use your formative feedback to identify one
+priority; carry that lesson into your new dataset.</p>
+<p>Continue or start one report Rmd with a meaningful anonymous title,
+Markdown headings, captioned figures, citations, commentary and
+reflection. Use <code>echo = FALSE</code> for routine code and keep the
+source reproducible. The report and app use the same dataset but should
+make complementary contributions. The detailed report-preparation
+activity below is available for independent practice; completing all
+four figures is not an additional class task.</p>
+</div>
+<div id="leave-with-a-working-step-and-a-clear-next-action" class="section level2">
+<h2>Leave with a working step and a clear next action</h2>
+<p>Allow about five minutes for final questions and next steps. Save
+your current app and updated graph. Record what works, any remaining
+error and the next specific step. A tested single-control plot is better
+progress than an app with several unfinished connections; two useful
+interactive plots are still required in the final portfolio.</p>
+<p>Before submission, finish the static report and app, use the
+submission guide to assemble the file set, and test a fresh extracted
+ZIP. Retain the tested ZIP and upload confirmation. Use the current
+brief for the deadline, word guidance and full requirements.</p>
+</div>
+<div id="reference-submission-steps-and-independent-practice" class="section level2">
+<h2>Reference: submission steps and independent practice</h2>
+<p>The following detailed instructions are available when you prepare
+the portfolio. They are not additional timed activities to complete
+during today’s app workshop.</p>
+<details>
+<summary>
+Detailed project setup, report preparation and extracted-ZIP practice
+</summary>
+<div id="open-the-submission-guide-and-declaration-form" class="section level3">
+<h3>Open the submission guide and declaration form</h3>
+<p>Open the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379">summative
+assessment brief</a> and <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394">summative
+submission guide</a> on NOW. Open the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556">official
+AI declaration form on NOW</a> and download a copy. The brief defines
+the requirements; the submission guide takes you through preparing and
+checking the files.</p>
 <p>Together, trace the submission sequence below. Use your own
 assessment project if ready; otherwise inspect how the supplied practice
 project follows the same structure.</p>
 </div>
-<div id="create-or-check-your-assessment-project" class="section level2">
-<h2>1. Create or check your assessment project</h2>
+<div id="create-or-check-your-assessment-project" class="section level3">
+<h3>1. Create or check your assessment project</h3>
 <p>If you need a dedicated assessment project, choose File &gt; New
 Project &gt; New Directory &gt; New Project in RStudio. Use a neutral
 name such as behavioural-portfolio, choose a location you can find again
@@ -1558,8 +2021,8 @@ options, so your code must load what it needs. Keep a backup of your
 working project and make a clean submission copy containing the final
 files.</p>
 </div>
-<div id="add-the-data-report-and-app" class="section level2">
-<h2>2. Add the data, report and app</h2>
+<div id="add-the-data-report-and-app" class="section level3">
+<h3>2. Add the data, report and app</h3>
 <ol style="list-style-type: decimal">
 <li>Create data/ inside the project and copy the actual files used by
 your code into it. Record their sources and what the observations and
@@ -1574,26 +2037,27 @@ structure.</li>
 <li>Load packages and import/prepare the data in code, then Knit the Rmd
 to produce the rendered HTML. Routine code can use echo = FALSE; the
 submitted Rmd retains the code needed for reproduction.</li>
-<li>Keep the Shiny dashboard separate in app.R or app/app.R. Load its
-required packages and data in that app and use Run App to test it.</li>
+<li>Keep the Shiny dashboard in a separate app.R beside the report and
+.Rproj. Load its required packages and data in that app and use Run App
+to test it.</li>
 </ol>
 <p>Follow any agreed data-access alternative when data cannot be
 included. Use the submission guide for the full instructions; a filename
 mentioned in a report is not a supplied data file.</p>
 </div>
-<div id="activity-prepare-your-summative-report-rmd" class="section level2">
-<h2>Activity: prepare your summative report Rmd</h2>
-<p>Spend about 15 minutes creating or improving the report source before
-testing a submission copy. Use your own draft if you have one; an
-unfinished report is fine. If you need practice before your own data are
-ready, inspect the supplied report structure and use it to plan your own
-file.</p>
-<div id="create-or-adapt-the-file" class="section level3">
-<h3>Create or adapt the file</h3>
+<div id="independent-practice-prepare-your-summative-report-rmd" class="section level3">
+<h3>Independent practice: prepare your summative report Rmd</h3>
+<p>After the app workshop, allow about 15 minutes to create or improve
+the report source before testing a submission copy. Use your own draft
+if you have one; an unfinished report is fine. If you need practice
+before your own data are ready, inspect the supplied report structure
+and use it to plan your own file.</p>
+<div id="create-or-adapt-the-file" class="section level4">
+<h4>Create or adapt the file</h4>
 <ol style="list-style-type: decimal">
-<li>Open your current report Rmd. If starting a new one, choose File
-&gt; New File &gt; R Markdown &gt; HTML. Save it as a neutral filename
-such as report.Rmd in the project folder beside .Rproj.</li>
+<li>Open your current report Rmd, or the starter report copied in
+Exercise 1. Knit the unedited starter once before completing it. Keep it
+beside the project file and app.R.</li>
 <li>Use a meaningful title about your data or question and leave the
 author field empty. Keep one YAML header at the top. Reuse the Week 1
 report format if you need figure cross-references and citations.</li>
@@ -1607,8 +2071,8 @@ subsections meaningful titles about their questions; this is a suggested
 structure, not a prescribed set of headings.</li>
 </ol>
 </div>
-<div id="put-analysis-and-commentary-into-the-report" class="section level3">
-<h3>Put analysis and commentary into the report</h3>
+<div id="put-analysis-and-commentary-into-the-report" class="section level4">
+<h4>Put analysis and commentary into the report</h4>
 <ol start="5" style="list-style-type: decimal">
 <li>Add a setup chunk that loads packages, and code that imports and
 prepares your data using relative paths. Set echo = FALSE for routine
@@ -1623,15 +2087,19 @@ choice using the visualisation principles. Plan the other three
 different static plot types and what each will add; the complete set
 need not be finished during these 15 minutes.</li>
 <li>Add citations and references within the report, following the Week 1
-format. Use the supplied example report for a caption, figure
-cross-reference and source citation. If using a bibliography or
-citation-style file, include the actual file in the project. Keep
+format. The starter uses bookdown::html_document2 and includes one
+example citation with a matching bibliography entry. Replace the example
+with your own sources. After adding a plot to the figure-one chunk,
+refer to it as <code>Figure \@ref(fig:figure-one)</code> in prose; do
+not cross-reference an empty figure chunk. Use the starter README or
+completed practice report for further examples. If using a bibliography
+or citation-style file, include the actual file in the project. Keep
 reflection on decisions and limitations in the same Rmd, and add
 sessionInfo() or an equivalent package/version summary at the end.</li>
 </ol>
 </div>
-<div id="render-and-check" class="section level3">
-<h3>Render and check</h3>
+<div id="render-and-check" class="section level4">
+<h4>Render and check</h4>
 <p>Knit and inspect the HTML. Check headings, figure size, caption, any
 figure reference and the reference list. Correct one rendering error at
 a time. Keep the Shiny app separate; do not paste the whole app into the
@@ -1645,37 +2113,38 @@ own report needs next. The summative submission guide on NOW gives the
 detailed setup and file-preparation instructions.</p>
 </div>
 </div>
-<div id="complete-the-official-now-ai-declaration" class="section level2">
-<h2>3. Complete the official NOW AI declaration</h2>
-<p>Download the form from NOW Assessments, complete its explanation of
-your use of AI tools, and save the completed form inside the assessment
-folder in the requested format. State if you did not use AI. Include the
-form in your final ZIP; do not leave it in Downloads or replace it with
-a note in the submission box. Follow the official form’s specific
-instructions, including any required fields, while keeping the report
-and app anonymous as required by the brief.</p>
+<div id="complete-the-official-now-ai-declaration" class="section level3">
+<h3>3. Complete the official NOW AI declaration</h3>
+<p>Download the <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556">official
+AI declaration form from NOW</a>, complete its explanation of your use
+of AI tools, and save the completed form inside the assessment folder in
+the requested format. State if you did not use AI. Include the form in
+your final ZIP; do not leave it in Downloads or replace it with a note
+in the submission box. Follow the official form’s specific instructions,
+including any required fields, while keeping the report and app
+anonymous as required by the brief.</p>
 <p>Your commentary, interpretation, design rationale, explanations and
 reflection must be your own work. Coding assistance must be understood,
 checked and declared.</p>
 </div>
-<div id="first-run-the-supplied-example" class="section level2">
-<h2>First: run the supplied example</h2>
+<div id="reference-project-inspect-the-report-and-app-when-useful" class="section level3">
+<h3>Reference project: inspect the report and app when useful</h3>
 <p>Open <code>submission-example/portfolio.Rproj</code>. The project
 disables workspace saving/restoration.</p>
 <ol style="list-style-type: decimal">
 <li>Knit <code>report.Rmd</code>. It renders four static example plot
 types, captions and a figure cross-reference, a citation, reflection
 prompts, and <code>sessionInfo()</code>. The code is complete.</li>
-<li>Open <code>app/app.R</code> and use Run App. Test sentence
-conditions, phases, the LexTALE range, both average comparison layouts,
-empty selections, restoration and both tabs.</li>
+<li>Open the root-level <code>app.R</code> and use Run App. Test
+sentence conditions, phases, the LexTALE range, both average comparison
+layouts, empty selections, restoration and both tabs.</li>
 <li>Stop the app and identify the two data-import paths.</li>
 </ol>
 <p>The report reads <code>data/participant_rates.csv</code> and
-<code>data/production_trials.csv</code>. The app reads
-<code>../data/participant_rates.csv</code> because its code runs from
-the app folder. These relative paths depend on keeping the complete
-folder structure together.</p>
+<code>data/production_trials.csv</code>. The root-level
+<code>app.R</code> reads <code>data/participant_rates.csv</code> too.
+Open the supplied <code>.Rproj</code> and keep the project structure
+together, so the Console, report and app start from the same folder.</p>
 <p>The example continues Week 9’s sentence-production study. Its four
 static techniques are a mean-change plot, boxplots with points, a
 learner-by-session heatmap and response-composition bars. They
@@ -1684,15 +2153,16 @@ portfolio answer. No extra Shiny feature or research model is
 introduced. The dictionary explains the repeated observations and the
 count of full passive responses out of four trials.</p>
 </div>
-<div id="build-the-file-set-the-marker-needs" class="section level2">
-<h2>Build the file set the marker needs</h2>
+<div id="build-the-file-set-the-marker-needs" class="section level3">
+<h3>Build the file set the marker needs</h3>
 <p>Your assessment ZIP needs:</p>
 <ul>
 <li>Exactly one RMarkdown report and its rendered HTML. PDF is
 acceptable with a good reason, but retain the Rmd source.</li>
 <li>Your existing RStudio project file.</li>
-<li>A separate <code>app.R</code>, or an app folder containing
-<code>app.R</code> and its supporting files.</li>
+<li>A separate <code>app.R</code> beside the report, using the same
+project-relative data paths. The brief also permits an organised app
+folder; use the simple root-level layout for this workshop.</li>
 <li>Relevant data, bibliography and any helper scripts/functions needed
 to reproduce the work.</li>
 <li>A clear package setup in the report and app;
@@ -1710,12 +2180,12 @@ the submitted folder.</p>
 irrelevant files. Check that no name or N number appears in the report,
 app, project name, filenames, paths or documentation.</p>
 </div>
-<div id="exercise-test-an-extracted-copy" class="section level2">
-<h2>Exercise: test an extracted copy</h2>
-<p>Together: inspect the example structure and identify the packages and
-data each output needs.</p>
-<p>Your turn, about 15 minutes: work with your own project if ready;
-otherwise practise with submission-example/.</p>
+<div id="independent-practice-test-an-extracted-copy" class="section level3">
+<h3>Independent practice: test an extracted copy</h3>
+<p>Inspect the example structure and identify the packages and data each
+output needs when practising this check.</p>
+<p>After the workshop, allow about 15 minutes: work with your own
+project if ready; otherwise practise with submission-example/.</p>
 <ol style="list-style-type: decimal">
 <li>Render the report and save the working app.</li>
 <li>Create a ZIP containing the intended project files.</li>
@@ -1723,8 +2193,8 @@ otherwise practise with submission-example/.</p>
 workspace.</li>
 <li>Extract the ZIP to a different temporary folder and open its Rproj
 file.</li>
-<li>Knit the extracted Rmd. Run the extracted app from its
-<code>app/app.R</code>.</li>
+<li>Knit the extracted Rmd. Run the extracted app from its root-level
+<code>app.R</code>.</li>
 <li>Test group/filter changes, every tab, empty selections and
 recovery.</li>
 <li>Record and fix any missing package, file, source citation, figure or
@@ -1735,8 +2205,8 @@ repairs.</li>
 locations and package setup first. Read the Console and repair one error
 at a time. Do not fix a path by inserting a personal absolute path.</p>
 </div>
-<div id="check-coverage-against-the-brief" class="section level2">
-<h2>Check coverage against the brief</h2>
+<div id="check-coverage-against-the-brief" class="section level3">
+<h3>Check coverage against the brief</h3>
 <table>
 <colgroup>
 <col width="50%" />
@@ -1790,8 +2260,8 @@ brief</td>
 available tool, not a requirement. A summary table, generated UI,
 observers and update buttons are not compulsory assessment features.</p>
 </div>
-<div id="keep-the-report-and-app-connected" class="section level2">
-<h2>Keep the report and app connected</h2>
+<div id="keep-the-report-and-app-connected" class="section level3">
+<h3>Keep the report and app connected</h3>
 <p>Use the same dataset and explain what each component contributes. The
 dashboard should support exploration, rather than merely duplicating the
 report’s static figures.</p>
@@ -1801,8 +2271,8 @@ references/bibliography, raw R output and data-file contents do not
 count. Use the current assessment brief for authoritative submission
 details.</p>
 </div>
-<div id="bring-a-specific-question-to-support" class="section level2">
-<h2>Bring a specific question to support</h2>
+<div id="bring-a-specific-question-to-support" class="section level3">
+<h3>Bring a specific question to support</h3>
 <p>During independent work, identify the smallest step that is failing
 and what you expected to happen. Bring the relevant file, error message
 and a short example. If you are blocked on data, bring a source link, a
@@ -1811,8 +2281,8 @@ description of one row and the variables needed for two views.</p>
 feedback. If the app runs, focus on the quality of the question, views
 and explanations.</p>
 </div>
-<div id="write-useful-reflection-notes" class="section level2">
-<h2>Write useful reflection notes</h2>
+<div id="write-useful-reflection-notes" class="section level3">
+<h3>Write useful reflection notes</h3>
 <p>Record one concrete choice and its consequence. Examples:</p>
 <ul>
 <li>why tabs helped navigation but made simultaneous comparison
@@ -1827,15 +2297,8 @@ interpretation;</li>
 <p>Write the commentary, interpretation, explanations and reflection
 yourself. Code assistance does not remove the need to explain and
 justify your work.</p>
+</details>
 </div>
-<div id="before-the-winter-break" class="section level2">
-<h2>Before the winter break</h2>
-<p>Aim for a working report and dashboard, with specific remaining
-improvements listed. Staff availability during the closure period is
-limited. Use scheduled support now and confirm the deadline in the
-assessment brief.</p>
-<p>Save the exact tested ZIP, keep a backup, and retain the submission
-confirmation when you upload.</p>
 </div>
 <div id="resources-to-use-while-completing-your-portfolio" class="section level2">
 <h2>Resources to use while completing your portfolio</h2>
@@ -1918,11 +2381,28 @@ in the official NOW AI declaration. AI output is not a reference
 source.</p>
 </div>
 </div>
+<div id="after-your-attempt-compare-the-completed-core" class="section level2">
+<h2>After your attempt: compare the completed core</h2>
+<p><code>worked_example_app.R</code> completes the same small
+two-control, two-view continuation app. Compare it after implementing
+and testing your own connections. Use it to locate a difference or
+explain behaviour, rather than replacing your whole app with the
+answer.</p>
+<p>The separate <code>submission-example/</code> project is for
+practising report and file preparation. Its richer reference app is not
+an additional set of features to implement in today’s continuation
+exercise.</p>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p>PSYC40940 assessment brief and summative submission guide. Available
-on NOW; use the current versions for requirements and preparation
-instructions.</p>
+<p>Posit. (n.d.). <a href="https://docs.posit.co/ide/user/ide/guide/code/projects.html">RStudio
+Projects</a>. RStudio User Guide.</p>
+<p>Posit. (n.d.). <a href="https://shiny.posit.co/r/reference/shiny/latest/runapp.html">Run
+Shiny application</a>. Shiny reference.</p>
+<p>PSYC40940 <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379">summative
+assessment brief</a> and <a href="https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394">summative
+submission guide</a>. Available on NOW; use the current versions for
+requirements and preparation instructions.</p>
 <p>van Lieburg, R., Sijyeniyo, E., Hartsuiker, R. J., &amp; Bernolet, S.
 (2023). The development of abstract syntactic representations in
 beginning L2 learners of Dutch. Journal of Cultural Cognitive Science,
