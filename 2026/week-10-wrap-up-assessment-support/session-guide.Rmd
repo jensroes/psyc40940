@@ -326,6 +326,8 @@ The following detailed instructions are available when you prepare the portfolio
 <details>
 <summary>Detailed project setup, report preparation and extracted-ZIP practice</summary>
 
+::: {.submission-reference-content}
+
 ### Open the submission guide and declaration form
 
 Open the [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) and [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394) on NOW. Open the [official AI declaration form on NOW](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15126556) and download a copy. The brief defines the requirements; the submission guide takes you through preparing and checking the files.
@@ -463,6 +465,8 @@ Record one concrete choice and its consequence. Examples:
 Write the commentary, interpretation, explanations and reflection yourself. Code assistance does not remove the need to explain and justify your work.
 
 
+:::
+
 </details>
 
 ## Resources to use while completing your portfolio
@@ -508,12 +512,6 @@ The assessment permits coding support, but your submitted commentary, interpreta
 The separate `submission-example/` project is for practising report and file preparation. Its richer reference app is not an additional set of features to implement in today's continuation exercise.
 
 ## References
-
-Posit. (n.d.). [RStudio Projects](https://docs.posit.co/ide/user/ide/guide/code/projects.html). RStudio User Guide.
-
-Posit. (n.d.). [Run Shiny application](https://shiny.posit.co/r/reference/shiny/latest/runapp.html). Shiny reference.
-
-PSYC40940 [summative assessment brief](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15225379) and [summative submission guide](https://now.ntu.ac.uk/d2l/le/lessons/1174881/topics/15286394). Available on NOW; use the current versions for requirements and preparation instructions.
 
 van Lieburg, R., Sijyeniyo, E., Hartsuiker, R. J., & Bernolet, S. (2023). The development of abstract syntactic representations in beginning L2 learners of Dutch. Journal of Cultural Cognitive Science, 7, 289–309. [Paper](https://doi.org/10.1007/s41809-023-00131-5). [Data](https://osf.io/x8ejm/).
 
