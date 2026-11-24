@@ -4441,6 +4441,63 @@ R</span> and knitr</em>. Chapman; Hall/CRC.</p></div></div></article></slide>
     }
   })();
 </script>
+<!-- course-slide-navigation:start -->
+<style id="course-slide-navigation-style">
+#course-slide-navigation{position:fixed;right:14px;bottom:12px;z-index:10000;display:flex;align-items:center;gap:8px;padding:6px;border:1px solid #cbd5df;border-radius:10px;background:#fff;color:#243447;font:16px/1.2 system-ui,sans-serif;box-shadow:0 2px 10px #0002}
+#course-slide-navigation button{display:flex;align-items:center;justify-content:center;gap:6px;min-width:44px;min-height:44px;padding:8px 12px;border:1px solid #536579;border-radius:6px;background:#fff;color:#243447;font:inherit;cursor:pointer}
+#course-slide-navigation button:hover:not(:disabled){background:#e9f0f7}
+#course-slide-navigation button:focus-visible{outline:3px solid #1266b1;outline-offset:2px}
+#course-slide-navigation button:disabled{opacity:.4;cursor:default}
+#course-slide-position{min-width:54px;text-align:center;font-variant-numeric:tabular-nums}
+body.overview #course-slide-navigation{display:none}
+@media(max-width:600px){#course-slide-navigation{right:6px;bottom:6px;gap:4px;padding:4px}#course-slide-navigation .navigation-word{display:none}}
+@media print{#course-slide-navigation{display:none!important}}
+</style>
+<script id="course-slide-navigation-script">
+(function () {
+  function start() {
+    if (!document.querySelector('slides > slide') || document.getElementById('course-slide-navigation')) return;
+    var attempts = 0;
+    function connect() {
+      var deck = window.slidedeck;
+      if (!deck || !deck.slides || !deck.slides.length) {
+        if (++attempts < 100) window.setTimeout(connect, 100);
+        return;
+      }
+      var nav = document.createElement('nav');
+      nav.id = 'course-slide-navigation';
+      nav.setAttribute('aria-label', 'Slide navigation');
+      nav.innerHTML = '<button type="button" aria-label="Previous slide" title="Previous slide (Left arrow)"><span aria-hidden="true">&#8592;</span><span class="navigation-word">Previous</span></button><span id="course-slide-position" aria-live="polite" aria-atomic="true"></span><button type="button" aria-label="Next slide" title="Next slide (Right arrow)"><span class="navigation-word">Next</span><span aria-hidden="true">&#8594;</span></button>';
+      document.body.appendChild(nav);
+      var buttons = nav.querySelectorAll('button');
+      var position = nav.querySelector('#course-slide-position');
+      function update() {
+        var current = document.querySelector('slides > slide.current');
+        var index = Array.prototype.indexOf.call(deck.slides, current);
+        if (index < 0) return;
+        buttons[0].disabled = index === 0;
+        buttons[1].disabled = index === deck.slides.length - 1 && !current.querySelector('.to-build');
+        position.textContent = (index + 1) + ' / ' + deck.slides.length;
+      }
+      buttons[0].addEventListener('click', function (event) { event.stopPropagation(); deck.prevSlide(); update(); });
+      buttons[1].addEventListener('click', function (event) { event.stopPropagation(); deck.nextSlide(); update(); });
+      // Let Enter and Space activate the focused button; arrow keys keep the deck's behaviour.
+      window.addEventListener('keydown', function (event) {
+        if (nav.contains(event.target) && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault(); event.stopPropagation(); event.target.click();
+        }
+      }, true);
+      new MutationObserver(update).observe(document.querySelector('slides'), {subtree:true, attributes:true, attributeFilter:['class']});
+      document.addEventListener('slideenter', update);
+      update();
+    }
+    connect();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<!-- course-slide-navigation:end -->
 
 </body>
 </html>
