@@ -68,9 +68,9 @@ Course index: https://jensroes.github.io/psyc40940/
 
 - Slides: https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/week-10-wrap-up-assessment-support.html
 - Session guide: https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/session-guide.html
-- Exercises (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip
+- Need templates or practice data: full Week 10 pack (includes starter): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip
 
-- Portfolio starter (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip
+- Have your app and data: portfolio starter (ZIP): https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip
 
 ## Submission guides
 

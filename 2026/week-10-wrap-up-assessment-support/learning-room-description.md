@@ -16,8 +16,8 @@ By the end, you should be able to:
 
 - [HTML slides](https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/week-10-wrap-up-assessment-support.html)
 - [Session guide](https://jensroes.github.io/psyc40940/2026/week-10-wrap-up-assessment-support/session-guide.html)
-- [Week 10 exercises (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip)
-- [Portfolio starter (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip)
+- [Need templates or practice data: full Week 10 pack (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-week-10-wrap-up-assessment-support.zip)
+- [Have your app and data: portfolio starter (ZIP)](https://jensroes.github.io/psyc40940/2026/student-zips/psyc40940-portfolio.zip)
 
 Choose one ZIP:
 
