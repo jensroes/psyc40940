@@ -1,0 +1,23 @@
+<style>
+#session-guide-contents { margin: 20px 0 28px; padding: 12px 16px; border: 1px solid #bcc7ce; border-radius: 6px; background: #f6f8fa; }
+#session-guide-contents > summary { cursor: pointer; font-size: 18px; color: #245574; }
+#session-guide-contents > summary:focus-visible { outline: 3px solid #1266b1; outline-offset: 4px; }
+#session-guide-contents #TOC { margin-top: 12px; }
+</style>
+<script>
+(function () {
+  function addContentsToggle() {
+    var toc = document.getElementById('TOC');
+    if (!toc || document.getElementById('session-guide-contents')) return;
+    var details = document.createElement('details');
+    details.id = 'session-guide-contents';
+    var summary = document.createElement('summary');
+    summary.textContent = 'Contents — open the section list';
+    details.appendChild(summary);
+    toc.parentNode.insertBefore(details, toc);
+    details.appendChild(toc);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addContentsToggle);
+  else addContentsToggle();
+})();
+</script>
